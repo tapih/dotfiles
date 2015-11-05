@@ -1,9 +1,8 @@
 #! /bin/bash
 
-ln -s .vimrc ~/.vimrc
-ln -s .zshrc ~/.zshrc
-ln -s .screenrc ~/.screenrc
+mv -i .vimrc ~/.vimrc
+mv -i .zshrc ~/.zshrc
+mv -i .screenrc ~/.screenrc
 
-
-
+source ~/.zshrc
 
