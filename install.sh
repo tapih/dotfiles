@@ -1,17 +1,26 @@
 # /bin/bash
-
-echo "overwrite?"
-echo "  ~/.vimrc"
-echo "  ~/.screenrc"
-echo "  ~/.zshrc"
-echo "  ~/.dircolors"
-echo "(y/n [n]): "
-read -t 10 ans
-
-if [ $ans = 'y' ] ; then
-    cp .vimrc ~/.vimrc
-    cp .zshrc ~/.zshrc
-    cp .screenrc ~/.screenrc
-    cp .dircolors ~/.dircolors
-    source ~/.zshrc
-fi
+echo "overwrite below?"
+echo "  .vimrc     -> ~/.vimrc"
+echo "  .screenrc  -> ~/.screenrc"
+echo "  .zshrc     -> ~/.zshrc"
+echo "  .dircolors -> ~/.dircolors"
+while true; do
+      echo "[Y/n]"
+      read answer
+        case $answer in
+            '' | [Yy]* )
+                cp .vimrc ~/.vimrc
+                cp .zshrc ~/.zshrc
+                cp .screenrc ~/.screenrc
+                cp .dircolors ~/.dircolors
+                source ~/.zshrc
+                break;
+            ;;
+            [Nn]* )
+                break;
+                ;;
+            * )
+                echo Please answer Y or N.
+                ;;
+        esac
+done
