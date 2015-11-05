@@ -1,8 +1,17 @@
-#! /bin/bash
+# /bin/bash
 
-cp -i .vimrc ~/.vimrc
-cp -i .zshrc ~/.zshrc
-cp -i .screenrc ~/.screenrc
+echo "overwrite?"
+echo "  ~/.vimrc"
+echo "  ~/.screenrc"
+echo "  ~/.zshrc"
+echo "  ~/.dircolors"
+echo "(y/n [n]): "
+read -t 10 ans
 
-source ~/.zshrc
-
+if [ $ans = 'y' ] ; then
+    cp .vimrc ~/.vimrc
+    cp .zshrc ~/.zshrc
+    cp .screenrc ~/.screenrc
+    cp .dircolors ~/.dircolors
+    source ~/.zshrc
+fi

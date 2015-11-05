@@ -1,6 +1,8 @@
-#!/usr/bin/zsh
+#! /usr/bin/env zsh
 
+# =====================================================================================================
 # exists?
+# =====================================================================================================
 function exists {
   if which "$1" 1>/dev/null 2>&1; then return 0; else return 1; fi
 }
@@ -19,10 +21,9 @@ function exists {
 #eval $paths
 #eval $exports
 
-# ローカルのzshrcを読み込む
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-#color
+# =====================================================================================================
+# 色設定
+# =====================================================================================================
 case $TERM in
   "cygwin")
     export LANG=ja_JP.SJIS
@@ -50,10 +51,65 @@ case $TERM in
       fi
       ;;
     esac
+    case "$OSTYPE" in
+        darwin*)
+            export TERM=xterm-256color
+        ;;
+    esac
   ;;
 esac
 
-# editer
+
+#export LS_COLORS='di=1;34:ln=1;35:so=32:pi=33:ex=1;31:bd=46;34:cd=43;34:su=41;30:tw=42;30:ow=43;30'
+#export LSCOLORS=$LS_COLORS
+case "$OSTYPE" in
+    darwin*)
+        #if [ ! exists gdircolors ] ; then
+        #    brew install coreutils
+        #fi
+        [ -f ~/.dircolors ] && eval $(gdircolors ~/.dircolors) #coreutils required
+        ;;
+    linux*)
+        [ -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
+        ;;
+esac
+
+autoload colors
+colors
+
+# プロンプト
+zsh_prompt_color='cyan'
+function prompt {
+  if [ $UID -eq 0 ]; then
+    local C_USERHOST="%{$bg[white]$fg[magenta]%}"
+    local C_PROMPT="%{$fg[magenta]%}"
+  else
+    local C_USERHOST="%{$bg[black]$fg[$zsh_prompt_color]%}"
+    local C_PROMPT="%{$fg[$zsh_prompt_color]%}"
+  fi
+  local C_PRE="%{$reset_color%}%{$fg[$zsh_prompt_color]%}"
+  local C_CMD="%{$reset_color%}%{$fg[white]%}"
+  local C_RIGHT="%{$bg[black]%}%{$fg[white]%}"
+  local C_DEFAULT="%{$reset_color%}"
+  PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE "$1"
+#"$C_PROMPT"%# "$C_CMD
+  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
+  # keep a few blank lines at the bottom
+  echo -n -e "\n\n\n\033[3A"
+}
+
+PROMPT2="%{${fg[yellow]}%} %_ > %{${reset_color}%}"
+SPROMPT="%{${fg[red]}%}correct: %R -> %r ? [n,y,a,e] %{${reset_color}%}"
+
+prompt ""
+POSTEDIT=`echotc se`
+setopt prompt_subst # use colors in prompt
+unsetopt promptcr
+
+
+# =====================================================================================================
+# 基本設定
+# =====================================================================================================
 if exists vim ; then
     export EDITOR=vim
 fi
@@ -76,9 +132,10 @@ setopt ignoreeof
 # C-wで単語の一部と見なす記号
 export WORDCHARS='*?_-.[]~&;!#$%^(){}<>'
 
-#
+
+# =====================================================================================================
 # 移動
-#
+# =====================================================================================================
 
 # ディレクトリ名でcd
 setopt autocd
@@ -127,9 +184,10 @@ if [ $((${ZSH_VERSION%.*}>=4.3)) -eq 1 ]; then
   bindkey '^O' cdback
 fi
 
-#
+
+# =====================================================================================================
 # 補完
-#
+# =====================================================================================================
 autoload -Uz compinit
 compinit
 
@@ -141,7 +199,19 @@ setopt list_packed
 setopt magic_equal_subst
 
 # 大文字小文字を区別しない（大文字を入力した場合は区別する）
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
+
+# Ctrl-p, Ctrl-N
+zstyle ':completion:*:default' menu select=1
+
+# 補完候補もLS_COLORSに合わせて色が付くようにする
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# match upper case from lower case, search after -_./
+# dir => Dir, _t => some_tmp, long.c => longfilename.c
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
 
 # cd -<tab>で以前移動したディレクトリを表示
 setopt auto_pushd
@@ -157,39 +227,31 @@ setopt pushd_ignore_dups
 #setopt always_last_prompt
 #setopt complete_in_word
 
+# 最大表示数
+export LISTMAX=20
+
 # smart insert last word
 autoload smart-insert-last-word
 zle -N insert-last-word smart-insert-last-word
 zstyle :insert-last-word match '*([^[:space]][[:alpha]/\\]|[[:alpha:]/\\][^[:space:]])*'
 bindkey '^]' insert-last-word
 
-
-export LISTMAX=20
-# ls, colors in completion
-#export LS_COLORS='di=1;34:ln=1;35:so=32:pi=33:ex=1;31:bd=46;34:cd=43;34:su=41;30:tw=42;30:ow=43;30'
-#zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-#zstyle ':completion:*:default' menu select=1 # C-P/C-N
-# match upper case from lower case, search after -_./
-# dir => Dir, _t => some_tmp, long.c => longfilename.c
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
-#
 setopt nolistbeep # 曖昧補完でビープしない
 setopt autolist # 補完時にリスト表示
-#setopt listpacked # compact list on completion # 不安定?
 setopt listtypes
 unsetopt menucomplete # 最初から候補を循環する
 setopt automenu # 共通部分を補完しそれ以外を循環する準備
 setopt extendedglob # 展開で^とか使う
 setopt numericglobsort # 数字展開は数値順
-#setopt magicequalsubst # completion after '=' # 不安定?
-
 setopt autoparamkeys # 補完後の:,)を削除
 fignore=(.o .swp lost+found) # 補完で無視する
+#setopt listpacked # compact list on completion # 不安定?
+#setopt magicequalsubst # completion after '=' # 不安定?
 
 
-#
+# =====================================================================================================
 # 履歴
-#
+# =====================================================================================================
 HISTFILE=~/.zsh_history
 
 # メモリ上に保存される件数（検索できる件数）
@@ -274,71 +336,11 @@ setopt hist_ignore_space
 # ファイルに書き出すとき古いコマンドと同じなら無視
 #setopt hist_save_no_dups
 
-#???
 #setopt histnofunctions
 #setopt histnostore
 #setopt histreduceblanks
 
 
-#
-# 色
-#
-autoload colors
-colors
-
-# プロンプト
-zsh_prompt_color='cyan'
-function prompt {
-  if [ $UID -eq 0 ]; then
-    local C_USERHOST="%{$bg[white]$fg[magenta]%}"
-    local C_PROMPT="%{$fg[magenta]%}"
-  else
-    local C_USERHOST="%{$bg[black]$fg[$zsh_prompt_color]%}"
-    local C_PROMPT="%{$fg[$zsh_prompt_color]%}"
-  fi
-  local C_PRE="%{$reset_color%}%{$fg[$zsh_prompt_color]%}"
-  local C_CMD="%{$reset_color%}%{$fg[white]%}"
-  local C_RIGHT="%{$bg[black]%}%{$fg[white]%}"
-  local C_DEFAULT="%{$reset_color%}"
-  PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE "$1"
-#"$C_PROMPT"%# "$C_CMD
-  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
-  # keep a few blank lines at the bottom
-  echo -n -e "\n\n\n\033[3A"
-}
-
-PROMPT2="%{${fg[yellow]}%} %_ > %{${reset_color}%}"
-SPROMPT="%{${fg[red]}%}correct: %R -> %r ? [n,y,a,e] %{${reset_color}%}"
-
-prompt ""
-POSTEDIT=`echotc se`
-setopt prompt_subst # use colors in prompt
-unsetopt promptcr
-
-
-# completion
-autoload -U compinit
-compinit -u
-
-[ -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
-
-export LISTMAX=20
-# ls, colors in completion
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*:default' menu select=1 # C-P/C-N
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
-setopt nolistbeep
-setopt autolist
-setopt listtypes
-unsetopt menucomplete
-setopt automenu
-setopt extendedglob
-setopt numericglobsort
-setopt autoparamkeys
-fignore=(.o .swp lost+found)
-
-# 補完候補もLS_COLORSに合わせて色が付くようにする
-#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 
 #
@@ -346,7 +348,6 @@ fignore=(.o .swp lost+found)
 #
 case $OSTYPE in
     darwin*)
-        echo $OSTYPE
         alias ls='ls -FGh'
         alias ll='ls -FGhl'
         alias la='ls -FGhla'
@@ -509,5 +510,8 @@ function killjobs {
 
 function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
 function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
+
+# ローカルのzshrcを読み込む
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 

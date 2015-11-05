@@ -146,15 +146,21 @@ EIGHTBIT 1
 #   34    blue            blue       unclear in dark bg   user customized       <SAME>               <SAME>
 #   01;34 bright blue     base0      fg in SolDark                                                   unimportant text
 #   35    magenta         magenta                         LINK                  <SAME>               <SAME>
-#   01;35 bright magenta  violet                          archive/compressed    <SAME>               <SAM     EXEC                  <SAME>               <SAME>
-#   32DIR                   <SAME>               <SAME>
-#   01;36 brigh  green           green                           editable text         <SAME>               <SAME>
-#   01;32 bright green  
+#   01;35 bright magenta  violet                          archive/compressed    <SAME>               <SAME>
+#   36    cyan            cyan                            DIR                   <SAME>               <SAME>
+#   01;36 bright cyan     base1                           unimportant non-text                       <SAME>
+#   37    white           base2
 #   01;37 bright white    base3      bg in SolLight
 #   05;37;41                         unclear in Putty dark
 
 
-### By file tylow   base00     fg of SolLight                             uory
+### By file type
+
+# global default
+NORMAL 00
+# normal file
+FILE 00
+# directory
 DIR 36
 # symbolic link
 LINK 35
@@ -162,34 +168,87 @@ LINK 35
 # pipe, socket, block device, character device (blue bg)
 FIFO 30;44
 SOCK 35;44
-DOOR 35;44 # in dark bg   user customized       <SAME>               <SAME##                                      unimportant text
-#   35### By file attributes
+DOOR 35;44 # Solaris 2.5 and later
+BLK  33;44
+CHR  37;44
+
+
+#############################################################################
+### By file attributes
 
 # Orphaned symlinks (blinking white on red)
 # Blink may or may not work (works on iTerm dark or light, and Putty dark)
 ORPHAN  05;37;41
-# ... and the files that orphan            <SAM     EXEC                  <SAME>               <SAME>
-#   32DIR                   <SAME>               <SAM   <SAME>
-#   32DIR                   <SAME>               <SAMre   editable text         <SAME>               <SAME>
-#   01;32 bright green  
-#   01;37 bright white    base3      bg in Solsibright green  
-#   01;37 bright white    base3      bg in Solwoght
-#   05;37;41                         unclear in Putty daran
+# ... and the files that orphaned symlinks point to (blinking white on red)
+MISSING 05;37;41
 
-### By file tylow   base00     fg of SolLight              af             uory
-DIR 36
-# symbolic link
-LINK 35
+# files with execute permission
+EXEC 01;31  # Unix
+.cmd 01;31  # Win
+.exe 01;31  # Win
+.com 01;31  # Win
+.bat 01;31  # Win
+.reg 01;31  # Win
+.app 01;31  # OSX
 
-# pipe, socret, block device, character device (blue bg)
-FIFO 30;44
-SOCK 3 344
-DOOR 35;44 # in dark bg   user customized       <SAME>    ba         <SAME##                                      unimporpynt text
-#   35### By file attributes
+#############################################################################
+### By extension
 
-# Orphaned symlinks (bl.hdark or light, and Putty dark)
-ORPHAN  05;37;41
-# ... and the files that orphan            <SAM     EXEC                  <S2
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to colorize below. Put the extension, a space, and the color init string.
+# (and any comments you want to add after a '#')
+
+### Text formats
+
+# Text that we can edit with a regular editor
+.txt 32
+.org 32
+.md 32
+.mkd 32
+
+# Source text
+.h 32
+.c 32
+.C 32
+.cc 32
+.cpp 32
+.cxx 32
+.objc 32
+.cl 32
+.sh 32
+.bash 32
+.csh 32
+.zsh 32
+.el 32
+.vim 32
+.java 32
+.pl 32
+.pm 32
+.py 32
+.rb 32
+.hs 32
+.php 32
+.htm 32
+.html 32
+.shtml 32
+.erb 32
+.haml 32
+.xml 32
+.rdf 32
+.css 32
+.sass 32
+.scss 32
+.less 32
+.js 32
+.coffee 32
+.man 32
+.0 32
+.1 32
+.2 32
+.3 32
+.4 32
+.5 32
+.6 32
 .7 32
 .8 32
 .9 32
@@ -336,35 +395,22 @@ ORPHAN  05;37;41
 # For testing
 .ANSI-30-black 30
 .ANSI-01;30-brblack 01;30
-.ANSI-3udio
-.aac 33
-.au  33
-.flac 33
-.m4a 33
-.mid 33
-.midi 33
-.mka 32-.mp3 33
-.mpa 33
-.mpeg 33
-.mpg 33
-.ogg  33
-.ra 33
-.wav 33
-
-# VANSI-34-blue 34
+.ANSI-31-red 31
+.ANSI-01;31-brred 01;31
+.ANSI-32-green 32
+.ANSI-01;32-brgreen 01;32
+.ANSI-33-yellow 33
+.ANSI-01;33-bryellow 01;33
+.ANSI-34-blue 34
 .ANSI-01;34-brblue 01;34
 .ANSI-35-magenta 35
 .ANSI-01;35-brmagenta 01;35
 .ANSI-36-cyan 36
-.ANSI-01;36-brcyan 01;eg 33
-.mpg 33
-.nuv 33
-.ogm 33
-.ogv 33
-.ogx 33
-.qt 33
-.rm 33
-.################################################################
+.ANSI-01;36-brcyan 01;36
+.ANSI-37-white 37
+.ANSI-01;37-brwhite 01;37
+
+#############################################################################
 # Your customizations
 
 # Unimportant text files
@@ -380,30 +426,27 @@ ORPHAN  05;37;41
 # Unimportant non-text files
 # For universal scheme, use brightcyan 01;36
 # For optimal on dark bg (but too prominent on light bg), change to 01;33
-tx   1;35
-.war  1;35
-.xpi  1;35
-.xz   1;35
-.z    1;35
-.Z    16
+.bak 01;36
+.BAK 01;36
+.old 01;36
+.OLD 01;36
+.org_archive 01;36
 .off 01;36
 .OFF 01;36
 .dist 01;36
 .DIST 01;36
 .orig 01;36
-.ORIG5
-.zip  1;35
-
-# For testing
-.ANSI-30-black 30
-.ANSI-01;30-brb3
-midi 33
-.mka 32-.mp3 33
-.mpa 33
-.mpeg 33
-.mpg 33
-.ogg  33
-.ra 01;33
+.ORIG 01;36
+.swp 01;36
+.swo 01;36
+*,v 01;36
+#.bak 01;33
+#.BAK 01;33
+#.old 01;33
+#.OLD 01;33
+#.org_archive 01;33
+#.off 01;33
+#.OFF 01;33
 #.dist 01;33
 #.DIST 01;33
 #.orig 01;33
@@ -421,5 +464,4 @@ midi 33
 .3des 34
 .aes 34
 .enc 34
-.sqliqt 33
-
+.sqlite 34
