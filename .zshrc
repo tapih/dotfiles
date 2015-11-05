@@ -23,7 +23,7 @@ function exists {
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
 
 #color
-case $TERM in;
+case $TERM in
   "cygwin")
     export LANG=ja_JP.SJIS
     export LC_ALL=C
@@ -344,9 +344,19 @@ fignore=(.o .swp lost+found)
 #
 # alias
 #
-alias ls='ls -FGh --color=auto'
-alias ll='ls -FGhl --color=auto'
-alias la='ls -FGhla --color=auto'
+case $OSTYPE in
+    darwin*)
+        echo $OSTYPE
+        alias ls='ls -FGh'
+        alias ll='ls -FGhl'
+        alias la='ls -FGhla'
+    ;;
+    linux*)
+        alias ls='ls -FGh --color=auto'
+        alias ll='ls -FGhl --color=auto'
+        alias la='ls -FGhla --color=auto'
+    ;;
+esac
 
 # smart cd
 # lsのエイリアスに依存
