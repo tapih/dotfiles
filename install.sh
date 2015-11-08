@@ -1,4 +1,4 @@
-# /bin/bash
+# /bin/sh
 echo "overwrite below?"
 echo "  .vimrc     -> ~/.vimrc"
 echo "  .screenrc  -> ~/.screenrc"
