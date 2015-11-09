@@ -279,7 +279,6 @@ highlight PmenuSbar ctermbg=Yellow
 " git
 "
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'gregsexton/gitv'
 
 function! s:gitv_get_current_hash()
