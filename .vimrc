@@ -165,12 +165,28 @@ NeoBundle 'Shougo/neobundle.vim' " NeoBundle自身を管理
 "NeoBundle 'alpaca-tc/auto-pairs'
 
 " テキスト整形
-NeoBundle 'junegunn/vim-easy-align',
+NeoBundle 'junegunn/vim-easy-align'
+
+" ヤンク履歴管理
+NeoBundle 'vim-scripts/YankRing.vim'
 
 " indentLine
 NeoBundle 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 nmap <silent>,i :<C-u>IndentLinesToggle<CR>
+
+"
+" html+css+js+php
+"
+NeoBundle "mattn/emmet-vim"
+NeoBundle "open-browser.vim"
+NeoBundle "vim-scripts/surround.vim"
+
+NeoBundle "othree/html5.vim"
+NeoBundle "hail2u/vim-css3-syntax"
+NeoBundle "pangloss/vim-javascript'"
+NeoBundle "violetyk/neocomplete-php.vim"
+let g:neocomplete_php_locale = 'ja'
 
 "
 "scala
@@ -181,14 +197,14 @@ NeoBundle 'derekwyatt/vim-scala'
 " R
 "
 NeoBundle 'vim-scripts/Vim-R-plugin'
-"
+
 " python
 "
 "
-"
-NeoBundle 'hynek/vim-python-pep8-indent'
 NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'Flake8-vim' " python文法チェック
+NeoBundle 'hynek/vim-python-pep8-indent' " pep8に準拠したインデント
+"NeoBundle 'Flake8-vim' " python文法チェック
+NeoBundle 'kevinw/pyflakes-vim'
 
 autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType python let b:did_ftplugin = 1
@@ -251,7 +267,7 @@ NeoBundle 'vim-scripts/wombat'
 set rtp+=~/.vim/bundle/vim-railscasts-theme
 set rtp+=~/.vim/bundle/jellybeans.vim
 set rtp+=~/.vim/bundle/molokai
-colorscheme molokai
+colorscheme railscasts
 
 "completeoptの背景色をグレーにする
 highlight Pmenu ctermbg=8
@@ -264,6 +280,30 @@ highlight PmenuSbar ctermbg=Yellow
 "
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'gregsexton/gitv'
+
+function! s:gitv_get_current_hash()
+  return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
+endfunction
+
+autocmd FileType git setlocal nofoldenable foldlevel=0
+function! s:toggle_git_folding()
+  if &filetype ==# 'git'
+    setlocal foldenable!
+  endif
+endfunction
+
+autocmd FileType gitv call s:my_gitv_settings()
+function! s:my_gitv_settings()
+    " 現在のカーソル位置にあるブランチ名を取得してログ上でブランチにcheckout
+    setlocal iskeyword+=/,-,.
+    nnoremap <silent><buffer> C :<C-u>Git checkout <C-r><C-w><CR>
+    nnoremap <buffer> <Space>rb :<C-u>Git rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+    nnoremap <buffer> <Space>R :<C-u>Git revert <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>h :<C-u>Git cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+    nnoremap <buffer> <Space>rh :<C-u>Git reset --hard <C-r>=GitvGetCurrentHash()<CR>
+    nnoremap <silent><buffer> t :<C-u>windo call <SID>toggle_git_folding()<CR>1<C-w>w
+endfunction
 
 
 "
