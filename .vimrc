@@ -18,9 +18,9 @@ set number
 " カーソルライン
 set cursorline
 set cursorcolumn
-hi CursorLine   ctermbg=Blue
-hi CursorColumn ctermbg=Blue
-hi CursorLineNr ctermfg=Yellow
+"hi CursorLine   ctermbg=Blue
+"hi CursorColumn ctermbg=Blue
+"hi CursorLineNr ctermfg=Yellow
 
 " 折り返し
 set wrap
@@ -185,7 +185,7 @@ NeoBundle "mattn/emmet-vim"
 NeoBundle "open-browser.vim"
 NeoBundle "vim-scripts/surround.vim"
 
-NeoBundle "othree/html5.vim"
+"NeoBundle "othree/html5.vim" " 名前空間が干渉するので削除
 NeoBundle "hail2u/vim-css3-syntax"
 NeoBundle "pangloss/vim-javascript'"
 NeoBundle "violetyk/neocomplete-php.vim"
@@ -370,13 +370,6 @@ map <silent> [Tag]p :tabprevious<CR>
 " vimshell
 "
 NeoBundle 'Shougo/vimshell'
-nnoremap <buffer> ,s :VimShell -split-command=15sp -toggle<CR>
-nnoremap <buffer> ,v :VimShell -split-command=vs -toggle<CR>
-nnoremap <buffer> ,p :VimShellInteractive ipython<CR>
-nnoremap <buffer> ,R :VimShellInteractive R<CR>
-nnoremap <buffer> ,r <S-v>:VimShellSendString<CR>
-vnoremap <buffer> ,r :VimShellSendString<CR>
-
 
 "
 " statusline
@@ -408,19 +401,26 @@ NeoBundleLazy "Shougo/vimfiler", {
       \   "mappings": ['<Plug>(vimfiler_switch)'],
       \   "explorer": 1,
       \ }}
-  let g:vimfiler_as_default_explorer = 1
-  let g:vimfiler_enable_auto_cd = 1
-  "let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
+let g:unite_enable_start_insert=1
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_enable_auto_cd = 1
+"let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
 
 "
 " tagbar(right window)
 "
 NeoBundle 'majutsushi/tagbar'
 let g:tagbar_vertical = 35
-noremap ,t :TagbarToggle<CR>
 
-"toggle all plugin
-nnoremap <buffer> <silent> ,a :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l:VimShell -split-command=15sp -toggle<CR><C-[><C-w>k:vs<CR>:sp<CR>
+"toggle plugins
+nnoremap <buffer> <silent> ,l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+"nnoremap <buffer> ,l :VimFiler -split -simple -winwidth=30 -toggle -no-quit<CR><C-[><C-w>l
+nnoremap <buffer> ,s :VimShell -split-command=15sp -toggle<CR><C-[><C-w>k
+nnoremap <buffer> ,v :VimShell -split-command=vs -toggle<CR><C-[><C-w>h
+nnoremap <buffer> ,p :VimShellInteractive ipython<CR><C-[><C-w>h
+nnoremap <buffer> ,R :VimShellInteractive R<CR><C-[><C-w>h
+vnoremap <buffer> ,r :VimShellSendString<CR>
+nnoremap <buffer> ,r <S-v>:VimShellSendString<CR>
 
 "
 " neocomplete
@@ -478,6 +478,9 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'osyo-manga/unite-quickfix'
 let g:quickrun_config = {
+\   "*" : {
+\       "split" : "",
+\   },
 \   "_" : {
 \       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
 \       "hook/unite_quickfix/enable_failure" : 1,
@@ -492,7 +495,6 @@ let g:quickrun_config = {
 \}
 " C-cで抜ける
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
-
 
 "
 " 編集補佐
@@ -509,8 +511,9 @@ NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'tsukkee/unite-help'
 " The prefix key.
 nnoremap [unite] <Nop> nmap ,u [unite]
-nnoremap <silent> [unite]f :<C-u>Unite -toggle -direction=dynamicbottom buffer<CR>
-nnoremap <silent> [unite]b :<C-u>Unite -toggle -direction=dynamicbottom bookmark<CR>
+nmap ,n [unite]
+nnoremap <silent> [unite]b :<C-u>Unite -toggle -direction=dynamicbottom buffer<CR>
+nnoremap <silent> [unite]n :<C-u>Unite -toggle -direction=dynamicbottom bookmark<CR>
 nnoremap <silent> [unite]m :<C-u>Unite -toggle -direction=dynamicbottom file_mru<CR>
 nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
