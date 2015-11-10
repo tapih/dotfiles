@@ -175,6 +175,9 @@ NeoBundle 'Yggdroot/indentLine'
 let g:indentLine_faster = 1
 nmap <silent>,i :<C-u>IndentLinesToggle<CR>
 
+" テンプレート
+NeoBundle "aperezdc/vim-template"
+
 "
 " html+css+js+php
 "
@@ -198,8 +201,8 @@ NeoBundle 'derekwyatt/vim-scala'
 "
 NeoBundle 'vim-scripts/Vim-R-plugin'
 
-" python
 "
+" python
 "
 NeoBundle 'davidhalter/jedi-vim'
 NeoBundle 'hynek/vim-python-pep8-indent' " pep8に準拠したインデント
@@ -350,6 +353,7 @@ set showtabline=2 " 常にタブラインを表示
 " The prefix key.
 nnoremap [Tag] <Nop>
 nmap t [Tag]
+nmap T [Tag]
 " Tab jump
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 for n in range(1, 9)
