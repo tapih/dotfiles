@@ -2,7 +2,7 @@
 if &term =~ "xterm-256color" || "screen-256color"
     set t_Co=256
     set t_Sf=[3%dm
-    set t_Sb=[4%dm
+    set t_Sb=[4%dj
 elseif &term =~ "xterm-color"
     set t_Co=8
     set t_Sf=[3%dm
@@ -413,7 +413,7 @@ NeoBundle 'majutsushi/tagbar'
 let g:tagbar_vertical = 35
 
 "toggle plugins
-nnoremap <buffer> <silent> ,l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+nnoremap <buffer> <silent> ,h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
 "nnoremap <buffer> ,l :VimFiler -split -simple -winwidth=30 -toggle -no-quit<CR><C-[><C-w>l
 nnoremap <buffer> ,s :VimShell -split-command=15sp -toggle<CR><C-[><C-w>k
 nnoremap <buffer> ,v :VimShell -split-command=vs -toggle<CR><C-[><C-w>h
@@ -478,9 +478,6 @@ NeoBundle 'Shougo/vimproc', {
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'osyo-manga/unite-quickfix'
 let g:quickrun_config = {
-\   "*" : {
-\       "split" : "",
-\   },
 \   "_" : {
 \       "hook/close_unite_quickfix/enable_hook_loaded" : 1,
 \       "hook/unite_quickfix/enable_failure" : 1,
@@ -488,13 +485,15 @@ let g:quickrun_config = {
 \       "hook/close_buffer/enable_failure" : 1,
 \       "hook/close_buffer/enable_empty_data" : 1,
 \       "outputter" : "multi:buffer:quickfix",
-\       "outputter/buffer/split" : ":botright 8sp",
+\       "outputter/buffer/split" : ":vs",
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 40,
 \   }
 \}
 " C-cで抜ける
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
+" 空の場合は閉じる
+"let g:quickrun_config["outputter/buffer/close_on_empty"] = 1
 
 "
 " 編集補佐
