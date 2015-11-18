@@ -680,9 +680,14 @@ function! MyCharCode()
   return "'". char ."' ". nr
 endfunction 
 
+if filereadable(expand('~//.vimrc.local'))
+    source ~/.vimrc.local
+endif
+
 call neobundle#end()
 
 filetype plugin indent on     " required!
 filetype indent on
 syntax on
+
 

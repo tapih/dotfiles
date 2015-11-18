@@ -1,6 +1,7 @@
 # /bin/sh
 echo "overwrite below?"
 echo "  .vimrc          -> ~/.vimrc"
+echo "  .ideavimrc      -> ~/.ideavimrc"
 echo "  .screenrc       -> ~/.screenrc"
 echo "  .zshrc          -> ~/.zshrc"
 echo "  .dircolors      -> ~/.dircolors"
@@ -14,6 +15,7 @@ while true; do
                 cp .zshrc ~/.zshrc
                 cp .screenrc ~/.screenrc
                 cp .dircolors ~/.dircolors
+                cp .ideavimrc ~/.ideavimrc
                 cp -r .vim/template ~/.vim/
                 source ~/.zshrc
                 break;
