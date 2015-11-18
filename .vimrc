@@ -99,6 +99,9 @@ set expandtab
 "ステータスラインにコマンドを表示
 set showcmd
 
+" Select entire buffer
+nnoremap vy ggVG
+
 " 検索後にジャンプした際に検索単語を画面中央に持ってくる
 nnoremap n nzz
 nnoremap N Nzz
@@ -132,6 +135,10 @@ nnoremap sl <C-w>l
 " Shit+ h,lで行頭、行末に移動
 noremap <S-h>  ^
 noremap <S-l>  $
+
+" Create newlines without entering insert mode
+nnoremap so o<Esc>k
+nnoremap sO O<Esc>j
 
 " 検索時に/をエスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
@@ -412,15 +419,43 @@ let g:vimfiler_enable_auto_cd = 1
 NeoBundle 'majutsushi/tagbar'
 let g:tagbar_vertical = 35
 
-"toggle plugins
-nnoremap <buffer> <silent> ,h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+" Set leader to ,
+let mapleader=","
+let maplocalleader = "\\"
+
+" Underline the current line with '-'
+nnoremap <silent> <leader>ul :t.\|s/./-/\|:nohls<cr>
+
+" Underline the current line with '='
+nnoremap <silent> <leader>uul :t.\|s/./=/\|:nohls<cr>
+
+" Surround the commented line with lines.
+"
+" Example:
+"          # Test 123
+"          becomes
+"          # --------
+"          # Test 123
+"          # --------
+"nnoremap <silent> <leader>cul :normal "lyy"lpwv$r-^"lyyk"lP<cr>
+
+" Format the entire file
+nnoremap <leader>fef mx=ggG='x
+
+"toggle plukins
+nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
 "nnoremap <buffer> ,l :VimFiler -split -simple -winwidth=30 -toggle -no-quit<CR><C-[><C-w>l
-nnoremap <buffer> ,s :VimShell -split-command=15sp -toggle<CR><C-[><C-w>k
-nnoremap <buffer> ,v :VimShell -split-command=vs -toggle<CR><C-[><C-w>h
-nnoremap <buffer> ,p :VimShellInteractive ipython<CR><C-[><C-w>h
-nnoremap <buffer> ,R :VimShellInteractive R<CR><C-[><C-w>h
-vnoremap <buffer> ,r :VimShellSendString<CR>
-nnoremap <buffer> ,r <S-v>:VimShellSendString<CR>
+nnoremap <buffer> <leader>f :QuickRun<CR>
+nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR><C-[><C-w>k
+nnoremap <buffer> <leader>v :VimShell -split-command=vs -toggle<CR><C-[><C-w>h
+nnoremap <buffer> <leader>p :VimShellInteractive ipython<CR><C-[><C-w>h
+nnoremap <buffer> <leader>R :VimShellInteractive R<CR><C-[><C-w>h
+vnoremap <buffer> <leader>r :VimShellSendString<CR>
+nnoremap <buffer> <leader>r <S-v>:VimShellSendString<CR>
+
+" kill window
+vnoremap <buffer> <leader>j <C-w>h:q
+
 
 "
 " neocomplete
@@ -485,7 +520,7 @@ let g:quickrun_config = {
 \       "hook/close_buffer/enable_failure" : 1,
 \       "hook/close_buffer/enable_empty_data" : 1,
 \       "outputter" : "multi:buffer:quickfix",
-\       "outputter/buffer/split" : ":vs",
+\       "outputter/buffer/split" : ":15sp",
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 40,
 \   }
