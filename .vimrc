@@ -11,7 +11,6 @@ endif
 
 " シンタックスハイライト
 syntax enable
-
 " 行番号の表示m
 set number
 
@@ -361,6 +360,7 @@ set showtabline=2 " 常にタブラインを表示
 nnoremap [Tag] <Nop>
 nmap t [Tag]
 nmap T [Tag]
+
 " Tab jump
 " t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
 for n in range(1, 9)
@@ -444,6 +444,7 @@ nnoremap <leader>fef mx=ggG='x
 
 "toggle plukins
 nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+nnoremap <buffer> <silent> <leader>l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit -direction=botright<CR>:TagbarToggle<CR><C-w>h
 "nnoremap <buffer> ,l :VimFiler -split -simple -winwidth=30 -toggle -no-quit<CR><C-[><C-w>l
 nnoremap <buffer> <leader>f :QuickRun<CR>
 nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR><C-[><C-w>k
