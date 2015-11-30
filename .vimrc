@@ -764,7 +764,6 @@ endfor
 "-----------------------
 " ,で始まるショートカット
 "-----------------------
-" vimshell関連
 nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
 nnoremap <buffer> <silent> <leader>l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit -direction=botright<CR>:TagbarToggle<CR><C-w>h
 nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR>
@@ -774,6 +773,7 @@ nnoremap <buffer> <leader>R :VimShellInteractive R<CR><C-[><C-w>h
 vnoremap <buffer> <leader>r :VimShellSendString<CR>
 nnoremap <buffer> <leader>r <S-v>:VimShellSendString<CR>
 nnoremap <buffer> <leader>q :QuickRun<CR>
+nnoremap <buffer> <leader>c :SyntasticToggleMode<CR>
 
 
 
