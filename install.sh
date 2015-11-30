@@ -15,6 +15,7 @@ while true; do
                 cp    $DOTFILES_ROOT/.zshrc ~/.zshrc
                 cp    $DOTFILES_ROOT/.screenrc ~/.screenrc
                 cp    $DOTFILES_ROOT/.dircolors ~/.dircolors
+                cp    $DOTFILES_ROOT/.tmux.conf ~/.tmux.conf
                 cp    $DOTFILES_ROOT/.ideavimrc ~/.ideavimrc
                 cp -r $DOTFILES_ROOT/.vim/template ~/.vim/
                 source $HOME/.zshrc
