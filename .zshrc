@@ -28,7 +28,7 @@ case $TERM in
   "cygwin")
     export LANG=ja_JP.SJIS
     export LC_ALL=C
-    export SHELL=/usr/local/bin/zsh
+    export SHELL=`which zsh`
   ;;
 
   *)
@@ -384,7 +384,6 @@ function cd {
   fi
 }
 
-
 alias mv='mv -i'
 alias rm='rm -i'
 alias quit='exit'
@@ -413,8 +412,11 @@ alias -g L="2>&1|$PAGER"
 alias -g V="2>&1|vim -R -"
 
 #pyenv
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PATH:$PYENV_ROOT/bin
 if exists pyenv ; then
   eval "$(pyenv init -)";
+  export=$PATH:$PYENV_ROOT/shims
 fi
 
 # sed -> gsed

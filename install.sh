@@ -11,13 +11,13 @@ while true; do
       read answer
         case $answer in
             '' | [Yy]* )
-                cp .vimrc ~/.vimrc
-                cp .zshrc ~/.zshrc
-                cp .screenrc ~/.screenrc
-                cp .dircolors ~/.dircolors
-                cp .ideavimrc ~/.ideavimrc
-                cp -r .vim/template ~/.vim/
-                source ~/.zshrc
+                cp    $DOTFILES_ROOT/.vimrc ~/.vimrc
+                cp    $DOTFILES_ROOT/.zshrc ~/.zshrc
+                cp    $DOTFILES_ROOT/.screenrc ~/.screenrc
+                cp    $DOTFILES_ROOT/.dircolors ~/.dircolors
+                cp    $DOTFILES_ROOT/.ideavimrc ~/.ideavimrc
+                cp -r $DOTFILES_ROOT/.vim/template ~/.vim/
+                source $HOME/.zshrc
                 break;
             ;;
             [Nn]* )

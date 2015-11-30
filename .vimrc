@@ -153,6 +153,60 @@ augroup highlightIdegraphicSpace
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
+" 背景色透明
+if exists('g:loaded_bgt')
+  finish
+endif
+let g:loaded_bgt = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! s:clear_bg(hl)
+  execute 'highlight ' . a:hl . ' ctermbg=None'
+endfunction
+
+function! s:clear_bg_all()
+  call s:clear_bg('Normal')
+  call s:clear_bg('LineNr')
+  " call s:clear_bg('Folded')
+  call s:clear_bg('SignColumn')
+  call s:clear_bg('VertSplit')
+  call s:clear_bg('NonText')
+endfunction
+
+function! s:clear_auto()
+  call s:clear_bg_all()
+  augroup bgt_auto
+    autocmd!
+    autocmd ColorScheme * call s:clear_bg_all()
+  augroup END
+endfunction
+
+function! s:disable()
+  autocmd! bgt_auto
+  let l:colors_name = get(g:, 'colors_name', '')
+  echomsg l:colors_name
+  if l:colors_name !=# ''
+    try
+      execute 'colorscheme ' . l:colors_name
+    endtry
+  endif
+endfunction
+
+command! BgtEnable call s:clear_auto()
+command! BgtDisable call s:disable()
+
+let g:bgt_auto_enable=1
+
+if get(g:, 'bgt_auto_enable', 0)
+  augroup bgt
+    autocmd VimEnter * execute "call s:clear_auto()"
+  augroup END
+endif
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
 
 "
 " NeoBundle関連
@@ -170,11 +224,37 @@ NeoBundle 'Shougo/neobundle.vim' " NeoBundle自身を管理
 " (を自動で閉じる
 "NeoBundle 'alpaca-tc/auto-pairs'
 
+" choose window
+NeoBundle 't9md/vim-choosewin'
+nmap - <Plug>(choosewin)
+
 " テキスト整形
 NeoBundle 'junegunn/vim-easy-align'
 
 " ヤンク履歴管理
-NeoBundle 'vim-scripts/YankRing.vim'
+"NeoBundle 'vim-scripts/YankRing.vim'
+NeoBundle 'LeafCage/yankround.vim'
+nmap p <Plug>(yankround-p)
+nmap P <Plug>(yankround-P)
+nmap gp <Plug>(yankround-gp)
+nmap gP <Plug>(yankround-gP)
+nmap <C-p> <Plug>(yankround-prev)
+nmap <C-n> <Plug>(yankround-next)
+let g:yankround_max_history = 35
+let g:yankround_dir = '~/.cache/yankround'
+
+" マーク可視化
+"NeoBundle 'kshenoy/vim-signature'
+"NeoBundle 'LeafCage/visiblemarks.vim'
+
+" QuickFix操作
+NeoBundle 'LeafCage/qutefinger.vim'
+nmap cz <Plug>(qutefinger-toggle-mode)
+nmap cn <Plug>(qutefinger-next)
+nmap cp <Plug>(qutefinger-prev)
+nmap cP <Plug>(qutefinger-older)
+nmap cN <Plug>(qutefinger-newer)
+nmap cv <Plug>(qutefinger-toggle-win)
 
 " indentLine
 NeoBundle 'Yggdroot/indentLine'
