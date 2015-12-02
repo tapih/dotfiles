@@ -56,12 +56,13 @@ augroup END
 filetype off
 filetype plugin indent off
 
+" NeoBundle管理フォルダの設定
 if has('vim_starting')
     set runtimepath+=~/.vim/bundle/neobundle.vim
     call neobundle#begin(expand('~/.vim/bundle/'))
 endif
 
-"NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/neobundle.vim' " NeoBundle自身を管理
 
 
@@ -75,17 +76,10 @@ NeoBundle 'ujihisa/quicklearn'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'tsukkee/unite-help'
 
-" コマンドモードで開始
-let g:unite_enable_start_insert = 0 
-" ファイル履歴の保存数
-let g:unite_source_file_mru_limit = 50
-
-"file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
-let g:unite_source_file_mru_filename_format = ''
-
-" unite-grepのバックエンドをagに切り替える
-" http://qiita.com/items/c8962f9325a5433dc50d
-let g:unite_source_grep_command = 'ag'
+let g:unite_enable_start_insert = 0 " コマンドモードで開始
+let g:unite_source_file_mru_limit = 50 " ファイル履歴の保存数
+let g:unite_source_file_mru_filename_format = '' "file_mruの表示フォーマットを指定。空にすると表示スピードが高速化される
+let g:unite_source_grep_command = 'ag' " unite-grepのバックエンドをagに切り替える http://qiita.com/items/c8962f9325a5433dc50d
 let g:unite_source_grep_default_opts = '--nocolor --nogroup'
 let g:unite_source_grep_recursive_opt = ''
 let g:unite_source_grep_max_candidates = 200
@@ -121,16 +115,14 @@ NeoBundle 'vim-scripts/wombat'
 set rtp+=~/.vim/bundle/vim-railscasts-theme
 set rtp+=~/.vim/bundle/jellybeans.vim
 set rtp+=~/.vim/bundle/molokai
-
-" color-theme設定
-colorscheme railscasts
+colorscheme railscasts " color-theme設定
 
 
-" 背景色 off=:BgtDisable, on =:BgtEnable
-if exists('g:loaded_bgt')
+" 背景色切り替え
+if exists('g:loaded_bg')
   finish
 endif
-let g:loaded_bgt = 1
+let g:loaded_bg = 1
 
 let s:save_cpo = &cpo
 set cpo&vim
@@ -149,15 +141,17 @@ function! s:clear_bg_all()
 endfunction
 
 function! s:clear_auto()
+  let g:loaded_bg = 1
   call s:clear_bg_all()
-  augroup bgt_auto
+  augroup bg_auto
     autocmd!
     autocmd ColorScheme * call s:clear_bg_all()
   augroup END
 endfunction
 
 function! s:disable()
-  autocmd! bgt_auto
+  let g:loaded_bg = 0
+  autocmd! bg_auto
   let l:colors_name = get(g:, 'colors_name', '')
   echomsg l:colors_name
   if l:colors_name !=# ''
@@ -167,13 +161,21 @@ function! s:disable()
   endif
 endfunction
 
+function! s:bg_toggle()
+  if g:loaded_bg == 1
+    call s:disable()
+  else
+    call s:clear_auto()
+  endif
+endfunction
+
 command! BgtEnable call s:clear_auto()
 command! BgtDisable call s:disable()
+command! BgtToggle call s:bg_toggle()
 
-let g:bgt_auto_enable=1
-
-if get(g:, 'bgt_auto_enable', 0)
-  augroup bgt
+let g:bg_auto_disable = 1
+if get(g:, 'bg_auto_disable', 0)
+  augroup bg
     autocmd VimEnter * execute "call s:clear_auto()"
   augroup END
 endif
@@ -221,7 +223,7 @@ cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdele
 
 " 補完(+lua)
 NeoBundle 'Shougo/neocomplete'
-let g:acp_enableAtStartup = 0 " Use neocomplete.
+let g:acp_enableAtStartup = 1 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1 " Set minimum syntax keyword length.
 let g:neocomplete#sources#syntax#min_keyword_length = 3
@@ -233,6 +235,29 @@ highlight PmenuSel ctermbg=Yellow
 highlight PmenuSbar ctermbg=Yellow
 
 
+
+" スニペット
+NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet-snippets'
+
+
+
+" ctags
+NeoBundle 'soramugi/auto-ctags.vim'
+let g:auto_ctags_tags_name = '.tags'
+let g:auto_ctags = 0
+
+function! s:auto_ctags_toggle()
+  if g:auto_ctags == 1
+    echo "auto-ctags: disable auto mode"
+    let g:auto_ctags=0
+  else
+    echo "auto-ctags: enable auto mode"
+    let g:auto_ctags=1
+  endif
+endfunction
+
+command! AutoCtagsToggle call s:auto_ctags_toggle()
 
 "=========================================================================
 " git
@@ -289,7 +314,7 @@ set completeopt=menuone,preview
 let g:jedi#use_splits_not_buffers = "rightbottom"
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
-let g:jedi#completions_enabled = 0
+let g:jedi#completions_enabled = 1
 let g:jedi#auto_vim_configuration = 0
 let g:python_highlight_all=1
 
@@ -300,6 +325,14 @@ let g:neocomplete#force_omni_input_patterns.python = '\h\w*\|[^. \t]\.\w*'
 
 let g:jedi#documation_command = "m" " pydocを開く
 let g:jedi#rename_command = "" " pythonのrename用のマッピングがquickrunとかぶるため回避させる
+
+"pyenv globalのバージョンをデフォルトに設定
+NeoBundleLazy 'lambdalisue/vim-pyenv', {
+    \ 'depends'  : ['davidhalter/jedi-vim'],
+    \ 'autoload' : {
+    \   'filetypes' : ['python', 'python3']
+    \}
+\}
 
 
 
@@ -730,7 +763,7 @@ nnoremap sn <Plug>(qutefinger-next)
 nnoremap sp <Plug>(qutefinger-prev)
 nnoremap sP <Plug>(qutefinger-older)
 nnoremap sN <Plug>(qutefinger-newer)
-nnoremap sv <Plug>(qutefinger-toggle-win)
+nnoremap st <Plug>(qutefinger-toggle-win)
 
 " unite関連
 nnoremap [unite] <Nop>
@@ -741,6 +774,13 @@ nnoremap <silent> sr :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,sr :UniteResume<CR>
 " 選択した文字列をunite-grep -> https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+
+" neosnippet関連
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+
+" 補完
+imap <C-l> <C-Space>
 
 
 
@@ -774,6 +814,7 @@ vnoremap <buffer> <leader>r :VimShellSendString<CR>
 nnoremap <buffer> <leader>r <S-v>:VimShellSendString<CR>
 nnoremap <buffer> <leader>q :QuickRun<CR>
 nnoremap <buffer> <leader>c :SyntasticToggleMode<CR>
+nnoremap <buffer> <leader>a :AutoCtagsToggle<CR>
 
 
 
