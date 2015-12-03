@@ -780,6 +780,7 @@ imap <C-s> <Plug>(neosnippet_expand_or_jump)
 smap <C-s> <Plug>(neosnippet_expand_or_jump)
 
 " 補完
+nnoremap <C-Space> <Nop>
 imap <C-l> <C-Space>
 
 
