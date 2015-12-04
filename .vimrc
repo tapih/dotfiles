@@ -588,6 +588,7 @@ let g:unite_enable_start_insert=1
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_enable_auto_cd = 1
 "let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
+autocmd FileType vimfiler call unite#custom_default_action('directory', 'lcd')
 
 
 
