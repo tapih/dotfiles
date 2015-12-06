@@ -49,6 +49,15 @@ augroup highlightIdegraphicSpace
     autocmd VimEnter,WinEnter * match IdeographicSpace /　/
 augroup END
 
+" :e などでファイルを開く際にフォルダが存在しない場合は自動作成
+function! s:mkdir(dir, force)
+  if !isdirectory(a:dir) && (a:force ||
+        \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+  endif
+endfunction
+
+
 
 "=========================================================================
 " NeoBundle開始
@@ -193,7 +202,14 @@ NeoBundle 't9md/vim-choosewin' " ウィンドウ選択
 NeoBundle 'junegunn/vim-easy-align' " テキスト整形
 NeoBundle "aperezdc/vim-template" " テンプレート作成
 NeoBundle 'LeafCage/qutefinger.vim' " QuickFix操作
+NeoBundle 'cohama/lexima.vim' " 自動でカッコなどを閉じる
 
+
+
+" 画面内の任意の場所にジャンププ
+NeoBundle 'easymotion/vim-easymotion'
+let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
 
 
 " インデントを見やすく
@@ -234,6 +250,11 @@ highlight Pmenu ctermbg=8
 highlight PmenuSel ctermbg=Yellow
 highlight PmenuSbar ctermbg=Yellow
 
+" ctrl-cでポップアップ閉じる
+function! s:my_cr_function()
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+
 
 
 " スニペット
@@ -258,6 +279,8 @@ function! s:auto_ctags_toggle()
 endfunction
 
 command! AutoCtagsToggle call s:auto_ctags_toggle()
+
+
 
 "=========================================================================
 " git
@@ -362,11 +385,12 @@ unlet s:cpo_save
 "------------
 " その他言語
 "------------
+NeoBundle 'vim-scripts/dbext.vim' "sql
+
 NeoBundle 'derekwyatt/vim-scala' " scala
 NeoBundle 'vim-scripts/Vim-R-plugin' " R
 
 NeoBundle "mattn/emmet-vim"
-NeoBundle "open-browser.vim"
 NeoBundle "vim-scripts/surround.vim"
 NeoBundle "hail2u/vim-css3-syntax" " css
 NeoBundle "pangloss/vim-javascript'" " js
@@ -601,6 +625,13 @@ let mapleader="," " Set leader to ,
 
 
 "------------
+" デバッガ(required: pip install unittest2 mock)
+"------------
+NeoBundle 'joonty/vdebug'
+
+
+
+"------------
 " shell関連
 "------------
 " quickrun
@@ -638,6 +669,28 @@ let g:quickrun_config["outputter/buffer/close_on_empty"] = 0 " 1=空の場合は
 
 
 
+"------------
+" tmux連携
+"------------
+"NeoBundle 'benmills/vimux'
+"NeoBundle 'christoomey/vim-tmux-navigator' " 画面移動キーをvimとtmuxと共通化
+"nnoremap <C-t> <Nop> " tmuxと干渉するため無効化
+
+
+
+"=========================================================================
+" その他機能
+"=========================================================================
+NeoBundle 'vimwiki/vimwiki' "vim上のwiki
+NeoBundle 'itchyny/calendar.vim' "カレンダー
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+
+NeoBundle "open-browser.vim" "ブラウザに飛ばす
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+
+
+
 "=========================================================================
 " NeoBundle終了
 "=========================================================================
@@ -651,27 +704,17 @@ syntax on
 "NeoBundle 'kshenoy/vim-signature'
 "NeoBundle 'LeafCage/visiblemarks.vim'
 
-" (を自動で閉じる
-"NeoBundle 'alpaca-tc/auto-pairs'
-
 
 
 "=========================================================================
 " ショートカット関連
 "=========================================================================
-" Shit+ h,lで行頭、行末に移動
-noremap <S-h>  ^
-noremap <S-l>  $
-
-" コマンドラインの一致検索
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
+" H,Lで行頭、行末に移動
+noremap H  ^
+noremap L  $
 
 " Select entire buffer
 nnoremap vy ggVG
-
-" カーソル下の単語を * で検索
-vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
 
 " 検索後にジャンプした際に検索単語を画面中央に持ってくる
 nnoremap n nzz
@@ -691,10 +734,11 @@ nnoremap k gk
 " vを二回で行末まで選択
 vnoremap v $h
 
+" カーソル下の単語を * で検索
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+
 " vim-choosewin起動
 nmap - <Plug>(choosewin)
-
-
 
 " yankround関連
 nmap p <Plug>(yankround-p)
@@ -704,32 +748,40 @@ nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 
-
-
 " neocomplete関連
+" <CR> : close popup and save indent.
+" <TAB>: completion.
+" Close popup by <Space>.
+" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-g>     neocomplete#undo_completion()
 inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-function! s:my_cr_function()
-  " return neocomplete#close_popup() . "\<CR>"
-  " For no inserting <CR> key.
-  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
-
-" <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-
-" <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-" Close popup by <Space>.
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup()."\<Space>" : "\<Space>"
-
-" <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+
+
+"-----------------------
+"Ctrlを使うショートカット
+"-----------------------
+" コマンドラインの一致検索
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" neosnippet関連
+imap <C-s> <Plug>(neosnippet_expand_or_jump)
+smap <C-s> <Plug>(neosnippet_expand_or_jump)
+
+" C-hjkl でウィンドウ間を移動
+"nnoremap <C-h> <C-w>h
+"nnoremap <C-j> <C-w>j
+"nnoremap <C-k> <C-w>k
+"nnoremap <C-l> <C-w>l
+
 
 
 "-----------------------
@@ -776,13 +828,17 @@ nnoremap <silent> ,sr :UniteResume<CR>
 " 選択した文字列をunite-grep -> https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
 vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
-" neosnippet関連
-imap <C-s> <Plug>(neosnippet_expand_or_jump)
-smap <C-s> <Plug>(neosnippet_expand_or_jump)
-
 " 補完
 nnoremap <C-Space> <Nop>
 imap <C-l> <C-Space>
+
+" open-browser
+nmap sw <Plug>(openbrowser-smart-search)
+vmap sw <Plug>(openbrowser-smart-search)
+
+" easymotion
+map ss <Plug>(easymotion-s2)
+map st <Plug>(easymotion-t2)
 
 
 
@@ -806,19 +862,33 @@ endfor
 "-----------------------
 " ,で始まるショートカット
 "-----------------------
-nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+" toggle mode
+nnoremap <buffer> <leader>A :SyntasticToggleMode<CR>
+nnoremap <buffer> <leader>C :AutoCtagsToggle<CR>
+
+" vimfiler+ctags
 nnoremap <buffer> <silent> <leader>l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit -direction=botright<CR>:TagbarToggle<CR><C-w>h
+nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+
+" vimshell
 nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR>
 nnoremap <buffer> <leader>v :VimShell -split-command=vs -toggle<CR>
 nnoremap <buffer> <leader>p :VimShellInteractive ipython<CR><C-[><C-w>h
 nnoremap <buffer> <leader>R :VimShellInteractive R<CR><C-[><C-w>h
 vnoremap <buffer> <leader>r :VimShellSendString<CR>
 nnoremap <buffer> <leader>r <S-v>:VimShellSendString<CR>
+
+" quickrun
 nnoremap <buffer> <leader>q :QuickRun<CR>
-nnoremap <buffer> <leader>c :SyntasticToggleMode<CR>
-nnoremap <buffer> <leader>a :AutoCtagsToggle<CR>
 
 
+
+"-----------------------
+" デバッガ
+"-----------------------
+nnoremap <F5> <Nop>
+autocmd FileType python nmap <F5> :!pudb3 %<CR>
+autocmd FileType php    nmap <F5> :VdebugStart %<CR>
 
 "=========================================================================
 " ローカルの設定ファイルをロード

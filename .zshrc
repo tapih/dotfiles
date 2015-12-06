@@ -372,6 +372,7 @@ function tmux_automatically_attach_session()
         fi
     fi
 }
+# TODO: 挙動がイマイチなので暫定的にオフ
 #tmux_automatically_attach_session
 
 
