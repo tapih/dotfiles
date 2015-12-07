@@ -1,217 +1,82 @@
-" https://github.com/rekendahl/dot_vim/blob/master/config.vim
-" ---------------------------------------------
-" Regular Vim Configuration (No Plugins Needed)
-" ---------------------------------------------
+syntax enable " シンタックスハイライト
+set encoding=utf-8 " エンコーディング
+set number     " 行番号の表示
+set cursorline   " カーソルライン横
+set cursorcolumn " カーソルライン横 
+set wrap       " 文を折り返し
+set splitbelow " spで下に分割
+set splitright " vsで上に分割
+set smarttab   " 行頭はタブをスペースとして扱う
+set nocompatible " vi互換モードで起動しない
+set ruler      " カーソル位置を下のバーに表示
+set showmatch  " カーソル下の対応するカッコをハイライト
+set lazyredraw " マクロなどの途中経過を描写しない
+set clipboard=unnamed,autoselect " ヤンクバッファを共有
+set foldmethod=manual " 手動でグルーピング
+set infercase  " 補完時に大文字と小文字を区別しない
+set backspace=eol,indent,start " 改行を削除可能に
+set virtualedit=block "C-vの矩形選択で行末より後ろもカーソルを置ける
+set autoindent " 自動インデント
+set shiftwidth=4 " インデントは半角スペース4つ分
+set expandtab  " タブをスペースで代用
+set tabstop=4  " タブは半角スペース4つ分で表示
+set softtabstop=0 "タブ入力時のスペース挿入数(0=tabstopと同じ)
+set showcmd    "ステータスラインにコマンドを表示
+set hlsearch   " 検索文字列をハイライト
+set nowrapscan " 検索で文頭にループしない
+set ignorecase " 検索時に大文字小文字を無視
+set smartcase
 
-" ---------------
-" Color
-" ---------------
-set background=dark
-colorscheme solarized
-" Force 256 color mode if available
-if $TERM =~ "-256color"
-   set t_Co=256
-endif
+" backup作らない 
+set nobackup
+set nowritebackup
+set noswapfile
 
-" -----------------------------
-" File Locations
-" -----------------------------
-set backupdir=~/.vim/.backup
-set directory=~/.vim/.tmp
-set spellfile=~/.vim/spell/custom.en.utf-8.add
-" Persistent Undo
-if has('persistent_undo')
-  set undofile
-  set undodir=~/.vim/.undo
-endif
-
-" ---------------
-" UI
-" ---------------
-set ruler          " Ruler on
-set number         " Line numbers on
-set nowrap         " Line wrapping off
-set laststatus=2   " Always show the statusline
-set cmdheight=2    " Make the command area two lines high
-set encoding=utf-8
-set noshowmode     " Don't show the mode since Powerline shows it
-set title          " Set the title of the window in the terminal to the file
-if exists('+colorcolumn')
-  set colorcolumn=80 " Color the 80th column differently as a wrapping guide.
-endif
-" Disable tooltips for hovering keywords in Vim
-if exists('+ballooneval')
-  " This doesn't seem to stop tooltips for Ruby files
-  set noballooneval
-  " 100 second delay seems to be the only way to disable the tooltips
-  set balloondelay=100000
-endif
-
-" ---------------
-" Behaviors
-" ---------------
-syntax enable
-set backup             " Turn on backups
-set autoread           " Automatically reload changes if detected
-set wildmenu           " Turn on WiLd menu
-set hidden             " Change buffer - without saving
-set history=768        " Number of things to remember in history.
-set cf                 " Enable error files & error jumping.
-set clipboard+=unnamed " Yanks go on clipboard instead.
-set autowrite          " Writes on make/shell commands
-" set timeoutlen=450     " Time to wait for a command (after leader for example).
-set ttimeout
-set ttimeoutlen=100    " Time to wait for a command (after leader for example).
-set nofoldenable       " Disable folding entirely.
-set foldlevelstart=99  " I really don't like folds.
-set formatoptions=crql
-set iskeyword+=\$,-   " Add extra characters that are valid parts of variables
-set nostartofline      " Don't go to the start of the line after some commands
-set scrolloff=3        " Keep three lines below the last line when scrolling
-set gdefault           " this makes search/replace global by default
-set switchbuf=useopen  " Switch to an existing buffer if one exists
-
-" ---------------
-" Text Format
-" ---------------
-set tabstop=4
-set backspace=indent,eol,start " Delete everything with backspace
-set shiftwidth=4               " Tabs under smart indent
-set shiftround
-set cindent
-set autoindent
-set smarttab
-set expandtab
-set softtabstop=4              " Let backspace delete indent
-
-" ---------------
-" Searching
-" ---------------
-set ignorecase " Case insensitive search
-set smartcase  " Non-case sensitive search
-set incsearch  " Incremental search
-set hlsearch   " Highlight search results
-set wildignore+=*.o,*.obj,*.exe,*.so,*.dll,*.pyc,.svn,.hg,.bzr,.git,
-  \.sass-cache,*.class,*.scssc,*.cssc,sprockets%*,*.lessc,*/node_modules/*,
-  \rake-pipeline-*
-
-" ---------------
-" Visual
-" ---------------
-set showmatch   " Show matching brackets.
-set matchtime=2 " How many tenths of a second to blink
-" Show invisible characters
+" 不可視文字を表示 
 set list
-
-" Show trailing spaces as dots and carrots for extended lines.
-" From Janus, http://git.io/PLbAlw
-
-" Reset the listchars
-set listchars=""
-" make tabs visible
-set listchars=tab:▸▸
-" show trailing spaces as dots
-set listchars+=trail:•
-" The character to show in the last column when wrap is off and the line
-" continues beyond the right of the screen
-set listchars+=extends:>
-" The character to show in the last column when wrap is off and the line
-" continues beyond the right of the screen
-set listchars+=precedes:<
-
-" ---------------
-" Sounds
-" ---------------
-set noerrorbells
-set novisualbell
-set t_vb=
-
-" ---------------
-" Mouse
-" ---------------
-set mousehide  " Hide mouse after chars typed
-set mouse=a    " Mouse in all modes
-
-" Better complete options to speed it up
-set complete=.,w,b,u,U
-
-" -------------------------------------------
-" Always switch to the current file directory
-" -------------------------------------------
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-
-" https://github.com/rekendahl/dot_vim/blob/master/mappings.vim:
-" ----------------------------------------
-" Mappings
-" ----------------------------------------
-
-" Set leader to ,
-" Note: This line MUST come before any <leader> mappings
-let mapleader=","
-let maplocalleader = "\\"
-
-" ---------------
-" Regular Mappings
-" ---------------
-
-" Use ; for : in normal and visual mode, less keystrokes
-"nnoremap ; :
-"vnoremap ; :
-
-" カーソル下の単語を * で検索
-vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
-
-" Yank entire buffer with gy
-#nnoremap gy :%y+<cr>
-
-" Select entire buffer
-nnoremap vy ggVG
-
-" Make Y behave like other capital commands.
-" Hat-tip http://vimbits.com/bits/11
-"nnoremap Y y$
-
-" Just to beginning and end of lines easier. From http://vimbits.com/bits/16
-noremap <S-h>  ^
-noremap <S-l>  $
+set listchars=tab:>-,trail:-,nbsp:%,eol:$
 
 " 検索時に/をエスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
-" Create newlines without entering insert mode
+" Ctrl-v, cはIDE上でオフに
+
+" H,Lで行頭、行末に移動
+noremap H  ^
+noremap L  $
+
+" Select entire buffer
+nnoremap vy ggVG
+
+" 検索後にジャンプした際に検索単語を画面中央に持ってくる
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+" UでRedo
+nnoremap U <C-r>
+
+" j, k による移動を折り返されたテキストでも自然に振る舞うように変更
+nnoremap j gj
+nnoremap k gk
+
+" vを二回で行末まで選択
+vnoremap v $h
+
+" カーソル下の単語を * で検索
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+
+" s+hjkl でウィンドウ間を移動
+nnoremap s <Nop>
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+
+" ノーマルモードで行挿入
 nnoremap so o<Esc>k
 nnoremap sO O<Esc>j
 
-" remap U to <C-r> for easier redo
-" from http://vimbits.com/bits/356
-nnoremap U <C-r>
-
-" ---------------
-" Insert Mode Mappings
-" ---------------
-
-" Let's make escape better, together.
-inoremap <C-[> <Esc>
-
-" ---------------
-" Leader Mappings
-" ---------------
-
-" Underline the current line with '-'
-nnoremap <silent> <leader>ul :t.\|s/./-/\|:nohls<cr>
-
-" Underline the current line with '='
-nnoremap <silent> <leader>uul :t.\|s/./=/\|:nohls<cr>
-
-" Surround the commented line with lines.
-"
-" Example:
-"          # Test 123
-"          becomes
-"          # --------
-"          # Test 123
-"          # --------
-"nnoremap <silent> <leader>cul :normal "lyy"lpwv$r-^"lyyk"lP<cr>
-
-" Format the entire file
-nnoremap <leader>fef mx=ggG='x

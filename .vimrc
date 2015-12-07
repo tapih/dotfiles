@@ -796,10 +796,10 @@ nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 
 " sq+hjklでウィンドウを削除
-nnoremap sqh <C-w>h:q
-nnoremap sqj <C-w>j:q
-nnoremap sqk <C-w>k:q
-nnoremap sql <C-w>l:q
+nnoremap sqh <C-w>h:q<CR>
+nnoremap sqj <C-w>j:q<CR>
+nnoremap sqk <C-w>k:q<CR>
+nnoremap sql <C-w>l:q<CR>
 
 " ノーマルモードで行挿入
 nnoremap so o<Esc>k
