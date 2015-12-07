@@ -634,7 +634,6 @@ NeoBundle 'joonty/vdebug'
 "------------
 " shell関連
 "------------
-" quickrun
 NeoBundle 'Shougo/vimshell'
 
 " vimproc(非同期処理)
@@ -658,7 +657,7 @@ let g:quickrun_config = {
 \       "hook/close_buffer/enable_failure" : 1,
 \       "hook/close_buffer/enable_empty_data" : 1,
 \       "outputter" : "multi:buffer:quickfix",
-\       "outputter/buffer/split" : ":15sp",
+\       "outputter/buffer/split" : ":5sp",
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 40,
 \   }
@@ -666,7 +665,6 @@ let g:quickrun_config = {
 " C-cで抜ける
 nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 let g:quickrun_config["outputter/buffer/close_on_empty"] = 0 " 1=空の場合は閉じる
-
 
 
 "------------
@@ -867,8 +865,8 @@ nnoremap <buffer> <leader>A :SyntasticToggleMode<CR>
 nnoremap <buffer> <leader>C :AutoCtagsToggle<CR>
 
 " vimfiler+ctags
-nnoremap <buffer> <silent> <leader>l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit -direction=botright<CR>:TagbarToggle<CR><C-w>h
-nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR><C-w>l
+nnoremap <buffer> <silent> <leader>l :VimFiler -split -simple -winwidth=30 -toggle  -no-quit -direction=botright<CR>:TagbarToggle<CR>
+nnoremap <buffer> <silent> <leader>h :VimFiler -split -simple -winwidth=30 -toggle  -no-quit<CR>:TagbarToggle<CR>
 
 " vimshell
 nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR>
