@@ -3,7 +3,7 @@
 # =====================================================================================================
 # 汎用関数
 # =====================================================================================================
-function is_exists() { type "$1" >/dev/null 2>&1; return $?; }
+function is_exists() { type $1 >/dev/null 2>&1; return $?; }
 function is_osx() { [[ $OSTYPE == darwin* ]]; }
 function is_screen_running() { [ ! -z "$STY" ]; }
 function is_tmux_runnning() { [ ! -z "$TMUX" ]; }
@@ -16,6 +16,8 @@ function is_ssh_running() { [ ! -z "$SSH_CONECTION" ]; }
 # =====================================================================================================
 # 基本設定
 # =====================================================================================================
+bindkey -e
+
 if is_exists vim ; then
     export EDITOR=vim
 fi
@@ -382,14 +384,14 @@ function tmux_automatically_attach_session()
 # =====================================================================================================
 case $OSTYPE in
     darwin*)
-        alias ls='ls -FGh'
-        alias ll='ls -FGhl'
-        alias la='ls -FGhla'
+        alias ls='ls -FG'
+        alias ll='ls -FGl'
+        alias la='ls -FGla'
     ;;
     linux*)
-        alias ls='ls -FGh --color=auto'
-        alias ll='ls -FGhl --color=auto'
-        alias la='ls -FGhla --color=auto'
+        alias ls='ls -FG --color=auto'
+        alias ll='ls -FGl --color=auto'
+        alias la='ls -FGla --color=auto'
     ;;
 esac
 
