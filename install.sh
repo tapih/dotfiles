@@ -11,7 +11,7 @@ while true; do
       read answer
         case $answer in
             '' | [Yy]* )
-                cp    $DOTFILES_ROOT/.vimrc ~/.vimrc
+                cp    $DOTFILES_ROOT/init.vim ~/.config/nvim/init.vim
                 cp    $DOTFILES_ROOT/.zshrc ~/.zshrc
                 cp    $DOTFILES_ROOT/.screenrc ~/.screenrc
                 cp    $DOTFILES_ROOT/.dircolors ~/.dircolors

@@ -1,14 +1,13 @@
 "=========================================================================
 " initialize
 "=========================================================================
+" TODO
+" ステータスライン
+" ショートカット
+" deinをちゃんとかく
+" python
 let s:cpo_save = &cpo "compatible optionsの値を退避
 set cpo&vim "vimモードに
-
-" reset augroup
-augroup MyAutoCmd
-  autocmd!
-augroup END
-
 "=========================================================================
 " 基本設定
 "=========================================================================
@@ -16,7 +15,7 @@ augroup END
 filetype off
 filetype plugin indent off
 
-syntax on " シンタックス有効に
+" syntax on " シンタックス有効に
 set encoding=utf-8 " エンコーディング
 set number     " 行番号の表示
 " set cursorline   " カーソルライン横（重いので無効)
@@ -47,6 +46,8 @@ set noswapfile " swap file作らない
 set hidden " バッファを移動する際に保存しなくて済む
 set colorcolumn=80 " 80行目に線
 set list listchars=tab:>-,trail:-,nbsp:%,eol:$ " 不可視文字を表示
+set iskeyword-=/ " /を区切り文字に追加
+set conceallevel=0 " 特殊文字を隠さない
 
 " 検索時に/をエスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
@@ -70,8 +71,6 @@ call dein#add('Shougo/dein.vim') " dein自身を管理
 "=========================================================================
 call dein#add('Shougo/denite.nvim')
 call dein#add('Shougo/neomru.vim')
-call dein#add('Shougo/neoyank.vim')
-call dein#add('Shougo/neossh.vim')
 
 call dein#add('rking/ag.vim')  " 高速な検索
 call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
@@ -85,15 +84,27 @@ call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-
 "=========================================================================
 " コード入力補助
 "=========================================================================
-call dein#add('t9md/vim-choosewin')  " ウィンドウ選択
+call dein#add('terryma/vim-expand-region') " 範囲選択をショートカットで
+call dein#add('coderifous/textobj-word-column.vim') " 矩形選択を拡張
 call dein#add('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
 call dein#add('cohama/lexima.vim')  " 自動でカッコなどを閉じる
-call dein#add('aperezdc/vim-template')  " テンプレート作成
+call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
 call dein#add('junegunn/vim-easy-align')  " テキスト整形
 call dein#add('mattn/emmet-vim')  " htmlタグ打ちショートカット
 call dein#add('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
-" call dein#add('Shougo/neosnippet-snippets')  " スニペット
-" call dein#add('Shougo/neosnippet.vim')  "<Ctrl-k>で入力
+
+" snippet
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
+let g:neosnippet#enable_conceal_markers = 0
+" call dein#add('honza/vim-snippets')
+" let g:neosnippet#enable_snipmate_compatibility = 1
+" let g:neosnippet#disable_runtime_snippets = {'_' : 1}
+" let g:neosnippet#snippets_directory = '~/.vim/dein/repos/github.com/vim-snippets/snippets'
+
+" choosewin
+call dein#add('t9md/vim-choosewin')  " ウィンドウ選択
+let g:choosewin_label = 'fjsldka;'
 
 " completion
 call dein#add('Shougo/deoplete.nvim')  " completion engine
@@ -130,7 +141,6 @@ let g:indentLine_faster = 1
 call dein#add('LeafCage/yankround.vim')
 let g:yankround_max_history = 35
 let g:yankround_dir = '~/.cache/yankround'
-
 " カレントバッファを閉じたら一緒に閉じる
 nnoremap <silent> <C-d> :lclose<CR>:bdelete<CR>
 cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdelete' : 'bd')<CR>
@@ -139,11 +149,10 @@ cabbrev <silent> bd <C-r>=(getcmdtype()==#':' && getcmdpos()==1 ? 'lclose\|bdele
 call dein#add('AndrewRadev/switch.vim')
 let g:switch_mapping = "s-"
 
-" linter
+" 構文チェック
 call dein#add('w0rp/ale')
-let g:ale_linters = {
-            \    'python': ['flake8']
-            \}
+let g:ale_sign_column_always = 1
+let g:ale_statusline_format = ['E%d', 'W%d', '']
 
 
 
@@ -153,9 +162,8 @@ let g:ale_linters = {
 "--------
 " python
 "--------
-" python2ではコーディングしない
+" python2ではコーディングせずsystemのものを使う
 " python3はpyenvのものを使う
-" call dein#add('lambdalisue/vim-pyenv')
 let g:my_python_path = '/usr/bin/python'
 let g:my_python3_path = $PYENV_ROOT . '/shims/python'
 let g:python_host_prog = g:my_python_path
@@ -164,7 +172,7 @@ let g:python3_host_prog = g:my_python3_path
 call dein#add('neovim/python-client')
 call dein#add('hynek/vim-python-pep8-indent')  " pep8に準拠したインデント
 call dein#add('zchee/deoplete-jedi')  " completion
-" let g:deoplete#sources#jedi#python_path = g:my_python3_path
+let g:deoplete#sources#jedi#python_path = g:my_python3_path
 
 
 
@@ -176,6 +184,8 @@ call dein#add('carlitux/deoplete-ternjs')
 call dein#add('leafgarland/typescript-vim')  "ts
 call dein#add('mhartington/nvim-typescript')
 call dein#add('elzr/vim-json')  " json
+let g:vim_json_syntax_conceal = 0
+
 call dein#add('hail2u/vim-css3-syntax')  " css
 call dein#add('othree/html5.vim')  " html5
 
@@ -184,7 +194,18 @@ call dein#add('othree/html5.vim')  " html5
 "------------
 " C++
 "------------
-call dein#add('Rip-Rip/clang_complete')
+call dein#add('zchee/deoplete-clang')
+call dein#add('dbgx/lldb.nvim')
+
+
+
+"------------
+" Markdown
+"------------
+call dein#add('plasticboy/vim-markdown')
+call dein#add('kannokanno/previm')  " md preview
+call dein#add('vim-scripts/open-browser.vim')  "ブラウザに飛ばす
+au BufRead,BufNewFile *.md set filetype=markdown
 
 
 
@@ -194,45 +215,26 @@ call dein#add('Rip-Rip/clang_complete')
 call dein#add('Shougo/neco-vim') " vim
 call dein#add('vim-scripts/dbext.vim')  "sql
 call dein#add('vim-scripts/Vim-R-plugin')  " R
-call dein#add('plasticboy/vim-markdown')  " md
-call dein#add('kannokanno/previm')  " md preview
-call dein#add('vim-scripts/open-browser.vim')  "ブラウザに飛ばす
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
 
 
 
 "=========================================================================
 " git
 "=========================================================================
-autocmd FileType git setlocal nofoldenable foldlevel=0
+augroup DisableGitFold
+    autocmd!
+    autocmd FileType git setlocal nofoldenable foldlevel=0
+augroup END
 
-call dein#add('gregsexton/gitv')
-call dein#add('tpope/vim-fugitive')
-" call dein#add('airblade/gitgutter')
+call dein#add('cohama/agit.vim')
+call dein#add('tpope/vim-fugitive') " vimからgitコマンドをたたく
+call dein#add('airblade/vim-gitgutter') " 差分のある行にマークをつける
+call dein#add('rhysd/committia.vim') " commit -vのログ入力補助
+call dein#add('idanarye/vim-merginal')
 
-function! GitvGetCurrentHash()
-  return matchstr(getline('.'), '\[\zs.\{7\}\ze\]$')
-endfunction
-
-function! ToggleGitFolding()
-  if &filetype ==# 'git'
-    setlocal foldenable!
-  endif
-endfunction
-
-" コマンド省略用の設定
-function! MyGitvSettings()
-    setlocal iskeyword+=/,-,.  " 現在のカーソル位置にあるブランチ名を取得してログ上でブランチにcheckout
-    nnoremap <silent><buffer> co :<C-u>Gitv checkout <C-r><C-w><CR>
-    nnoremap <buffer> <Space>rb :<C-u>Gitv rebase <C-r>=GitvGetCurrentHash()<CR><Space>
-    nnoremap <buffer> <Space>rv :<C-u>Gitv revert <C-r>=GitvGetCurrentHash()<CR><CR>
-    nnoremap <buffer> <Space>cp :<C-u>Gitv cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
-    nnoremap <buffer> <Space>rh :<C-u>Gitv reset --hard <C-r>=GitvGetCurrentHash()<CR>
-    nnoremap <silent><buffer> t :<C-u>windo call <SID>ToggleGitFolding()<CR>1<C-w>w
-endfunction
-autocmd FileType gitv call MyGitvSettings()
-
-
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '->'
+let g:gitgutter_sign_removed = 'x'
 
 "=========================================================================
 " ウィジェット関連
@@ -272,26 +274,6 @@ autocmd FileType gitv call MyGitvSettings()
 " -----------------------------
 " ステータスライン関連（画面下）
 " -----------------------------
-" set laststatus=2
-" set statusline=%f       "tail of the filename
-" set statusline+=%#warningmsg#
-" set statusline+=%{ALEGetStatusLine()}
-" set statusline+=%*
-" set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
-" set statusline+=%{&ff}] "file format
-" set statusline+=%h      "help file flag
-" set statusline+=%m      "modified flag
-" set statusline+=%r      "read only flag
-" set statusline+=%y      "filetype
-" set statusline+=%=      "left/right separator
-" set statusline+=%c,     "cursor column
-" set statusline+=%l/%L   "cursor line/total lines
-" set statusline+=\ %P    "percent through file
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '->'
-let g:gitgutter_sign_removed = 'x'
-let g:ale_statusline_format = ['E%d', 'W%d', '']
-
 call dein#add('itchyny/lightline.vim')
 let g:lightline = {
         \ 'colorscheme': 'wombat',
@@ -299,7 +281,6 @@ let g:lightline = {
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['pyenv'],
         \     ['ale'],
         \     ['fugitive', 'gitgutter', 'filename'],
         \   ],
@@ -321,7 +302,6 @@ let g:lightline = {
         \   'syntastic': 'SyntasticStatuslineFlag',
         \   'charcode': 'MyCharCode',
         \   'gitgutter': 'MyGitGutter',
-        \   'pyenv': 'pyenv#statusline#component',
         \   'ale': 'ALEGetStatusLine',
         \ },
         \ 'separator': {'left': '>>', 'right': '|'},
@@ -435,68 +415,48 @@ endfunction
 "-----------------------------------
 " ファイラ・タグジャンプ関連（画面横）
 "-----------------------------------
-" vimfiler
-call dein#add('Shougo/vimfiler')
-let g:vimfiler_as_default_explorer = 1
-let g:vimfiler_enable_auto_cd = 1
-"let g:vimfiler_ignore_pattern = "\%(^\..*\|\.pyc$\)"
+call dein#add('scrooloose/nerdtree')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
 
+call dein#add('soramugi/auto-ctags.vim')
+let g:auto_ctags = 0
+function! s:toggle_auto_ctags()
+    if g:auto_ctags == 0
+        let g:auto_ctags = 1
+    else
+        let g:auto_ctags = 0
+    endif
+endfunction
+command! ToggleAutoCtags call <SID>toggle_auto_ctags()
 
-
-" tagbar
 call dein#add('majutsushi/tagbar')
+let mapleader=","
 let g:tagbar_vertical = 35
-let mapleader="," " Set leader to ,
-"let maplocalleader = "\\"
-
-
-
-"------------
-" デバッガ(required: pip install unittest2 mock)
-"------------
 
 
 
 "------------
 " ビルド・実行
 "------------
-call dein#add('Shougo/vimproc.vim') " vimproc(非同期処理)
+call dein#add('kassio/neoterm')
+call dein#add('Shougo/vimproc.vim')
 call dein#add('thinca/vim-quickrun') " quickrun
 let g:quickrun_config = {
 \   "_" : {
 \       "hook/close_quickfix/enable_exit" : 1,
 \       "hook/close_buffer/enable_failure" : 1,
 \       "hook/close_buffer/enable_empty_data" : 1,
-\       "outputter" : "multi:buffer:quickfix",
-\       "outputter/buffer/split" : ":5sp",
 \       "runner" : "vimproc",
-\       "runner/vimproc/updatetime" : 40,
-\       "outputter/buffer/close_on_empty": 0,
+\       "outputter" : "error",
+\       "runner/vimproc/updatetime" : 20,
+\       "outputter/error/success" : "buffer",
+\       "outputter/error/error" : "quickfix",
+\       "outputter/buffer/split" : ":rightbelow 5sp",
+\       "outputter/buffer/close_on_empty": 1,
 \   }
 \}
-
 " qで抜ける
 autocmd! FileType qf nnoremap <silent><buffer>q :quit<CR>
-
-
-"------------
-" tmux連携
-"------------
-"call dein#add('benmills/vimux')
-"call dein#add('christoomey/vim-tmux-navigator')  " 画面移動キーをvimとtmuxと共通化
-"nnoremap <C-t> <Nop> " tmuxと干渉するため無効化
-
-
-
-"=========================================================================
-" その他機能
-"=========================================================================
-call dein#add('vimwiki/vimwiki')  "vim上のwiki
-call dein#add('itchyny/calendar.vim')  "カレンダー
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-
-
 
 "=========================================================================
 " dein終了
@@ -509,11 +469,14 @@ call dein#end()
 " ショートカット関連
 "=========================================================================
 " Qは使わないので無効
-nmap Q <Nop>
+nnoremap Q <Nop>
+
+" タグは使わない
+nnoremap [Tag] <Nop>
 
 " H,Lで行頭、行末に移動
-noremap H  ^
-noremap L  $
+nnoremap H  ^
+nnoremap L  $
 
 " Select entire buffer
 nnoremap vy ggVG
@@ -550,20 +513,20 @@ nmap gP <Plug>(yankround-gP)
 nmap <C-p> <Plug>(yankround-prev)
 nmap <C-n> <Plug>(yankround-next)
 
-" neocomplete関連
-" <CR> : close popup and save indent.
-" <TAB>: completion.
-" Close popup by <Space>.
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-g>     neocomplete#undo_completion()
-inoremap <expr><C-l>     neocomplete#complete_common_string()
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-inoremap <expr><Space> pumvisible() ? neocomplete#close_popup()."\<Space>" : "\<Space>"
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y>  neocomplete#close_popup()
-inoremap <expr><C-e>  neocomplete#cancel_popup()
+" deoplete関連
+inoremap <expr><C-g> deoplete#undo_completion()
+inoremap <expr><C-l> deoplete#complete_common_string()
+" inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><CR> pumvisible() ? deoplete#close_popup()."\<CR>" : "\<CR>"
+inoremap <expr><Space> pumvisible() ? deoplete#close_popup()."\<Space>" : "\<Space>"
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y> deoplete#close_popup()
+inoremap <expr><C-e> deoplete#cancel_popup()
+
+" neosnippet関連
+imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 
 
@@ -577,8 +540,7 @@ cnoremap <C-n> <Down>
 " neosnippet関連
 imap <C-s> <Plug>(neosnippet_expand_or_jump)
 smap <C-s> <Plug>(neosnippet_expand_or_jump)
-
-
+xmap <C-s> <Plug>(neosnippet_expand_target)
 
 "-----------------------
 "sで始まるショートカット
@@ -613,12 +575,8 @@ nnoremap <silent> sb :<C-u>Denite -toggle -direction=dynamicbottom buffer<CR>
 nnoremap <silent> sm :<C-u>Denite -toggle -direction=dynamicbottom bookmark<CR>
 nnoremap <silent> sf :<C-u>Denite -toggle -direction=dynamicbottom file_mru<CR>
 nnoremap <silent> ,sr :UniteResume<CR>
-" 選択した文字列をunite-grep -> https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
-vnoremap /g y:Unite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-
-" 補完
-"nnoremap <C-Space> <Nop>
-"imap <C-l> <C-Space>
+" 選択した文字列をdenite-grep -> https://github.com/shingokatsushima/dotfiles/blob/master/.vimrc
+vnoremap /g y:Denite grep::-iHRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
 
 " open-browser
 nmap sw <Plug>(openbrowser-smart-search)
@@ -632,13 +590,29 @@ map st <Plug>(easymotion-t2)
 xmap sa <Plug>(EasyAlign)
 nmap sa <Plug>(EasyAlign)
 
+" expand-region
+nmap se <Plug>(expand_region_expand)
+nmap sE <Plug>(expand_region_shrink)
+vmap se <Plug>(expand_region_expand)
+vmap sE <Plug>(expand_region_shrink)
+
+"-----------------------
+" Git
+"-----------------------
+" autocmd FileType gitv setlocal iskeyword+=/,-,.  " 現在のカーソル位置にあるブランチ名を取得してログ上でブランチにcheckout
+" nnoremap <silent><buffer> co :<C-u>Gitv checkout <C-r><C-w><CR>
+" nnoremap <buffer> <Space>rb :<C-u>Gitv rebase <C-r>=GitvGetCurrentHash()<CR><Space>
+" nnoremap <buffer> <Space>rv :<C-u>Gitv revert <C-r>=GitvGetCurrentHash()<CR><CR>
+" nnoremap <buffer> <Space>cp :<C-u>Gitv cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
+" nnoremap <buffer> <Space>rh :<C-u>Gitv reset --hard <C-r>=GitvGetCurrentHash()<CR>
+" nnoremap <silent><buffer> t :<C-u>windo call <SID>ToggleGitFolding()<CR>1<C-w>w
+
 
 
 "-----------------------
 " tで始まるショートカット
 "-----------------------
 " tabbar関連
-nnoremap [Tag] <Nop>
 " nmap t [Tag]
 " map <silent> [Tag]c :tablast <bar> tabnew<CR>
 " map <silent> [Tag]x :tabclose<CR>
@@ -654,23 +628,12 @@ nnoremap [Tag] <Nop>
 "-----------------------
 " ,で始まるショートカット
 "-----------------------
-" vimfiler
-nnoremap <buffer> <leader>l :VimFiler -split -winwidth=30 -toggle -no-quit<CR>
-
-" vimshell
-nnoremap <buffer> <leader>s :VimShell -split-command=15sp -toggle<CR><C-[><CR>
-nnoremap <buffer> <leader>p :VimShell -split-command=15sp -toggle<CR>ipython<CR><C-[><CR>
-vnoremap <buffer> <leader>r :VimShellSendString<CR>
-nnoremap <buffer> <leader>r <S-v>:VimShellSendString<CR>
+" nerdtree
 
 " quickrun
 nnoremap <buffer> <leader>q :QuickRun<CR>
 
-"-----------------------
-" ビルド・実行
-"-----------------------
-nnoremap <F5> <Nop>
-
+" tagbar
 
 
 "=========================================================================
