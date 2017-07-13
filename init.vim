@@ -2,10 +2,10 @@
 " initialize
 "=========================================================================
 " TODO
+" コマンドをターミナルに飛ばす
+" nerdtree
 " ステータスライン
-" ショートカット
 " deinをちゃんとかく
-" python
 let s:cpo_save = &cpo "compatible optionsの値を退避
 set cpo&vim "vimモードに
 "=========================================================================
@@ -14,6 +14,12 @@ set cpo&vim "vimモードに
 " ファイルタイプ関連を一旦切っておく
 filetype off
 filetype plugin indent off
+
+" 最後にファイルを閉じた場所
+augroup vimrcEx
+    autocmd!
+    autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
+augroup END
 
 " syntax on " シンタックス有効に
 set encoding=utf-8 " エンコーディング
@@ -84,12 +90,16 @@ call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-
 "=========================================================================
 " コード入力補助
 "=========================================================================
+" call dein#add('kana/vim-operator-replace') " ヤンクで置き換え
+call dein#add('tpope/vim-repeat') " 独自ショートカットもひとまとまりで'.u'できる
+call dein#add('tpope/vim-speeddating') " C-a, C-xを日付に拡張
 call dein#add('terryma/vim-expand-region') " 範囲選択をショートカットで
 call dein#add('coderifous/textobj-word-column.vim') " 矩形選択を拡張
 call dein#add('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
 call dein#add('cohama/lexima.vim')  " 自動でカッコなどを閉じる
 call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
 call dein#add('junegunn/vim-easy-align')  " テキスト整形
+call dein#add('h1mesuke/vim-alignta') " テキスト自動整形
 call dein#add('mattn/emmet-vim')  " htmlタグ打ちショートカット
 call dein#add('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
 
@@ -117,6 +127,11 @@ let g:deoplete#enable_refresh_always = 0
 let g:deoplete#enable_smart_case = 1
 let g:deoplete#file#enable_buffer_path = 1
 let g:deoplete#max_list = 10000
+let g:deoplete#auto_completion_start_length = 2
+let g:deoplete#sources#syntax#min_keyword_length = 3
+
+let g:neocomplete#enable_auto_close_preview = 0 " preview windowを閉じない
+autocmd InsertLeave * silent! pclose! " インサートから抜けたらpreview windowを閉じる
 
 " color-theme
 call dein#add('cocopon/iceberg.vim')
@@ -152,9 +167,11 @@ let g:switch_mapping = "s-"
 " 構文チェック
 call dein#add('w0rp/ale')
 let g:ale_sign_column_always = 1
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 let g:ale_statusline_format = ['E%d', 'W%d', '']
-
-
 
 "=========================================================================
 " 各言語設定
@@ -179,31 +196,31 @@ let g:deoplete#sources#jedi#python_path = g:my_python3_path
 "------------
 " JavaScript + AltJS
 "------------
-call dein#add('pangloss/vim-javascript')  " js
-call dein#add('carlitux/deoplete-ternjs')
-call dein#add('leafgarland/typescript-vim')  "ts
-call dein#add('mhartington/nvim-typescript')
-call dein#add('elzr/vim-json')  " json
-let g:vim_json_syntax_conceal = 0
-
-call dein#add('hail2u/vim-css3-syntax')  " css
-call dein#add('othree/html5.vim')  " html5
+" call dein#add('pangloss/vim-javascript')  " js
+" call dein#add('carlitux/deoplete-ternjs')
+" call dein#add('leafgarland/typescript-vim')  "ts
+" call dein#add('Quramy/tsuquyomi')
+" call dein#add('elzr/vim-json')  " json
+" let g:vim_json_syntax_conceal = 0
+" 
+" call dein#add('hail2u/vim-css3-syntax')  " css
+" call dein#add('othree/html5.vim')  " html5
 
 
 
 "------------
 " C++
 "------------
-call dein#add('zchee/deoplete-clang')
-call dein#add('dbgx/lldb.nvim')
+" call dein#add('zchee/deoplete-clang')
+" call dein#add('dbgx/lldb.nvim')
 
 
 
 "------------
 " Markdown
 "------------
-call dein#add('plasticboy/vim-markdown')
-call dein#add('kannokanno/previm')  " md preview
+" call dein#add('plasticboy/vim-markdown')
+" call dein#add('kannokanno/previm')  " md preview
 call dein#add('vim-scripts/open-browser.vim')  "ブラウザに飛ばす
 au BufRead,BufNewFile *.md set filetype=markdown
 
@@ -213,8 +230,8 @@ au BufRead,BufNewFile *.md set filetype=markdown
 " その他言語
 "------------
 call dein#add('Shougo/neco-vim') " vim
-call dein#add('vim-scripts/dbext.vim')  "sql
-call dein#add('vim-scripts/Vim-R-plugin')  " R
+" call dein#add('vim-scripts/dbext.vim')  "sql
+" call dein#add('vim-scripts/Vim-R-plugin')  " R
 
 
 
@@ -226,7 +243,7 @@ augroup DisableGitFold
     autocmd FileType git setlocal nofoldenable foldlevel=0
 augroup END
 
-call dein#add('cohama/agit.vim')
+call dein#add('cohama/agit.vim') " gitをvimコマンドから利用
 call dein#add('tpope/vim-fugitive') " vimからgitコマンドをたたく
 call dein#add('airblade/vim-gitgutter') " 差分のある行にマークをつける
 call dein#add('rhysd/committia.vim') " commit -vのログ入力補助
@@ -413,25 +430,45 @@ endfunction
 
 
 "-----------------------------------
-" ファイラ・タグジャンプ関連（画面横）
+" ファイラ・タグ関連（画面横）
 "-----------------------------------
-call dein#add('scrooloose/nerdtree')
-call dein#add('Xuyuanp/nerdtree-git-plugin')
-
+call dein#add('majutsushi/tagbar')
 call dein#add('soramugi/auto-ctags.vim')
 let g:auto_ctags = 0
-function! s:toggle_auto_ctags()
+function! s:auto_ctags_toggle()
     if g:auto_ctags == 0
         let g:auto_ctags = 1
     else
         let g:auto_ctags = 0
     endif
+    if g:auto_ctags == 1
+        echo "Enable AutoCtags"
+    else
+        echo "Disable AutoCtags"
+    endif
 endfunction
-command! ToggleAutoCtags call <SID>toggle_auto_ctags()
+command! AutoCtagsToggle call <SID>auto_ctags_toggle()
 
-call dein#add('majutsushi/tagbar')
-let mapleader=","
-let g:tagbar_vertical = 35
+
+
+call dein#add('scrooloose/nerdtree')
+call dein#add('Xuyuanp/nerdtree-git-plugin')
+let NERDTreeIgnore = ['.[oa]$', '.(so)$', '.(tgz|gz|zip)$' ]
+let NERDTreeShowHidden = 1
+" http://qiita.com/ymiyamae/items/3fa77d85163fb734b359
+" ファイルの方にカーソルを向ける
+function s:MoveToFileAtStart()
+  call feedkeys("\<Space>")
+  call feedkeys("\s")
+  call feedkeys("\l")
+endfunction
+
+" 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" 起動時に両方開く
+autocmd VimEnter * Tagbar
+autocmd VimEnter * NERDTree | call s:MoveToFileAtStart()
 
 
 
@@ -439,24 +476,19 @@ let g:tagbar_vertical = 35
 " ビルド・実行
 "------------
 call dein#add('kassio/neoterm')
-call dein#add('Shougo/vimproc.vim')
 call dein#add('thinca/vim-quickrun') " quickrun
 let g:quickrun_config = {
 \   "_" : {
 \       "hook/close_quickfix/enable_exit" : 1,
 \       "hook/close_buffer/enable_failure" : 1,
 \       "hook/close_buffer/enable_empty_data" : 1,
-\       "runner" : "vimproc",
 \       "outputter" : "error",
-\       "runner/vimproc/updatetime" : 20,
-\       "outputter/error/success" : "buffer",
+\       "oukputter/error/success" : "buffer",
 \       "outputter/error/error" : "quickfix",
-\       "outputter/buffer/split" : ":rightbelow 5sp",
+\       "outputter/buffer/split" : ":rightbelow 10sp",
 \       "outputter/buffer/close_on_empty": 1,
 \   }
 \}
-" qで抜ける
-autocmd! FileType qf nnoremap <silent><buffer>q :quit<CR>
 
 "=========================================================================
 " dein終了
@@ -468,8 +500,14 @@ call dein#end()
 "=========================================================================
 " ショートカット関連
 "=========================================================================
-" Qは使わないので無効
-nnoremap Q <Nop>
+" マクロ
+nnoremap Q q
+
+" qでウィンドウ閉じる
+nnoremap q :<C-u>q<CR>
+
+" スペースなし連結
+nnoremap K gJ
 
 " タグは使わない
 nnoremap [Tag] <Nop>
@@ -477,6 +515,8 @@ nnoremap [Tag] <Nop>
 " H,Lで行頭、行末に移動
 nnoremap H  ^
 nnoremap L  $
+vnoremap H  ^
+vnoremap L  $
 
 " Select entire buffer
 nnoremap vy ggVG
@@ -496,11 +536,11 @@ nnoremap U <C-r>
 nnoremap j gj
 nnoremap k gk
 
-" vを二回で行末まで選択
-vnoremap v $h
-
 " カーソル下の単語を * で検索
 vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+
+" enterで保存
+nnoremap <CR> :<C-u>w<CR>
 
 " vim-choosewin起動
 nmap - <Plug>(choosewin)
@@ -542,6 +582,13 @@ imap <C-s> <Plug>(neosnippet_expand_or_jump)
 smap <C-s> <Plug>(neosnippet_expand_or_jump)
 xmap <C-s> <Plug>(neosnippet_expand_target)
 
+" 縦にyank
+" vnoremap <C-p> I<C-r>"<ESC><ESC>
+
+" 候補送り
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+
 "-----------------------
 "sで始まるショートカット
 "-----------------------
@@ -554,19 +601,14 @@ nnoremap sk <C-w>k
 nnoremap sl <C-w>l
 
 " sq+hjklでウィンドウを削除
-nnoremap sqh <C-w>h:q<CR>
-nnoremap sqj <C-w>j:q<CR>
-nnoremap sqk <C-w>k:q<CR>
-nnoremap sql <C-w>l:q<CR>
+nnoremap <silent> sqh <C-w>h:q<CR>
+nnoremap <silent> sqj <C-w>j:q<CR>
+nnoremap <silent> sqk <C-w>k:q<CR>
+nnoremap <silent> sql <C-w>l:q<CR>
 
 " ノーマルモードで行挿入
-nnoremap so o<Esc>k
-nnoremap sO O<Esc>j
-
-" s+-=*で行を挿入
-nnoremap <silent> s- :t.\|s/./-/\|:nohls<cr>
-nnoremap <silent> s= :t.\|s/./=/\|:nohls<cr>
-nnoremap <silent> s* :t.\|s/./*/\|:nohls<cr>
+nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
+nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 
 " denite関連
 nnoremap [denite] <Nop>
@@ -591,10 +633,8 @@ xmap sa <Plug>(EasyAlign)
 nmap sa <Plug>(EasyAlign)
 
 " expand-region
-nmap se <Plug>(expand_region_expand)
-nmap sE <Plug>(expand_region_shrink)
-vmap se <Plug>(expand_region_expand)
-vmap sE <Plug>(expand_region_shrink)
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
 
 "-----------------------
 " Git
@@ -610,6 +650,22 @@ vmap sE <Plug>(expand_region_shrink)
 
 
 "-----------------------
+" leaderで始まるショートカット
+"-----------------------
+let mapleader="\<Space>"
+
+" autoctags
+nnoremap <buffer> <leader>c :AutoCtagsToggle<CR>
+" quickrun
+nnoremap <buffer> <leader>r :QuickRun<CR>
+" kill quickfix
+nnoremap <silent> <buffer> <Leader>q :<C-u>bw! \[quickrun\ output\]<CR>
+" nerdtree
+nnoremap <silent> <buffer> <leader>f :NERDTreeToggle<CR>
+" tagbar
+nnoremap <silent> <buffer> <leader>t :TagbarToggle<CR>
+
+"-----------------------
 " tで始まるショートカット
 "-----------------------
 " tabbar関連
@@ -623,17 +679,6 @@ vmap sE <Plug>(expand_region_shrink)
 "   execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
 " endfor
 
-
-
-"-----------------------
-" ,で始まるショートカット
-"-----------------------
-" nerdtree
-
-" quickrun
-nnoremap <buffer> <leader>q :QuickRun<CR>
-
-" tagbar
 
 
 "=========================================================================

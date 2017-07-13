@@ -419,6 +419,7 @@ function cd {
   fi
 }
 
+alias nv='nvim'
 alias mv='mv -i'
 alias rm='rm -i'
 alias quit='exit'
