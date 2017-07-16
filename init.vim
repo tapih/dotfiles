@@ -419,6 +419,11 @@ function! MyCharCode()
 endfunction
 
 
+"-----------------------------------
+" バッファ関連（画面上）
+"-----------------------------------
+call dein#add('fholgado/minibufexpl.vim') " バッファを上に表示
+let g:miniBufExplBRSplit = 0   " Put new window above
 
 "-----------------------------------
 " タグ関連（画面右）
