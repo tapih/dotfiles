@@ -1,9 +1,6 @@
 "=========================================================================
-" TODO
-"=========================================================================
-" C 使い込んでからDenite, gitショートカット
-"=========================================================================
 " initialize
+"=========================================================================
 let s:cpo_save = &cpoptions "compatible optionsの値を退避
 set cpoptions&vim "vimモードに
 
@@ -49,9 +46,7 @@ set iskeyword-=/ " /を区切り文字に追加
 set conceallevel=0 " 特殊文字を隠さない
 
 " help windowリサイズ
-augroup HelpResize
-    autocmd! FileType help resize 20
-augroup END
+command! -complete=help -nargs=* H help <args><CR>resize 12<CR>
 
 " 最後にファイルを閉じた場所で開く
 augroup OpenAtLastClosed
@@ -269,8 +264,8 @@ augroup DisableGitFold
     autocmd FileType git setlocal nofoldenable foldlevel=0
 augroup END
 
-" call dein#add('cohama/agit.vim') " gitをvimコマンドから利用
 call dein#add('tpope/vim-fugitive') " vimからgitコマンドをたたく
+call dein#add('cohama/agit.vim') " improved gitv
 call dein#add('idanarye/vim-merginal') " mergeを見やすく
 call dein#add('rhysd/committia.vim') " commit -vのログ入力補助
 call dein#add('airblade/vim-gitgutter') " 差分のある行にマークをつける
@@ -279,6 +274,8 @@ let g:gitgutter_sign_modified = '✹'
 let g:gitgutter_sign_removed = '✖'
 let g:gitgutter_sign_removed_first_line = '✖'
 let g:gitgutter_sign_modified_removed = '✖'
+
+
 
 "=========================================================================
 " ウィジェット関連
@@ -485,8 +482,6 @@ call dein#add('company1101/neoterm')
 let g:neoterm_autoscroll = 1
 let g:neoterm_fixedsize = 1
 let g:neoterm_size = 12
-" Git command
-command! -nargs=+ Tg :T git <args>
 
 call dein#add('thinca/vim-quickrun') " quickrun
 let g:quickrun_config = {
@@ -502,6 +497,7 @@ let g:quickrun_config = {
 \}
 
 call dein#add('idanarye/vim-vebugger') " debugger
+
 call dein#end()
 
 
@@ -654,19 +650,6 @@ tnoremap <silent> <ESC> <C-\><C-n>
 tnoremap <silent> <C-[> <C-\><C-n>
 
 "-----------------------
-" Git
-"-----------------------
-" autocmd FileType gitv setlocal iskeyword+=/,-,.  " 現在のカーソル位置にあるブランチ名を取得してログ上でブランチにcheckout
-" nnoremap <silent><buffer> co :<C-u>Gitv checkout <C-r><C-w><CR>
-" nnoremap <buffer> <Space>rb :<C-u>Gitv rebase <C-r>=GitvGetCurrentHash()<CR><Space>
-" nnoremap <buffer> <Space>rv :<C-u>Gitv revert <C-r>=GitvGetCurrentHash()<CR><CR>
-" nnoremap <buffer> <Space>cp :<C-u>Gitv cherry-pick <C-r>=GitvGetCurrentHash()<CR><CR>
-" nnoremap <buffer> <Space>rh :<C-u>Gitv reset --hard <C-r>=GitvGetCurrentHash()<CR>
-" nnoremap <silent><buffer> t :<C-u>windo call <SID>ToggleGitFolding()<CR>1<C-w>w
-
-
-
-"-----------------------
 " Spaceで始まるショートカット
 "-----------------------
 let mapleader="\<Space>"
@@ -678,10 +661,17 @@ nnoremap <silent> <buffer> <leader>q :cclose<CR>
 nnoremap <silent> <buffer> <leader>g :GitGutterLineHighlightsToggle<CR>
 nnoremap <buffer> <leader>l :ALEToggle<CR>
 
-
-
 "-----------------------
-" tで始まるショートカット
+" ,で始まるショートカット
+"-----------------------
+nnoremap <silent> ,n :VBGStepOver<CR>
+nnoremap <silent> ,s :VBGStepIn<CR>
+nnoremap <silent> ,S :VBGStepOut<CR>
+nnoremap <silent> ,c :VBGStepContinue<CR>
+nnoremap <silent> ,t :VBGtoggleBreakpointThisLine<CR>
+nnoremap <silent> ,l :VBGclearBreakpoints<CR>
+nnoremap <silent> ,q :VGBkill<CR>
+
 "-----------------------
 nnoremap t <Nop>
 nnoremap <silent> tt :Ttoggle<CR>
