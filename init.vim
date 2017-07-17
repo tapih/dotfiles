@@ -2,7 +2,6 @@
 " TODO
 "=========================================================================
 " C 使い込んでからDenite, gitショートカット
-" C ALE gitgutter重複
 "=========================================================================
 " initialize
 let s:cpo_save = &cpoptions "compatible optionsの値を退避
@@ -422,8 +421,7 @@ endfunction
 "-----------------------------------
 " バッファ関連（画面上）
 "-----------------------------------
-call dein#add('fholgado/minibufexpl.vim') " バッファを上に表示
-let g:miniBufExplBRSplit = 0   " Put new window above
+call dein#add('ap/vim-buftabline')
 
 "-----------------------------------
 " タグ関連（画面右）
@@ -490,7 +488,6 @@ let g:neoterm_size = 12
 " Git command
 command! -nargs=+ Tg :T git <args>
 
-
 call dein#add('thinca/vim-quickrun') " quickrun
 let g:quickrun_config = {
 \   "_" : {
@@ -505,7 +502,6 @@ let g:quickrun_config = {
 \}
 
 call dein#add('idanarye/vim-vebugger') " debugger
-
 call dein#end()
 
 
