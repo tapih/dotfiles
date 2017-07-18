@@ -211,6 +211,7 @@ let g:my_python3_path = $PYENV_ROOT . '/shims/python'
 let g:python_host_prog = g:my_python_path
 let g:python3_host_prog = g:my_python3_path
 
+call dein#add('joonty/vdebug') " python debuggger
 call dein#add('bps/vim-textobj-python') " textobj拡張
 call dein#add('neovim/python-client')
 call dein#add('hynek/vim-python-pep8-indent')  " pep8に準拠したインデント
@@ -251,7 +252,7 @@ let g:vim_json_syntax_conceal = 0
 " C++
 "------------
 " call dein#add('zchee/deoplete-clang')
-" call dein#add('dbgx/lldb.nvim')
+call dein#add('dbgx/lldb.nvim')
 
 
 
