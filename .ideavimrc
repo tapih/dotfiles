@@ -1,2 +1,4 @@
-" set number     " 行番号の表示
-
+set clipboard=unnamed " クリップボードを共有
+set hlsearch   " 検索文字列をハイライト
+set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
+set nowrapscan " 検索で文頭にループしない

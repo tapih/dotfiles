@@ -55,7 +55,7 @@ augroup OpenAtLastClosed
 augroup END
 
 " 編集用のバッファをすべて閉じた時に他のウィンドウ（help, terminalなど）も閉じる
-function! CountEditingBuf()
+function! s:CountEditingBuf()
     let cnt = 0
     for w in range(1, winnr('$'))
         let _ = getwinvar(w, '&ft')
@@ -68,7 +68,7 @@ endfunction
 
 augroup AutoClose
   autocmd!
-  autocmd WinEnter * if CountEditingBuf() == 0 | quitall | endif
+  autocmd WinEnter * if <SID>CountEditingBuf() == 0 | quitall | endif
 augroup END
 
 " コメント行を改行したときに自動でコメントアウト記号をいれない
@@ -211,7 +211,7 @@ let g:my_python3_path = $PYENV_ROOT . '/shims/python'
 let g:python_host_prog = g:my_python_path
 let g:python3_host_prog = g:my_python3_path
 
-call dein#add('joonty/vdebug') " python debuggger
+" call dein#add('joonty/vdebug') " python debuggger
 call dein#add('bps/vim-textobj-python') " textobj拡張
 call dein#add('neovim/python-client')
 call dein#add('hynek/vim-python-pep8-indent')  " pep8に準拠したインデント
