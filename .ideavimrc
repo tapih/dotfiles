@@ -1,4 +1,71 @@
+set surround
 set clipboard=unnamed " クリップボードを共有
 set hlsearch   " 検索文字列をハイライト
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set nowrapscan " 検索で文頭にループしない
+
+" マクロ
+nnoremap Q q
+
+" qでウィンドウ閉じる
+nnoremap q :<C-u>q<CR>
+
+" H,Lで行頭、行末に移動
+nnoremap H  ^
+nnoremap L  $
+vnoremap H  ^
+vnoremap L  $
+
+" Select entire buffer
+nnoremap vy ggVG
+
+" 検索後にジャンプした際に検索単語を画面中央に持ってくる
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+" UでRedo
+nnoremap U <C-r>
+
+" enterで保存
+nnoremap <CR> :<C-u>w<CR>
+
+" コマンドラインの一致検索
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" sを無効に
+nnoremap s <Nop>
+
+" AceJump
+nnoremap ss <C-;>
+vnoremap ss <C-;>
+
+" expand region
+vnoremap v ^
+
+" snippet
+" nnoremap <C-s> snippet
+
+" toggle comment
+" nnoremap sc hoge
+
+" s+hjkl でウィンドウ間を移動
+nnoremap sh <C-w>h
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+nnoremap sl <C-w>l
+
+" sq+hjklでウィンドウを削除
+nnoremap <silent> sqh <C-w>h:q<CR>
+nnoremap <silent> sqj <C-w>j:q<CR>
+nnoremap <silent> sqk <C-w>k:q<CR>
+nnoremap <silent> sql <C-w>l:q<CR>
+
+" 行を挿入
+" ノーマルモードで行挿入
+nnoremap <silent> so :o<CR><ESC>k
+
