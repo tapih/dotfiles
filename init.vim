@@ -234,7 +234,7 @@ let g:vim_json_syntax_conceal = 0
 " C++
 "------------
 call dein#add('zchee/deoplete-clang')
-" call dein#add('dbgx/lldb.nvim')
+call dein#add('dbgx/lldb.nvim')
 
 
 
@@ -496,7 +496,7 @@ let g:quickrun_config = {
 \   }
 \}
 
-call dein#add('idanarye/vim-vebugger') " debugger
+" call dein#add('idanarye/vim-vebugger') " debugger
 
 call dein#end()
 
@@ -664,13 +664,13 @@ nnoremap <buffer> <leader>l :ALEToggle<CR>
 "-----------------------
 " ,で始まるショートカット
 "-----------------------
-nnoremap <silent> ,n :VBGStepOver<CR>
-nnoremap <silent> ,s :VBGStepIn<CR>
-nnoremap <silent> ,S :VBGStepOut<CR>
-nnoremap <silent> ,c :VBGStepContinue<CR>
-nnoremap <silent> ,t :VBGtoggleBreakpointThisLine<CR>
-nnoremap <silent> ,l :VBGclearBreakpoints<CR>
-nnoremap <silent> ,q :VGBkill<CR>
+" nnoremap <silent> ,n :VBGStepOver<CR>
+" nnoremap <silent> ,s :VBGStepIn<CR>
+" nnoremap <silent> ,S :VBGStepOut<CR>
+" nnoremap <silent> ,c :VBGStepContinue<CR>
+" nnoremap <silent> ,t :VBGtoggleBreakpointThisLine<CR>
+" nnoremap <silent> ,l :VBGclearBreakpoints<CR>
+" nnoremap <silent> ,q :VGBkill<CR>
 
 "-----------------------
 nnoremap t <Nop>
