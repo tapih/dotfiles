@@ -119,6 +119,7 @@ call dein#add('simeji/winresizer') " window resizeを簡単にする
 call dein#add('ConradIrwin/vim-bracketed-paste') " ペーストでインデントが崩れない
 call dein#add('sjl/gundo.vim') " undoツリー
 call dein#add('MattesGroeger/vim-bookmarks') " bookmark
+call dein#add('kana/vim-textobj-user') " textobj設定
 
 " snippet
 call dein#add('Shougo/neosnippet')
@@ -210,6 +211,7 @@ let g:my_python3_path = $PYENV_ROOT . '/shims/python'
 let g:python_host_prog = g:my_python_path
 let g:python3_host_prog = g:my_python3_path
 
+call dein#add('bps/vim-textobj-python') " textobj拡張
 call dein#add('neovim/python-client')
 call dein#add('hynek/vim-python-pep8-indent')  " pep8に準拠したインデント
 call dein#add('zchee/deoplete-jedi')  " completion
