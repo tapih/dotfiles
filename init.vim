@@ -215,7 +215,21 @@ call dein#add('hynek/vim-python-pep8-indent')  " pep8に準拠したインデン
 call dein#add('zchee/deoplete-jedi')  " completion
 let g:deoplete#sources#jedi#python_path = g:my_python3_path
 
+" add syntax
+if version < 600
+  syntax clear
+elseif exists('b:current_after_syntax')
+  finish
+endif
 
+syn match pythonOperator "\(+\|=\|-\|\^\|\*\)"
+syn match pythonDelimiter "\(,\|\.\|:\)"
+syn keyword pythonSpecialWord self
+
+hi link pythonSpecialWord    Special
+hi link pythonDelimiter      Special
+
+let b:current_after_syntax = 'python'
 
 "------------
 " JavaScript + AltJS
