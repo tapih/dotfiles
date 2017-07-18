@@ -118,6 +118,7 @@ call dein#add('bronson/vim-trailing-whitespace')  " 全角スペースをハイ�
 call dein#add('simeji/winresizer') " window resizeを簡単にする
 call dein#add('ConradIrwin/vim-bracketed-paste') " ペーストでインデントが崩れない
 call dein#add('sjl/gundo.vim') " undoツリー
+call dein#add('MattesGroeger/vim-bookmarks') " bookmark
 
 " snippet
 call dein#add('Shougo/neosnippet')
@@ -233,8 +234,8 @@ let g:vim_json_syntax_conceal = 0
 "------------
 " C++
 "------------
-call dein#add('zchee/deoplete-clang')
-call dein#add('dbgx/lldb.nvim')
+" call dein#add('zchee/deoplete-clang')
+" call dein#add('dbgx/lldb.nvim')
 
 
 
