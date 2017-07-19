@@ -242,7 +242,7 @@ call dein#add('hail2u/vim-css3-syntax')  " css
 call dein#add('pangloss/vim-javascript')  " js syntax
 call dein#add('carlitux/deoplete-ternjs') " js completion
 call dein#add('HerringtonDarkholme/yats.vim') " ts syntax
-call dein#add('mhartington/nvim-typescript') " ts completion
+call dein#add('HerringtonDarkholme/deoplete-typescript') " deoplete
 call dein#add('elzr/vim-json')  " json
 let g:vim_json_syntax_conceal = 0
 
