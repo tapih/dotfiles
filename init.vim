@@ -242,7 +242,7 @@ call dein#add('hail2u/vim-css3-syntax')  " css
 call dein#add('pangloss/vim-javascript')  " js syntax
 call dein#add('carlitux/deoplete-ternjs') " js completion
 call dein#add('HerringtonDarkholme/yats.vim') " ts syntax
-call dein#add('HerringtonDarkholme/deoplete-typescript') " deoplete
+call dein#add('clausreinke/typescript-tools') " ts complete
 call dein#add('elzr/vim-json')  " json
 let g:vim_json_syntax_conceal = 0
 
@@ -532,15 +532,18 @@ nnoremap Q q
 " qでウィンドウ閉じる
 nnoremap q :<C-u>q<CR>
 
-" スペースなし連結
-nnoremap K gJ
+" 連結
+nnoremap <C-j> J
+nnoremap <C-k> gJ
+vnoremap <C-j> J
+vnoremap <C-k> gJ
 
 " タグは使わない
 nnoremap [Tag] <Nop>
 
 " 修正した場所に飛ぶ
-nnoremap gh g;
-nnoremap gl g,
+nnoremap J g;
+nnoremap K g,
 
 " H,Lで行頭、行末に移動
 nnoremap H  ^
@@ -613,8 +616,8 @@ smap <C-s> <Plug>(neosnippet_expand_or_jump)
 xmap <C-s> <Plug>(neosnippet_expand_target)
 
 " 候補送り
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-h> <Plug>(ale_previous_wrap)
+nmap <silent> <C-l> <Plug>(ale_next_wrap)
 
 " バッファ切り替え
 nnoremap bb :ls<CR>:buffer
