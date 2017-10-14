@@ -14,7 +14,9 @@ filetype plugin indent off
 " syntax on " シンタックス有効に
 set encoding=utf-8 " エンコーディング
 set number     " 行番号の表示
-" set cursorline   " カーソルライン横（重いので無効)
+set scrolloff=10 " scroll offset
+" set cursorline   " カーソルライン横
+" autocmd InsertEnter,InsertLeave * set cursorline!
 " set cursorcolumn " カーソルライン横（重いので無効)
 " set wrap       " 文を折り返す
 set splitbelow " spで下に分割
@@ -110,25 +112,23 @@ call dein#add('terryma/vim-expand-region') " 範囲選択をショートカッ�
 call dein#add('coderifous/textobj-word-column.vim') " 矩形選択を拡張
 call dein#add('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
 call dein#add('cohama/lexima.vim')  " 自動でカッコなどを閉じる
-call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
+" call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
 call dein#add('junegunn/vim-easy-align')  " テキスト整形
 call dein#add('h1mesuke/vim-alignta') " テキスト自動整形
-call dein#add('mattn/emmet-vim')  " htmlタグ打ちショートカット
 call dein#add('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
-call dein#add('simeji/winresizer') " window resizeを簡単にする
+" call dein#add('simeji/winresizer') " window resizeを簡単にする
 call dein#add('ConradIrwin/vim-bracketed-paste') " ペーストでインデントが崩れない
-call dein#add('sjl/gundo.vim') " undoツリー
-call dein#add('MattesGroeger/vim-bookmarks') " bookmark
+" call dein#add('sjl/gundo.vim') " undoツリー
+" call dein#add('MattesGroeger/vim-bookmarks') " bookmark
 call dein#add('kana/vim-textobj-user') " textobj設定
 
 " snippet
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 let g:neosnippet#enable_conceal_markers = 0
-" call dein#add('honza/vim-snippets')
-" let g:neosnippet#disable_runtime_snippets = {'_' : 1}
-" let g:neosnippet#enable_snipmate_compatibility = 1
-" let g:neosnippet#snippets_directory = ['~/.vim/dein/repos/github.com/vim-snippets/snippets']
+call dein#add('honza/vim-snippets')
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory = '~/.vim/dein/repos/github.com/vim-snippets/snippets'
 
 " choosewin
 call dein#add('t9md/vim-choosewin')  " ウィンドウ選択
@@ -155,14 +155,14 @@ augroup DeinAutoCmd
 augroup END
 
 " color-theme
-call dein#add('cocopon/iceberg.vim')
-colorscheme iceberg
-
+" call dein#add('cocopon/iceberg.vim')
+call dein#add('nanotech/jellybeans.vim')
+colorscheme jellybeans
 " 一括コメントアウト追加/削除
 call dein#add('tomtom/tcomment_vim')
-let g:tcommentMapLeaderOp1 = 'sc'
-let g:tcommentMapLeaderUncommentAnyway = 's<'
-let g:tcommentMapLeaderCommentAnyway = 's>'
+let g:tcommentMapLeaderOp1 = 's/'
+" let g:tcommentMapLeaderUncommentAnyway = 's['
+" let g:tcommentMapLeaderCommentAnyway = 's]'
 
 " 画面内の任意の場所にジャンプ
 call dein#add('easymotion/vim-easymotion')
@@ -206,9 +206,9 @@ let g:ale_statusline_format = ['✔︎ %d', '⚠ %d', '']
 "--------
 " python2ではコーディングせずsystemのものを使う
 " python3はpyenvのものを使う
-let g:my_python_path = '/usr/bin/python'
+" let g:my_python_path = '/usr/bin/python'
 let g:my_python3_path = $PYENV_ROOT . '/shims/python'
-let g:python_host_prog = g:my_python_path
+let g:python_host_prog = g:my_python3_path
 let g:python3_host_prog = g:my_python3_path
 
 " call dein#add('joonty/vdebug') " python debuggger
@@ -238,11 +238,13 @@ let b:current_after_syntax = 'python'
 " JavaScript + AltJS
 "------------
 call dein#add('othree/html5.vim')  " html5
+call dein#add('alvan/vim-closetag')
+call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
 call dein#add('hail2u/vim-css3-syntax')  " css
 call dein#add('pangloss/vim-javascript')  " js syntax
 call dein#add('carlitux/deoplete-ternjs') " js completion
 call dein#add('HerringtonDarkholme/yats.vim') " ts syntax
-call dein#add('clausreinke/typescript-tools') " ts complete
+call dein#add('Quramy/tsuquyomi') " ts complete
 call dein#add('elzr/vim-json')  " json
 let g:vim_json_syntax_conceal = 0
 
@@ -251,8 +253,8 @@ let g:vim_json_syntax_conceal = 0
 "------------
 " C++
 "------------
-" call dein#add('zchee/deoplete-clang')
-call dein#add('dbgx/lldb.nvim')
+call dein#add('tweekmonster/deoplete-clang2')
+" call dein#add('dbgx/lldb.nvim')
 
 
 
@@ -272,6 +274,7 @@ au BufRead,BufNewFile *.md set filetype=markdown
 call dein#add('Shougo/neco-vim') " vim
 call dein#add('vim-scripts/dbext.vim')  "sql
 call dein#add('jalvesaq/Nvim-R') " R
+
 
 
 "=========================================================================
@@ -488,10 +491,10 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
-augroup NERDTreeAutoCmds
-    autocmd!
-    autocmd VimEnter * NERDTree | call s:MoveToFileAtStart() " 起動時に開く
-augroup END
+" augroup NERDTreeAutoCmds
+"     autocmd!
+"     autocmd VimEnter * NERDTree | call s:MoveToFileAtStart() " 起動時に開く
+" augroup END
 
 "------------
 " ビルド・実行
@@ -523,14 +526,18 @@ call dein#end()
 "=========================================================================
 " ショートカット関連
 "=========================================================================
+" ; : 入れ替え
+nnoremap ; :
+
 " 検索時に/をエスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
 " マクロ
 nnoremap Q q
 
-" qでウィンドウ閉じる
-nnoremap q :<C-u>q<CR>
+" qq, qfでウィンドウ閉じる
+nnoremap qq :<C-u>q<CR>
+nnoremap qf :<C-u>q<CR>
 
 " 連結
 nnoremap <C-j> J
@@ -598,9 +605,14 @@ inoremap <expr><C-y> deoplete#close_popup()
 inoremap <expr><C-e> deoplete#cancel_popup()
 
 " neosnippet関連
-imap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable() <Bar><bar> neosnippet#jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <C-k> <Plug>(neosnippet_expand_or_jump)
+smap <C-k> <Plug>(neosnippet_expand_or_jump)
+xmap <C-k> <Plug>(neosnippet_expand_target)
 
+" For conceal markers.
+if has('conceal')
+    set conceallevel=2 concealcursor=niv
+endif
 
 
 "-----------------------
