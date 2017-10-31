@@ -34,36 +34,11 @@ nnoremap U <C-r>
 nnoremap <CR> :<C-u>w<CR>
 
 " コマンドラインの一致検索
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-
-" sを無効に
-nnoremap s <Nop>
-
-" AceJump
-nnoremap ss <C-;>
-vnoremap ss <C-;>
-
-" expand region
-vnoremap v ^
-
-" snippet
-" nnoremap <C-s> snippet
-
 " toggle comment
 " nnoremap sc hoge
 
 " s+hjkl でウィンドウ間を移動
 nnoremap sh <C-w>h
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
-
-" sq+hjklでウィンドウを削除
-nnoremap <silent> sqh <C-w>h:q<CR>
-nnoremap <silent> sqj <C-w>j:q<CR>
-nnoremap <silent> sqk <C-w>k:q<CR>
-nnoremap <silent> sql <C-w>l:q<CR>
 
 " 行を挿入
 " ノーマルモードで行挿入
