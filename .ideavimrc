@@ -1,14 +1,14 @@
-set surround
+﻿set surround
 set clipboard=unnamed " クリップボードを共有
 set hlsearch   " 検索文字列をハイライト
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set nowrapscan " 検索で文頭にループしない
 
-" マクロ
-nnoremap Q q
-
 " qでウィンドウ閉じる
 nnoremap q :<C-u>q<CR>
+
+" 現在のタブ以外を閉じる
+nnoremap Q :<C-u>action CloseAllEditorsButActive<CR>
 
 " H,Lで行頭、行末に移動
 nnoremap H  ^
@@ -24,23 +24,58 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
 
 " UでRedo
 nnoremap U <C-r>
 
 " enterで保存
-nnoremap <CR> :<C-u>w<CR>
+" nnoremap <CR> <C-u>w<CR>
 
-" コマンドラインの一致検索
-" toggle comment
-" nnoremap sc hoge
+" extend
+nnoremap vv <C-w>
 
-" s+hjkl でウィンドウ間を移動
-nnoremap sh <C-w>h
+" 下に行を挿入
+nnoremap <CR><CR> o<ESC>k
 
-" 行を挿入
-" ノーマルモードで行挿入
-nnoremap <silent> so :o<CR><ESC>k
+" jjで抜ける
+inoremap jj <ESC>
 
+" 末尾にセミコロン
+nnoremap ;; $A;<ESC>
+
+" 末尾にカンマ
+nnoremap ,, $A,<ESC>
+
+" AceJump
+nnoremap <Space><Space> :<C-u>action AceAction<CR>
+
+" https://qiita.com/sei40kr/items/09e7e92eb7686f9b5950
+" 折りたたみ無効
+nnoremap zM <Nop>
+nnoremap zc <Nop>
+nnoremap zC <Nop>
+nnoremap zR <Nop>
+nnoremap zo <Nop>
+nnoremap zO <Nop>
+
+" コードジャンプを純正に
+nnoremap <C-o> :<C-u>action Back<CR>
+nnoremap <C-i> :<C-u>action Forward<CR>
+nnoremap <C-S-o> <C-o>
+nnoremap <C-S-i> <C-i>
+
+" 変更箇所へジャンプ
+nnoremap g; :<C-u>action JumpToLastChange<CR>
+nnoremap g, :<C-u>action JumpToNextChange<CR>
+
+" メソッドへジャンプ
+nnoremap gM :<C-u>action MethodUp<CR>
+nnoremap gm :<C-u>action MethodDown<CR>
+
+" エラー箇所へジャンプ
+nnoremap gE :<C-u>action GotoPreviousError<CR>
+nnoremap ge :<C-u>action GotoNextError<CR>
+
+" カーソル下の単語を置換
+nnoremap cv ciw<C-r>0<ESC>
+nnoremap cc yiw
