@@ -60,9 +60,11 @@ NeoBundle('t9md/vim-choosewin')  " ウィンドウ選択
 nmap - <Plug>(choosewin)
 let g:choosewin_label = 'fjsldka;'
 
-set runtimepath+=~/.vim/bundle/jellybeans.vim
-NeoBundle('nanotech/jellybeans.vim')
-colorscheme jellybeans
+if has('mac')
+    set runtimepath+=~/.vim/bundle/jellybeans.vim
+    NeoBundle('nanotech/jellybeans.vim')
+    colorscheme jellybeans
+endif
 
 NeoBundle('easymotion/vim-easymotion') " 画面内の任意の場所にジャンプ
 let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位

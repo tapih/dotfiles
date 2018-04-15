@@ -15,9 +15,9 @@ syntax on " シンタックス有効に
 set encoding=utf-8 " エンコーディング
 set number     " 行番号の表示
 set scrolloff=10 " scroll offset
-set cursorline   " カーソルライン横
-autocmd InsertEnter,InsertLeave * set cursorline!
-set cursorcolumn " カーソルライン横（重いので無効)
+" set cursorline   " カーソルライン横
+" autocmd InsertEnter,InsertLeave * set cursorline!
+" set cursorcolumn " カーソルライン横（重いので無効)
 " set wrap       " 文を折り返す
 set splitbelow " spで下に分割
 set splitright " vsで上に分割
