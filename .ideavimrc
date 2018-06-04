@@ -16,6 +16,9 @@ nnoremap L  $
 vnoremap H  ^
 vnoremap L  $
 
+" ; :
+vnoremap ; :
+
 " Select entire buffer
 nnoremap vy ggVG
 
