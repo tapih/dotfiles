@@ -5,7 +5,7 @@ mkdir -p ~/.vim/bundle
 echo "copy .vimrc.bundle in ~/.vim"
 cp ./.vimrc.bundle ~/.vim/
 
-if [ ! -d ~/.vim/bundle ]; then
+if [ ! -d ~/.vim/bundle/neobundle.vim ]; then
     git clone git://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 fi
 
