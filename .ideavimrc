@@ -3,6 +3,7 @@ set clipboard=unnamed " クリップボードを共有
 set hlsearch   " 検索文字列をハイライト
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set nowrapscan " 検索で文頭にループしない
+set visualbell t_vb=
 
 " qでウィンドウ閉じる
 nnoremap q :<C-u>q<CR>
