@@ -7,6 +7,7 @@ let NERDTreeShowHidden = 1
 "   call feedkeys("\s")
 "   call feedkeys("\l")
 " endfunction
+let g:NERDTreeWinPos = "right"
 
 call dein#add('Xuyuanp/nerdtree-git-plugin')
 let g:NERDTreeIndicatorMapCustom = {
