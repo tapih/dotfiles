@@ -44,15 +44,19 @@ set virtualedit=block "C-vの矩形選択で行末より後ろもカーソルを
 set smarttab   " 行頭はタブをスペースとして扱う
 set expandtab  " タブをスペースで代用
 set softtabstop=0 "タブ入力時のスペース挿入数(0=tabstopと同じ)
-set tabstop=4  " タブは半角スペース4つ分で表示
-set autoindent " 自動インデント
-set shiftwidth=4 " インデントは半角スペース4つ分
 set showcmd    "ステータスラインにコマンドを表示
 set hlsearch   " 検索文字列をハイライト
 set nowrapscan " 検索で文頭にループしない
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set fileformats=unix,dos,mac  " 改行コードの自動判別。左が優先
 set ambiwidth=double " □といった文字が崩れる問題の解決
+
+" indentation
+set autoindent " 自動インデント
+set shiftwidth=4 " インデントは半角スペース4つ分
+set tabstop=4  " タブは半角スペース4つ分で表示
+autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
+
 
 " ヤンクバッファを共有
 if has('unix')
@@ -397,6 +401,7 @@ if has('nvim')
                     \ 'css': ['prettier'],
                     \ 'scss': ['prettier'],
                     \ 'json': ['prettier'],
+                    \ 'yaml': ['prettier'],
                     \ 'javascript': ['eslint'],
                     \ 'typescript': ['tslint'],
                     \ 'python': ['yapf', 'autopep8'],
@@ -481,6 +486,8 @@ if has('nvim')
         call dein#add('cespare/vim-toml', {'on_ft': 'toml'})  " toml syntax
         call dein#add('elzr/vim-json', {'on_ft' : 'json'})  " json
         call dein#add('chr4/nginx.vim', {'on_ft': 'conf'})
+        call dein#add('chr4/nginx.vim', {'on_ft': 'conf'})
+        call dein#add('ekalinin/Dockerfile.vim')
         let g:vim_json_syntax_conceal = 0
         let g:go_bin_path = $GOPATH.'/bin'
 
@@ -614,6 +621,8 @@ else
     " NeoBundle('fatih/vim-go')  " go
     NeoBundle('cespare/vim-toml')
     NeoBundle('chr4/nginx.vim')
+    NeoBundle('ekalinin/Dockerfile.vim')
+
 
     execute 'set rtp+=' . g:bundle_dir . '/jellybeans.vim'
     NeoBundle('nanotech/jellybeans.vim')
