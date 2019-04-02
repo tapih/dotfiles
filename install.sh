@@ -13,7 +13,7 @@ function make_link() {
     if [ -e $2 ]; then
         echo "Skip: "$2 " already exists."
     else
-        ln -s $1 $2$
+        ln -s $1 $2
     fi
 }
 
