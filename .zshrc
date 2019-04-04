@@ -24,11 +24,19 @@ setopt noflowcontrol # disable C-S C-Q
 
 # PATH汎用設定
 # pyenv
-if is_exists pyenv ; then
+if is_exists anyenv ; then
+  eval "$(anyenv init -)";
+  export PYENV_ROOT=$HOME/.anyenv/envs/pyenv
+elif is_exists pyenv ; then
   eval "$(pyenv init -)";
   export PYENV_ROOT=$HOME/.pyenv
   export PATH=$PATH:$PYENV_ROOT/shims
   export PATH=$PATH:$PYENV_ROOT/bin
+fi
+
+# Rust
+if is_exists rustup ; then
+    export RUST_BACKTRACE=1
 fi
 
 # =====================================================================================================

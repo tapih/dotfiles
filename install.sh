@@ -20,7 +20,7 @@ function make_link() {
 make_link $SOURCE_ROOT_DIR"/.screenrc" $TARGET_ROOT_DIR"/.screenrc"
 make_link $SOURCE_ROOT_DIR"/.ideavimrc" $TARGET_ROOT_DIR"/.ideavimrc"
 make_link $SOURCE_ROOT_DIR"/.zshrc" $TARGET_ROOT_DIR"/.zshrc"
-make_link $SOURCE_ROOT_DIR"/.nvim" $TARGET_ROOT_DIR"/.config/nvim"
+make_link $SOURCE_ROOT_DIR"/nvim" $TARGET_ROOT_DIR"/.config/nvim"
 
 function make_cache_name() {
     echo ".cache"$1".sh"

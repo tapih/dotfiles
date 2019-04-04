@@ -77,10 +77,8 @@ set conceallevel=0 " 特殊文字を隠さない
 " endif
 
 " TODO
-let g:my_python_path = $PYENV_ROOT  . '/versions/2.7.10/bin/python'
-let g:my_python3_path = $PYENV_ROOT . '/versions/anaconda3-2.4.0/bin/python'
-let g:python_host_prot = g:my_python_path
-let g:python3_host_prog = g:my_python3_path
+let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
+let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 
 " help windowリサイズ
 augroup ResizeHelpWin
@@ -406,6 +404,7 @@ if has('nvim')
                     \ 'typescript': ['tslint'],
                     \ 'python': ['yapf', 'autopep8'],
                     \ 'go': ['goreturns', 'gofmt'],
+                    \ 'rust': ['rustfmt'],
                     \}
         let g:ale_fixers = g:ale_linters
         let g:ale_lint_on_text_changed = 0
@@ -429,7 +428,7 @@ if has('nvim')
         call dein#add('bps/vim-textobj-python', {'on_ft':  'python'}) " textobj拡張
         call dein#add('hynek/vim-python-pep8-indent', {'on_ft': 'python'})  " pep8に準拠したインデント
         call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})  " completion
-        let g:deoplete#sources#jedi#python_path = g:my_python3_path
+        let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 
         " add syntax
         if version < 600
@@ -462,12 +461,18 @@ if has('nvim')
         "------------
         " C++
         "------------
-        call dein#add('zchee/deoplete-clang2')  " completion
+        call dein#add('tweekmonster/deoplete-clang2')  " completion
         call dein#add('Shougo/neoinclude.vim')  " header completion
         call dein#add('vim-scripts/a.vim') " move easily between header and code
 
         "------------
-        " go
+        " Rust
+        "------------
+        call dein#add('rust-lang/rust.vim')
+        call dein#add('sebastianmarkow/deoplete-rust')
+
+        "------------
+        " Go
         "------------
         call dein#add('fatih/vim-go', {'on_ft': 'go'})  " go (v0.3.1 required)
         call dein#add('zchee/deoplete-go', {'on_ft': 'go', 'build': 'make'})
