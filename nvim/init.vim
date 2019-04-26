@@ -403,7 +403,7 @@ if has('nvim')
                     \ 'javascript': ['eslint'],
                     \ 'typescript': ['tslint'],
                     \ 'python': ['yapf', 'autopep8'],
-                    \ 'go': ['goreturns', 'gofmt'],
+                    \ 'go': ['goimports', 'gofmt'],
                     \ 'rust': ['rustfmt'],
                     \}
         let g:ale_fixers = g:ale_linters
@@ -474,10 +474,10 @@ if has('nvim')
         "------------
         " Go
         "------------
-        call dein#add('fatih/vim-go', {'on_ft': 'go'})  " go (v0.3.1 required)
+        call dein#add('zchee/nvim-go', {'on_ft': 'go'})  " go (v0.3.1 required)
         call dein#add('zchee/deoplete-go', {'on_ft': 'go', 'build': 'make'})
         let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-        let g:go_fmt_command = 'goreturns'
+        let g:go_fmt_command = 'goimports'
 
         "------------
         " elm
