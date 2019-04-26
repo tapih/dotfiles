@@ -26,10 +26,6 @@ function make_cache_name() {
     echo ".cache"$1".sh"
 }
 
-#install go dependencies
-GO111MODULE=off
-go get -u github.com/constabulary/gb/...
-
 # install dein
 CACHE_INDEX=1
 CACHE_NAME=`make_cache_name $CACHE_INDEX`
