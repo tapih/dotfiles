@@ -57,7 +57,6 @@ set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
 autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
-
 " ヤンクバッファを共有
 if has('unix')
     set clipboard+=unnamed
@@ -403,7 +402,7 @@ if has('nvim')
                     \ 'javascript': ['eslint'],
                     \ 'typescript': ['tslint'],
                     \ 'python': ['yapf', 'autopep8'],
-                    \ 'go': ['goreturns', 'gofmt'],
+                    \ 'go': ['goimports', 'gofmt'],
                     \ 'rust': ['rustfmt'],
                     \}
         let g:ale_fixers = g:ale_linters
@@ -475,9 +474,9 @@ if has('nvim')
         " Go
         "------------
         call dein#add('fatih/vim-go', {'on_ft': 'go'})  " go (v0.3.1 required)
-        call dein#add('zchee/deoplete-go', {'on_ft': 'go', 'build': 'make'})
+        call dein#add('deoplete-plugins/deoplete-go', {'on_ft': 'go', 'build': 'make'})
         let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-        let g:go_fmt_command = 'goreturns'
+        let g:go_fmt_command = 'goimports'
 
         "------------
         " elm
@@ -527,6 +526,9 @@ if has('nvim')
         call dein#add('itchyny/lightline.vim') " ステータスライン(画面下)
         call dein#add('scrooloose/nerdtree') " ファイルツリー（画面右）
         " call dein#add('lyuts/vim-rtags')
+
+        " auto close nerdtree when close window and there is only one window at that time
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
         call dein#add('majutsushi/tagbar') " タグ関連(画面右)
         call dein#add('soramugi/auto-ctags.vim')
@@ -619,7 +621,7 @@ else
     NeoBundle('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
     NeoBundle("tomtom/tcomment_vim") " 一括コメントアウト
     NeoBundle('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
-    NeoBundle('cohama/lexima.vim')  " 自動でカッコなどを閉じる
+    NeoBundle('cohama/lexima.eim')  " 自動でカッコなどを閉じる
     NeoBundle('kana/vim-textobj-user') " textobj設定
     NeoBundle('terryma/vim-expand-region') " 範囲選択をショートカットで
     NeoBundle('easymotion/vim-easymotion') " 画面内の任意の場所にジャンプ

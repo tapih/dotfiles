@@ -26,6 +26,11 @@ function make_cache_name() {
     echo ".cache"$1".sh"
 }
 
+# install go dependencies
+GO111MODULE=off
+go get -u golang.org/x/tools/cmd/goimports
+go get -u github.com/mdempsky/gocode
+
 # install dein
 CACHE_INDEX=1
 CACHE_NAME=`make_cache_name $CACHE_INDEX`
@@ -48,3 +53,4 @@ TARGET_DIR=$TARGET_ROOT_DIR/.vim/bundle
 curl -sS https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > $CACHE_NAME
 [ -e $TARGET_DIR"/neobundle.vim" ] || sh $CACHE_NAME
 rm -f $CACHE_NAME
+
