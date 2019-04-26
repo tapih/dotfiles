@@ -527,9 +527,6 @@ if has('nvim')
         call dein#add('scrooloose/nerdtree') " ファイルツリー（画面右）
         " call dein#add('lyuts/vim-rtags')
 
-        " auto close nerdtree when close window and there is only one window at that time
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
         call dein#add('majutsushi/tagbar') " タグ関連(画面右)
         call dein#add('soramugi/auto-ctags.vim')
         " call dein#add('jsfaint/gen_tags.vim')

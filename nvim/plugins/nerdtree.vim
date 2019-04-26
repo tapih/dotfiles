@@ -28,3 +28,7 @@ let g:NERDTreeIndicatorMapCustom = {
 "     autocmd VimEnter * NERDTree | call s:MoveToFileAtStart() " 起動時に開く
 " augroup END
 
+" auto close nerdtree when close window and there is only one window at that time
+augroup NERDTreeAutoClose
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
