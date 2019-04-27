@@ -1,22 +1,11 @@
 " TODO
 " denite grep
-" gocode
 "=========================================================================
-" initialize
+" 共通設定
 "=========================================================================
 let s:cpo_save = &cpoptions "compatible optionsの値を退避
 set cpoptions&vim "vimモードに
 
-
-" ローカルの設定を反映
-if filereadable(expand('~/.vimrc.local'))
-    source ~/.vimrc.local
-endif
-
-
-"=========================================================================
-" 共通設定
-"=========================================================================
 "-----------------------
 " 基本設定
 "-----------------------
@@ -75,7 +64,6 @@ set conceallevel=0 " 特殊文字を隠さない
 "     set conceallevel=2 concealcursor=niv
 " endif
 
-" TODO
 let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 
@@ -223,6 +211,11 @@ vnoremap <C-k> gJ
 let g:cache_dir = empty($XDG_CACHE_HOME) ? expand('~/.cache') : $XDG_CACHE_HOME
 
 if has('nvim')
+    " ローカルの設定を反映
+    if filereadable(expand('~/.nvimrc.local'))
+        source ~/.nvimrc.local
+    endif
+
     let g:dein_dir = g:cache_dir . '/dein'
     let g:dein_repo_dir = g:dein_dir . '/repos/github.com/Shougo/dein.vim'
     execute 'set rtp+=' . g:dein_repo_dir
@@ -446,23 +439,16 @@ if has('nvim')
         "------------
         " JavaScript + AltJS
         "------------
-        call dein#add('othree/html5.vim')  " html5
+        call dein#add('othree/html5.vim', {'on_ft': 'html'})  " html5
         call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
-        call dein#add('JulesWang/css.vim') " css
-        call dein#add('hail2u/vim-css3-syntax')  " css
+        call dein#add('JulesWang/css.vim', {'on_ft': 'css'}) " css
+        call dein#add('hail2u/vim-css3-syntax', {'on_ft': 'css'})  " css
         call dein#add('cakebaker/scss-syntax.vim')
-        call dein#add('alvan/vim-closetag')
-        call dein#add('pangloss/vim-javascript')  " js syntax
-        call dein#add('HerringtonDarkholme/yats.vim') " ts syntax
-        call dein#add('Quramy/tsuquyomi') " ts complete
+        call dein#add('alvan/vim-closetag', {'on_ft': 'html'})
+        call dein#add('pangloss/vim-javascript', {'on_ft': 'javascript'})  " js syntax
         call dein#add('carlitux/deoplete-ternjs') " js completion
-
-        "------------
-        " C++
-        "------------
-        call dein#add('tweekmonster/deoplete-clang2')  " completion
-        call dein#add('Shougo/neoinclude.vim')  " header completion
-        call dein#add('vim-scripts/a.vim') " move easily between header and code
+        call dein#add('HerringtonDarkholme/yats.vim', {'on_ft': 'typescript'}) " ts syntax
+        call dein#add('Quramy/tsuquyomi', {'on_ft': 'typescript'}) " ts completion
 
         "------------
         " Rust
@@ -487,10 +473,10 @@ if has('nvim')
         "------------
         " Others
         "------------
+        call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'npm install'})
         call dein#add('cespare/vim-toml', {'on_ft': 'toml'})  " toml syntax
         call dein#add('elzr/vim-json', {'on_ft' : 'json'})  " json
-        call dein#add('chr4/nginx.vim', {'on_ft': 'conf'})
-        call dein#add('chr4/nginx.vim', {'on_ft': 'conf'})
+        call dein#add('chr4/nginx.vim')
         call dein#add('ekalinin/Dockerfile.vim')
         let g:vim_json_syntax_conceal = 0
         let g:go_bin_path = $GOPATH.'/bin'
@@ -609,6 +595,11 @@ if has('nvim')
         call dein#end()
     endif
 else
+    " ローカルの設定を反映
+    if filereadable(expand('~/.vimrc.local'))
+        source ~/.vimrc.local
+    endif
+
     let g:bundle_dir = expand('~/.vim/bundle')
     let g:neobundle_repo_dir = g:bundle_dir  . '/neobundle.vim'
     execute 'set rtp+=' . g:neobundle_repo_dir
