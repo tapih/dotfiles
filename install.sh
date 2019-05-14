@@ -26,6 +26,8 @@ function make_cache_name() {
     echo ".cache"$1".sh"
 }
 
+sudo apt-get install -y peco
+
 # install go dependencies
 GO111MODULE=off
 go get -u golang.org/x/tools/cmd/goimports
