@@ -378,6 +378,18 @@ function killjobs {
 function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
 function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
 
+# enable peco
+function peco-history-selection() {
+    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+    CURSOR=$#BUFFER
+    zle reset-prompt
+}
+
+if is_exists peco; then
+    zle -N peco-history-selection
+    bindkey '^R' peco-history-selection
+fi
+
 
 # ローカルのzshrcを読み込む
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
