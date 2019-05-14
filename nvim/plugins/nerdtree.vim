@@ -32,3 +32,6 @@ let g:NERDTreeIndicatorMapCustom = {
 augroup NERDTreeAutoClose
     autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
+
+let NERDTreeIgnore=['\~$']
+
