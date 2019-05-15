@@ -398,6 +398,7 @@ if has('nvim')
                     \ 'go': ['goimports', 'gofmt'],
                     \ 'rust': ['rustfmt'],
                     \}
+        let g:ale_go_langserver_executable = 'gopls'
         let g:ale_fixers = g:ale_linters
         let g:ale_lint_on_text_changed = 0
         let g:ale_lint_on_save = 1 " 保存したらチェック
