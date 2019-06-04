@@ -322,10 +322,6 @@ function cd {
   fi
 }
 
-is_exists nvim && alias nv='nvim'
-is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
-is_exists gsed && alias sed='gsed'
-
 alias mv='mv -i'
 alias rm='rm -i'
 alias quit='exit'
@@ -343,6 +339,12 @@ alias -g F='|grep -i'
 alias -g GG='|xargs -0 grep -i'
 alias -g G='2>&1|grep -i'
 alias -g L="2>&1|$PAGER"
+
+is_exists git && alias g='git'
+is_exists nvim && alias nv='nvim'
+is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
+is_exists gsed && alias sed='gsed'
+is_exists tmux && alias tmux="tmux -2"
 
 # backup whole directory
 function backup {
