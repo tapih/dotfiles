@@ -129,6 +129,9 @@ vnoremap L  $
 " Select entire buffer
 nnoremap vy ggVG
 
+" sを無効に
+nnoremap pp ggVGy
+
 " escape insert mode
 inoremap jj <ESC>
 
@@ -202,6 +205,9 @@ nnoremap <C-j> J
 nnoremap <C-k> gJ
 vnoremap <C-j> J
 vnoremap <C-k> gJ
+
+" C-y でも visual mode に
+nnoremap <C-y> <C-v>
 
 
 
@@ -374,7 +380,7 @@ if has('nvim')
         inoremap <expr><Space> pumvisible() ? deoplete#close_popup()."\<Space>" : "\<Space>"
         inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y> deoplete#close_popup()
+        inoremap <expr><C-w> deoplete#close_popup()
         inoremap <expr><C-e> deoplete#cancel_popup()
         inoremap <C-o> <C-x><C-f>
 
@@ -441,7 +447,7 @@ if has('nvim')
         " JavaScript + AltJS
         "------------
         call dein#add('othree/html5.vim', {'on_ft': 'html'})  " html5
-        call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
+        " call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
         call dein#add('JulesWang/css.vim', {'on_ft': 'css'}) " css
         call dein#add('hail2u/vim-css3-syntax', {'on_ft': 'css'})  " css
         call dein#add('cakebaker/scss-syntax.vim')
@@ -450,6 +456,7 @@ if has('nvim')
         call dein#add('carlitux/deoplete-ternjs') " js completion
         call dein#add('HerringtonDarkholme/yats.vim', {'on_ft': 'typescript'}) " ts syntax
         call dein#add('Quramy/tsuquyomi', {'on_ft': 'typescript'}) " ts completion
+        let g:user_emmet_leader_key='<C-i>'
 
         "------------
         " Rust
@@ -637,13 +644,13 @@ else
 
         inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
         function! s:my_cr_function()
-            return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+            return (pumvisible() ? "\<C-e>" : "" ) . "\<CR>"
         endfunction
 
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
         inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
+        inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
     else
         NeoBundle 'Shougo/neocomplcache.vim'
         let g:acp_enableAtStartup = 0
@@ -658,7 +665,7 @@ else
         inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
         inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
         inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-y>  neocomplcache#close_popup()
+        inoremap <expr><C-w>  neocomplcache#close_popup()
         inoremap <expr><C-e>  neocomplcache#cancel_popup()
         inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
     endif

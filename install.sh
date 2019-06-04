@@ -28,6 +28,9 @@ function make_cache_name() {
 
 sudo apt-get install -y peco
 
+# install tmux plugin manager
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 # install go dependencies
 GO111MODULE=off
 go get -u golang.org/x/tools/cmd/goimports
