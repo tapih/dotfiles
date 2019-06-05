@@ -26,7 +26,7 @@ function make_cache_name() {
     echo ".cache"$1".sh"
 }
 
-sudo apt-get install -y peco
+sudo apt-get install -y peco htop
 
 # install tmux plugin manager
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
