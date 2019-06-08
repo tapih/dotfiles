@@ -117,8 +117,8 @@ nnoremap <silent> q :up<CR>:call CloseBuf()<CR>
 nnoremap [Tag] <Nop>
 
 " 修正した場所に飛ぶ
-nnoremap J g;
-nnoremap K g,
+nnoremap <C-J> g;
+nnoremap <C-K> g,
 
 " H,Lで行頭、行末に移動
 nnoremap H  ^
@@ -201,10 +201,10 @@ cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
 
 " 連結
-nnoremap <C-j> J
-nnoremap <C-k> gJ
-vnoremap <C-j> J
-vnoremap <C-k> gJ
+" nnoremap <C-j> J
+" nnoremap <C-k> gJ
+" vnoremap <C-j> J
+" vnoremap <C-k> gJ
 
 " C-y でも visual mode に
 nnoremap <C-y> <C-v>
@@ -274,25 +274,25 @@ if has('nvim')
         nnoremap ,/ :<C-u>Denite -buffer-name=search -auto-highlight line<CR>
 
         " 現在開いているファイルと同じディレクトリ以下でファイル検索
-        nnoremap <silent> ,f :<C-u>DeniteBufferDir -cursor-wrap file<CR>
+        nnoremap <silent> ,f :<C-u>DeniteBufferDir file<CR>
 
         " カレントディレクトリ以下でファイル検索
-        nnoremap <silent> ,F :<C-u>Denite -cursor-wrap file<CR>
+        nnoremap <silent> ,F :<C-u>Denite file<CR>
 
         " プラグイン
-        nnoremap <silent> ,d :<C-u>Denite -cursor-wrap dein<CR>
+        nnoremap <silent> ,d :<C-u>Denite dein<CR>
 
         " バッファ一覧
-        nnoremap <silent> ,b :<C-u>Denite -cursor-wrap buffer<CR>
+        nnoremap <silent> ,b :<C-u>Denite buffer<CR>
 
         " grep
         nnoremap <silent> ,g :<C-u>Denite grep<CR>
 
         " カーソルの下の単語でgrep
-        nnoremap <silent> ,c :<C-u>DeniteCursorWord -cursor-wrap grep<CR>
+        nnoremap <silent> ,c :<C-u>DeniteCursorWord grep<CR>
 
         " 最近開いたバッファ
-        nnoremap <silent> ,r :<C-u>Denite -cursor-wrap file_mru<CR>
+        nnoremap <silent> ,r :<C-u>Denite file_mru<CR>
 
         " 前回の結果の前後を開く
         nnoremap <silent> ,j :<C-u>Denite -resume -immediately -select=+1<CR>
