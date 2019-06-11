@@ -22,16 +22,18 @@ setopt noclobber # 存在するファイルにリダイレクトしない
 setopt ignoreeof # C-Dでログアウトしない
 setopt noflowcontrol # disable C-S C-Q
 
-# PATH汎用設定
 # pyenv
-if is_exists anyenv ; then
-  eval "$(anyenv init -)";
-  export PYENV_ROOT=$HOME/.anyenv/envs/pyenv
-elif is_exists pyenv ; then
+if is_exists pyenv ; then
   eval "$(pyenv init -)";
   export PYENV_ROOT=$HOME/.pyenv
-  export PATH=$PATH:$PYENV_ROOT/shims
-  export PATH=$PATH:$PYENV_ROOT/bin
+  export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
+fi
+
+#goenv
+if is_exists goenv ; then
+  eval "$(goenv init -)";
+  export GOENV_ROOT=$HOME/.goenv
+  export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
 fi
 
 # Rust

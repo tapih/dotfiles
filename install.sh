@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env zsh
 #
 # install.sh
 # Copyright (C) 2019 hmuraoka <hmuraoka@melchior.local>
@@ -6,9 +6,10 @@
 # Distributed under terms of the MIT license.
 #
 
-WORK_DIR='.cache'
+function is_exists() { type $1 >/dev/null 2>&1; return $?; }
 
-ANACONDA_VERSION=3.5.1
+WORK_DIR=.cache
+
 NVIM_PYTHON2_VERSION=2.7.16
 NVIM_PYTHON3_VERSION=3.7.3
 NODE_VERSION=10.16.0
@@ -16,125 +17,142 @@ GO_VERSION=1.12.5
 TMUX_VERSION=2.8
 GLOBAL_VERSION=6.5.6
 
+if [ ! $(echo ${SHELL} | grep zsh) ]; then
+	exit 1
+fi
+
+cd `dirname $0`
 mkdir -p ${WORK_DIR}
 cd ${WORK_DIR}
 
 echo "install debian package..."
-sudo add-apt-repository ppa:neovim-ppa/stable
+sudo add-apt-repository -y ppa:neovim-ppa/stable
 sudo apt-get update
 sudo apt-get -y install \
-	zsh \
 	git \
 	vim \
-    nvim \
+	neovim \
 	curl \
 	wget \
-    npm \
+	npm \
 	screen \
 	tig \
-	peco \
 	htop \
-    build-essential \
-    docker.io \
-	# ---- for python ----
-    bison \
-    flex \
-	# ---- for tmux ----
+	build-essential \
+	autotools-dev \
+	automake \
+	libevent-dev \
+	docker.io \
+	bison \
+	flex \
 	xsel \
-	# ---- for nvim ----
 	ncurses-dev \
 	exuberant-ctags \
 	silversearcher-ag
 
-touch ~/.zshrc.local
-
-echo "install anaconda ${ANACONDA_VERSION} ..."
-git clone https://github.com/pyenv/pyenv.git ~/.pyenv
-echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.zshrc.local
-echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.zshrc.local
-echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.zshrc.local
-exec ${SHELL}
-pyenv install anaconda3-${ANACONDA_VERSION}
-pyenv rehash
-git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+echo "install pyenv ..."
+PYENV_ROOT_DIR=${HOME}/.pyenv
+[ -e ${PYENV_ROOT_DIR} ] || \
+	git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT_DIR} && \
+	git clone https://github.com/pyenv/pyenv-virtualenv.git ${PYENV_ROOT_DIR}/plugins/pyenv-virtualenv && \
+	source ${HOME}/.zshrc
 
 echo "install python ${NVIM_PYTHON2_VERSION} for nvim ..."
-pyenv install ${NVIM_PYTHON2_VERSION}
+pyenv install -s ${NVIM_PYTHON2_VERSION}
 pyenv rehash
 pyenv virtualenv ${NVIM_PYTHON2_VERSION} neovim2
-pyenv activate neovim2
+pyenv global neovim2
 pip install neovim
-pyenv which python
-pyenv deactivate
 
 echo "install python ${NVIM_PYTHON3_VERSION} for nvim ..."
-pyenv install ${NVIM_PYTHON3_VERSION}
+pyenv install -s ${NVIM_PYTHON3_VERSION}
 pyenv rehash
 pyenv virtualenv ${NVIM_PYTHON3_VERSION} neovim3
-pyenv activate neovim3
+pyenv global neovim3
 pip install neovim
-pyenv which python
-pyenv deactivate
 
 echo "install goenv ..."
-git clone https://github.com/syndbg/goenv.git ~/.goenv
-echo 'export GOENV_ROOT="$HOME/.goenv"' >> ~/.zshrc.local
-echo 'export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"' >> ~/.zshrc.local
-echo 'eval "$(goenv init -)"' >> ~/.zshrc.local
-exec ${SHELL}
+GOENV_ROOT_DIR=${HOME}/.goenv
+[ -e ${GOENV_ROOT_DIR} ] || \
+	git clone https://github.com/syndbg/goenv.git ${HOME}/.goenv && \
+	source ${HOME}/.zshrc
 
 echo "install go ${GO_VERSION}..."
-goenv install ${GO_VERSION}
+goenv install -s ${GO_VERSION}
 goenv rehash
 goenv global ${GO_VERSION}
 
 echo "install go repositories ..."
+mkdir -p ${GOROOT}/{src,bin,pkg}
 GO111MODULE=off
 go get -u golang.org/x/tools/cmd/goimports
 go get -u github.com/mdempsky/gocode
 go get -u golang.org/x/tools/cmd/gopls
 
 echo "install n ..."
-sudo npm -g i n
+is_exists n || sudo npm -g i n
 
 echo "install node ${NODE_VERSION} ..."
 sudo n ${NODE_VERSION}
-n use ${NODE_VERSION}
 
 echo "install GNU global..."
-curl -sSLf -O http://tamacom.com/global/global-${GLOBAL_VERSION}.tar.gz
-tar zxvf global-${GLOBAL_VERSION}.tar.gz
-cd global-${GLOBAL_VERSION}
-./configure && make
-sudo make install
-cd ..
-rm -f global-${GLOBAL_VERSION}.tar.gz
+if ! is_exists gtags ; then
+	GLOBAL_TMP_PATH=global-${GLOBAL_VERSION}.tar.gz
+	curl -sSLf -O http://tamacom.com/global/${GLOBAL_TMP_PATH}
+	tar zxf ${GLOBAL_TMP_PATH}
+	cd ${GLOBAL_TMP_PATH%.tar.gz}
+	./configure && make
+	sudo make install
+	cd ..
+	rm -f ${GLOBAL_TMP_PATH}
+fi
 
-pyenv activate neovim2
+echo "install pygments..."
+pyenv global neovim2
 pip install pygments
-pyenv deactivate
 
 echo "install tmux ..."
-curl -sSLf https://github.com/tmux/tmux/archive/${TMUX_VERSION}.tar.gz -o tmux-${TMUX_VERSION}.tar.gz
-tar zxvf tmux-${TMUX_VERSION}.tar.gz
-cd tmux-${TMUX_VERSION}
-./configure && make
-sudo make install
-cd ..
-rm -f tmux-${TMUX_VERSION}.tar.gz
+if ! is_exists tmux ; then
+	TMUX_TMP_PATH=tmux-${TMUX_VERSION}.tar.gz
+	curl -sSLf https://github.com/tmux/tmux/archive/${TMUX_VERSION}.tar.gz -o ${TMUX_TMP_PATH}
+	tar zxf ${TMUX_TMP_PATH}
+	cd ${TMUX_TMP_PATH%.tar.gz}
+	sh autogen.sh
+	./configure && make
+	sudo make install
+	cd ..
+	rm -f ${TMUX_TMP_PATH}
+fi
 
 echo "install tmux plugins ..."
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+TPM_PATH=${HOME}/.tmux/plugins/tpm
+[ -e ${TPM_PATH} ] || git clone https://github.com/tmux-plugins/tpm ${TPM_PATH}
 
 echo "install dein ..."
-mkdir -p ~/.cache/dein
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > dein-installer.sh
-sh ./dein-installer.sh ~/.cache/dein
-rm -f dein_installer.sh
+DEIN_DIR=${HOME}/.cache/dein
+if [ ! -e ${DEIN_DIR} ]; then
+	mkdir -p ${DEIN_DIR}
+	INSTALLER_NAME=.installer.sh
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ${INSTALLER_NAME}
+	sh ${INSTALLER_NAME} ${DEIN_DIR}
+	rm -f ${INSTALLER_NAME}
+fi
 
 echo "install NeoBundle ..."
-mkdir -p ~/.vim/bundle
-curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > neobundle-installer.sh
-sh ./neobundle-installer.sh
-rm -f neobundle-installer.sh
+NEOBUNDLE_DIR=${HOME}/.cache/dein
+if [ ! -e ${NEOBUNDLE_DIR}/neobundle.vim ]; then
+	mkdir -p ${HOME}/.vim/bundle
+	INSTALLER_NAME=.installer.sh
+	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > ${INSTALLER_NAME}
+	sh ${INSTALLER_NAME}
+	rm -f ${INSTALLER_NAME}
+fi
 
+echo "link dotfiles ..."
+BASE_DIR=`realpath $(dirname $0)`
+[ -e ${HOME}/.zshrc       ] || ln -s ${BASE_DIR}/.zshrc        ${HOME}/
+[ -e ${HOME}/.gitconfig   ] || ln -s ${BASE_DIR}/.gitconfig    ${HOME}/
+[ -e ${HOME}/.screenrc    ] || ln -s ${BASE_DIR}/.screenrc     ${HOME}/
+[ -e ${HOME}/.tmux.conf   ] || ln -s ${BASE_DIR}/.tmux.conf    ${HOME}/
+[ -e ${HOME}/.config/nvim ] || ln -s ${BASE_DIR}/nvim          ${HOME}/.config/
+[ -e ${HOME}/.nvimrc      ] || ln -s ${BASE_DIR}/nvim/init.vim ${HOME}/.vimrc
