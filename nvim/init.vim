@@ -317,6 +317,11 @@ if has('nvim')
         call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
         call dein#add('tomtom/tcomment_vim') " 一括コメントアウト追加/削除
 
+        " automatic ctags generater
+        " call dein#add('jsfaint/gen_tags.vim')
+        " let g:gen_tags#ctags_auto_gen = 1
+        " let g:gen_tags#gtags_auto_gen = 1
+
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
         let g:switch_mapping = 's-'
@@ -617,7 +622,7 @@ else
     NeoBundle('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
     NeoBundle("tomtom/tcomment_vim") " 一括コメントアウト
     NeoBundle('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
-    NeoBundle('cohama/lexima.eim')  " 自動でカッコなどを閉じる
+    " NeoBundle('cohama/lexima.eim')  " 自動でカッコなどを閉じる
     NeoBundle('kana/vim-textobj-user') " textobj設定
     NeoBundle('terryma/vim-expand-region') " 範囲選択をショートカットで
     NeoBundle('easymotion/vim-easymotion') " 画面内の任意の場所にジャンプ
