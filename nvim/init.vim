@@ -318,9 +318,9 @@ if has('nvim')
         call dein#add('tomtom/tcomment_vim') " 一括コメントアウト追加/削除
 
         " automatic ctags generater
-        " call dein#add('jsfaint/gen_tags.vim')
-        " let g:gen_tags#ctags_auto_gen = 1
-        " let g:gen_tags#gtags_auto_gen = 1
+        call dein#add('jsfaint/gen_tags.vim')
+        let g:gen_tags#ctags_auto_gen = 1
+        let g:gen_tags#gtags_auto_gen = 1
 
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
