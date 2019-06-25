@@ -129,9 +129,6 @@ vnoremap L  $
 " Select entire buffer
 nnoremap vy ggVG
 
-" sを無効に
-nnoremap pp ggVGy
-
 " escape insert mode
 inoremap jj <ESC>
 
