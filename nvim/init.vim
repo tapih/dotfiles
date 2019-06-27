@@ -240,6 +240,7 @@ if has('nvim')
         "-----------------------
         call dein#add('Shougo/denite.nvim')
         call dein#add('Shougo/neomru.vim')
+        call dein#add('Shougo/neoyank.vim') " yank history
         call dein#add('thinca/vim-qfreplace')
         call dein#add('rking/ag.vim')  " 高速な検索
 
@@ -319,8 +320,8 @@ if has('nvim')
         call dein#add('easymotion/vim-easymotion')
         let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
         let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-        nmap sj <Plug>(easymotion-s2)
-        nmap sk <Plug>(easymotion-t2)
+        nmap sl <Plug>(easymotion-s2)
+        nmap sh <Plug>(easymotion-t2)
 
         " 範囲選択をショートカットで
         call dein#add('terryma/vim-expand-region')
@@ -328,9 +329,9 @@ if has('nvim')
         vmap <C-v> <Plug>(expand_region_shrink)
 
         " automatic ctags generater
-        call dein#add('jsfaint/gen_tags.vim')
-        let g:gen_tags#ctags_auto_gen = 1
-        let g:gen_tags#gtags_auto_gen = 1
+        " call dein#add('jsfaint/gen_tags.vim')
+        " let g:gen_tags#ctags_auto_gen = 1
+        " let g:gen_tags#gtags_auto_gen = 1
 
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
@@ -382,12 +383,11 @@ if has('nvim')
         let g:deoplete#auto_complete_start_length = 1
         let g:deoplete#enable_camel_case = 0
         let g:deoplete#enable_ignore_case = 0
-        let g:deoplete#enable_refresh_always = 0
+        let g:deoplete#enable_refresh_always = 1
         let g:deoplete#enable_smart_case = 1
         let g:deoplete#file#enable_buffer_path = 1
-        let g:deoplete#max_list = 10000
-        let g:deoplete#auto_completion_start_length = 2
-        let g:deoplete#sources#syntax#min_keyword_length = 3
+        let g:deoplete#max_list = 1000
+        let g:deoplete#sources#syntax#min_keyword_length = 2
         inoremap <expr><C-g> deoplete#undo_completion()
         inoremap <expr><C-l> deoplete#complete_common_string()
         inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -459,10 +459,10 @@ if has('nvim')
         hi link pythonDelimiter      Special
 
         "------------
-        " JavaScript + AltJS
+        " JS + TS
         "------------
         call dein#add('othree/html5.vim', {'on_ft': 'html'})  " html5
-        " call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
+        call dein#add('mattn/emmet-vim') " htmlタグ打ちショートカット
         call dein#add('JulesWang/css.vim', {'on_ft': 'css'}) " css
         call dein#add('hail2u/vim-css3-syntax', {'on_ft': 'css'})  " css
         call dein#add('cakebaker/scss-syntax.vim')
@@ -488,17 +488,12 @@ if has('nvim')
         let g:go_fmt_command = 'goimports'
 
         "------------
-        " elm
-        "------------
-        call dein#add('ElmCast/elm-vim', {'on_ft': 'elm'})
-        call dein#add('pbogut/deoplete-elm', {'on_ft': 'elm'})
-
-        "------------
         " Others
         "------------
         call dein#add('iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'npm install'})
         call dein#add('cespare/vim-toml', {'on_ft': 'toml'})  " toml syntax
         call dein#add('elzr/vim-json', {'on_ft' : 'json'})  " json
+        call dein#add('chase/vim-ansible-yaml')
         call dein#add('chr4/nginx.vim')
         call dein#add('ekalinin/Dockerfile.vim')
         let g:vim_json_syntax_conceal = 0
@@ -509,11 +504,13 @@ if has('nvim')
         "=========================================================================
         " git
         "=========================================================================
-        call dein#add('tpope/vim-fugitive') " vimからgitコマンドをたたく
+        " call dein#add('tpope/vim-fugitive') " vimからgitコマンドをたたく
         call dein#add('cohama/agit.vim') " improved gitv
         call dein#add('idanarye/vim-merginal') " mergeを見やすく
         call dein#add('rhysd/committia.vim') " commit -vのログ入力補助
         call dein#add('airblade/vim-gitgutter') " 差分のある行にマークをつける
+        nmap sj <Plug>GitGutterNextHunk
+        nmap sk <Plug>GitGutterPrevHunk
         let g:gitgutter_sign_added = '✚'
         let g:gitgutter_sign_modified = '✹'
         let g:gitgutter_sign_removed = '✖'
