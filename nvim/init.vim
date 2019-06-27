@@ -153,9 +153,6 @@ vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<C
 " enterで保存
 nnoremap <CR> :<C-u>w<CR>
 
-" バッファ切り替え
-nnoremap b :ls<CR>:buffer
-
 " terminal
 if has('nvim')
     set sh=zsh
@@ -169,6 +166,9 @@ endif
 "-----------------------
 " sを無効に
 nnoremap s <Nop>
+
+" バッファ切り替え
+nnoremap sb :ls<CR>:buffer
 
 " s+vp で画面分割
 nnoremap sp :<C-u>sp<CR>
@@ -222,6 +222,7 @@ if has('nvim')
     let g:dein_dir = g:cache_dir . '/dein'
     let g:dein_repo_dir = g:dein_dir . '/repos/github.com/Shougo/dein.vim'
     execute 'set rtp+=' . g:dein_repo_dir
+
     if dein#load_state(g:dein_dir)
         call dein#begin(g:dein_dir)
         call dein#add(g:dein_repo_dir) " dein自身を管理
@@ -229,11 +230,10 @@ if has('nvim')
         "-----------------------
         " color-theme
         "-----------------------
+        colorscheme jellybeans
         execute 'set rtp+=' . g:dein_dir . '/repos/github.com/nanotech/jellybeans.vim'
         call dein#add('nanotech/jellybeans.vim')
         " call dein#add('cocopon/iceberg.vim')
-
-
 
         "-----------------------
         " denite
@@ -301,7 +301,6 @@ if has('nvim')
         "-----------------------
         call dein#add('tpope/vim-speeddating') " C-a, C-xを日付に拡張
         call dein#add('tpope/vim-repeat') " 独自ショートカットもひとまとまりで'.u'できる
-        call dein#add('terryma/vim-expand-region') " 範囲選択をショートカットで
         call dein#add('coderifous/textobj-word-column.vim') " 矩形選択を拡張
         call dein#add('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
         call dein#add('cohama/lexima.vim')  " 自動でカッコなどを閉じる
@@ -309,10 +308,24 @@ if has('nvim')
         call dein#add('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
         call dein#add('ConradIrwin/vim-bracketed-paste') " ペーストでインデントが崩れない
         call dein#add('kana/vim-textobj-user') " textobj設定
-        call dein#add('easymotion/vim-easymotion') " 画面内の任意の場所にジャンプ
         call dein#add('Yggdroot/indentLine') " インデントを見やすく
         call dein#add('aperezdc/vim-template')  " テンプレートからファイル作成
-        call dein#add('tomtom/tcomment_vim') " 一括コメントアウト追加/削除
+
+        " 一括コメントアウト追加/削除
+        call dein#add('tomtom/tcomment_vim')
+        let g:tcomment_opleader1 = 'sc'
+
+        " 画面内の任意の場所にジャンプ
+        call dein#add('easymotion/vim-easymotion')
+        let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
+        let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+        nmap sj <Plug>(easymotion-s2)
+        nmap sk <Plug>(easymotion-t2)
+
+        " 範囲選択をショートカットで
+        call dein#add('terryma/vim-expand-region')
+        vmap v <Plug>(expand_region_expand)
+        vmap <C-v> <Plug>(expand_region_shrink)
 
         " automatic ctags generater
         call dein#add('jsfaint/gen_tags.vim')
@@ -604,98 +617,11 @@ if has('nvim')
 
         call dein#end()
     endif
-else
-    " ローカルの設定を反映
-    if filereadable(expand('~/.vimrc.local'))
-        source ~/.vimrc.local
-    endif
-
-    let g:bundle_dir = expand('~/.vim/bundle')
-    let g:neobundle_repo_dir = g:bundle_dir  . '/neobundle.vim'
-    execute 'set rtp+=' . g:neobundle_repo_dir
-    call neobundle#begin(g:bundle_dir)
-    NeoBundleFetch('Shougo/neobundle.vim')
-
-    NeoBundle('bronson/vim-trailing-whitespace')  " 全角スペースをハイライト
-    NeoBundle("tomtom/tcomment_vim") " 一括コメントアウト
-    NeoBundle('tpope/vim-surround')  " 括弧などのブロック文字を簡単に変更
-    " NeoBundle('cohama/lexima.eim')  " 自動でカッコなどを閉じる
-    NeoBundle('kana/vim-textobj-user') " textobj設定
-    NeoBundle('terryma/vim-expand-region') " 範囲選択をショートカットで
-    NeoBundle('easymotion/vim-easymotion') " 画面内の任意の場所にジャンプ
-    " NeoBundle('fatih/vim-go')  " go
-    NeoBundle('cespare/vim-toml')
-    NeoBundle('chr4/nginx.vim')
-    NeoBundle('ekalinin/Dockerfile.vim')
-
-
-    execute 'set rtp+=' . g:bundle_dir . '/jellybeans.vim'
-    NeoBundle('nanotech/jellybeans.vim')
-
-    " 補完
-    function! s:meet_neocomplete_requirements()
-        return has('lua') && (v:version > 703 || (v:version == 703 && has('patch885')))
-    endfunction
-
-    if s:meet_neocomplete_requirements()
-        NeoBundle 'Shougo/neocomplete.vim'
-        let g:acp_enableAtStartup = 0
-        let g:neocomplete#enable_at_startup = 1
-        let g:neocomplete#enable_smart_case = 1
-        let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        function! s:my_cr_function()
-            return (pumvisible() ? "\<C-e>" : "" ) . "\<CR>"
-        endfunction
-
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-        inoremap <expr><Space> pumvisible() ? "\<C-e>" : "\<Space>"
-    else
-        NeoBundle 'Shougo/neocomplcache.vim'
-        let g:acp_enableAtStartup = 0
-        let g:neocomplcache_enable_at_startup = 1
-        let g:neocomplcache_enable_smart_case = 1
-        let g:neocomplcache_min_syntax_length = 3
-
-        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-        function! s:my_cr_function()
-            return neocomplcache#smart_close_popup() . "\<CR>"
-        endfunction
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-        inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-        inoremap <expr><C-w>  neocomplcache#close_popup()
-        inoremap <expr><C-e>  neocomplcache#cancel_popup()
-        inoremap <expr><Space> pumvisible() ? neocomplcache#close_popup() : "\<Space>"
-    endif
-
-    call neobundle#end()
-
-    NeoBundleCheck
 endif
 
 "=========================================================================
 " 共通設定(外部プラグイン関連)
 "=========================================================================
-" color
-colorscheme jellybeans
-
-" expand-region
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
-" easymotion
-let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-nmap ss <Plug>(easymotion-s2)
-nmap st <Plug>(easymotion-t2)
-
-" tcomment
-let g:tcomment_opleader1 = 'sc'
-
 "=========================================================================
 " finalize
 "=========================================================================

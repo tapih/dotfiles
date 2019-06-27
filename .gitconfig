@@ -1,5 +1,11 @@
 [alias]
-    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    st = status
+    df = diff
+    co = checkout
+    br = branch
+    up = rebase
+    ci = commit
 
 [user]
     email = h.muraoka714@gmail.com
@@ -8,4 +14,7 @@
 [core]
     editor=nvim
     autocrlf= false
+
+[push]
+    default = simple
 
