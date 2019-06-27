@@ -27,6 +27,7 @@ cd ${WORK_DIR}
 
 echo "install debian package..."
 sudo add-apt-repository -y ppa:neovim-ppa/stable
+sudo apt-add-repository -y ppa:brightbox/ruby-ng
 sudo apt-get update
 sudo apt-get -y install \
 	git \
@@ -43,12 +44,16 @@ sudo apt-get -y install \
 	automake \
 	libevent-dev \
 	docker.io \
+    ruby \
 	bison \
 	flex \
 	xsel \
 	ncurses-dev \
 	exuberant-ctags \
 	silversearcher-ag
+
+echo "install tmuxinator..."
+sudo gem install tmuxinator
 
 echo "install pyenv ..."
 PYENV_ROOT_DIR=${HOME}/.pyenv
