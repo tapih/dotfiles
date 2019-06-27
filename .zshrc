@@ -8,7 +8,10 @@ function is_exists() { type $1 >/dev/null 2>&1; return $?; }
 # =====================================================================================================
 # 基本設定
 # =====================================================================================================
-bindkey -e
+bindkey -v
+bindkey "jj" vi-cmd-mode
+bindkey "C-p" vi-cmd-mode
+bindkey "C-n" vi-cmd-mode
 
 is_exists vim && export EDITOR=vim
 
