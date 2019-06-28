@@ -87,12 +87,38 @@ augroup auto_complete_off
 augroup END
 
 " 編集用のバッファをすべて閉じた時に他のウィンドウ（help, terminalなど）も閉じる
-function! CloseBuf()
+function! AutoCloseBuf()
   if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
     :q
   else
     :bd
   endif
+endfunction
+
+
+function! GetNumBufs()
+    let i = bufnr('$')
+        let j = 0
+        while i >= 1
+            if buflisted(i)
+                let j+=1
+            endif
+                let i-=1
+        endwhile
+    return j
+endfunction
+
+function! CloseCurrBuf()
+    let n = bufnr('%')
+    bdelete n
+endfunction
+
+function! CloseBufOrWin()
+    if GetNumBufs() > 1
+        call CloseCurrBuf()
+    else
+        quit
+    endif
 endfunction
 
 "-----------------------
@@ -111,7 +137,7 @@ cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 nnoremap Q q
 
 " 閉じる
-nnoremap <silent> q :up<CR>:call CloseBuf()<CR>
+nnoremap <silent> q :<C-u>call CloseBufOrWin()<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
@@ -153,22 +179,11 @@ vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<C
 " enterで保存
 nnoremap <CR> :<C-u>w<CR>
 
-" terminal
-if has('nvim')
-    set sh=zsh
-    tnoremap <silent> <ESC> <C-\><C-n>
-    tnoremap <silent> <C-[> <C-\><C-n>
-    tnoremap <silent> jj <C-\><C-n>
-endif
-
 "-----------------------
 " sを使うショートカット
 "-----------------------
 " sを無効に
 nnoremap s <Nop>
-
-" バッファ切り替え
-nnoremap sb :ls<CR>:buffer
 
 " s+vp で画面分割
 nnoremap sp :<C-u>sp<CR>
@@ -295,7 +310,6 @@ if has('nvim')
         " 前回の結果の前後を開く
         nnoremap <silent> ,j :<C-u>Denite -resume -immediately -select=+1<CR>
         nnoremap <silent> ,k :<C-u>Denite -resume -immediately -select=-1<CR>
-
 
         "-----------------------
         " コード入力補助
@@ -558,10 +572,43 @@ if has('nvim')
         if filereadable(g:lightline_config_path)
             execute 'source' . g:lightline_config_path
         endif
-        let g:nerdtree_config_path = g:config_dir . '/nerdtree.vim'
-        if filereadable(g:nerdtree_config_path)
-            execute 'source' . g:nerdtree_config_path
-        endif
+        let NERDTreeIgnore = ['.[oa]$', '.(so)$', '.(tgz|gz|zip)$' ]
+        let NERDTreeShowHidden = 1
+        " http://qiita.com/ymiyamae/items/3fa77d85163fb734b359
+        " ファイルの方にカーソルを向ける
+        " function! s:MoveToFileAtStart()
+        "   call feedkeys("\<Space>")
+        "   call feedkeys("\s")
+        "   call feedkeys("\l")
+        " endfunction
+        let g:NERDTreeWinPos = "right"
+
+        call dein#add('Xuyuanp/nerdtree-git-plugin')
+        let g:NERDTreeIndicatorMapCustom = {
+                    \ "Modified"  : "✹",
+                    \ "Staged"    : "✚",
+                    \ "Untracked" : "✭",
+                    \ "Renamed"   : "➜",
+                    \ "Unmerged"  : "═",
+                    \ "Deleted"   : "✖",
+                    \ "Dirty"     : "✗",
+                    \ "Clean"     : "✔︎",
+                    \ 'Ignored'   : '☒',
+                    \ "Unknown"   : "?"
+                    \ }
+
+        " augroup NERDTreeAutoCmds
+        "     autocmd!
+        "     autocmd VimEnter * NERDTree | call s:MoveToFileAtStart() " 起動時に開く
+        " augroup END
+
+        " auto close nerdtree when close window and there is only one window at that time
+        augroup NERDTreeAutoClose
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        augroup END
+
+        let NERDTreeIgnore=['\~$']
+
 
         let g:auto_ctags = 0
         function! s:auto_ctags_toggle()
@@ -578,39 +625,19 @@ if has('nvim')
         endfunction
         command! AutoCtagsToggle call <SID>auto_ctags_toggle()
 
-        " ビルド・実行
-        call dein#add('kassio/neoterm')
-        call dein#add('thinca/vim-quickrun') " quickrun
-        let g:quickrun_config = {
-        \   "_" : {
-        \       "hook/close_quickfix/enable_exit" : 1,
-        \       "hook/close_buffer/enable_failure" : 1,
-        \       "hook/close_buffer/enable_empty_data" : 1,
-        \       "outputter" : "error",
-        \       "oukputter/error/success" : "buffer",
-        \       "outputter/error/error" : "quickfix",
-        \       "outputter/buffer/close_on_empty": 1,
-        \   }
-        \}
-
         "-----------------------
         " tで始まるショートカット
         "-----------------------
         nnoremap t <Nop>
-        nnoremap <silent> tt :<C-u>sp term://zsh<CR>:resize 12<CR>i
-        nnoremap <silent> to :<C-u>sp term://zsh<CR>:resize 12<CR>:wincmd p<CR>
-        nnoremap <silent> tp :<C-u>sp term://ipython<CR>:resize 12<CR>i
-        nnoremap <silent> td :<C-u>sp term://node<CR>:resize 12<CR>i
-        nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
+        " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
+        nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>
         nnoremap <silent> tb :<C-u>TagbarToggle<CR>
-        nnoremap <silent> tj :<C-u>TREPLSendLine<CR>
-        vnoremap <silent> tj :<C-u>TREPLSendSelection<CR>
-        nnoremap <silent> tc :AutoCtagsToggle<CR>
+        nnoremap <silent> tc :<C-u>AutoCtagsToggle<CR>
         nnoremap <silent> tl :<C-u>ALEToggle<CR>
-        nnoremap <silent> tg :GitGutterLineHighlightsToggle<CR>
-        nnoremap <silent> tr :QuickRun<CR>
-        nnoremap <silent> t[ :<C-u>resize 12<CR>
-        nnoremap <silent> t] :<C-u>resize 0<CR>
+        nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>
+        nnoremap <silent> tj :<C-u>bprev<CR>
+        nnoremap <silent> tk :<C-u>bnext<CR>
+
 
         call dein#end()
     endif
