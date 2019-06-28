@@ -548,9 +548,10 @@ if has('nvim')
         " call dein#add('lyuts/vim-rtags')
 
         call dein#add('majutsushi/tagbar') " タグ関連(画面右)
-        call dein#add('soramugi/auto-ctags.vim')
+
+        " call dein#add('soramugi/auto-ctags.vim')
         " call dein#add('jsfaint/gen_tags.vim')
-        set tags=.tags;$HOME
+        " set tags=.tags;$HOME
         " function! s:execute_ctags() abort
         "   let tag_name = '.tags'
         "   let tags_path = findfile(tag_name, '.;')
@@ -562,9 +563,9 @@ if has('nvim')
         "   execute 'silent !cd' tags_dirpath '&& ctags -R -f' tag_name '2> /dev/null &'
         " endfunction
         " autocmd BufWritePost * call s:execute_ctags()
-
-        let g:gen_tags#ctags_auto_gen = 1
-
+        "
+        " let g:gen_tags#ctags_auto_gen = 1
+        "
         let g:lightline = {
                     \ 'colorscheme': 'wombat',
                     \ 'active': {
@@ -731,21 +732,21 @@ if has('nvim')
 
         let NERDTreeIgnore=['\~$']
 
-        let g:auto_ctags = 0
-        function! s:auto_ctags_toggle()
-            if g:auto_ctags == 0
-                let g:auto_ctags = 1
-            else
-                let g:auto_ctags = 0
-            endif
-            if g:auto_ctags == 1
-                echo "Enable AutoCtags"
-            else
-                echo "Disable AutoCtags"
-            endif
-        endfunction
-        command! AutoCtagsToggle call <SID>auto_ctags_toggle()
-
+        " let g:auto_ctags = 0
+        " function! s:auto_ctags_toggle()
+        "     if g:auto_ctags == 0
+        "         let g:auto_ctags = 1
+        "     else
+        "         let g:auto_ctags = 0
+        "     endif
+        "     if g:auto_ctags == 1
+        "         echo "Enable AutoCtags"
+        "     else
+        "         echo "Disable AutoCtags"
+        "     endif
+        " endfunction
+        " command! AutoCtagsToggle call <SID>auto_ctags_toggle()
+        "
         "-----------------------
         " tで始まるショートカット
         "-----------------------
@@ -753,7 +754,7 @@ if has('nvim')
         " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
         nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>
         nnoremap <silent> tb :<C-u>TagbarToggle<CR>
-        nnoremap <silent> tc :<C-u>AutoCtagsToggle<CR>
+        " nnoremap <silent> tc :<C-u>AutoCtagsToggle<CR>
         nnoremap <silent> tl :<C-u>ALEToggle<CR>
         nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>
         nnoremap <silent> tj :<C-u>bprev<CR>
