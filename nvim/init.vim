@@ -343,9 +343,9 @@ if has('nvim')
         vmap <C-v> <Plug>(expand_region_shrink)
 
         " automatic ctags generater
-        " call dein#add('jsfaint/gen_tags.vim')
-        " let g:gen_tags#ctags_auto_gen = 1
-        " let g:gen_tags#gtags_auto_gen = 1
+        call dein#add('jsfaint/gen_tags.vim')
+        let g:gen_tags#ctags_auto_gen = 1
+        let g:gen_tags#gtags_auto_gen = 1
 
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
@@ -548,9 +548,10 @@ if has('nvim')
         " call dein#add('lyuts/vim-rtags')
 
         call dein#add('majutsushi/tagbar') " タグ関連(画面右)
-        call dein#add('soramugi/auto-ctags.vim')
+
+        " call dein#add('soramugi/auto-ctags.vim')
         " call dein#add('jsfaint/gen_tags.vim')
-        set tags=.tags;$HOME
+        " set tags=.tags;$HOME
         " function! s:execute_ctags() abort
         "   let tag_name = '.tags'
         "   let tags_path = findfile(tag_name, '.;')
@@ -562,9 +563,9 @@ if has('nvim')
         "   execute 'silent !cd' tags_dirpath '&& ctags -R -f' tag_name '2> /dev/null &'
         " endfunction
         " autocmd BufWritePost * call s:execute_ctags()
-
-        let g:gen_tags#ctags_auto_gen = 1
-
+        "
+        " let g:gen_tags#ctags_auto_gen = 1
+        "
         let g:lightline = {
                     \ 'colorscheme': 'wombat',
                     \ 'active': {
