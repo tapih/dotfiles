@@ -48,6 +48,7 @@ sudo apt-get -y install \
 	bison \
 	flex \
 	xsel \
+	xdg-open \
 	ncurses-dev \
 	exuberant-ctags \
 	silversearcher-ag
