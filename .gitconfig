@@ -7,6 +7,7 @@
     br = branch
     up = rebase
     ci = commit
+    vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [user]
     email = h.muraoka714@gmail.com

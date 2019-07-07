@@ -343,9 +343,9 @@ if has('nvim')
         vmap <C-v> <Plug>(expand_region_shrink)
 
         " automatic ctags generater
-        " call dein#add('jsfaint/gen_tags.vim')
-        " let g:gen_tags#ctags_auto_gen = 1
-        " let g:gen_tags#gtags_auto_gen = 1
+        call dein#add('jsfaint/gen_tags.vim')
+        let g:gen_tags#ctags_auto_gen = 1
+        let g:gen_tags#gtags_auto_gen = 1
 
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
