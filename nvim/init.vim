@@ -190,10 +190,10 @@ nnoremap sp :<C-u>sp<CR>
 nnoremap sv :<C-u>vs<CR>
 
 " s+hjkl でウィンドウ間を移動
-nnoremap sh <C-w>h
-nnoremap sj <C-w>j
-nnoremap sk <C-w>k
-nnoremap sl <C-w>l
+" nnoremap sh <C-w>h
+" nnoremap sj <C-w>j
+" nnoremap sk <C-w>k
+" nnoremap sl <C-w>l
 
 " sq+hjklでウィンドウを削除
 nnoremap <silent> sqh <C-w>h:q<CR>
@@ -343,9 +343,9 @@ if has('nvim')
         vmap <C-v> <Plug>(expand_region_shrink)
 
         " automatic ctags generater
-        call dein#add('jsfaint/gen_tags.vim')
-        let g:gen_tags#ctags_auto_gen = 1
-        let g:gen_tags#gtags_auto_gen = 1
+        " call dein#add('jsfaint/gen_tags.vim')
+        " let g:gen_tags#ctags_auto_gen = 1
+        " let g:gen_tags#gtags_auto_gen = 1
 
         "  toggle true false
         call dein#add('AndrewRadev/switch.vim')
@@ -535,6 +535,18 @@ if has('nvim')
             autocmd!
             autocmd FileType git setlocal nofoldenable foldlevel=0
         augroup END
+
+        " enable update on every change
+        function! GlobalChangedLines(ex_cmd)
+          for hunk in GitGutterGetHunks()
+            for lnum in range(hunk[2], hunk[2]+hunk[3]-1)
+              let cursor = getcurpos()
+              silent! execute lnum.a:ex_cmd
+              call setpos('.', cursor)
+            endfor
+          endfor
+        endfunction
+        command -nargs=1 Glines call GlobalChangedLines(<q-args>)
 
 
 
