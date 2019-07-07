@@ -162,3 +162,4 @@ BASE_DIR=`realpath $(dirname $0)`
 [ -e ${HOME}/.tmux.conf   ] || ln -s ${BASE_DIR}/.tmux.conf    ${HOME}/
 [ -e ${HOME}/.config/nvim ] || ln -s ${BASE_DIR}/nvim          ${HOME}/.config/
 [ -e ${HOME}/.nvimrc      ] || ln -s ${BASE_DIR}/nvim/init.vim ${HOME}/.vimrc
+[ -e ${HOME}/.Xmodmap     ] || ln -s ${BASE_DIR}/.Xmodmap      ${HOME}/
