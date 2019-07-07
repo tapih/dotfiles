@@ -48,9 +48,9 @@ autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
 " ヤンクバッファを共有
 if has('unix')
-    set clipboard+=unnamed
+    set clipboard^=unnamed
 else
-    set clipboard+=unnamedplus
+    set clipboard^=unnamedplus
 endif
 
 set nobackup nowritebackup " backup file作らない
