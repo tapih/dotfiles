@@ -413,5 +413,9 @@ if [ -z "$TMUX" ]; then
     fi
 fi
 
+if [ -f ${HOME}/.bin/tmuxinator ]; then
+    source ${HOME}/.bin/tmuxinator.zsh
+fi
+
 # ローカルのzshrcを読み込む
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

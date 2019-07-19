@@ -17,7 +17,7 @@ NVIM_PYTHON2_VERSION=2.7.16
 NVIM_PYTHON3_VERSION=3.7.3
 NODE_VERSION=10.16.0
 GO_VERSION=1.12.5
-TMUX_VERSION=2.8
+TMUX_VERSION=2.9
 GLOBAL_VERSION=6.5.6
 
 if [ ! $(echo ${SHELL} | grep zsh) ]; then
@@ -48,6 +48,7 @@ sudo apt -y --no-install-recommends install \
 	tig \
 	htop \
 	llvm \
+	tree \
 	make \
 	build-essential \
 	autotools-dev \
@@ -101,9 +102,6 @@ mkdir -p ${HOME}/.config
 [ -e ${HOME}/.tmux.conf   -o -L ${HOME}/.tmux.conf   ] || ln -s ${BASE_DIR}/.tmux.conf    ${HOME}/
 [ -d ${HOME}/.config/nvim -o -L ${HOME}/.config/nvim ] || ln -s ${BASE_DIR}/nvim          ${HOME}/.config/
 [ -e ${HOME}/.vimrc       -o -L ${HOME}/.vimrc       ] || ln -s ${BASE_DIR}/nvim/init.vim ${HOME}/.vimrc
-
-echo "install tmuxinator..."
-sudo gem install tmuxinator
 
 echo "install pyenv ..."
 PYENV_ROOT_DIR=${HOME}/.pyenv
@@ -187,6 +185,11 @@ if ! is_exists tmux ; then
 	cd ..
 	rm -f ${TMUX_TMP_PATH}
 fi
+
+echo "install tmuxinator..."
+sudo gem install tmuxinator
+mkdir -p ${HOME}/.bin
+wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -o ~/.bin/tmuxinator.zsh
 
 echo "install tmux plugins ..."
 TPM_PATH=${HOME}/.tmux/plugins/tpm
