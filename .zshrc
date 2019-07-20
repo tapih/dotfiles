@@ -288,18 +288,18 @@ fi
 case $OSTYPE in
     darwin*)
         alias ls='ls -FG'
-        alias ll='ls -FGl'
-        alias la='ls -FGla'
+        alias ll='ls -FGlh'
+        alias la='ls -FGlha'
     ;;
     linux*)
         alias ls='ls -FG --color=auto'
-        alias ll='ls -FGl --color=auto'
-        alias la='ls -FGla --color=auto'
+        alias ll='ls -FGlh --color=auto'
+        alias la='ls -FGlha --color=auto'
     ;;
     msys*)
         alias ls='ls -FG --color=auto'
-        alias ll='ls -FGl --color=auto'
-        alias la='ls -FGla --color=auto'
+        alias ll='ls -FGlh --color=auto'
+        alias la='ls -FGlha --color=auto'
     ;;
 esac
 
