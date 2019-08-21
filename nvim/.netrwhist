@@ -1,3 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_cnt =7
 let g:netrw_dirhist_1='/home/tapih/go/src/github.com/cybozu-go/cke/mtest/operators'
+let g:netrw_dirhist_2='/home/tapih/.config'
+let g:netrw_dirhist_3='/home/tapih/.config/nvim'
+let g:netrw_dirhist_4='/home/tapih/Projects/sample/child'
+let g:netrw_dirhist_5='/home/tapih/go/src/github.com/tapih/openapi-tutorial/server'
+let g:netrw_dirhist_6='/home/tapih/go/src/github.com/tapih/openapi-tutorial/pkg/client'
+let g:netrw_dirhist_7='/home/tapih/Projects/loki/k8s-kind-cluster/loki'

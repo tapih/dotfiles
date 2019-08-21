@@ -26,17 +26,17 @@ setopt ignoreeof # C-Dでログアウトしない
 setopt noflowcontrol # disable C-S C-Q
 
 # pyenv
-if is_exists pyenv ; then
-  eval "$(pyenv init -)";
+if [ -d ${HOME}/.pyenv ]; then
   export PYENV_ROOT=$HOME/.pyenv
   export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
+  eval "$(pyenv init -)";
 fi
 
 #goenv
-if is_exists goenv ; then
-  eval "$(goenv init -)";
+if [ -d ${HOME}/.goenv ]; then
   export GOENV_ROOT=$HOME/.goenv
   export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
+  eval "$(goenv init -)";
 fi
 
 # Rust
@@ -350,6 +350,7 @@ is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 is_exists gsed && alias sed='gsed'
 is_exists tmux && alias tmux="tmux -2"
 is_exists git && alias g='git'
+is_exists kubectl && k='kubectl'
 
 # backup whole directory
 function backup {

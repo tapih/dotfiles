@@ -47,11 +47,7 @@ set tabstop=4  " タブは半角スペース4つ分で表示
 autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
 " ヤンクバッファを共有
-if has('unix')
-    set clipboard^=unnamed
-else
-    set clipboard^=unnamedplus
-endif
+set clipboard^=unnamedplus
 
 set nobackup nowritebackup " backup file作らない
 set noswapfile " swap file作らない
@@ -243,14 +239,6 @@ if has('nvim')
         call dein#add(g:dein_repo_dir) " dein自身を管理
 
         "-----------------------
-        " color-theme
-        "-----------------------
-        colorscheme jellybeans
-        execute 'set rtp+=' . g:dein_dir . '/repos/github.com/nanotech/jellybeans.vim'
-        call dein#add('nanotech/jellybeans.vim')
-        " call dein#add('cocopon/iceberg.vim')
-
-        "-----------------------
         " denite
         "-----------------------
         call dein#add('Shougo/denite.nvim')
@@ -310,6 +298,13 @@ if has('nvim')
         " 前回の結果の前後を開く
         nnoremap <silent> ,j :<C-u>Denite -resume -immediately -select=+1<CR>
         nnoremap <silent> ,k :<C-u>Denite -resume -immediately -select=-1<CR>
+
+        "-----------------------
+        " color-theme
+        "-----------------------
+        call dein#add('morhetz/gruvbox')
+        execute 'set rtp+=' . g:dein_dir . '/repos/github.com/morhetz/gruvbox'
+        colorscheme gruvbox
 
         "-----------------------
         " コード入力補助
@@ -773,6 +768,7 @@ if has('nvim')
         nnoremap <silent> tk :<C-u>bnext<CR>
 
         call dein#end()
+        call dein#save_state()
     endif
 endif
 
