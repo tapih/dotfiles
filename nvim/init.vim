@@ -297,15 +297,9 @@ if has('nvim')
     nnoremap <silent> ,k :<C-u>Denite -resume -immediately -select=-1<CR>
 
     "-----------------------
-    " color-theme
-    "-----------------------
-    call dein#add('morhetz/gruvbox')
-    execute 'set rtp+=' . g:dein_dir . '/repos/github.com/morhetz/gruvbox'
-    colorscheme gruvbox
-
-    "-----------------------
     " コード入力補助
     "-----------------------
+    call dein#add('morhetz/gruvbox') " colorsheme
     call dein#add('tpope/vim-speeddating') " C-a, C-xを日付に拡張
     call dein#add('tpope/vim-repeat') " 独自ショートカットもひとまとまりで'.u'できる
     call dein#add('coderifous/textobj-word-column.vim') " 矩形選択を拡張
@@ -359,16 +353,6 @@ if has('nvim')
     highlight BookmarkLine ctermbg=194 ctermfg=NONE
     let g:bookmark_sign = '♥'
     let g:bookmark_highlight_lines = 1
-
-    " ペーストの後<Ctrl-p><Ctrl-n>でヤンクバッファを探索
-    call dein#add('LeafCage/yankround.vim')
-    let g:yankround_dir = g:dein_dir  . '/yankround'
-    nmap p <Plug>(yankround-p)
-    nmap P <Plug>(yankround-P)
-    nmap gp <Plug>(yankround-gp)
-    nmap gP <Plug>(yankround-gP)
-    nmap <C-p> <Plug>(yankround-prev)
-    nmap <C-n> <Plug>(yankround-next)
 
     " snippet
     call dein#add('Shougo/neosnippet')
@@ -766,6 +750,8 @@ if has('nvim')
 
     call dein#end()
     call dein#save_state()
+
+    colorscheme gruvbox
 endif
 
 "=========================================================================
