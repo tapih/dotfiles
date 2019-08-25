@@ -229,82 +229,40 @@ if has('nvim')
     "-----------------------
     " denite
     "-----------------------
-    Plug 'Shougo/denite.nvim'
-    Plug 'Shougo/neomru.vim'
-    Plug 'Shougo/neoyank.vim' " yank history
-    Plug 'thinca/vim-qfreplace'
-    Plug 'rking/ag.vim'  " 高速な検索
+    Plug 'Shougo/denite.nvim', {'on': 'Denite'}
+    Plug 'Shougo/neomru.vim', {'on': 'Denite'}
+    Plug 'Shougo/neoyank.vim', {'on': 'Denite'} " yank history
+    Plug 'thinca/vim-qfreplace', {'on': 'Denite'}
+    Plug 'rking/ag.vim', {'on': 'Denite'}  " 高速な検索
 
-    " function! MyDeniteReplace(context)
-    "     let qflist = []
-    "     for target in a:context['targets']
-    "         if !has_key(target, 'action__path') | continue | endif
-    "         if !has_key(target, 'action__line') | continue | endif
-    "         if !has_key(target, 'action__text') | continue | endif
-    "         call add(qflist, {
-    "                     \ 'filename': target['action__path'],
-    "                     \ 'lnum': target['action__line'],
-    "                     \ 'text': target['action__text']
-    "                     \ })
-    "     endfor
-    "     call setqflist(qflist)
-    "     call qfreplace#start('')
-    " endfunction
-
-    " call denite#custom#action('file', 'qfreplace', function('MyDeniteReplace'))
-    " call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-    " call denite#custom#var('grep', 'command', ['ag'])
-    " call denite#custom#var('grep', 'recursive_opts', [])
-    " call denite#custom#var('grep', 'pattern_opt', [])
-
-    " nnoremap [denite] <Nop>
-
-    " " ファイル内検索
-    " nnoremap ,/ :<C-u>Denite -buffer-name=search -auto-highlight line<CR>
-
-    " " 現在開いているファイルと同じディレクトリ以下でファイル検索
-    " nnoremap <silent> ,f :<C-u>DeniteBufferDir file<CR>
-
-    " " カレントディレクトリ以下でファイル検索
-    " nnoremap <silent> ,F :<C-u>Denite file<CR>
-
-    " " プラグイン
-    " nnoremap <silent> ,d :<C-u>Denite plug<CR>
-
-    " " バッファ一覧
-    " nnoremap <silent> ,b :<C-u>Denite buffer<CR>
-
-    " " grep
-    " nnoremap <silent> ,g :<C-u>Denite grep<CR>
-
-    " " カーソルの下の単語でgrep
-    " nnoremap <silent> ,c :<C-u>DeniteCursorWord grep<CR>
-
-    " " 最近開いたバッファ
-    " nnoremap <silent> ,r :<C-u>Denite file_mru<CR>
-
-    " " 前回の結果の前後を開く
-    " nnoremap <silent> ,j :<C-u>Denite -resume -immediately -select=+1<CR>
-    " nnoremap <silent> ,k :<C-u>Denite -resume -immediately -select=-1<CR>
+    autocmd FileType denite call s:denite_my_settings()
+    autocmd FileType denite call s:denite_my_settings()
+    function! s:denite_my_settings() abort
+      nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+      nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+      nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+      nnoremap <silent><buffer><expr> q denite#do_map('quit')
+      nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
+      nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+    endfunction
 
     "-----------------------
     " コード入力補助
     "-----------------------
     Plug 'morhetz/gruvbox' " colorsheme
-    Plug 'tpope/vim-speeddating' " C-a, C-xを日付に拡張
-    Plug 'tpope/vim-repeat' " 独自ショートカットもひとまとまりで'.u'できる
-    Plug 'coderifous/textobj-word-column.vim' " 矩形選択を拡張
-    Plug 'tpope/vim-surround'  " 括弧などのブロック文字を簡単に変更
-    Plug 'cohama/lexima.vim'  " 自動でカッコなどを閉じる
-    Plug 'h1mesuke/vim-alignta' " テキスト自動整形
-    Plug 'bronson/vim-trailing-whitespace'  " 全角スペースをハイライト
-    Plug 'ConradIrwin/vim-bracketed-paste' " ペーストでインデントが崩れない
-    Plug 'kana/vim-textobj-user' " textobj設定
-    Plug 'Yggdroot/indentLine' " インデントを見やすく
-    Plug 'aperezdc/vim-template'  " テンプレートからファイル作成
+    Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
+    Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
+    Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
+    Plug 'ConradIrwin/vim-bracketed-paste', {'on': []} " ペーストでインデントが崩れない
+    Plug 'kana/vim-textobj-user', {'on': []} " textobj設定
+    Plug 'Yggdroot/indentLine', {'on': []} " インデントを見やすく
+    Plug 'aperezdc/vim-template', {'on': []} " テンプレートからファイル作成
+    Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
+    Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
+    Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
 
     " 一括コメントアウト追加/削除
-    Plug 'tomtom/tcomment_vim'
+    Plug 'tomtom/tcomment_vim', {'on': 'TComment'}
     let g:tcomment_opleader1 = 'sc'
 
     " 画面内の任意の場所にジャンプ
@@ -325,30 +283,23 @@ if has('nvim')
     " let g:gen_tags#gtags_auto_gen = 1
 
     "  toggle true false
-    Plug 'AndrewRadev/switch.vim'
+    Plug 'AndrewRadev/switch.vim', {'on': 'Switch'}
     let g:switch_mapping = 's-'
 
     " choosewin
-    Plug 't9md/vim-choosewin'  " ウィンドウ選択
+    Plug 't9md/vim-choosewin', {'on': 'ChooseWin'}  " ウィンドウ選択
     nnoremap - <Plug>(choosewin)
     let g:choosewin_label = 'fjsldka;'
 
     " テキスト整形
-    Plug 'junegunn/vim-easy-align'
+    Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
     xnoremap sa <Plug>(EasyAlign)
     nnoremap sa <Plug>(EasyAlign)
 
-    " bookmark
-    Plug 'MattesGroeger/vim-bookmarks'
-    highlight BookmarkSign ctermbg=NONE ctermfg=160
-    highlight BookmarkLine ctermbg=194 ctermfg=NONE
-    let g:bookmark_sign = '♥'
-    let g:bookmark_highlight_lines = 1
-
     " snippet
-    Plug 'Shougo/neosnippet'
-    Plug 'Shougo/neosnippet-snippets'
-    Plug 'honza/vim-snippets'
+    Plug 'Shougo/neosnippet', {'on': []}
+    Plug 'Shougo/neosnippet-snippets', {'on': []}
+    Plug 'honza/vim-snippets', {'on': []}
     let g:neosnippet#enable_conceal_markers = 0
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#snippets_directory = g:plug_dir  . '/repos/github.com/vim-snippets/snippets'
@@ -357,7 +308,7 @@ if has('nvim')
     xnoremap <C-s> <Plug>(neosnippet_expand_target)
 
     " completion
-    Plug 'Shougo/deoplete.nvim'  " completion engine
+    Plug 'Shougo/deoplete.nvim', {'on': []}  " completion engine
     let g:deoplete#enable_auto_close_preview = 0 " preview windowを閉じない
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
@@ -387,19 +338,21 @@ if has('nvim')
 
     " lint
     Plug 'w0rp/ale'
-    Plug 'prettier/vim-prettier', {'build': 'npm install'}
+    Plug 'prettier/vim-prettier', {'do': 'npm install'}
     let g:ale_linters = {
-                \ 'html': ['prettier'],
-                \ 'css': ['prettier'],
-                \ 'scss': ['prettier'],
-                \ 'json': ['prettier'],
-                \ 'yaml': ['prettier'],
-                \ 'javascript': ['eslint'],
-                \ 'typescript': ['tslint'],
-                \ 'python': ['yapf', 'autopep8'],
-                \ 'go': ['goimports', 'gofmt'],
-                \ 'rust': ['rustfmt'],
-                \}
+        \ 'html': ['prettier'],
+        \ 'css': ['prettier'],
+        \ 'scss': ['prettier'],
+        \ 'json': ['prettier'],
+        \ 'yaml': ['prettier'],
+        \ 'javascript': ['eslint'],
+        \ 'typescript': ['tslint'],
+        \ 'python': ['yapf', 'autopep8'],
+        \ 'go': ['goimports', 'gofmt'],
+        \ 'rust': ['rustfmt'],
+        \ 'cpp': ['clangd'],
+        \ 'c': ['clangd'],
+        \}
     let g:ale_go_langserver_executable = 'gopls'
     let g:ale_fixers = g:ale_linters
     let g:ale_lint_on_text_changed = 0
@@ -419,10 +372,10 @@ if has('nvim')
     "--------
     " python
     "--------
-    Plug 'neovim/python-client', {'on_ft': 'python'}
-    Plug 'bps/vim-textobj-python', {'on_ft':  'python'} " textobj拡張
-    Plug 'hynek/vim-python-pep8-indent', {'on_ft': 'python'}  " pep8に準拠したインデント
-    Plug 'zchee/deoplete-jedi', {'on_ft': 'python'}  " completion
+    Plug 'neovim/python-client', {'for': 'python'}
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
+    Plug 'bps/vim-textobj-python', {'for':  'python'} " textobj拡張
+    Plug 'zchee/deoplete-jedi', {'for': 'python', 'on': []}  " completion
     let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 
     " add syntax
@@ -440,45 +393,52 @@ if has('nvim')
     hi link pythonDelimiter      Special
 
     "------------
+    " C++
+    "------------
+    Plug 'Shougo/deoplete-clangx', {'for': 'cpp'}
+    Plug 'Shougo/neoinclude', {'for': 'cpp'}
+    Plug 'vim-scripts/a.vim', {'for': 'cpp'}
+
+    "------------
     " JS + TS
     "------------
-    Plug 'othree/html5.vim'
-    Plug 'mattn/emmet-vim' " htmlタグ打ちショートカット
-    Plug 'JulesWang/css.vim'
-    Plug 'hail2u/vim-css3-syntax'
-    Plug 'cakebaker/scss-syntax.vim'
-    Plug 'alvan/vim-closetag'
-    Plug 'pangloss/vim-javascript'
-    Plug 'carlitux/deoplete-ternjs' " js completion
-    Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'Quramy/tsuquyomi'
+    Plug 'othree/html5.vim', {'for': 'html'}
+    Plug 'mattn/emmet-vim', {'for': 'html'}
+    Plug 'alvan/vim-closetag', {'for': 'html'}
+    Plug 'JulesWang/css.vim', {'for': 'css'}
+    Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
+    Plug 'cakebaker/scss-syntax.vim', {'for': 'sass'}
+    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
+    Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'on': []}
+    Plug 'HerringtonDarkholme/yats.vim', {'for': 'javascript'}
+    Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
     let g:user_emmet_leader_key='<C-i>'
 
     "------------
     " Rust
     "------------
-    Plug 'rust-lang/rust.vim'
-    Plug 'sebastianmarkow/deoplete-rust'
+    Plug 'rust-lang/rust.vim', {'for': 'rust'}
+    Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust', 'on': []}
 
     "------------
     " Go
     "------------
-    Plug 'fatih/vim-go'
-    Plug 'deoplete-plugins/deoplete-go'
+    Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'deoplete-plugins/deoplete-go', {'for': 'go', 'on': []}
     let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
     let g:go_fmt_command = 'goimports'
+    let g:go_bin_path = $GOPATH . '/bin'
 
     "------------
     " Others
     "------------
-    Plug 'iamcco/markdown-preview.nvim', {'on_ft': ['markdown', 'pandoc.markdown', 'rmd'], 'build': 'npm install'}
-    Plug 'cespare/vim-toml', {'on_ft': 'toml'}  " toml syntax
-    Plug 'elzr/vim-json', {'on_ft' : 'json'}  " json
+    Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
+    Plug 'cespare/vim-toml', {'for': 'toml'}  " toml syntax
+    Plug 'elzr/vim-json', {'for' : 'json'}  " json
     Plug 'chase/vim-ansible-yaml'
     Plug 'chr4/nginx.vim'
     Plug 'ekalinin/Dockerfile.vim'
     let g:vim_json_syntax_conceal = 0
-    let g:go_bin_path = $GOPATH.'/bin'
 
 
 
@@ -520,12 +480,11 @@ if has('nvim')
     "=========================================================================
     " ウィジェット関連
     "=========================================================================
+    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
+    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
     Plug 'ap/vim-buftabline' " バッファ表示(画面下
-    Plug 'Xuyuanp/nerdtree-git-plugin' " git gutter
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
-    Plug 'scrooloose/nerdtree' " ファイルツリー（画面右）
     " Plug 'lyuts/vim-rtags'
-
     Plug 'majutsushi/tagbar' " タグ関連(画面右
 
     " Plug 'soramugi/auto-ctags.vim'
@@ -546,31 +505,31 @@ if has('nvim')
     " let g:gen_tags#ctags_auto_gen = 1
     "
     let g:lightline = {
-                \ 'colorscheme': 'wombat',
-                \ 'active': {
-                \   'left': [
-                \     ['mode', 'paste'],
-                \     ['filename'], ['fugitive', 'gitgutter', 'ale'],
-                \   ],
-                \   'right': [
-                \     ['lineinfo'], ['percent'],
-                \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
-                \   ]
-                \ },
-                \ 'component_function': {
-                \   'mode': 'MyMode',
-                \   'filename': 'MyFileName',
-                \   'fugitive': 'MyFugitive',
-                \   'ale': 'ALEGetStatusLine',
-                \   'gitgutter': 'MyGitGutter',
-                \   'fileformat': 'MyFileFormat',
-                \   'fileencoding': 'MyFileEncoding',
-                \   'filetype': 'MyFileType',
-                \   'charcode': 'MyCharCode',
-                \ },
-                \ 'separator': {'left': '>>', 'right': '|'},
-                \ 'subseparator': {'left': '|', 'right': '|'}
-                \ }
+        \ 'colorscheme': 'wombat',
+        \ 'active': {
+        \   'left': [
+        \     ['mode', 'paste'],
+        \     ['filename'], ['fugitive', 'gitgutter', 'ale'],
+        \   ],
+        \   'right': [
+        \     ['lineinfo'], ['percent'],
+        \     ['charcode', 'fileformat', 'fileencoding', 'filetype'],
+        \   ]
+        \ },
+        \ 'component_function': {
+        \   'mode': 'MyMode',
+        \   'filename': 'MyFileName',
+        \   'fugitive': 'MyFugitive',
+        \   'ale': 'ALEGetStatusLine',
+        \   'gitgutter': 'MyGitGutter',
+        \   'fileformat': 'MyFileFormat',
+        \   'fileencoding': 'MyFileEncoding',
+        \   'filetype': 'MyFileType',
+        \   'charcode': 'MyCharCode',
+        \ },
+        \ 'separator': {'left': '>>', 'right': '|'},
+        \ 'subseparator': {'left': '|', 'right': '|'}
+        \ }
 
     function! MyModified()
         return &ft =~ 'help\|nerdtree\|gundo\|tagbar\|terminal' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -684,8 +643,6 @@ if has('nvim')
     "   call feedkeys("\l")
     " endfunction
     let g:NERDTreeWinPos = "right"
-
-    Plug 'Xuyuanp/nerdtree-git-plugin'
     let g:NERDTreeIndicatorMapCustom = {
                 \ "Modified"  : "✹",
                 \ "Staged"    : "✚",
@@ -741,7 +698,42 @@ if has('nvim')
 
     call plug#end()
 
+    " setting color
     colorscheme gruvbox
+
+    " lazy load
+    " after first insert
+    augroup load_us_insert
+        autocmd!
+        autocmd InsertEnter * call plug#load(
+        \ 'deoplete.nvim',
+        \ 'neosnippet.vim',
+        \ 'neosnippet-snippets',
+        \ 'vim-snippets',
+        \ 'deoplete-jedi',
+        \ 'deoplete-ternjs',
+        \ 'deoplete-go',
+        \ 'deoplete-rust',
+        \ ) | autocmd! load_us_insert
+    augroup END
+
+    " after certain period
+    function! s:load_plug(timer)
+        call plug#load(
+        \ 'coderifous/textobj-word-column.vim',
+        \ 'cohama/lexima.vim',
+        \ 'bronson/vim-trailing-whitespace',
+        \ 'ConradIrwin/vim-bracketed-paste',
+        \ 'kana/vim-textobj-user',
+        \ 'Yggdroot/indentLine',
+        \ 'aperezdc/vim-template',
+        \ 'tpope/vim-repeat',
+        \ 'tpope/vim-surround',
+        \ 'tpope/vim-speeddating',
+        \ )
+    endfunction
+
+    call timer_start(500, function("s:load_plug")) " after 500 milliseconds
 
     " ローカルの設定を反映
     if filereadable(expand('~/.nvimrc.local'))

@@ -57,16 +57,20 @@ sudo apt -y --no-install-recommends install \
 	ruby \
 	bison \
 	flex \
-	ncurses-dev
-
-# for vim
-sudo apt -y --no-install-recommends install \
-	xsel \
-	exuberant-ctags \
-	silversearcher-ag \
+	ncurses-dev \
     compiz-plugins \
     compiz-plugins-extra \
     compizconfig-settings-manager
+
+# for vim
+sudo apt -y --no-install-recommends install \
+	exuberant-ctags \
+	silversearcher-ag
+
+" for tmux"
+sudo apt -y --no-install-recommends install
+	xsel \
+    xdg-open
 
 # for docker
 sudo apt -y --no-install-recommends install \
