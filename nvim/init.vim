@@ -307,8 +307,39 @@ if has('nvim')
     snoremap <C-s> <Plug>(neosnippet_expand_or_jump)
     xnoremap <C-s> <Plug>(neosnippet_expand_target)
 
+    " lsp
+    Plug 'autozimu/LanguageClient-neovim', {
+        \ 'branch': 'next',
+        \ 'do': 'bash install.sh',
+        \ 'for': ['rust', 'javascript', 'go', 'python', 'cpp', 'c'],
+        \ }
+    let g:LanguageClient_serverCommands = {
+        \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+        \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+        \ 'python': ['~/.pyenv/versions/neovim3/bin/pyls'],
+        \ 'go': ['gopls'],
+        \ 'cpp': ['clangd'],
+        \ 'c': ['clangd'],
+        \ }
+    augroup LanguageClient_config
+        autocmd!
+        autocmd User LanguageClientStarted setlocal signcolumn=yes
+        autocmd User LanguageClientStopped setlocal signcolumn=auto
+    augroup END
+
+    let g:LanguageClient_autoStart = 1
+
+    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+    " Or map each action separately
+    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+    Plug 'junegunn/fzf.vim'
+
     " completion
-    Plug 'Shougo/deoplete.nvim', {'on': []}  " completion engine
+    Plug 'Shougo/deoplete.nvim', {'on': [], 'do': 'UpdateRemotePlugins'}
     let g:deoplete#enable_auto_close_preview = 0 " preview windowを閉じない
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
@@ -337,8 +368,8 @@ if has('nvim')
     augroup END
 
     " lint
-    Plug 'w0rp/ale'
-    Plug 'prettier/vim-prettier', {'do': 'npm install'}
+    Plug 'w0rp/ale', {'on': []}
+    Plug 'prettier/vim-prettier', {'do': 'npm install', 'on': 'Prettier'}
     let g:ale_linters = {
         \ 'html': ['prettier'],
         \ 'css': ['prettier'],
@@ -373,8 +404,7 @@ if has('nvim')
     " python
     "--------
     Plug 'neovim/python-client', {'for': 'python'}
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    Plug 'bps/vim-textobj-python', {'for':  'python'} " textobj拡張
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python', 'on': []}  " pep8に準拠したインデント
     Plug 'zchee/deoplete-jedi', {'for': 'python', 'on': []}  " completion
     let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 
@@ -396,7 +426,6 @@ if has('nvim')
     " C++
     "------------
     Plug 'Shougo/deoplete-clangx', {'for': 'cpp'}
-    Plug 'Shougo/neoinclude', {'for': 'cpp'}
     Plug 'vim-scripts/a.vim', {'for': 'cpp'}
 
     "------------
@@ -720,16 +749,19 @@ if has('nvim')
     " after certain period
     function! s:load_plug(timer)
         call plug#load(
-        \ 'coderifous/textobj-word-column.vim',
-        \ 'cohama/lexima.vim',
-        \ 'bronson/vim-trailing-whitespace',
-        \ 'ConradIrwin/vim-bracketed-paste',
-        \ 'kana/vim-textobj-user',
-        \ 'Yggdroot/indentLine',
-        \ 'aperezdc/vim-template',
-        \ 'tpope/vim-repeat',
-        \ 'tpope/vim-surround',
-        \ 'tpope/vim-speeddating',
+        \ 'ale',
+        \ 'LanguageClient-neovim',
+        \ 'textobj-word-column.vim',
+        \ 'lexima.vim',
+        \ 'vim-trailing-whitespace',
+        \ 'vim-bracketed-paste',
+        \ 'vim-textobj-user',
+        \ 'indentLine',
+        \ 'vim-template',
+        \ 'vim-repeat',
+        \ 'vim-surround',
+        \ 'vim-speeddating',
+        \ 'vim-python-pep8-indent',
         \ )
     endfunction
 

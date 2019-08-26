@@ -132,6 +132,7 @@ if [ $(pyenv versions | grep ${NVIM_PYTHON3_VERSION}) ]; then
     pyenv virtualenv ${NVIM_PYTHON3_VERSION} neovim3
     pyenv global neovim3
     pip install neovim
+    pip install pyls
 fi
 
 # echo "install goenv ..."
