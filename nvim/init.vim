@@ -310,11 +310,10 @@ if has('nvim')
     Plug 'autozimu/LanguageClient-neovim', {
         \ 'branch': 'next',
         \ 'do': 'bash install.sh',
-        \ 'for': ['rust', 'javascript', 'go', 'python', 'cpp', 'c'],
+        \ 'for': ['rust', 'go', 'python', 'cpp', 'c'],
         \ }
     let g:LanguageClient_serverCommands = {
         \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-        \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
         \ 'python': ['~/.pyenv/versions/neovim3/bin/pyls'],
         \ 'go': ['gopls'],
         \ 'cpp': ['clangd'],
@@ -405,8 +404,8 @@ if has('nvim')
     "--------
     Plug 'neovim/python-client', {'for': 'python'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
-    let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
+    " Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
+    " let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
 
     " add syntax
     if version < 600
@@ -425,7 +424,7 @@ if has('nvim')
     "------------
     " C++
     "------------
-    Plug 'Shougo/deoplete-clangx', {'for': 'c++'}
+    " Plug 'Shougo/deoplete-clangx', {'for': 'c++'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
 
     "------------
@@ -442,14 +441,14 @@ if has('nvim')
     " Rust
     "------------
     Plug 'rust-lang/rust.vim', {'for': 'rust'}
-    Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+    " Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 
     "------------
     " Go
     "------------
     Plug 'fatih/vim-go', {'for': 'go'}
-    Plug 'deoplete-plugins/deoplete-go', {'for': 'go'}
-    let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    " Plug 'deoplete-plugins/deoplete-go', {'for': 'go'}
+    " let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
 
@@ -737,7 +736,6 @@ if has('nvim')
     function! s:load_plug(timer)
         call plug#load(
         \ 'ale',
-        \ 'LanguageClient-neovim',
         \ 'textobj-word-column.vim',
         \ 'vim-trailing-whitespace',
         \ 'vim-bracketed-paste',
@@ -750,6 +748,7 @@ if has('nvim')
         \ 'vim-gitgutter',
         \ 'vim-easymotion',
         \ 'vim-expand-region',
+        \ 'LanguageClient-neovim',
         \ )
     endfunction
 
