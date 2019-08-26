@@ -263,6 +263,7 @@ if has('nvim')
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
+    Plug 'jiangmiao/auto-pairs'
 
     " 画面内の任意の場所にジャンプ
     Plug 'easymotion/vim-easymotion', {'on': []}
@@ -404,8 +405,8 @@ if has('nvim')
     "--------
     Plug 'neovim/python-client', {'for': 'python'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    " Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
-    " let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
+    Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
+    let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
 
     " add syntax
     if version < 600
@@ -435,6 +436,7 @@ if has('nvim')
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'JulesWang/css.vim', {'for': 'css'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
+    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
     let g:user_emmet_leader_key='<C-i>'
 
     "------------
@@ -455,11 +457,8 @@ if has('nvim')
     "------------
     " Others
     "------------
+    Plug 'sheerun/vim-polyglot'
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
-    Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'elzr/vim-json', {'for' : 'json'}
-    Plug 'chr4/nginx.vim'
-    Plug 'ekalinin/Dockerfile.vim'
     let g:vim_json_syntax_conceal = 0
 
 
