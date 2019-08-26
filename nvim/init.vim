@@ -134,6 +134,7 @@ nnoremap Q q
 
 " 閉じる
 nnoremap <silent> q :<C-u>call CloseBufOrWin()<CR>
+nnoremap <silent> !! :q!<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
@@ -300,6 +301,7 @@ if has('nvim')
     Plug 'Shougo/neosnippet', {'on': []}
     Plug 'Shougo/neosnippet-snippets', {'on': []}
     Plug 'honza/vim-snippets', {'on': []}
+
     let g:neosnippet#enable_conceal_markers = 0
     let g:neosnippet#enable_snipmate_compatibility = 1
     let g:neosnippet#snippets_directory = g:plug_dir  . '/repos/github.com/vim-snippets/snippets'
@@ -339,7 +341,7 @@ if has('nvim')
     Plug 'junegunn/fzf.vim'
 
     " completion
-    Plug 'Shougo/deoplete.nvim', {'on': [], 'do': 'UpdateRemotePlugins'}
+    Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins', 'on': []}
     let g:deoplete#enable_auto_close_preview = 0 " preview windowを閉じない
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
@@ -404,7 +406,7 @@ if has('nvim')
     " python
     "--------
     Plug 'neovim/python-client', {'for': 'python'}
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python', 'on': []}  " pep8に準拠したインデント
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
     Plug 'zchee/deoplete-jedi', {'for': 'python', 'on': []}  " completion
     let g:deoplete#sources#jedi#python_path = g:python3_host_prog
 
@@ -425,22 +427,17 @@ if has('nvim')
     "------------
     " C++
     "------------
-    Plug 'Shougo/deoplete-clangx', {'for': 'cpp'}
-    Plug 'vim-scripts/a.vim', {'for': 'cpp'}
+    Plug 'Shougo/deoplete-clangx', {'for': 'c++', 'on': []}
+    Plug 'vim-scripts/a.vim', {'for': 'c++'}
 
     "------------
-    " JS + TS
+    " HTML + CSS
     "------------
     Plug 'othree/html5.vim', {'for': 'html'}
     Plug 'mattn/emmet-vim', {'for': 'html'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'JulesWang/css.vim', {'for': 'css'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
-    Plug 'cakebaker/scss-syntax.vim', {'for': 'sass'}
-    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    Plug 'carlitux/deoplete-ternjs', {'for': 'javascript', 'on': []}
-    Plug 'HerringtonDarkholme/yats.vim', {'for': 'javascript'}
-    Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
     let g:user_emmet_leader_key='<C-i>'
 
     "------------
@@ -462,9 +459,8 @@ if has('nvim')
     " Others
     "------------
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
-    Plug 'cespare/vim-toml', {'for': 'toml'}  " toml syntax
-    Plug 'elzr/vim-json', {'for' : 'json'}  " json
-    Plug 'chase/vim-ansible-yaml'
+    Plug 'cespare/vim-toml', {'for': 'toml'}
+    Plug 'elzr/vim-json', {'for' : 'json'}
     Plug 'chr4/nginx.vim'
     Plug 'ekalinin/Dockerfile.vim'
     let g:vim_json_syntax_conceal = 0
@@ -474,11 +470,10 @@ if has('nvim')
     "=========================================================================
     " git
     "=========================================================================
-    " Plug 'tpope/vim-fugitive' " vimからgitコマンドをたたく
-    Plug 'cohama/agit.vim' " improved gitv
-    Plug 'idanarye/vim-merginal' " mergeを見やすく
-    Plug 'rhysd/committia.vim' " commit -vのログ入力補助
-    Plug 'airblade/vim-gitgutter' " 差分のある行にマークをつける
+    Plug 'tpope/vim-fugitive', {'on': []}
+    Plug 'airblade/vim-gitgutter', {'on': []} " 差分のある行にマークをつける
+    Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
+    Plug 'rhysd/committia.vim' " commitの画面をリッチに
     nmap sj <Plug>GitGutterNextHunk
     nmap sk <Plug>GitGutterPrevHunk
     let g:gitgutter_sign_added = '✚'
@@ -509,13 +504,12 @@ if has('nvim')
     "=========================================================================
     " ウィジェット関連
     "=========================================================================
+    Plug 'itchyny/lightline.vim' " ステータスライン(画面下
+    Plug 'ap/vim-buftabline' " バッファ表示(画面下
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
-    Plug 'ap/vim-buftabline' " バッファ表示(画面下
-    Plug 'itchyny/lightline.vim' " ステータスライン(画面下
+    Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
     " Plug 'lyuts/vim-rtags'
-    Plug 'majutsushi/tagbar' " タグ関連(画面右
-
     " Plug 'soramugi/auto-ctags.vim'
     " Plug 'jsfaint/gen_tags.vim'
     " set tags=.tags;$HOME
@@ -736,13 +730,14 @@ if has('nvim')
         autocmd!
         autocmd InsertEnter * call plug#load(
         \ 'deoplete.nvim',
-        \ 'neosnippet.vim',
-        \ 'neosnippet-snippets',
-        \ 'vim-snippets',
         \ 'deoplete-jedi',
         \ 'deoplete-ternjs',
         \ 'deoplete-go',
         \ 'deoplete-rust',
+        \ 'deoplete-clangx',
+        \ 'neosnippet',
+        \ 'neosnippet-snippets',
+        \ 'vim-snippets',
         \ ) | autocmd! load_us_insert
     augroup END
 
@@ -761,7 +756,8 @@ if has('nvim')
         \ 'vim-repeat',
         \ 'vim-surround',
         \ 'vim-speeddating',
-        \ 'vim-python-pep8-indent',
+        \ 'vim-fugitive',
+        \ 'vim-gitgutter',
         \ )
     endfunction
 
