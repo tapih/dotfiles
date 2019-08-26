@@ -60,6 +60,7 @@ set conceallevel=0 " 特殊文字を隠さない
 "     set conceallevel=2 concealcursor=niv
 " endif
 
+let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
 let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 
@@ -181,6 +182,7 @@ nnoremap <CR> :<C-u>w<CR>
 "-----------------------
 " sを無効に
 nnoremap s <Nop>
+vnoremap s <Nop>
 
 " s+vp で画面分割
 nnoremap sp :<C-u>sp<CR>
@@ -251,30 +253,26 @@ if has('nvim')
     " コード入力補助
     "-----------------------
     Plug 'morhetz/gruvbox' " colorsheme
-    Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
+    Plug 'tomtom/tcomment_vim' " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
+    Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
     Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
     Plug 'ConradIrwin/vim-bracketed-paste', {'on': []} " ペーストでインデントが崩れない
     Plug 'kana/vim-textobj-user', {'on': []} " textobj設定
     Plug 'Yggdroot/indentLine', {'on': []} " インデントを見やすく
-    Plug 'aperezdc/vim-template', {'on': []} " テンプレートからファイル作成
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
 
-    " 一括コメントアウト追加/削除
-    Plug 'tomtom/tcomment_vim', {'on': 'TComment'}
-    let g:tcomment_opleader1 = 'sc'
-
     " 画面内の任意の場所にジャンプ
-    Plug 'easymotion/vim-easymotion'
+    Plug 'easymotion/vim-easymotion', {'on': []}
     let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
     let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
     nmap sl <Plug>(easymotion-s2)
     nmap sh <Plug>(easymotion-t2)
 
     " 範囲選択をショートカットで
-    Plug 'terryma/vim-expand-region'
+    Plug 'terryma/vim-expand-region', {'on': []}
     vmap v <Plug>(expand_region_expand)
     vmap <C-v> <Plug>(expand_region_shrink)
 
@@ -298,8 +296,7 @@ if has('nvim')
     nnoremap sa <Plug>(EasyAlign)
 
     " snippet
-    Plug 'Shougo/neosnippet', {'on': []}
-    Plug 'Shougo/neosnippet-snippets', {'on': []}
+    Plug 'SirVer/ultisnips', {'on': []}
     Plug 'honza/vim-snippets', {'on': []}
 
     let g:neosnippet#enable_conceal_markers = 0
@@ -341,7 +338,8 @@ if has('nvim')
     Plug 'junegunn/fzf.vim'
 
     " completion
-    Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins', 'on': []}
+    Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'}
+
     let g:deoplete#enable_auto_close_preview = 0 " preview windowを閉じない
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#auto_complete_delay = 0
@@ -362,7 +360,7 @@ if has('nvim')
     inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
     inoremap <expr><C-w> deoplete#close_popup()
     inoremap <expr><C-e> deoplete#cancel_popup()
-    inoremap <C-o> <C-x><C-f>
+    inoremap <expr><C-Space> deoplete#manual_complete()
 
     augroup plugAutoCmd
         autocmd!
@@ -407,8 +405,8 @@ if has('nvim')
     "--------
     Plug 'neovim/python-client', {'for': 'python'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    Plug 'zchee/deoplete-jedi', {'for': 'python', 'on': []}  " completion
-    let g:deoplete#sources#jedi#python_path = g:python3_host_prog
+    Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
+    let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
 
     " add syntax
     if version < 600
@@ -427,7 +425,7 @@ if has('nvim')
     "------------
     " C++
     "------------
-    Plug 'Shougo/deoplete-clangx', {'for': 'c++', 'on': []}
+    Plug 'Shougo/deoplete-clangx', {'for': 'c++'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
 
     "------------
@@ -444,13 +442,13 @@ if has('nvim')
     " Rust
     "------------
     Plug 'rust-lang/rust.vim', {'for': 'rust'}
-    Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust', 'on': []}
+    Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
 
     "------------
     " Go
     "------------
     Plug 'fatih/vim-go', {'for': 'go'}
-    Plug 'deoplete-plugins/deoplete-go', {'for': 'go', 'on': []}
+    Plug 'deoplete-plugins/deoplete-go', {'for': 'go'}
     let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
@@ -729,15 +727,9 @@ if has('nvim')
     augroup load_us_insert
         autocmd!
         autocmd InsertEnter * call plug#load(
-        \ 'deoplete.nvim',
-        \ 'deoplete-jedi',
-        \ 'deoplete-ternjs',
-        \ 'deoplete-go',
-        \ 'deoplete-rust',
-        \ 'deoplete-clangx',
-        \ 'neosnippet',
-        \ 'neosnippet-snippets',
+        \ 'ultisnips',
         \ 'vim-snippets',
+        \ 'lexima.vim',
         \ ) | autocmd! load_us_insert
     augroup END
 
@@ -747,21 +739,21 @@ if has('nvim')
         \ 'ale',
         \ 'LanguageClient-neovim',
         \ 'textobj-word-column.vim',
-        \ 'lexima.vim',
         \ 'vim-trailing-whitespace',
         \ 'vim-bracketed-paste',
         \ 'vim-textobj-user',
         \ 'indentLine',
-        \ 'vim-template',
         \ 'vim-repeat',
         \ 'vim-surround',
         \ 'vim-speeddating',
         \ 'vim-fugitive',
         \ 'vim-gitgutter',
+        \ 'vim-easymotion',
+        \ 'vim-expand-region',
         \ )
     endfunction
 
-    call timer_start(500, function("s:load_plug")) " after 500 milliseconds
+    call timer_start(100, function("s:load_plug"))
 
     " ローカルの設定を反映
     if filereadable(expand('~/.nvimrc.local'))
