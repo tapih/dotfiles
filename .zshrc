@@ -392,7 +392,7 @@ function select-history() {
 }
 
 if is_exists fzf; then
-    FZF_DEFAULT_OPTS='--reverse --border'
+    export FZF_DEFAULT_OPTS='--height 95% --reverse --border'
     zle -N select-history
     bindkey '^r' select-history
 fi

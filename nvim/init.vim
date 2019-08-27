@@ -148,45 +148,43 @@ if has('nvim')
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
-    Plug 'jiangmiao/auto-pairs'
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-    Plug 'junegunn/fzf.vim'
-
+    Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
+    Plug 'terryma/vim-expand-region' " 範囲選択をショートカットで
+    Plug 'AndrewRadev/switch.vim', {'on': 'Switch'} "  toggle true false
+    Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
+    Plug 'SirVer/ultisnips', {'on': []} " snippet engine
+    Plug 'honza/vim-snippets', {'on': []} " snippets
 
     " 画面内の任意の場所にジャンプ
     Plug 'easymotion/vim-easymotion', {'on': []}
     let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
     let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-    nmap sw <Plug>(easymotion-s2)
-    nmap sb <Plug>(easymotion-t2)
 
-    " 範囲選択をショートカットで
-    Plug 'terryma/vim-expand-region', {'on': []}
-    vnoremap v <Plug>(expand_region_expand)
-    vnoremap <C-v> <Plug>(expand_region_shrink)
-
-    "  toggle true false
-    Plug 'AndrewRadev/switch.vim', {'on': 'Switch'}
-    let g:switch_mapping = 's-'
-
-    " choosewin
+    " 任意のバッファにジャンプ
     Plug 't9md/vim-choosewin'  " ウィンドウ選択
-    nnoremap sm :<C-u>ChooseWin<CR>
     let g:choosewin_label = 'fjsldka;'
 
-    " テキスト整形
-    Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
-    xnoremap sa <Plug>(EasyAlign)
-    nnoremap sa <Plug>(EasyAlign)
 
-    " snippet
-    Plug 'SirVer/ultisnips', {'on': []}
-    Plug 'honza/vim-snippets', {'on': []}
+
+    " ---
+    " fzf
+    " ---
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+    Plug 'junegunn/fzf.vim'
+    let g:fzf_layout = { 'right': '~30%' }
+    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+    command! -bang -nargs=* GGrep
+        \ call fzf#vim#grep(
+        \   'git grep --line-number '.shellescape(<q-args>), 0,
+        \   { 'dir': systemlist('git rev-parse --show-toplevel')[0]  }, <bang>0)
+
+
 
     " --------
     " lsp 関連
     " --------
     Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+    inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
     function! s:show_documentation()
       if (index(['vim','help'], &filetype) >= 0)
@@ -199,29 +197,10 @@ if has('nvim')
     " Highlight symbol under cursor on CursorHold
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
-    " show documentation in preview window
-    nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
-    inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>a
-
-    " trigger completion.
-    inoremap <silent><expr> <C-Space> coc#refresh()
-
-    " confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
-
-    " Use `[c` and `]c` to navigate diagnostics
-    nmap <silent> gp <Plug>(coc-diagnostic-prev)
-    nmap <silent> gn <Plug>(coc-diagnostic-next)
-
-    " " Remap keys for gotos
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)"
-
     " Use `:Format` to format current buffer
     command! -nargs=0 Format :call CocAction('format')
+
+
 
     " ---------
     " lint 関連
@@ -255,9 +234,6 @@ if has('nvim')
     let g:ale_sign_error = '✔︎'
     let g:ale_sign_warning = '⚠'
     let g:ale_statusline_format = ['✔︎ %d', '⚠ %d', '']
-    nmap <silent> sn <Plug>(ale_previous_wrap)
-    nmap <silent> sp <Plug>(ale_next_wrap)
-    nnoremap <silent> si :<C-u>ALEFix<CR>
 
 
 
@@ -285,8 +261,6 @@ if has('nvim')
     Plug 'airblade/vim-gitgutter', {'on': []} " 差分のある行にマークをつける
     Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
     Plug 'rhysd/committia.vim' " commitの画面をリッチに
-    nmap sj <Plug>GitGutterNextHunk
-    nmap sk <Plug>GitGutterPrevHunk
     let g:gitgutter_sign_added = '✚'
     let g:gitgutter_sign_modified = '✹'
     let g:gitgutter_sign_removed = '✖'
@@ -320,7 +294,7 @@ if has('nvim')
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
     " Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
-    "
+
     let g:lightline = {
         \ 'colorscheme': 'wombat',
         \ 'active': {
@@ -450,15 +424,8 @@ if has('nvim')
         return "'". char ."' ". nr
     endfunction
 
-    let NERDTreeIgnore = ['.[oa]$', '.(so)$', '.(tgz|gz|zip)$' ]
+    let NERDTreeIgnore = ['.[oa]$', '.(so)$', '.(tgz|gz|zip)$', '\~$']
     let NERDTreeShowHidden = 1
-    " http://qiita.com/ymiyamae/items/3fa77d85163fb734b359
-    " ファイルの方にカーソルを向ける
-    " function! s:MoveToFileAtStart()
-    "   call feedkeys("\<Space>")
-    "   call feedkeys("\s")
-    "   call feedkeys("\l")
-    " endfunction
     let g:NERDTreeWinPos = "right"
     let g:NERDTreeIndicatorMapCustom = {
                 \ "Modified"  : "✹",
@@ -473,52 +440,16 @@ if has('nvim')
                 \ "Unknown"   : "?"
                 \ }
 
-    " augroup NERDTreeAutoCmds
-    "     autocmd!
-    "     autocmd VimEnter * NERDTree | call s:MoveToFileAtStart() " 起動時に開く
-    " augroup END
-
     " auto close nerdtree when close window and there is only one window at that time
     augroup NERDTreeAutoClose
         autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     augroup END
 
-    let NERDTreeIgnore=['\~$']
-
-    " let g:auto_ctags = 0
-    " function! s:auto_ctags_toggle()
-    "     if g:auto_ctags == 0
-    "         let g:auto_ctags = 1
-    "     else
-    "         let g:auto_ctags = 0
-    "     endif
-    "     if g:auto_ctags == 1
-    "         echo "Enable AutoCtags"
-    "     else
-    "         echo "Disable AutoCtags"
-    "     endif
-    " endfunction
-    " command! AutoCtagsToggle call <SID>auto_ctags_toggle()
-    "
-    "-----------------------
-    " tで始まるショートカット
-    "-----------------------
-    nnoremap t <Nop>
-    " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
-    nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>
-    nnoremap <silent> tb :<C-u>TagbarToggle<CR>
-    " nnoremap <silent> tc :<C-u>AutoCtagsToggle<CR>
-    nnoremap <silent> tl :<C-u>ALEToggle<CR>
-    nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>
-    nnoremap <silent> tj :<C-u>bprev<CR>
-    nnoremap <silent> tk :<C-u>bnext<CR>
-
     call plug#end()
 
-    " setting color
-    colorscheme gruvbox
-
+    " ---------
     " lazy load
+    " ---------
     " after first insert
     augroup load_us_insert
         autocmd!
@@ -543,11 +474,12 @@ if has('nvim')
         \ 'vim-fugitive',
         \ 'vim-gitgutter',
         \ 'vim-easymotion',
-        \ 'vim-expand-region',
         \ )
     endfunction
 
     call timer_start(100, function("s:load_plug"))
+
+    colorscheme gruvbox " setting color
 
     " ローカルの設定を反映
     if filereadable(expand('~/.nvimrc.local'))
@@ -582,10 +514,10 @@ nnoremap <C-J> g;
 nnoremap <C-K> g,
 
 " H,Lで行頭、行末に移動
-nnoremap H  ^
-nnoremap L  $
-vnoremap H  ^
-vnoremap L  $
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L $
 
 " Select entire buffer
 nnoremap vy ggVG
@@ -612,6 +544,9 @@ vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<C
 " enterで保存
 nnoremap <CR> :<C-u>w<CR>
 
+"-----------------------
+" Ctrlを使うショートカット
+"-----------------------
 " コマンドラインの一致検索
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -619,8 +554,17 @@ cnoremap <C-n> <Down>
 " C-y でも visual mode に
 nnoremap <C-y> <C-v>
 
+" coc
+nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
+inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>a
+inoremap <silent><expr> <C-Space> coc#refresh()
+
+" expand region
+vnoremap <C-v> <Plug>(expand_region_shrink)
+vnoremap v <Plug>(expand_region_expand)
+
 "-----------------------
-" sを使うショートカット
+" sで始まるショートカット
 "-----------------------
 " sを無効に
 nnoremap s <Nop>
@@ -640,7 +584,71 @@ nnoremap <silent> sl <C-w>l:q<CR>
 nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
 nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 
+" for plugins
+if has('nvim')
+    "easymotion
+    nmap ss <Plug>(easymotion-s2)
+    nmap st <Plug>(easymotion-t2)
 
+    " choosewin
+    nnoremap sm :<C-u>ChooseWin<CR>
+
+    " ale
+    nmap <silent> sn <Plug>(ale_previous_wrap)
+    nmap <silent> sp <Plug>(ale_next_wrap)
+    nnoremap <silent> si :<C-u>ALEFix<CR>
+
+    " switch
+    nnoremap sw :<C-u>Switch<CR>
+
+    " easyalign
+    xnoremap sa <Plug>(EasyAlign)
+    nnoremap sa <Plug>(EasyAlign)
+endif
+
+"-----------------------
+" gで始まるショートカット
+"-----------------------
+if has('nvim')
+    nnoremap gj <Nop>
+    nnoremap gk <Nop>
+    nnoremap gh <Nop>
+    nnoremap gl <Nop>
+
+    " fzf
+    nnoremap <silent> gb :<C-u>GFiles<CR>
+    nnoremap <silent> gh :<C-u>History<CR>
+    nnoremap <silent> gf :<C-u>BLines<CR>
+    nnoremap <silent> gF :<C-u>GGrep<CR>
+    nnoremap <silent> gm :<C-u>BCommits<CR>
+
+    " coc navigate diagnostics
+    nmap <silent> gp <Plug>(coc-diagnostic-prev)
+    nmap <silent> gn <Plug>(coc-diagnostic-next)
+
+    " coc Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)"
+endif
+
+"-----------------------
+" tで始まるショートカット
+"-----------------------
+if has('nvim')
+    nnoremap t <Nop>
+
+    " next buffer
+    nnoremap <silent> tj :<C-u>bprev<CR>
+    nnoremap <silent> tk :<C-u>bnext<CR>
+
+    " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
+    nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>
+    nnoremap <silent> tb :<C-u>TagbarToggle<CR>
+    nnoremap <silent> tl :<C-u>ALEToggle<CR>
+    nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>
+endif
 
 "=========================================================================
 " finalize
