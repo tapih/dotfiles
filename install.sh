@@ -65,9 +65,12 @@ sudo apt -y --no-install-recommends install \
 # for vim
 sudo apt -y --no-install-recommends install \
 	exuberant-ctags \
-	silversearcher-ag
+	silversearcher-ag \
+    clang-tools-6.0 \
+    clang-format-6.0
+export PATH=/usr/lib/llvm-6.0/bin:$PATH
 
-" for tmux"
+# for tmux
 sudo apt -y --no-install-recommends install
 	xsel \
     xdg-open
@@ -112,8 +115,8 @@ PYENV_ROOT_DIR=${HOME}/.pyenv
 [ -e ${PYENV_ROOT_DIR} ] || git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT_DIR}
 [ -e ${PYENV_ROOT_DIR}/plugins/pyenv-virtualenv ] || \
     git clone https://github.com/pyenv/pyenv-virtualenv.git ${PYENV_ROOT_DIR}/plugins/pyenv-virtualenv
-PYENV_ROOT=$HOME/.pyenv
-PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
+export PYENV_ROOT=$HOME/.pyenv
+export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
 eval "$(pyenv init -)";
 
 echo "install python ${NVIM_PYTHON2_VERSION} for nvim ..."
@@ -162,22 +165,6 @@ is_exists n || sudo npm -g i n
 echo "install node ${NODE_VERSION} ..."
 sudo n ${NODE_VERSION}
 
-echo "install GNU global..."
-if ! is_exists gtags ; then
-	GLOBAL_TMP_PATH=global-${GLOBAL_VERSION}.tar.gz
-	curl -sSLf -O http://tamacom.com/global/${GLOBAL_TMP_PATH}
-	tar zxf ${GLOBAL_TMP_PATH}
-	cd ${GLOBAL_TMP_PATH%.tar.gz}
-	./configure && make
-	sudo make install
-	cd ..
-	rm -f ${GLOBAL_TMP_PATH}
-fi
-
-echo "install pygments..."
-pyenv global neovim2
-pip install pygments
-
 echo "install tmux ..."
 if ! is_exists tmux ; then
 	TMUX_TMP_PATH=tmux-${TMUX_VERSION}.tar.gz
@@ -200,22 +187,3 @@ echo "install tmux plugins ..."
 TPM_PATH=${HOME}/.tmux/plugins/tpm
 [ -e ${TPM_PATH} ] || git clone https://github.com/tmux-plugins/tpm ${TPM_PATH}
 
-echo "install dein ..."
-DEIN_DIR=${HOME}/.cache/dein
-if [ ! -e ${DEIN_DIR} ]; then
-	mkdir -p ${DEIN_DIR}
-	INSTALLER_NAME=.installer.sh
-	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ${INSTALLER_NAME}
-	sh ${INSTALLER_NAME} ${DEIN_DIR}
-	rm -f ${INSTALLER_NAME}
-fi
-
-# echo "install NeoBundle ..."
-# NEOBUNDLE_DIR=${HOME}/.cache/dein
-# if [ ! -e ${NEOBUNDLE_DIR}/neobundle.vim ]; then
-# 	mkdir -p ${HOME}/.vim/bundle
-# 	INSTALLER_NAME=.installer.sh
-# 	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > ${INSTALLER_NAME}
-# 	sh ${INSTALLER_NAME}
-# 	rm -f ${INSTALLER_NAME}
-# fi
