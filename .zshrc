@@ -122,7 +122,7 @@ function prompt {
   local C_DEFAULT="%{$reset_color%}"
   PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE"'${vcs_info_msg_0_}'"
 #"$C_PROMPT"$ "$C_CMD
-  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
+  # RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 
@@ -385,16 +385,16 @@ function killjobs {
 function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
 function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
 
-# enable peco
-function peco-history-selection() {
-    BUFFER=`history -n 1 | tac  | awk '!a[$0]++' | peco`
+# enable fzf
+function select-history() {
+    BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
     CURSOR=$#BUFFER
-    zle reset-prompt
 }
 
-if is_exists peco; then
-    zle -N peco-history-selection
-    bindkey '^R' peco-history-selection
+if is_exists fzf; then
+    FZF_DEFAULT_OPTS='--reverse --border'
+    zle -N select-history
+    bindkey '^r' select-history
 fi
 
 # tmux
