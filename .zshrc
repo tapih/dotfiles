@@ -119,11 +119,10 @@ function prompt {
   fi
   local C_PRE="%{$reset_color%}%{$fg[$zsh_prompt_color]%}"
   local C_CMD="%{$reset_color%}%{$fg[white]%}"
-  # local C_RIGHT="%{$bg[black]%}%{$fg[white]%}"
   local C_DEFAULT="%{$reset_color%}"
   PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE"'${vcs_info_msg_0_}'"
-  #"$C_PROMPT"%# "$C_CMD
-  # RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
+#"$C_PROMPT"$ "$C_CMD
+  RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 

@@ -70,6 +70,12 @@ augroup ResizeHelpWin
     autocmd FileType help resize 12
 augroup END
 
+" インサートから抜けたらpreview windowを閉じる
+augroup PlugAutoCmd
+    autocmd!
+    autocmd InsertLeave * silent! pclose!
+augroup END
+
 " 最後にファイルを閉じた場所で開く
 augroup OpenAtLastClosed
     autocmd!
@@ -77,7 +83,7 @@ augroup OpenAtLastClosed
 augroup END
 
 " コメント行を改行したときに自動でコメントアウト記号をいれない
-augroup auto_complete_off
+augroup AutoCompleteOff
     autocmd!
     autocmd BufEnter * setlocal formatoptions-=r
     autocmd BufEnter * setlocal formatoptions-=o
@@ -110,7 +116,7 @@ function! CloseCurrBuf()
     bdelete n
 endfunction
 
-function! CloseBufOrWin()
+function! CloseBufOrWindow()
     if GetNumBufs() > 1
         call CloseCurrBuf()
     else
@@ -118,107 +124,6 @@ function! CloseBufOrWin()
     endif
 endfunction
 
-"-----------------------
-" コマンド
-"-----------------------
-" ; : 入れ替え
-nnoremap ; :
-vnoremap ; :
-nnoremap : ;
-vnoremap : ;
-
-" 検索時に/をエスケープしない
-cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
-
-" マクロ
-nnoremap Q q
-
-" 閉じる
-nnoremap <silent> q :<C-u>call CloseBufOrWin()<CR>
-nnoremap <silent> !! :q!<CR>
-
-" タグは使わない
-nnoremap [Tag] <Nop>
-
-" 修正した場所に飛ぶ
-nnoremap <C-J> g;
-nnoremap <C-K> g,
-
-" H,Lで行頭、行末に移動
-nnoremap H  ^
-nnoremap L  $
-vnoremap H  ^
-vnoremap L  $
-
-" Select entire buffer
-nnoremap vy ggVG
-
-" escape insert mode
-inoremap jj <ESC>
-
-" 検索後にジャンプした際に検索単語を画面中央に持ってくる
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-
-" UでRedo
-nnoremap U <C-r>
-
-" j, k による移動を折り返されたテキストでも自然に振る舞うように変更
-nnoremap j gj
-nnoremap k gk
-
-" カーソル下の単語を * で検索
-vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
-
-" enterで保存
-nnoremap <CR> :<C-u>w<CR>
-
-"-----------------------
-" sを使うショートカット
-"-----------------------
-" sを無効に
-nnoremap s <Nop>
-vnoremap s <Nop>
-
-" s+vp で画面分割
-nnoremap sp :<C-u>sp<CR>
-nnoremap sv :<C-u>vs<CR>
-
-" s+hjkl でウィンドウ間を移動
-" nnoremap sh <C-w>h
-" nnoremap sj <C-w>j
-" nnoremap sk <C-w>k
-" nnoremap sl <C-w>l
-
-" sq+hjklでウィンドウを削除
-nnoremap <silent> sqh <C-w>h:q<CR>
-nnoremap <silent> sqj <C-w>j:q<CR>
-nnoremap <silent> sqk <C-w>k:q<CR>
-nnoremap <silent> sql <C-w>l:q<CR>
-
-" ノーマルモードで行挿入
-nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
-nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
-
-"-----------------------
-" Ctrlを使うショートカット
-"-----------------------
-" コマンドラインの一致検索
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-
-" 連結
-" nnoremap <C-j> J
-" nnoremap <C-k> gJ
-" vnoremap <C-j> J
-" vnoremap <C-k> gJ
-
-" C-y でも visual mode に
-nnoremap <C-y> <C-v>
 
 
 
@@ -228,26 +133,6 @@ nnoremap <C-y> <C-v>
 if has('nvim')
     let g:plug_dir = expand('~/.cache/plug')
     call plug#begin(g:plug_dir)
-
-    "-----------------------
-    " denite
-    "-----------------------
-    Plug 'Shougo/denite.nvim', {'on': 'Denite'}
-    Plug 'Shougo/neomru.vim', {'on': 'Denite'}
-    Plug 'Shougo/neoyank.vim', {'on': 'Denite'} " yank history
-    Plug 'thinca/vim-qfreplace', {'on': 'Denite'}
-    Plug 'rking/ag.vim', {'on': 'Denite'}  " 高速な検索
-
-    autocmd FileType denite call s:denite_my_settings()
-    autocmd FileType denite call s:denite_my_settings()
-    function! s:denite_my_settings() abort
-      nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
-      nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
-      nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
-      nnoremap <silent><buffer><expr> q denite#do_map('quit')
-      nnoremap <silent><buffer><expr> i denite#do_map('open_filter_buffer')
-      nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
-    endfunction
 
     "-----------------------
     " コード入力補助
@@ -264,31 +149,29 @@ if has('nvim')
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
     Plug 'jiangmiao/auto-pairs'
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+    Plug 'junegunn/fzf.vim'
+
 
     " 画面内の任意の場所にジャンプ
     Plug 'easymotion/vim-easymotion', {'on': []}
     let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
     let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-    nmap sl <Plug>(easymotion-s2)
-    nmap sh <Plug>(easymotion-t2)
+    nmap sw <Plug>(easymotion-s2)
+    nmap sb <Plug>(easymotion-t2)
 
     " 範囲選択をショートカットで
     Plug 'terryma/vim-expand-region', {'on': []}
-    vmap v <Plug>(expand_region_expand)
-    vmap <C-v> <Plug>(expand_region_shrink)
-
-    " automatic ctags generater
-    " Plug 'jsfaint/gen_tags.vim'
-    " let g:gen_tags#ctags_auto_gen = 1
-    " let g:gen_tags#gtags_auto_gen = 1
+    vnoremap v <Plug>(expand_region_expand)
+    vnoremap <C-v> <Plug>(expand_region_shrink)
 
     "  toggle true false
     Plug 'AndrewRadev/switch.vim', {'on': 'Switch'}
     let g:switch_mapping = 's-'
 
     " choosewin
-    Plug 't9md/vim-choosewin', {'on': 'ChooseWin'}  " ウィンドウ選択
-    nnoremap - <Plug>(choosewin)
+    Plug 't9md/vim-choosewin'  " ウィンドウ選択
+    nnoremap sm :<C-u>ChooseWin<CR>
     let g:choosewin_label = 'fjsldka;'
 
     " テキスト整形
@@ -300,76 +183,54 @@ if has('nvim')
     Plug 'SirVer/ultisnips', {'on': []}
     Plug 'honza/vim-snippets', {'on': []}
 
-    let g:neosnippet#enable_conceal_markers = 0
-    let g:neosnippet#enable_snipmate_compatibility = 1
-    let g:neosnippet#snippets_directory = g:plug_dir  . '/repos/github.com/vim-snippets/snippets'
-    inoremap <C-s> <Plug>(neosnippet_expand_or_jump)
-    snoremap <C-s> <Plug>(neosnippet_expand_or_jump)
-    xnoremap <C-s> <Plug>(neosnippet_expand_target)
+    " --------
+    " lsp 関連
+    " --------
+    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
 
-    " lsp
-    Plug 'autozimu/LanguageClient-neovim', {
-        \ 'branch': 'next',
-        \ 'do': 'bash install.sh',
-        \ 'for': ['rust', 'go', 'python', 'cpp', 'c'],
-        \ }
-    let g:LanguageClient_serverCommands = {
-        \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-        \ 'python': ['~/.pyenv/versions/neovim3/bin/pyls'],
-        \ 'go': ['gopls'],
-        \ 'cpp': ['clangd'],
-        \ 'c': ['clangd'],
-        \ }
-    augroup LanguageClient_config
-        autocmd!
-        autocmd User LanguageClientStarted setlocal signcolumn=yes
-        autocmd User LanguageClientStopped setlocal signcolumn=auto
-    augroup END
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
 
-    let g:LanguageClient_autoStart = 1
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 
-    nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-    " Or map each action separately
-    nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-    nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-    nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+    " show documentation in preview window
+    nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
+    inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>a
 
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
-    Plug 'junegunn/fzf.vim'
+    " trigger completion.
+    inoremap <silent><expr> <C-Space> coc#refresh()
 
-    " completion
-    Plug 'Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'}
+    " confirm completion, `<C-g>u` means break undo chain at current position.
+    " Coc only does snippet and additional edit on confirm.
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
-    let g:deoplete#enable_auto_close_preview = 0 " preview windowを閉じない
-    let g:deoplete#enable_at_startup = 1
-    let g:deoplete#auto_complete_delay = 0
-    let g:deoplete#auto_complete_start_length = 1
-    let g:deoplete#enable_camel_case = 0
-    let g:deoplete#enable_ignore_case = 0
-    let g:deoplete#enable_refresh_always = 1
-    let g:deoplete#enable_smart_case = 1
-    let g:deoplete#file#enable_buffer_path = 1
-    let g:deoplete#max_list = 1000
-    let g:deoplete#sources#syntax#min_keyword_length = 2
-    inoremap <expr><C-g> deoplete#undo_completion()
-    inoremap <expr><C-l> deoplete#complete_common_string()
-    inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><CR> pumvisible() ? deoplete#close_popup()."\<CR>" : "\<CR>"
-    inoremap <expr><Space> pumvisible() ? deoplete#close_popup()."\<Space>" : "\<Space>"
-    inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><BS> deoplete#smart_close_popup()."\<C-h>"
-    inoremap <expr><C-w> deoplete#close_popup()
-    inoremap <expr><C-e> deoplete#cancel_popup()
-    inoremap <expr><C-Space> deoplete#manual_complete()
+    " Use `[c` and `]c` to navigate diagnostics
+    nmap <silent> gp <Plug>(coc-diagnostic-prev)
+    nmap <silent> gn <Plug>(coc-diagnostic-next)
 
-    augroup plugAutoCmd
-        autocmd!
-        autocmd InsertLeave * silent! pclose! " インサートから抜けたらpreview windowを閉じる
-    augroup END
+    " " Remap keys for gotos
+    nmap <silent> gd <Plug>(coc-definition)
+    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gi <Plug>(coc-implementation)
+    nmap <silent> gr <Plug>(coc-references)"
 
-    " lint
-    Plug 'w0rp/ale', {'on': []}
-    Plug 'prettier/vim-prettier', {'do': 'npm install', 'on': 'Prettier'}
+    " Use `:Format` to format current buffer
+    command! -nargs=0 Format :call CocAction('format')
+
+    " ---------
+    " lint 関連
+    " ---------
+    Plug 'prettier/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
+      \ }
+    Plug 'w0rp/ale'
     let g:ale_linters = {
         \ 'html': ['prettier'],
         \ 'css': ['prettier'],
@@ -394,72 +255,26 @@ if has('nvim')
     let g:ale_sign_error = '✔︎'
     let g:ale_sign_warning = '⚠'
     let g:ale_statusline_format = ['✔︎ %d', '⚠ %d', '']
-    nmap <silent> s[ <Plug>(ale_previous_wrap)
-    nmap <silent> s] <Plug>(ale_next_wrap)
-    nnoremap <silent> <C-l> :<C-u>ALEFix<CR>
+    nmap <silent> sn <Plug>(ale_previous_wrap)
+    nmap <silent> sp <Plug>(ale_next_wrap)
+    nnoremap <silent> si :<C-u>ALEFix<CR>
 
 
 
-    "--------
-    " python
-    "--------
-    Plug 'neovim/python-client', {'for': 'python'}
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    Plug 'zchee/deoplete-jedi', {'for': 'python'}  " completion
-    let g:deoplete#sources#jedi#python_path = g:python_pyenv_global
-
-    " add syntax
-    if version < 600
-        syntax clear
-    elseif exists('b:current_after_syntax')
-        finish
-    endif
-
-    let b:current_after_syntax = 'python'
-    syn match pythonOperator "\(+\|=\|-\|\^\|\*\)"
-    syn match pythonDelimiter "\(,\|\.\|:\)"
-    syn keyword pythonSpecialWord self
-    hi link pythonSpecialWord    Special
-    hi link pythonDelimiter      Special
-
-    "------------
-    " C++
-    "------------
-    " Plug 'Shougo/deoplete-clangx', {'for': 'c++'}
-    Plug 'vim-scripts/a.vim', {'for': 'c++'}
-
-    "------------
-    " HTML + CSS
-    "------------
-    Plug 'othree/html5.vim', {'for': 'html'}
+    "-------------
+    " その他言語別
+    "-------------
+    Plug 'sheerun/vim-polyglot'
     Plug 'mattn/emmet-vim', {'for': 'html'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
-    Plug 'JulesWang/css.vim', {'for': 'css'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
-    Plug 'pangloss/vim-javascript', {'for': 'javascript'}
-    let g:user_emmet_leader_key='<C-i>'
-
-    "------------
-    " Rust
-    "------------
-    Plug 'rust-lang/rust.vim', {'for': 'rust'}
-    " Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
-
-    "------------
-    " Go
-    "------------
+    Plug 'vim-scripts/a.vim', {'for': 'c++'}
     Plug 'fatih/vim-go', {'for': 'go'}
-    " Plug 'deoplete-plugins/deoplete-go', {'for': 'go'}
-    " let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
+    Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
+    let g:user_emmet_leader_key='<C-q>'
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
-
-    "------------
-    " Others
-    "------------
-    Plug 'sheerun/vim-polyglot'
-    Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
-    let g:vim_json_syntax_conceal = 0
 
 
 
@@ -504,24 +319,7 @@ if has('nvim')
     Plug 'ap/vim-buftabline' " バッファ表示(画面下
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
-    Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
-    " Plug 'lyuts/vim-rtags'
-    " Plug 'soramugi/auto-ctags.vim'
-    " Plug 'jsfaint/gen_tags.vim'
-    " set tags=.tags;$HOME
-    " function! s:execute_ctags() abort
-    "   let tag_name = '.tags'
-    "   let tags_path = findfile(tag_name, '.;')
-    "   if tags_path ==# ''
-    "     return
-    "   endif
-    "
-    "   let tags_dirpath = fnamemodify(tags_path, ':p:h')
-    "   execute 'silent !cd' tags_dirpath '&& ctags -R -f' tag_name '2> /dev/null &'
-    " endfunction
-    " autocmd BufWritePost * call s:execute_ctags()
-    "
-    " let g:gen_tags#ctags_auto_gen = 1
+    " Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
     "
     let g:lightline = {
         \ 'colorscheme': 'wombat',
@@ -734,7 +532,6 @@ if has('nvim')
     " after certain period
     function! s:load_plug(timer)
         call plug#load(
-        \ 'ale',
         \ 'textobj-word-column.vim',
         \ 'vim-trailing-whitespace',
         \ 'vim-bracketed-paste',
@@ -747,7 +544,6 @@ if has('nvim')
         \ 'vim-gitgutter',
         \ 'vim-easymotion',
         \ 'vim-expand-region',
-        \ 'LanguageClient-neovim',
         \ )
     endfunction
 
@@ -758,6 +554,93 @@ if has('nvim')
         source ~/.nvimrc.local
     endif
 endif
+
+"-----------------------
+" コマンド
+"-----------------------
+" ; : 入れ替え
+nnoremap ; :
+vnoremap ; :
+nnoremap : ;
+vnoremap : ;
+
+" 検索時に/をエスケープしない
+cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
+
+" マクロ
+nnoremap q <Nop>
+
+" 閉じる
+nnoremap <silent> q :<C-u>call CloseBufOrWindow()<CR>
+nnoremap <silent> Q :q!<CR>
+
+" タグは使わない
+nnoremap [Tag] <Nop>
+
+" 修正した場所に飛ぶ
+nnoremap <C-J> g;
+nnoremap <C-K> g,
+
+" H,Lで行頭、行末に移動
+nnoremap H  ^
+nnoremap L  $
+vnoremap H  ^
+vnoremap L  $
+
+" Select entire buffer
+nnoremap vy ggVG
+
+" 検索後にジャンプした際に検索単語を画面中央に持ってくる
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zz
+
+" UでRedo
+nnoremap <C-r> <Nop>
+nnoremap U <C-r>
+
+" j, k による移動を折り返されたテキストでも自然に振る舞うように変更
+nnoremap j gj
+nnoremap k gk
+
+" カーソル下の単語を * で検索
+vnoremap <silent> * "vy/\V<C-r>=substitute(escape(@v, '\/'), "\n", '\\n', 'g')<CR><CR>
+
+" enterで保存
+nnoremap <CR> :<C-u>w<CR>
+
+" コマンドラインの一致検索
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+" C-y でも visual mode に
+nnoremap <C-y> <C-v>
+
+"-----------------------
+" sを使うショートカット
+"-----------------------
+" sを無効に
+nnoremap s <Nop>
+vnoremap s <Nop>
+
+" s+-\ で画面分割
+nnoremap s- :<C-u>sp<CR>
+nnoremap s\ :<C-u>vs<CR>
+
+" s+hjklでウィンドウを削除
+nnoremap <silent> sh <C-w>h:q<CR>
+nnoremap <silent> sj <C-w>j:q<CR>
+nnoremap <silent> sk <C-w>k:q<CR>
+nnoremap <silent> sl <C-w>l:q<CR>
+
+" ノーマルモードで行挿入
+nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
+nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
+
+
 
 "=========================================================================
 " finalize
