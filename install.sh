@@ -179,9 +179,7 @@ if ! is_exists tmux ; then
 fi
 
 echo "install tmuxinator..."
-sudo gem install tmuxinator
-mkdir -p ${HOME}/.bin
-wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -o ~/.bin/tmuxinator.zsh
+gem install tmuxinator
 
 echo "install tmux plugins ..."
 TPM_PATH=${HOME}/.tmux/plugins/tpm

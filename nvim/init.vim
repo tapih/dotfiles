@@ -99,6 +99,7 @@ function! AutoCloseBuf()
 endfunction
 
 
+" バッファが一つならウィンドウを閉じる
 function! GetNumBufs()
     let i = bufnr('$')
     let j = 0
@@ -111,14 +112,9 @@ function! GetNumBufs()
     return j
 endfunction
 
-function! CloseCurrBuf()
-    let n = bufnr('%')
-    bdelete n
-endfunction
-
 function! CloseBufOrWindow()
     if GetNumBufs() > 1
-        call CloseCurrBuf()
+        bdelete
     else
         quit
     endif
@@ -562,6 +558,9 @@ inoremap <silent><expr> <C-Space> coc#refresh()
 " expand region
 vnoremap <C-v> <Plug>(expand_region_shrink)
 vnoremap v <Plug>(expand_region_expand)
+
+" fzf
+nnoremap <silent> <C-i> :<C-u>Buffers<CR>
 
 "-----------------------
 " sで始まるショートカット
