@@ -49,8 +49,8 @@ sudo apt -y --no-install-recommends install \
     flex \
     ncurses-dev \
     llvm \
-    clang-tools-6.0 \
-    clang-format-6.0 \
+    clang-tools-8 \
+    clang-format-8 \
     compiz-plugins \
     compiz-plugins-extra \
     compizconfig-settings-manager
@@ -79,6 +79,8 @@ sudo apt -y --no-install-recommends install \
     libffi-dev \
     liblzma-dev \
     python-openssl
+
+sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
 # link
 echo "link dotfiles ..."
@@ -141,6 +143,7 @@ fi
 echo "install n ..."
 if type n > /dev/null 2>&1; then
     sudo npm -g i n
+    sudo npm -g i yarn
     sudo n $NODE_VERSION
 fi
 
