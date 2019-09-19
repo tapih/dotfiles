@@ -24,6 +24,7 @@ set scrolloff=10 " scroll offset
 set splitbelow " spで下に分割
 set splitright " vsで右に分割
 set ruler      " カーソル位置を下のバーに表示
+set background=dark
 set showmatch  " カーソル下の対応するカッコをハイライト
 set lazyredraw " マクロなどの途中経過を描写しない
 set foldmethod=manual " 手動でグルーピング
