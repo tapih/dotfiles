@@ -646,11 +646,11 @@ if has('nvim')
     nnoremap t <Nop>
 
     " next buffer
-    nnoremap <silent> tj :<C-u>bprev<CR>
-    nnoremap <silent> tk :<C-u>bnext<CR>
+    nnoremap <silent> tp :<C-u>bprev<CR>
+    nnoremap <silent> tn :<C-u>bnext<CR>
 
     " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
-    nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>
+    nnoremap <silent> tt :<C-u>NERDTreeToggle<CR>
     nnoremap <silent> tb :<C-u>TagbarToggle<CR>
     nnoremap <silent> tl :<C-u>ALEToggle<CR>
     nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>

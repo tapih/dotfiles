@@ -137,7 +137,7 @@ unsetopt promptcr
 # 移動
 # =====================================================================================================
 
-setopt autocd # ディレクトリ名でcd
+# setopt autocd # ディレクトリ名でcd
 setopt autopushd #cd -で履歴を検索して移動:
 setopt pushdignoredups #重複除去
 setopt pushd_minus # swap '-' and '+' in the context of pushd
@@ -351,40 +351,6 @@ is_exists gsed && alias sed='gsed'
 is_exists tmux && alias tmux="tmux -2"
 is_exists git && alias g='git'
 is_exists kubectl && alias k='kubectl'
-
-# backup whole directory
-function backup {
-  D=`pwd|sed -r 's/^.*\/(.*?)$/\1/'`
-  F=${D}_`date +%Y%m%d_%H%M`.tar.gz
-  if [ -f 'Makefile' ]; then make clean; fi
-  (builtin cd ..;
-  tar zcvf ${F} $D;
-  builtin cd -)
-  if [ $# -ge 1 ]; then mv ${F} "$1/"; fi
-  echo "saved: ${F}"
-}
-
-# backup only right on the current level (no recursion)
-function slimbackup {
-  D=`pwd|sed -r 's/^.*\/(.*?)$/\1/'`
-  F=${D}_`date +%Y%m%d_%H%M`.tar.gz
-  if [ -f 'Makefile' ]; then make clean; fi
-  (builtin cd ..;
-  tar --no-recursion -zcvf ${F} $D/*(^/);
-  builtin cd -)
-  if [ $# -ge 1 ]; then mv ${F} "$1/"; fi
-  echo "saved: ${F}"
-}
-
-function killjobs {
-  # kill -9 all suspended jobs
-  for pid in $(jobs -dl | sed -r '/^\(/d;s/\[[0-9]+\][ +-]*([0-9]+).*'$1'.*/\1/gp;d'); do
-    kill -9 $pid
-   done
-}
-
-function joblist { ps -l|awk '/^..T/&&NR!=1{print $14}'|sed ':a;$!N;$!b a;;s/\n/,/g' }
-function jobnum { ps -l|awk '/^..T/&&NR!=1{print}'|wc -l}
 
 # enable fzf
 function select-history() {

@@ -1,25 +1,26 @@
 [alias]
-    st = status
-    co = checkout
     b = branch
     u = add -u
-    rb = rebase
-    ci = commit
-    cm = commit
-    cp = cherry-pick
-    dc = diff --cached
-    df = diff
-    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    ai = update-index --add
-    ri = update-index --remove
-    pu = push
-    ll = pull
     f = fetch
     fo = fetch origin
-    unmerged-log = log --no-merges
-    ulog = log --no-merges
+    s = status -s
+    ss = status -s
+    st = status
+    co = checkout
+    ci = commit
+    cm = commit
+    dc = diff --cached
+    df = diff
+    dt = difftool
+    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    ai = update-index --add
+    ri = update-index --remove
+    po = push
+    pi = pull
+    l = log
     ul = log --no-merges
-
+    ulog = log --no-merges
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [core]
