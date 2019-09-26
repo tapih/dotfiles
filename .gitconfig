@@ -1,23 +1,31 @@
 [alias]
-    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     st = status
-    df= diff
-    ad = add
     co = checkout
-    br = branch
-    up = rebase
+    b = branch
+    rb = rebase
     ci = commit
-    vgrep = !git grep "$@" -- "./*" ":!vendor/**"
-    cdiff = log --no-merges
+    cm = commit
+    cp = cherry-pick
+    dc = diff --cached
+    df = diff
+    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
 
-[user]
-    email = h.muraoka714@gmail.com
-    name = H.Muraoka
+    unmerged-log = log --no-merges
+    ulog = log --no-merges
+    ul = log --no-merges
+
+    vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [core]
     editor=nvim
     autocrlf= false
 
+[pull]
+    rebase = true
+
 [push]
     default = simple
+
+[include]
+    path = ~/.gitconfig.local
 
