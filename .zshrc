@@ -349,7 +349,7 @@ is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 is_exists gsed && alias sed='gsed'
 is_exists tmux && alias tmux="tmux -2"
 is_exists git && alias g='git'
-is_exists kubectl && k='kubectl'
+is_exists kubectl && alias k='kubectl'
 
 # backup whole directory
 function backup {
