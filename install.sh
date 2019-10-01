@@ -133,10 +133,11 @@ if [ ! "$(goenv versions | grep $GO_VERSION$)" ]; then
     goenv install -s $GO_VERSION
     goenv rehash
     goenv global $GO_VERSION
-    GO111MODULE=off
+    GO111MODULE=on
     go get -u golang.org/x/tools/cmd/goimports
     go get -u github.com/mdempsky/gocode
     go get -u golang.org/x/tools/cmd/gopls
+    go get -u github.com/go-delve/delve/cmd/delve
 fi
 
 # n
