@@ -45,6 +45,7 @@ sudo apt -y --no-install-recommends install \
     autotools-dev \
     automake \
     libevent-dev \
+    xdg-utils \
     bison \
     flex \
     ncurses-dev \
