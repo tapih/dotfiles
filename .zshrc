@@ -1,17 +1,10 @@
 #! /usr/bin/env zsh
 
 bindkey -e
-bindkey "jj" vi-cmd-mode
-bindkey "C-p" vi-cmd-mode
-bindkey "C-n" vi-cmd-mode
 
 HISTFILE=~/.zsh_history
 HISTSIZE=100000 # メモリ上に保存される件数（検索できる件数）
 SAVEHIST=100000 # ファイルに保存される件数
-
-prompt
-setopt prompt_subst # use colors in prompt
-unsetopt promptcr
 
 autoload -Uz compinit
 compinit
@@ -38,7 +31,7 @@ setopt extendedglob # 展開で^とか使う
 setopt numericglobsort # 数字展開は数値順
 setopt autoparamkeys # 補完後の:,)を削除
 #setopt listpacked # compact list on completion # 不安定?
-#setopt magicequalsubst # completion after '=' # 不安定?
+setopt magicequalsubst # completion after '='
 #setopt auto_list
 #setopt auto_menu
 #setopt auto_param_keys
@@ -170,6 +163,11 @@ function prompt {
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 
+prompt
+
+setopt prompt_subst # use colors in prompt
+unsetopt promptcr
+
 
 
 # =====================================================================================================
@@ -280,8 +278,8 @@ fi
 
 if [ -d ${HOME}/.goenv ]; then
   export GOENV_ROOT=$HOME/.goenv
-  eval "$(goenv init -)";
   export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
+  eval "$(goenv init -)";
 fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
