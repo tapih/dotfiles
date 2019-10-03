@@ -1,20 +1,22 @@
 #! /usr/bin/env zsh
 
-# =====================================================================================================
-# 汎用関数
-# =====================================================================================================
-function is_exists() { type $1 >/dev/null 2>&1; return $?; }
-
-# =====================================================================================================
-# 基本設定
-# =====================================================================================================
-bindkey -v
+bindkey -e
 bindkey "jj" vi-cmd-mode
 bindkey "C-p" vi-cmd-mode
 bindkey "C-n" vi-cmd-mode
 
-is_exists vim && export EDITOR=vim
+HISTFILE=~/.zsh_history
+HISTSIZE=100000 # メモリ上に保存される件数（検索できる件数）
+SAVEHIST=100000 # ファイルに保存される件数
 
+prompt
+setopt prompt_subst # use colors in prompt
+unsetopt promptcr
+
+autoload -Uz compinit
+compinit
+
+export LISTMAX=20 # 最大表示数
 export LANG=ja_JP.UTF-8 #  文字コード
 export WORDCHARS='*?_-.[]~&;!#$%^(){}<>' # C-wで単語の一部と見なす記号
 
@@ -24,29 +26,74 @@ setopt no_beep # ビープ音を鳴らさない
 setopt noclobber # 存在するファイルにリダイレクトしない
 setopt ignoreeof # C-Dでログアウトしない
 setopt noflowcontrol # disable C-S C-Q
+setopt nolistbeep # 補完候補表示時にビープ音を鳴らさない
+setopt auto_pushd # cd -<tab>で以前移動したディレクトリを表示
+setopt pushd_ignore_dups # auto_pushdで重複するディレクトリは記録しない
+setopt nolistbeep # 曖昧補完でビープしない
+setopt autolist # 補完時にリスト表示
+setopt listtypes
+unsetopt menucomplete # 最初から候補を循環する
+setopt automenu # 共通部分を補完しそれ以外を循環する準備
+setopt extendedglob # 展開で^とか使う
+setopt numericglobsort # 数字展開は数値順
+setopt autoparamkeys # 補完後の:,)を削除
+#setopt listpacked # compact list on completion # 不安定?
+#setopt magicequalsubst # completion after '=' # 不安定?
+#setopt auto_list
+#setopt auto_menu
+#setopt auto_param_keys
+#setopt complete_aliases
+#setopt list_types
+#setopt always_last_prompt
+#setopt complete_in_word
+#setopt autocd # ディレクトリ名でcd
+setopt autopushd #cd -で履歴を検索して移動:
+setopt pushdignoredups #重複除去
+setopt pushd_minus # swap '-' and '+' in the context of pushd
+setopt list_packed # 候補が多い場合は詰めて表示
+setopt magic_equal_subst
+setopt share_history # 履歴を複数の端末で共有する
+setopt hist_ignore_dups # 直前と同じコマンドの場合は履歴に追加しない
+setopt hist_ignore_all_dups # 重複するコマンドは古い方を削除する
+setopt hist_ignore_space # 先頭がスペースで始まる場合は履歴に追加しない
+setopt append_history # 複数のzshを同時に使用した際に履歴ファイルを上書きせず追加する
+setopt extended_history # 履歴ファイルにzsh の開始・終了時刻を記録する
+setopt hist_save_no_dups # ファイルに書き出すとき古いコマンドと同じなら無視
+#setopt hist_verify # ヒストリを呼び出してから実行する間に一旦編集できる状態になる
+#setopt histnofunctions
+#setopt histnostore
+#setopt histreduceblanks
 
-# pyenv
-if [ -d ${HOME}/.pyenv ]; then
-  export PYENV_ROOT=$HOME/.pyenv
-  export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
-  eval "$(pyenv init -)";
-fi
 
-#goenv
-if [ -d ${HOME}/.goenv ]; then
-  export GOENV_ROOT=$HOME/.goenv
-  eval "$(goenv init -)";
-  export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
-fi
+# 補完で無視する
+fignore=(.o .swp lost+found)
 
-# Rust
-if is_exists rustup ; then
-    export RUST_BACKTRACE=1
-fi
+# 大文字小文字を区別しない（大文字を入力した場合は区別する）
+#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
 
-# =====================================================================================================
-# 色設定
-# =====================================================================================================
+# Ctrl-p, Ctrl-Nを有効に
+zstyle ':completion:*:default' menu select=1
+
+# 補完候補もLS_COLORSに合わせて色が付くようにする
+export LS_COLORS='di=1;34:ln=1;35:so=32:pi=33:ex=1;31:bd=46;34:cd=43;34:su=41;30:tw=42;30:ow=43;30'
+#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+# smart insert last word
+autoload smart-insert-last-word
+zle -N insert-last-word smart-insert-last-word
+zstyle :insert-last-word match '*([^[:space]][[:alpha]/\\]|[[:alpha:]/\\][^[:space:]])*'
+bindkey '^]' insert-last-word
+
+# 履歴検索
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+
 # 256色
 case $TERM in
   "cygwin")
@@ -86,9 +133,6 @@ esac
 # dircolorsを利用
 case "$OSTYPE" in
     darwin*)
-        #if [ ! is_exists gdircolors ] ; then
-        #    brew install coreutils
-        #fi
         [ -f ~/.dircolors ] && eval $(gdircolors ~/.dircolors) #coreutils required
         ;;
     linux*)
@@ -126,159 +170,6 @@ function prompt {
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 
-#PROMPT2="%{${fg[yellow]}%} %_ > %{${reset_color}%}"
-#SPROMPT="%{${fg[red]}%}correct: %R -> %r ? [n,y,a,e] %{${reset_color}%}"
-
-prompt
-setopt prompt_subst # use colors in prompt
-unsetopt promptcr
-
-# =====================================================================================================
-# 移動
-# =====================================================================================================
-
-# setopt autocd # ディレクトリ名でcd
-setopt autopushd #cd -で履歴を検索して移動:
-setopt pushdignoredups #重複除去
-setopt pushd_minus # swap '-' and '+' in the context of pushd
-
-# 移動用ショートカット設定
-if [ $((${ZSH_VERSION%.*}>=4.3)) -eq 1 ]; then
-  function cdup {
-    echo
-    cd ..
-    echo
-    zle reset-prompt
-  }
-  zle -N cdup
-  bindkey '^;' cdup
-
-  function cdback {
-    if [ "$(printf '%d' "$BUFFER")" = "$BUFFER" ]; then
-      echo
-      builtin cd +$BUFFER
-      echo
-      BUFFER=''
-      zle reset-prompt
-    else
-      echo
-      builtin cd -
-      echo
-      zle reset-prompt
-    fi
-  }
-  zle -N cdback
-  bindkey '^O' cdback
-fi
-
-
-
-# =====================================================================================================
-# 補完
-# =====================================================================================================
-autoload -Uz compinit
-compinit
-
-export LISTMAX=20 # 最大表示数
-setopt nolistbeep # 補完候補表示時にビープ音を鳴らさない
-setopt auto_pushd # cd -<tab>で以前移動したディレクトリを表示
-setopt pushd_ignore_dups # auto_pushdで重複するディレクトリは記録しない
-setopt nolistbeep # 曖昧補完でビープしない
-setopt autolist # 補完時にリスト表示
-setopt listtypes
-unsetopt menucomplete # 最初から候補を循環する
-setopt automenu # 共通部分を補完しそれ以外を循環する準備
-setopt extendedglob # 展開で^とか使う
-setopt numericglobsort # 数字展開は数値順
-setopt autoparamkeys # 補完後の:,)を削除
-fignore=(.o .swp lost+found) # 補完で無視する
-#setopt listpacked # compact list on completion # 不安定?
-#setopt magicequalsubst # completion after '=' # 不安定?
-#setopt auto_list
-#setopt auto_menu
-#setopt auto_param_keys
-#setopt complete_aliases
-#setopt list_types
-#setopt always_last_prompt
-#setopt complete_in_word
-
-
-
-# 候補が多い場合は詰めて表示
-setopt list_packed
-setopt magic_equal_subst
-
-# 大文字小文字を区別しない（大文字を入力した場合は区別する）
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
-
-# Ctrl-p, Ctrl-Nを有効に
-zstyle ':completion:*:default' menu select=1
-
-# 補完候補もLS_COLORSに合わせて色が付くようにする
-export LS_COLORS='di=1;34:ln=1;35:so=32:pi=33:ex=1;31:bd=46;34:cd=43;34:su=41;30:tw=42;30:ow=43;30'
-#zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# match upper case from lower case, search after -_./
-# dir => Dir, _t => some_tmp, long.c => longfilename.c
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
-
-# smart insert last word
-autoload smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match '*([^[:space]][[:alpha]/\\]|[[:alpha:]/\\][^[:space:]])*'
-bindkey '^]' insert-last-word
-
-
-
-# =====================================================================================================
-# 履歴
-# =====================================================================================================
-HISTFILE=~/.zsh_history
-HISTSIZE=100000 # メモリ上に保存される件数（検索できる件数）
-SAVEHIST=100000 # ファイルに保存される件数
-setopt share_history # 履歴を複数の端末で共有する
-setopt hist_ignore_dups # 直前と同じコマンドの場合は履歴に追加しない
-setopt hist_ignore_all_dups # 重複するコマンドは古い方を削除する
-setopt hist_ignore_space # 先頭がスペースで始まる場合は履歴に追加しない
-#setopt append_history # 複数のzshを同時に使用した際に履歴ファイルを上書きせず追加する
-#setopt extended_history # 履歴ファイルにzsh の開始・終了時刻を記録する
-#setopt hist_verify # ヒストリを呼び出してから実行する間に一旦編集できる状態になる
-#setopt hist_save_no_dups # ファイルに書き出すとき古いコマンドと同じなら無視
-#setopt histnofunctions
-#setopt histnostore
-#setopt histreduceblanks
-
-# 履歴検索
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey "^P" history-beginning-search-backward-end
-bindkey "^N" history-beginning-search-forward-end
-
-
-
-# =====================================================================================================
-# ssh関連
-# =====================================================================================================
-# ssh
-is_exists lazy-ssh-agent && eval `lazy-ssh-agent setup ssh scp sftp`
-
-function print_known_hosts {
-  if [ -f $HOME/.ssh/known_hosts ]; then
-    cat $HOME/.ssh/known_hosts | tr ',' ' ' | cut -d' ' -f1
-  fi
-}
-_cache_hosts=($(print_known_hosts))
-
-#centosにsshするとviで下記のエラーが出ることがあるので対策
-# E437: terminal capability "cm" required
-alias ssh='TERM=xterm ssh'
-# add "setenv SCREEN=1" in .screenrc
-if [ "${SCREEN}x" = "1x" ]; then
-  export LANG=C
-fi
 
 
 # =====================================================================================================
@@ -329,9 +220,7 @@ function cd {
 alias mv='mv -i'
 alias rm='rm -i'
 alias quit='exit'
-alias ':q'='exit'
 alias Q='exit'
-alias T='tail -n 50 -f'
 alias H='cd ~'
 alias ..='cd ..'
 alias ...='cd ...'
@@ -344,6 +233,8 @@ alias -g GG='|xargs -0 grep -i'
 alias -g G='2>&1|grep -i'
 alias -g L="2>&1|$PAGER"
 
+function is_exists() { type $1 >/dev/null 2>&1; return $?; }
+is_exists vim && export EDITOR=vim
 is_exists nvim && alias nv='nvim'
 is_exists nvim && alias agit='nvim +Agit'
 is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
@@ -352,7 +243,7 @@ is_exists tmux && alias tmux="tmux -2"
 is_exists git && alias g='git'
 is_exists kubectl && alias k='kubectl'
 
-# enable fzf
+# fzf
 function select-history() {
     BUFFER=$(history -n -r 1 | fzf --no-sort +m --query "$LBUFFER" --prompt="History > ")
     CURSOR=$#BUFFER
@@ -363,6 +254,7 @@ if is_exists fzf; then
     zle -N select-history
     bindkey '^r' select-history
 fi
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # tmux
 if [ -z "$TMUX" ]; then
@@ -380,7 +272,16 @@ if [ -z "$TMUX" ]; then
     fi
 fi
 
-# ローカルのzshrcを読み込む
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
+if [ -d ${HOME}/.pyenv ]; then
+  export PYENV_ROOT=$HOME/.pyenv
+  export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
+  eval "$(pyenv init -)";
+fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -d ${HOME}/.goenv ]; then
+  export GOENV_ROOT=$HOME/.goenv
+  eval "$(goenv init -)";
+  export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
+fi
+
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
