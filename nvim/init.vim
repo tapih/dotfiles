@@ -602,7 +602,7 @@ if has('nvim')
     " ale
     nmap <silent> sn <Plug>(ale_previous_wrap)
     nmap <silent> sp <Plug>(ale_next_wrap)
-    nnoremap <silent> si :<C-u>ALEFix<CR>
+    nnoremap <silent> <C-l> :<C-u>ALEFix<CR>
 
     " switch
     nnoremap sw :<C-u>Switch<CR>
