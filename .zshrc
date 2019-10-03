@@ -273,7 +273,7 @@ fi
 
 GOROOT="/usr/local/go"
 if is_exists $GOROOT/bin/go; then
-    export GOPATH="~/go"
+    export GOPATH="$HOME/go"
     export GOROOT
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi

@@ -120,26 +120,6 @@ if [ ! "$(pyenv versions | grep ${NVIM_PYTHON3_VERSION}$)" ]; then
     pip install pyls
 fi
 
-PATH="$GOENV_ROOT/shims:$PATH"
-if [ ! "$(goenv versions | grep $GO_VERSION$)" ]; then
-    goenv install -s $GO_VERSION
-    goenv rehash
-    goenv global $GO_VERSION
-    GO111MODULE=on
-    go get -u golang.org/x/tools/cmd/goimports
-    go get -u github.com/mdempsky/gocode
-    go get -u golang.org/x/tools/cmd/gopls
-    go get -u github.com/go-delve/delve/cmd/delve
-fi
-
-# n
-echo "install n ..."
-if type n > /dev/null 2>&1; then
-    sudo npm -g i n
-    sudo npm -g i yarn
-    sudo n $NODE_VERSION
-fi
-
 # go
 GOROOT=/usr/local/go
 if [ ! -d $GOROOT ]; then
@@ -148,6 +128,18 @@ if [ ! -d $GOROOT ]; then
     sudo mv /tmp/go $GOROOT
     rm -f /tmp/go.tar.gz
     mkdir -p ~/go/{src,bin,pkg}
+
+    go get -u golang.org/x/tools/cmd/goimports
+    go get -u github.com/go-delve/delve/cmd/delve
+    GO111MODULE=on go get -u golang.org/x/tools/cmd/gopls@latest
+fi
+
+# n
+echo "install n ..."
+if type n > /dev/null 2>&1; then
+    sudo npm -g i n
+    sudo npm -g i yarn
+    sudo n $NODE_VERSION
 fi
 
 # fzf
