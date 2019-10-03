@@ -24,7 +24,7 @@
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [core]
-    editor=nvim
+    editor=vim
     autocrlf= false
 
 [pull]
@@ -37,13 +37,7 @@
     path = ~/.gitconfig.local
 
 [diff]
-    tool = nvimdiff
-
-[difftool "nvimdiff"]
-    cmd = "nvim -R -d -c \"wincmd l\" -d \"$LOCAL\" \"$REMOTE\""
-
-[mergetool "nvimdiff"]
-    cmd = "nvim -d -c \"4wincmd w | wincmd J\" \"$LOCAL\" \"$BASE\" \"$REMOTE\"  \"$MERGED\""rompt = false
+    tool = vimdiff
 
 [difftool]
     prompt = false

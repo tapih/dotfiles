@@ -154,7 +154,6 @@ function prompt {
   local C_DEFAULT="%{$reset_color%}"
   PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE"'${vcs_info_msg_0_}'"
 #"$C_PROMPT"$ "$C_CMD
-  # RPROMPT="%S"$C_RIGHT" %D{%d %a} %* %s"$C_CMD
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 
