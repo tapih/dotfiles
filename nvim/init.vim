@@ -203,40 +203,17 @@ if has('nvim')
     " Use `:Format` to format current buffer
     command! -nargs=0 Format :call CocAction('format')
 
+    Plug 'w0rp/ale', {'for': ['typescript', 'javascript', 'html', 'css', 'json']}
+    let g:ale_fixers = {
+                \   'typescript': ['prettier'],
+                \   'javascript': ['prettier'],
+                \   'html': ['prettier'],
+                \   'css': ['prettier'],
+                \   'json': ['prettier'],
+                \}
 
-
-    " ---------
-    " lint 関連
-    " ---------
-    Plug 'prettier/vim-prettier', {
-      \ 'do': 'npm install',
-      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'],
-      \ }
-    Plug 'w0rp/ale'
-    let g:ale_linters = {
-        \ 'html': ['prettier'],
-        \ 'css': ['prettier'],
-        \ 'scss': ['prettier'],
-        \ 'json': ['prettier'],
-        \ 'yaml': ['prettier'],
-        \ 'javascript': ['eslint'],
-        \ 'typescript': ['tslint'],
-        \ 'python': ['yapf', 'autopep8'],
-        \ 'go': ['goimports', 'gofmt'],
-        \ 'rust': ['rustfmt'],
-        \ 'cpp': ['clangd'],
-        \ 'c': ['clangd'],
-        \}
-    let g:ale_go_langserver_executable = 'gopls'
-    let g:ale_fixers = g:ale_linters
-    let g:ale_lint_on_text_changed = 0
-    let g:ale_lint_on_save = 1 " 保存したらチェック
-    let g:ale_set_loclist = 0
-    let g:ale_set_quickfix = 1 " quickfixに表示
-    let g:ale_sign_column_always = 1 " aleコラムを常に表示
-    let g:ale_sign_error = '✔︎'
-    let g:ale_sign_warning = '⚠'
-    let g:ale_statusline_format = ['✔︎ %d', '⚠ %d', '']
+    let g:ale_linters_explicit = 1
+    let g:ale_fix_on_save = 1
 
 
 
@@ -293,7 +270,7 @@ if has('nvim')
     " ウィジェット関連
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
-    Plug 'ap/vim-buftabline' " バッファ表示(画面下
+    Plug 'ap/vim-buftabline' " バッファ表示(画面
     Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
     " Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
@@ -303,7 +280,7 @@ if has('nvim')
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['filename'], ['fugitive', 'gitgutter', 'ale'],
+        \     ['filename'], ['fugitive', 'gitgutter', 'cocstatus', 'currentfunction'],
         \   ],
         \   'right': [
         \     ['lineinfo'], ['percent'],
@@ -314,7 +291,7 @@ if has('nvim')
         \   'mode': 'MyMode',
         \   'filename': 'MyFileName',
         \   'fugitive': 'MyFugitive',
-        \   'ale': 'ALEGetStatusLine',
+        \   'cocstatus': 'StatusDiagnostic',
         \   'gitgutter': 'MyGitGutter',
         \   'fileformat': 'MyFileFormat',
         \   'fileencoding': 'MyFileEncoding',
@@ -324,6 +301,19 @@ if has('nvim')
         \ 'separator': {'left': '>>', 'right': '|'},
         \ 'subseparator': {'left': '|', 'right': '|'}
         \ }
+
+    function! StatusDiagnostic() abort
+        let info = get(b:, 'coc_diagnostic_info', {})
+        if empty(info) | return '' | endif
+        let msgs = []
+        if get(info, 'error', 0)
+            call add(msgs, '✔︎:' . info['error'])
+        endif
+        if get(info, 'warning', 0)
+            call add(msgs, '⚠:' . info['warning'])
+        endif
+        return join(msgs, ' '). ' ' . get(g:, 'coc_status', '')
+    endfunction
 
     function! MyModified()
         return &ft =~ 'help\|nerdtree\|gundo\|tagbar\|terminal' ? '' : &modified ? '+' : &modifiable ? '' : '-'
@@ -513,14 +503,15 @@ nnoremap <silent> Q :q!<CR>
 nnoremap [Tag] <Nop>
 
 " 修正した場所に飛ぶ
-nnoremap <C-J> g;
-nnoremap <C-K> g,
+nnoremap <C-j> g;
+nnoremap <C-k> g,
 
 " H,Lで行頭、行末に移動
 nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
+nnoremap M *
 
 " Select entire buffer
 nnoremap vy ggVG
@@ -558,8 +549,8 @@ cnoremap <C-n> <Down>
 nnoremap <C-y> <C-v>
 
 " coc
-nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
-inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>a
+nnoremap <silent> <C-,> :call <SID>show_documentation()<CR>
+inoremap <silent> <C-,> <ESC>:call <SID>show_documentation()<CR>a
 inoremap <silent><expr> <C-Space> coc#refresh()
 
 " expand region
@@ -593,16 +584,17 @@ nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-
 " for plugins
 if has('nvim')
     "easymotion
-    nmap ss <Plug>(easymotion-s2)
-    nmap st <Plug>(easymotion-t2)
+    nmap f <Plug>(easymotion-f)
+    nmap F <Plug>(easymotion-F)
+    nmap ss <Plug>(easymotion-s)
+    nmap st <Plug>(easymotion-t)
 
     " choosewin
     nnoremap sm :<C-u>ChooseWin<CR>
 
-    " ale
-    nmap <silent> sn <Plug>(ale_previous_wrap)
-    nmap <silent> sp <Plug>(ale_next_wrap)
-    nnoremap <silent> <C-l> :<C-u>ALEFix<CR>
+    " buffer
+    nnoremap <silent> tp :<C-u>bprev<CR>
+    nnoremap <silent> tn :<C-u>bnext<CR>
 
     " switch
     nnoremap sw :<C-u>Switch<CR>
@@ -610,6 +602,10 @@ if has('nvim')
     " easyalign
     xnoremap sa <Plug>(EasyAlign)
     nnoremap sa <Plug>(EasyAlign)
+
+    " nerdtree
+    nnoremap <silent> sb :<C-u>NERDTreeToggle<CR>
+    nnoremap <silent> sl :<C-u>Format<CR>
 endif
 
 "-----------------------
@@ -634,26 +630,14 @@ if has('nvim')
 
     " coc Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> gy <Plug>(co1c-type-definition)
+
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)"
 endif
 
-"-----------------------
-" tで始まるショートカット
-"-----------------------
 if has('nvim')
     nnoremap t <Nop>
-
-    " next buffer
-    nnoremap <silent> tp :<C-u>bprev<CR>
-    nnoremap <silent> tn :<C-u>bnext<CR>
-
-    " nnoremap <silent> tn :<C-u>NERDTreeToggle<CR>:wincmd p<CR>
-    nnoremap <silent> tt :<C-u>NERDTreeToggle<CR>
-    nnoremap <silent> tb :<C-u>TagbarToggle<CR>
-    nnoremap <silent> tl :<C-u>ALEToggle<CR>
-    nnoremap <silent> tg :<C-u>GitGutterLineHighlightsToggle<CR>
 endif
 
 "=========================================================================
