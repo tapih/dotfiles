@@ -1,6 +1,8 @@
 #! /usr/bin/env zsh
 
 bindkey -e
+bindkey '^J' vi-find-next-char
+bindkey '^j' vi-find-prev-char
 
 HISTFILE=~/.zsh_history
 HISTSIZE=100000 # メモリ上に保存される件数（検索できる件数）
@@ -62,7 +64,6 @@ setopt hist_save_no_dups # ファイルに書き出すとき古いコマンド�
 fignore=(.o .swp lost+found)
 
 # 大文字小文字を区別しない（大文字を入力した場合は区別する）
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z} r:|[-_./]=** r:|=*'
 
 # Ctrl-p, Ctrl-Nを有効に
@@ -72,12 +73,6 @@ zstyle ':completion:*:default' menu select=1
 export LS_COLORS='di=1;34:ln=1;35:so=32:pi=33:ex=1;31:bd=46;34:cd=43;34:su=41;30:tw=42;30:ow=43;30'
 #zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
-# smart insert last word
-autoload smart-insert-last-word
-zle -N insert-last-word smart-insert-last-word
-zstyle :insert-last-word match '*([^[:space]][[:alpha]/\\]|[[:alpha:]/\\][^[:space:]])*'
-bindkey '^]' insert-last-word
 
 # 履歴検索
 autoload history-search-end
@@ -276,10 +271,11 @@ if [ -d ${HOME}/.pyenv ]; then
   eval "$(pyenv init -)";
 fi
 
-if [ -d ${HOME}/.goenv ]; then
-  export GOENV_ROOT=$HOME/.goenv
-  export PATH="$GOENV_ROOT/bin:$GOROOT/bin:$GOPATH/bin:$PATH"
-  eval "$(goenv init -)";
+GOROOT="/usr/local/go"
+if is_exists $GOROOT/bin/go; then
+    export GOPATH="~/go"
+    export GOROOT
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

@@ -13,7 +13,7 @@ cd /tmp
 NVIM_PYTHON2_VERSION=2.7.16
 NVIM_PYTHON3_VERSION=3.7.3
 NODE_VERSION=10.16.3
-GO_VERSION=1.12.5
+GO_VERSION=1.13.1
 TMUX_VERSION=2.9
 GLOBAL_VERSION=6.5.6
 
@@ -120,15 +120,6 @@ if [ ! "$(pyenv versions | grep ${NVIM_PYTHON3_VERSION}$)" ]; then
     pip install pyls
 fi
 
-# goenv
-echo "install goenv ..."
-GOENV_ROOT=$HOME/.goenv
-PATH="$GOENV_ROOT/bin:$PATH"
-if [ ! -d $GOENV_ROOT ]; then
-    git clone https://github.com/syndbg/goenv.git $GOENV_ROOT
-    eval "$(goenv init -)"
-fi
-
 PATH="$GOENV_ROOT/shims:$PATH"
 if [ ! "$(goenv versions | grep $GO_VERSION$)" ]; then
     goenv install -s $GO_VERSION
@@ -149,6 +140,15 @@ if type n > /dev/null 2>&1; then
     sudo n $NODE_VERSION
 fi
 
+# go
+GOROOT=/usr/local/go
+if [ ! -d $GOROOT ]; then
+    wget https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz -O /tmp/go.tar.gz
+    cd /tmp && tar xvzf /tmp/go.tar.gz
+    sudo mv /tmp/go $GOROOT
+    rm -f /tmp/go.tar.gz
+    mkdir -p ~/go/{src,bin,pkg}
+fi
 
 # fzf
 FZF_ROOT=$HOME/.fzf
