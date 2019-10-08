@@ -14,9 +14,6 @@
     df = diff
     dft = difftool
     fo = fetch origin
-    ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     ai = update-index --add
     ri = update-index --remove
     po = push
@@ -24,6 +21,9 @@
     l = log
     ul = log --no-merges
     ulog = log --no-merges
+    ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [core]
