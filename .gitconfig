@@ -9,9 +9,12 @@
     co = checkout
     ci = commit
     cm = commit
-    dc = diff --cached
+    dfc = diff --cached
+    dfs = diff --staged
     df = diff
-    dt = difftool
+    dft = difftool
+    fo = fetch origin
+    ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     ai = update-index --add
