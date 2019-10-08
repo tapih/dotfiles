@@ -8,7 +8,7 @@
     st = status
     co = checkout
     ci = commit
-    cm = commit
+    cm = commit -m
     dfc = diff --cached
     dfs = diff --staged
     df = diff
