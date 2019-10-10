@@ -224,6 +224,7 @@ alias -g F='|grep -i'
 alias -g GG='|xargs -0 grep -i'
 alias -g G='2>&1|grep -i'
 alias -g L="2>&1|$PAGER"
+alias diff='colordiff'
 
 function is_exists() { type $1 >/dev/null 2>&1; return $?; }
 is_exists vim && export EDITOR=vim

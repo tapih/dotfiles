@@ -41,6 +41,7 @@ sudo apt -y --no-install-recommends install \
     jq \
     xsel \
     make \
+    colordiff \
     build-essential \
     autotools-dev \
     automake \

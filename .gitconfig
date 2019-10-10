@@ -1,5 +1,6 @@
 [alias]
     b = branch
+    br = branch
     u = add -u
     f = fetch
     fo = fetch origin
@@ -13,7 +14,6 @@
     dfs = diff --staged
     df = diff
     dft = difftool
-    fo = fetch origin
     ai = update-index --add
     ri = update-index --remove
     po = push
