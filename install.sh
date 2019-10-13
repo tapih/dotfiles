@@ -16,6 +16,7 @@ NODE_VERSION=10.16.3
 GO_VERSION=1.13.1
 TMUX_VERSION=2.9
 GLOBAL_VERSION=6.5.6
+HUB_VERSION=2.12.8
 
 echo "install debian package..."
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -130,8 +131,10 @@ if [ ! -d $GOROOT ]; then
     rm -f /tmp/go.tar.gz
     mkdir -p ~/go/{src,bin,pkg}
 
-    go get -u golang.org/x/tools/cmd/goimports
-    go get -u github.com/go-delve/delve/cmd/delve
+    GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
+    GO111MODULE=off go get -u github.com/go-delve/delve/cmd/delve
+    GO111MODULE=off go get github.com/motemen/ghq
+
     GO111MODULE=on go get -u golang.org/x/tools/cmd/gopls@latest
 fi
 
@@ -163,4 +166,10 @@ if [ ! "$(tmux -V | grep $TMUX_VERSION)" ]; then
     rm -f ${TMUX_TMP_PATH}
     git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 fi
+
+# hub
+echo "install hub ..."
+curl -sSLf https://github.com/github/hub/releases/download/v2.12.8/hub-linux-amd64-${HUB_VERSION}.tgz -o hub.tgz
+mkdir -p hub && tar xzf hub.tgz -C hub --strip-components=1
+sudo cp hub/bin/hub /usr/local/bin
 
