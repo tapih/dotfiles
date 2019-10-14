@@ -143,17 +143,17 @@ precmd(){ vcs_info }
 zsh_prompt_color='cyan'
 function prompt {
   if [ $UID -eq 0 ]; then
-    local C_USERHOST="%{$bg[white]$fg[magenta]%}"
-    local C_PROMPT="%{$fg[magenta]%}"
+    local C_USERHOST="%{$bg[black]$fg[magenta]%}"
+    local C_PROMPT="%{$fg[magenta]%}%%"
   else
     local C_USERHOST="%{$bg[black]$fg[$zsh_prompt_color]%}"
-    local C_PROMPT="%{$fg[$zsh_prompt_color]%}"
+    local C_PROMPT="%{$fg[$zsh_prompt_color]%}$"
   fi
   local C_PRE="%{$reset_color%}%{$fg[$zsh_prompt_color]%}"
   local C_CMD="%{$reset_color%}%{$fg[white]%}"
   local C_DEFAULT="%{$reset_color%}"
   PROMPT=$C_USERHOST"%S[%n@%m] %~ %s$C_PRE"'${vcs_info_msg_0_}'"
-#"$C_PROMPT"$ "$C_CMD
+#"$C_PROMPT" "$C_CMD
   echo -n -e "\n\n\n\033[3A" # keep a few blank lines at the bottom
 }
 
@@ -250,7 +250,7 @@ fi
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # tmux
-if [ -z "$TMUX" ]; then
+if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     base_session='auto'
     # Create a new session if it doesn't exist
     tmux has-session -t $base_session || tmux new-session -d -s $base_session
