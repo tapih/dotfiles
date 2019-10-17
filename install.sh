@@ -43,6 +43,7 @@ sudo apt -y --no-install-recommends install \
     xsel \
     make \
     colordiff \
+    ranger \
     build-essential \
     autotools-dev \
     automake \
