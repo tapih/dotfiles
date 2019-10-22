@@ -22,8 +22,8 @@ setopt noclobber # 存在するファイルにリダイレクトしない
 setopt ignoreeof # C-Dでログアウトしない
 setopt noflowcontrol # disable C-S C-Q
 setopt nolistbeep # 補完候補表示時にビープ音を鳴らさない
-setopt auto_pushd # cd -<tab>で以前移動したディレクトリを表示
-setopt pushd_ignore_dups # auto_pushdで重複するディレクトリは記録しない
+#setopt auto_pushd # cd -<tab>で以前移動したディレクトリを表示
+#setopt pushd_ignore_dups # auto_pushdで重複するディレクトリは記録しない
 setopt nolistbeep # 曖昧補完でビープしない
 setopt autolist # 補完時にリスト表示
 setopt listtypes
@@ -42,7 +42,6 @@ setopt magicequalsubst # completion after '='
 #setopt always_last_prompt
 #setopt complete_in_word
 #setopt autocd # ディレクトリ名でcd
-setopt autopushd #cd -で履歴を検索して移動:
 setopt pushdignoredups #重複除去
 setopt pushd_minus # swap '-' and '+' in the context of pushd
 setopt list_packed # 候補が多い場合は詰めて表示
@@ -83,50 +82,26 @@ bindkey "^N" history-beginning-search-forward-end
 
 
 # 256色
-case $TERM in
-  "cygwin")
-    export LANG=ja_JP.SJIS
-    export LC_ALL=C
-    export SHELL=`which zsh`
-  ;;
-
-  *)
-    export LANG=ja_JP.UTF-8
-    unset LC_ALL
-    export LC_MESSAGES=C
-    export SHELL=`which zsh`
-    export PATH=$HOME/bin:$PATH
-    case "$TERM" in
-      xterm*)
-      # determine best terminal
-      if [ -f /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM=xterm-256color
-      elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
-        export TERM=xterm-debian
-      elif [ -f /usr/share/terminfo/x/xterm-color ]; then
-        export TERM=xterm-color
-      else
-        export TERM=xterm
-      fi
-      ;;
-    esac
-    case "$OSTYPE" in
-        darwin*)
-            export TERM=xterm-256color
-        ;;
-    esac
+export LANG=ja_JP.UTF-8
+unset LC_ALL
+export LC_MESSAGES=C
+export SHELL=`which zsh`
+export PATH=$HOME/bin:$PATH
+case "$TERM" in
+  xterm*)
+  # determine best terminal
+  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM=xterm-256color
+  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
+    export TERM=xterm-debian
+  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
+    export TERM=xterm-color
+  else
+    export TERM=xterm
+  fi
   ;;
 esac
-
-# dircolorsを利用
-case "$OSTYPE" in
-    darwin*)
-        [ -f ~/.dircolors ] && eval $(gdircolors ~/.dircolors) #coreutils required
-        ;;
-    linux*)
-        [ -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
-        ;;
-esac
+[ -f ~/.dircolors ] && eval $(dircolors ~/.dircolors)
 
 autoload -Uz vcs_info
 autoload colors
@@ -226,15 +201,15 @@ alias -g G='2>&1|grep -i'
 alias -g L="2>&1|$PAGER"
 alias diff='colordiff'
 
-function is_exists() { type $1 >/dev/null 2>&1; return $?; }
-is_exists vim && export EDITOR=vim
-is_exists nvim && alias nv='nvim'
-is_exists nvim && alias agit='nvim +Agit'
-is_exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
-is_exists gsed && alias sed='gsed'
-is_exists tmux && alias tmux="tmux -2"
-is_exists git && alias g='git'
-is_exists kubectl && alias k='kubectl'
+function do_exist() { type $1 >/dev/null 2>&1; return $?; }
+do_exist vim && export EDITOR=vim
+do_exist nvim && alias nv='nvim'
+do_exist nvim && alias agit='nvim +Agit'
+do_exist w3m && alias w3m='w3m -O ja_JP.UTF-8'
+do_exist gsed && alias sed='gsed'
+do_exist tmux && alias tmux="tmux -2"
+do_exist git && alias g='git'
+do_exist kubectl && alias k='kubectl'
 
 # fzf
 function select-history() {
@@ -242,7 +217,7 @@ function select-history() {
     CURSOR=$#BUFFER
 }
 
-if is_exists fzf; then
+if do_exist fzf; then
     export FZF_DEFAULT_OPTS='--height 95% --reverse --border'
     zle -N select-history
     bindkey '^r' select-history
@@ -265,17 +240,26 @@ if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     fi
 fi
 
+# python
 if [ -d ${HOME}/.pyenv ]; then
   export PYENV_ROOT=$HOME/.pyenv
   export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
   eval "$(pyenv init -)";
 fi
 
+# go
 GOROOT="/usr/local/go"
-if is_exists $GOROOT/bin/go; then
+if do_exist $GOROOT/bin/go; then
     export GOPATH="$HOME/go"
     export GOROOT
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
+# enhancd
+if [ -e $HOME/.config/enhancd/init.sh ]; then
+    export ENHANCD_FILTER=fzf
+    export ENHANCD_COMMAND=ecd
+    source $HOME/.config/enhancd/init.sh
 fi
 
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local

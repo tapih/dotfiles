@@ -90,6 +90,7 @@ sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 echo "link dotfiles ..."
 mkdir -p ${HOME}/.config
 [ -e ${HOME}/.zshrc       -o -L ${HOME}/.zshrc       ] || ln -s ${BASE_DIR}/.zshrc        ${HOME}/
+[ -e ${HOME}/.bashrc      -o -L ${HOME}/.bashrc      ] || ln -s ${BASE_DIR}/.bashrc       ${HOME}/
 [ -e ${HOME}/.gitconfig   -o -L ${HOME}/.gitconfig   ] || ln -s ${BASE_DIR}/.gitconfig    ${HOME}/
 [ -e ${HOME}/.screenrc    -o -L ${HOME}/.screenrc    ] || ln -s ${BASE_DIR}/.screenrc     ${HOME}/
 [ -e ${HOME}/.tmux.conf   -o -L ${HOME}/.tmux.conf   ] || ln -s ${BASE_DIR}/.tmux.conf    ${HOME}/
@@ -168,9 +169,27 @@ if [ ! "$(tmux -V | grep $TMUX_VERSION)" ]; then
     git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 fi
 
+# git branch
+if [ ! -e ~/.git-completion.bash ]; then
+    curl -sSLf https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
+        -o ${HOME}/.git-completion.bash
+fi
+if [ ! -d ${HOME}/.bash-git-prompt ]; then
+    git clone https://github.com/magicmonty/bash-git-prompt.git {$HOME}/.bash-git-prompt --depth=1
+fi
+
+# enhancd
+ENHANCD_ROOT=$HOME/.config/enhancd
+if [ ! -d $ENHANCD_ROOT ]; then
+    git clone https://github.com/b4b4r07/enhancd $ENHANCD_ROOT
+fi
+
 # hub
 echo "install hub ..."
-curl -sSLf https://github.com/github/hub/releases/download/v2.12.8/hub-linux-amd64-${HUB_VERSION}.tgz -o hub.tgz
-mkdir -p hub && tar xzf hub.tgz -C hub --strip-components=1
-sudo cp hub/bin/hub /usr/local/bin
+if [ ! -e /usr/local/bin/hub ]; then
+    curl -sSLf https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz \
+        -o hub.tgz
+    mkdir -p hub && tar xzf hub.tgz -C hub --strip-components=1
+    sudo cp hub/bin/hub /usr/local/bin
+fi
 
