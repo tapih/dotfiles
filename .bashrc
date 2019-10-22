@@ -5,10 +5,17 @@ case $- in
       *) return;;
 esac
 
+export SHELL=`which bash`
+export PATH=$HOME/bin:$PATH
+
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
+
+# bind
+stty werase undef
+bind '"\C-w": unix-filename-rubout'
 
 # history
 shopt -s histappend
@@ -18,15 +25,13 @@ HISTSIZE=100000
 HISTFILESIZE=100000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export PROMPT_COMMAND='history -a'
-bind '"\e[P": history-search-backward'
-bind '"\e[N": history-search-forward'
+bind '"\C-p": history-search-backward'
+bind '"\C-n": history-search-fowward'
 
 # color 256
 export LANG=ja_JP.UTF-8
 unset LC_ALL
 export LC_MESSAGES=C
-export SHELL=`which zsh`
-export PATH=$HOME/bin:$PATH
 case "$TERM" in
   xterm*)
   # determine best terminal
