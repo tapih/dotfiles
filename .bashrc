@@ -67,9 +67,9 @@ else
 fi
 
 do_exist() { type $1 >/dev/null 2>&1; return $?; }
-alias ls='ls -FG --color=auto'
-alias ll='ls -FGlh --color=auto'
-alias la='ls -FGlha --color=auto'
+alias ls='ls -F --color=auto'
+alias ll='ls -Flh --color=auto'
+alias la='ls -Flha --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'

@@ -145,9 +145,9 @@ case $OSTYPE in
         alias la='ls -FGlha'
     ;;
     linux*)
-        alias ls='ls -FG --color=auto'
-        alias ll='ls -FGlh --color=auto'
-        alias la='ls -FGlha --color=auto'
+        alias ls='ls -F --color=auto'
+        alias ll='ls -Flh --color=auto'
+        alias la='ls -Flha --color=auto'
     ;;
     msys*)
         alias ls='ls -FG --color=auto'
