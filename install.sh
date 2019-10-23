@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 #
 # install.sh
-# Copyright (C) 2019 hmuraoka <hmuraoka@melchior.local>
+# Copyright (C) 2019 hmuraoka <h.muraoka@gmail.com>
 #
 # Distributed under terms of the MIT license.
 #
