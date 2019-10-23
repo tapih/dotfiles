@@ -181,6 +181,7 @@ function cd {
 }
 
 alias mv='mv -i'
+alias cp='cp -i'
 alias rm='rm -i'
 alias quit='exit'
 alias Q='exit'
