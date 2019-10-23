@@ -12,7 +12,6 @@ autoload -Uz compinit
 compinit
 
 export LISTMAX=20 # 最大表示数
-export LANG=ja_JP.UTF-8 #  文字コード
 export WORDCHARS='*?_-.[]~&;!#$%^(){}<>' # C-wで単語の一部と見なす記号
 
 setopt print_eightbit # 日本語ファイルを表示可能に
@@ -82,9 +81,6 @@ bindkey "^N" history-beginning-search-forward-end
 
 
 # 256色
-export LANG=ja_JP.UTF-8
-unset LC_ALL
-export LC_MESSAGES=C
 export SHELL=`which zsh`
 export PATH=$HOME/bin:$PATH
 case "$TERM" in

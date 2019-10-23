@@ -29,9 +29,6 @@ bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-fowward'
 
 # color 256
-export LANG=ja_JP.UTF-8
-unset LC_ALL
-export LC_MESSAGES=C
 case "$TERM" in
   xterm*)
   # determine best terminal
