@@ -55,16 +55,15 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # prompt
-if [ -f "$HOME/.bash-git-prompt/gitprompt.sh"  ]; then
-    # GIT_PROMPT_ONLY_IN_REPO=1
-    source $HOME/.bash-git-prompt/gitprompt.sh
-fi
-
 if [ $UID -eq 0 ]; then
-    GIT_PROMPT_START='\[\e[0;30;45m[\u@\h] \w \]\[\e[m\]'
-    GIT_PROMPT_END='
+    PS1='\[\e[0;30;45m[\u@\h] \w \]\[\e[m\]
 %\[\e[0;35m$\]\[\e[m\] '
 else
+    if [ -f "$HOME/.bash-git-prompt/gitprompt.sh"  ]; then
+        # GIT_PROMPT_ONLY_IN_REPO=1
+        source $HOME/.bash-git-prompt/gitprompt.sh
+    fi
+
     GIT_PROMPT_START='\[\e[0;30;46m[\u@\h] \w \]\[\e[m\]'
     GIT_PROMPT_END='
 %\[\e[0;36m$\]\[\e[m\] '
