@@ -166,8 +166,9 @@ if [ ! "$(tmux -V | grep $TMUX_VERSION)" ]; then
     ./configure && make
     sudo make install
     rm -f ${TMUX_TMP_PATH}
-    git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 fi
+
+[ ! -d ${HOME}/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 
 # git branch
 if [ ! -e ~/.git-completion.bash ]; then
@@ -175,7 +176,7 @@ if [ ! -e ~/.git-completion.bash ]; then
         -o ${HOME}/.git-completion.bash
 fi
 if [ ! -d ${HOME}/.bash-git-prompt ]; then
-    git clone https://github.com/magicmonty/bash-git-prompt.git {$HOME}/.bash-git-prompt --depth=1
+    git clone https://github.com/magicmonty/bash-git-prompt.git ${HOME}/.bash-git-prompt --depth=1
 fi
 
 # enhancd
