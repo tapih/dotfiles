@@ -92,6 +92,7 @@ do_exist gsed && alias sed='gsed'
 do_exist tmux && alias tmux="tmux -2"
 do_exist git && alias g='git'
 do_exist kubectl && alias k='kubectl'
+do_exist ghq && do_exist fzf && alias gcd='cd $(ghq list -p | fzf)'
 
 cd() {
   if ! builtin cd 2>/dev/null $@; then

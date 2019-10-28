@@ -45,3 +45,7 @@
 [difftool]
     prompt = false
 
+[ghq]
+    root=~/.ghq
+    root=~/.go/src
+    root=~/go/src
