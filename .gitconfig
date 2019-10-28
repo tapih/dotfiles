@@ -38,7 +38,6 @@
 
 [include]
     path = ~/.gitconfig.local
-
 [diff]
     tool = vimdiff
 
@@ -49,3 +48,4 @@
     root=~/.ghq
     root=~/.go/src
     root=~/go/src
+    root=~/src
