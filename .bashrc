@@ -26,7 +26,13 @@ HISTFILESIZE=100000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export PROMPT_COMMAND='history -a'
 bind '"\C-p": history-search-backward'
-bind '"\C-n": history-search-fowward'
+bind '"\C-n": history-search-forward'
+
+bind -x '"\C-g": gcd'
+
+gcd() {
+    cd $(ghq list -p | fzf)
+}
 
 # color 256
 case "$TERM" in
@@ -84,6 +90,7 @@ alias ...='cd ...'
 alias ....='cd ....'
 alias diff='colordiff'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+alias gcd='gcd'
 do_exist vim && export EDITOR=vim
 do_exist nvim && alias nv='nvim'
 do_exist nvim && alias agit='nvim +Agit'
@@ -92,7 +99,6 @@ do_exist gsed && alias sed='gsed'
 do_exist tmux && alias tmux="tmux -2"
 do_exist git && alias g='git'
 do_exist kubectl && alias k='kubectl'
-do_exist ghq && do_exist fzf && alias gcd='cd $(ghq list -p | fzf)'
 
 cd() {
   if ! builtin cd 2>/dev/null $@; then
