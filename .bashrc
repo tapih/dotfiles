@@ -102,7 +102,7 @@ do_exist kubectl && alias k='kubectl'
 
 cd() {
   if ! builtin cd 2>/dev/null $@; then
-    echo "$fg[yellow]cannot cd: $@$reset_color"
+    echo "cannot cd: $@$reset_color"
     return
   fi
   if [ "$?" -eq 0 ]; then
@@ -110,15 +110,15 @@ cd() {
     nfiles=$(/bin/ls|wc -l)
     if [ $nfiles -eq 0 ]; then
       if [ "$(/bin/ls -A|wc -l)" -eq 0 ]; then
-        echo "$fg[yellow]no files in: $(pwd)$reset_color"
+        echo "no files in: $(pwd)$reset_color"
       else
-        echo "$fg[yellow]only hidden files in: $(pwd)$reset_color"
+        echo "only hidden files in: $(pwd)$reset_color"
         ls -A
       fi
     elif [ $lscdmax -ge $nfiles ]; then
       ls
     else
-      echo "$fg[yellow]$nfiles files in: $(pwd)$reset_color"
+      echo "$nfiles files in: $(pwd)$reset_color"
     fi
   fi
 }
