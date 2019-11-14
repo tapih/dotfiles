@@ -132,10 +132,10 @@ if [ ! -d $GOROOT ]; then
     sudo mv /tmp/go $GOROOT
     rm -f /tmp/go.tar.gz
     mkdir -p ~/go/{src,bin,pkg}
+    PATH=$PATH:$GOROOT/bin
 
     GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
-    GO111MODULE=off go get -u github.com/go-delve/delve/cmd/delve
-    GO111MODULE=off go get github.com/motemen/ghq
+    GO111MODULE=off go get -u github.com/motemen/ghq
 
     GO111MODULE=on go get -u golang.org/x/tools/cmd/gopls@latest
 fi
