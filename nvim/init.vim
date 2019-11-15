@@ -99,6 +99,8 @@ function! AutoCloseBuf()
     endif
 endfunction
 
+" template
+autocmd BufNewFile *.cpp 0r $HOME/.config/nvim/template/competitive_programming.cpp
 
 " バッファが一つならウィンドウを閉じる
 function! GetNumBufs()
