@@ -59,7 +59,7 @@ shopt -s checkwinsize
 
 # prompt
 if [ $UID -eq 0 ]; then
-    PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\e[0;35m\$\]\e[m\] '
+    PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\$ '
 else
     if [ -f "$HOME/.bash-git-prompt/gitprompt.sh"  ]; then
         # GIT_PROMPT_ONLY_IN_REPO=1
@@ -67,7 +67,7 @@ else
     fi
 
     GIT_PROMPT_START='\e[0;30;46m[\u@\h] \w \]\e[m\]'
-    GIT_PROMPT_END='\n%\e[0;36m\$\]\e[m\] '
+    GIT_PROMPT_END='\n%\$ '
 fi
 
 do_exist() { type $1 >/dev/null 2>&1; return $?; }
