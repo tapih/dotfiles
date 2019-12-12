@@ -194,3 +194,18 @@ if [ ! -e /usr/local/bin/hub ]; then
     sudo cp hub/bin/hub /usr/local/bin
 fi
 
+# stern
+echo "install stern..."
+if [ ! -e /usr/loca/bin/stern ]; then
+    curl -sSLf https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 -o /usr/local/bin/stern
+fi
+
+# k9s
+echo "install k9s..."
+if [ ! -e /usr/local/bin/k9s ]; then
+    curl -sSLf https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz -o /tmp/k9s.tar.gz
+    mkdir -p /tmp/k9s/ && tar xvf /tmp/k9s.tar.gz -C /tmp/k9s
+    cp /tmp/k9s/k9s /usr/local/bin/k9s
+fi
+
+
