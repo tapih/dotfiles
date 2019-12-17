@@ -69,6 +69,7 @@ else
     GIT_PROMPT_START='\e[0;30;46m[\u@\h] \w \]\e[m\]'
     GIT_PROMPT_END='\n%\$ '
 fi
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 
 do_exist() { type $1 >/dev/null 2>&1; return $?; }
 alias ls='ls -F --color=auto'
@@ -95,7 +96,7 @@ do_exist nvim && alias agit='nvim +Agit'
 do_exist w3m && alias w3m='w3m -O ja_JP.UTF-8'
 do_exist gsed && alias sed='gsed'
 do_exist tmux && alias tmux="tmux -2"
-do_exist git && alias g='git'
+do_exist git && alias g='git' && __git_complete g _git
 do_exist kubectl && alias k='kubectl'
 
 cd() {
@@ -173,4 +174,3 @@ if ! shopt -oq posix; then
 fi
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
-[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash

@@ -146,6 +146,7 @@ if type n > /dev/null 2>&1; then
     sudo npm -g i n
     sudo npm -g i yarn
     sudo n $NODE_VERSION
+    sudo npm -g i neovim
 fi
 
 # fzf
@@ -207,5 +208,4 @@ if [ ! -e /usr/local/bin/k9s ]; then
     mkdir -p /tmp/k9s/ && tar xvf /tmp/k9s.tar.gz -C /tmp/k9s
     cp /tmp/k9s/k9s /usr/local/bin/k9s
 fi
-
 
