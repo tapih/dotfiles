@@ -32,9 +32,7 @@ bind -x '"\C-g": gcd'
 
 gcd() {
     GHQ_JUMP_TO=$(ghq list -p | fzf)
-    if [ ! -z $GHQ_JUMP_TO ]; then
-        cd $GHQ_JUMP_TO
-    fi
+    [ -z $GHQ_JUMP_TO ] || cd $GHQ_JUMP_TO
 }
 
 # color 256
