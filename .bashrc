@@ -31,7 +31,10 @@ bind '"\C-n": history-search-forward'
 bind -x '"\C-g": gcd'
 
 gcd() {
-    cd $(ghq list -p | fzf)
+    GHQ_JUMP_TO=$(ghq list -p | fzf)
+    if [ ! -z $GHQ_JUMP_TO ]; then
+        cd $GHQ_JUMP_TO
+    fi
 }
 
 # color 256
