@@ -125,7 +125,7 @@ cd() {
 # fzf
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 export FZF_DEFAULT_OPTS='--height 95% --reverse --border'
-bind -x '"\C-b": fzf-file-widget'
+bind -x '"\C-j": fzf-file-widget'
 
 # tmux
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
