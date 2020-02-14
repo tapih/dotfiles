@@ -97,7 +97,12 @@ do_exist w3m && alias w3m='w3m -O ja_JP.UTF-8'
 do_exist gsed && alias sed='gsed'
 do_exist tmux && alias tmux="tmux -2"
 do_exist git && alias g='git' && __git_complete g _git
-do_exist kubectl && alias k='kubectl'
+
+if do_exist kubectl ; then
+    alias k='kubectl'
+    complete -F __start_kubectl k
+    source <(kubectl completion bash)
+fi
 
 cd() {
   if ! builtin cd 2>/dev/null $@; then
