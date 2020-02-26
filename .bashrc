@@ -97,6 +97,7 @@ do_exist w3m && alias w3m='w3m -O ja_JP.UTF-8'
 do_exist gsed && alias sed='gsed'
 do_exist tmux && alias tmux="tmux -2"
 do_exist git && alias g='git' && __git_complete g _git
+do_exist docker && alias d='docker'
 
 if do_exist kubectl ; then
     alias k='kubectl'
