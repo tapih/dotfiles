@@ -45,7 +45,7 @@ set ambiwidth=double " □といった文字が崩れる問題の解決
 set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
-" autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
+autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
 " ヤンクバッファを共有
 set clipboard^=unnamedplus
