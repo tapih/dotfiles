@@ -30,8 +30,8 @@ bind '"\C-n": history-search-forward'
 bind -x '"\C-g": gcd'
 
 gcd() {
-    GHQ_JUMP_TO=$(ghq list -p | fzf)
-    [ -z $GHQ_JUMP_TO ] || cd $GHQ_JUMP_TO
+    JUMP_TO=$(ghq list -p | fzf)
+    [ -z $JUMP_TO ] || cd $JUMP_TO
 }
 
 # color 256
@@ -89,7 +89,6 @@ alias ...='cd ...'
 alias ....='cd ....'
 alias diff='colordiff'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias gcd='gcd'
 do_exist vim && export EDITOR=vim
 do_exist nvim && alias nv='nvim'
 do_exist nvim && alias agit='nvim +Agit'
@@ -131,7 +130,6 @@ cd() {
 # fzf
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 export FZF_DEFAULT_OPTS='--height 95% --reverse --border'
-bind -x '"\C-j": fzf-file-widget'
 
 # tmux
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
