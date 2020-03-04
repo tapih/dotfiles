@@ -4,15 +4,18 @@ case $- in
       *) return;;
 esac
 
+exists() { type $1 >/dev/null 2>&1; return $?; }
+
 export SHELL=`which bash`
 export PATH=$HOME/bin:$PATH
+exists vim && export EDITOR=vim
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-# bind
+# delete word and slash
 stty werase undef
 bind '"\C-w": unix-filename-rubout'
 
@@ -27,83 +30,7 @@ export PROMPT_COMMAND='history -a'
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
-bind -x '"\C-g": gcd'
-
-gcd() {
-    JUMP_TO=$(ghq list -p | fzf)
-    [ -z $JUMP_TO ] || cd $JUMP_TO
-}
-
-# color 256
-case "$TERM" in
-  xterm*)
-  # determine best terminal
-  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM=xterm-256color
-  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
-    export TERM=xterm-debian
-  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
-    export TERM=xterm-color
-  else
-    export TERM=xterm
-  fi ;;
-esac
-case "$OSTYPE" in
-    darwin*)
-        export TERM=xterm-256color
-    ;;
-esac
-
-shopt -s checkwinsize
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# prompt
-if [ $UID -eq 0 ]; then
-    PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\$ '
-else
-    if [ -f "$HOME/.bash-git-prompt/gitprompt.sh"  ]; then
-        # GIT_PROMPT_ONLY_IN_REPO=1
-        source $HOME/.bash-git-prompt/gitprompt.sh
-    fi
-
-    GIT_PROMPT_START='\e[0;30;46m[\u@\h] \w \]\e[m\]'
-    GIT_PROMPT_END='\n%\$ '
-fi
-[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
-
-do_exist() { type $1 >/dev/null 2>&1; return $?; }
-alias ls='ls -F --color=auto'
-alias ll='ls -Flh --color=auto'
-alias la='ls -Flha --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias mv='mv -i'
-alias rm='rm -i'
-alias cp='cp -i'
-alias quit='exit'
-alias Q='exit'
-alias H='cd ~'
-alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
-alias diff='colordiff'
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-do_exist vim && export EDITOR=vim
-do_exist nvim && alias nv='nvim'
-do_exist nvim && alias agit='nvim +Agit'
-do_exist w3m && alias w3m='w3m -O ja_JP.UTF-8'
-do_exist gsed && alias sed='gsed'
-do_exist tmux && alias tmux="tmux -2"
-do_exist git && alias g='git' && __git_complete g _git
-do_exist docker && alias d='docker'
-
-if do_exist kubectl ; then
-    alias k='kubectl'
-    complete -F __start_kubectl k
-    source <(kubectl completion bash)
-fi
-
+# enhanced cd
 cd() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
@@ -126,6 +53,65 @@ cd() {
     fi
   fi
 }
+
+# gcd
+bind -x '"\C-g": gcd'
+gcd() {
+    JUMP_TO=$(ghq list -p | fzf)
+    [ -z $JUMP_TO ] || cd $JUMP_TO
+}
+
+# color 256
+case "$TERM" in
+  xterm*)
+  # determine best terminal
+  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM=xterm-256color
+  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
+    export TERM=xterm-debian
+  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
+    export TERM=xterm-color
+  else
+    export TERM=xterm
+  fi ;;
+esac
+
+shopt -s checkwinsize
+
+# colorize less
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+alias ls='ls -F --color=auto'
+alias ll='ls -Flh --color=auto'
+alias la='ls -Flha --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+alias quit='exit'
+alias Q='exit'
+alias H='cd ~'
+alias ..='cd ..'
+alias ...='cd ...'
+alias ....='cd ....'
+alias diff='colordiff'
+exists notify-send && alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal ||
+    echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+exists nvim && alias nv='nvim'
+exists nvim && alias agit='nvim +Agit'
+exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
+exists gsed && alias sed='gsed'
+exists tmux && alias tmux="tmux -2"
+exists git && alias g='git' && __git_complete g _git
+
+if exists kubectl ; then
+    alias k='kubectl'
+    alias kex='kubectl exec -it'
+    complete -F __start_kubectl k
+    source <(kubectl completion bash)
+fi
 
 # fzf
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
@@ -156,20 +142,29 @@ fi
 
 # go
 GOROOT="/usr/local/go"
-if do_exist $GOROOT/bin/go; then
+if [ -x $GOROOT/bin/go ]; then
     export GOPATH="$HOME/go"
     export GOROOT
     export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 fi
 
-# enhancd
-if [ -f $HOME/.config/enhancd/init.sh ]; then
-    export ENHANCD_FILTER=fzf
-    export ENHANCD_COMMAND=ecd
-    source $HOME/.config/enhancd/init.sh
+# dart
+exists dart && export PATH=$PATH:/usr/lib/dart/bin
+
+# prompt
+if [ $UID -eq 0 ]; then
+    PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\$ '
+else
+    if [ -f "$HOME/.bash-git-prompt/gitprompt.sh"  ]; then
+        # GIT_PROMPT_ONLY_IN_REPO=1
+        source $HOME/.bash-git-prompt/gitprompt.sh
+    fi
+
+    GIT_PROMPT_START='\e[0;30;46m[\u@\h] \w \]\e[m\]'
+    GIT_PROMPT_END='\n%\$ '
 fi
 
-# load
+# completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
@@ -177,5 +172,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local

@@ -71,6 +71,7 @@ sudo apt -y --no-install-recommends install \
     compiz-plugins \
     compiz-plugins-extra \
     compizconfig-settings-manager \
+    libnotify-bin \
     # for docker
     docker-ce \
     docker-ce-cli \
