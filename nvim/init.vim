@@ -1,5 +1,3 @@
-" TODO
-" denite grep
 "=========================================================================
 " 共通設定
 "=========================================================================
@@ -9,22 +7,15 @@ set cpoptions&vim "vimモードに
 "-----------------------
 " 基本設定
 "-----------------------
-" ファイルタイプ関連を一旦切っておく
-filetype off
-filetype plugin indent off
-
-syntax on " シンタックス有効に
+" ファイルタイプ関連を一旦切っておく filetype off filetype plugin indent off
+syntax enable " シンタックス有効に
 set encoding=utf-8 " エンコーディング
 set number     " 行番号の表示
 set scrolloff=10 " scroll offset
-" set cursorline   " カーソルライン横
-" autocmd InsertEnter,InsertLeave * set cursorline!
-" set cursorcolumn " カーソルライン横（重いので無効)
-" set wrap       " 文を折り返す
+set cursorline   " カーソルライン横
 set splitbelow " spで下に分割
 set splitright " vsで右に分割
 set ruler      " カーソル位置を下のバーに表示
-set background=dark
 set showmatch  " カーソル下の対応するカッコをハイライト
 set lazyredraw " マクロなどの途中経過を描写しない
 set foldmethod=manual " 手動でグルーピング
@@ -40,16 +31,7 @@ set nowrapscan " 検索で文頭にループしない
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set fileformats=unix,dos,mac  " 改行コードの自動判別。左が優先
 set ambiwidth=double " □といった文字が崩れる問題の解決
-
-" indentation
-set autoindent " 自動インデント
-set shiftwidth=4 " インデントは半角スペース4つ分
-set tabstop=4  " タブは半角スペース4つ分で表示
-autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
-
-" ヤンクバッファを共有
-set clipboard^=unnamedplus
-
+set clipboard^=unnamedplus " ヤンクバッファを共有
 set nobackup nowritebackup " backup file作らない
 set noswapfile " swap file作らない
 set hidden " バッファを移動する際に保存しなくて済む
@@ -57,18 +39,19 @@ set colorcolumn=80 " 80行目に線
 set list listchars=tab:>-,trail:-,nbsp:%,eol:$ " 不可視文字を表示
 set iskeyword-=/ " /を区切り文字に追加
 set conceallevel=0 " 特殊文字を隠さない
-" if has('conceal')
-"     set conceallevel=2 concealcursor=niv
-" endif
+set autoindent " 自動インデント
+set shiftwidth=4 " インデントは半角スペース4つ分
+set tabstop=4  " タブは半角スペース4つ分で表示
+autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
 let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 
-" help windowリサイズ
-augroup ResizeHelpWin
+" do not add comment simbol after line break
+augroup DisableAutoComment
     autocmd!
-    autocmd FileType help resize 12
+    autocmd FileType * set fo-=cro
 augroup END
 
 " インサートから抜けたらpreview windowを閉じる
@@ -83,11 +66,9 @@ augroup OpenAtLastClosed
     autocmd BufRead * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal g`\"" | endif
 augroup END
 
-" コメント行を改行したときに自動でコメントアウト記号をいれない
-augroup AutoCompleteOff
-    autocmd!
-    autocmd BufEnter * setlocal formatoptions-=r
-    autocmd BufEnter * setlocal formatoptions-=o
+" template
+augroup Template
+    autocmd BufNewFile *.cpp 0r $HOME/.config/nvim/template/competitive_programming.cpp
 augroup END
 
 " 編集用のバッファをすべて閉じた時に他のウィンドウ（help, terminalなど）も閉じる
@@ -98,9 +79,6 @@ function! AutoCloseBuf()
         :bd
     endif
 endfunction
-
-" template
-autocmd BufNewFile *.cpp 0r $HOME/.config/nvim/template/competitive_programming.cpp
 
 " バッファが一つならウィンドウを閉じる
 function! GetNumBufs()
@@ -125,9 +103,8 @@ endfunction
 
 
 
-
 "=========================================================================
-" 外部プラグイン
+" プラグイン
 "=========================================================================
 if has('nvim')
     if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -142,14 +119,12 @@ if has('nvim')
     "-----------------------
     " コード入力補助
     "-----------------------
-    Plug 'morhetz/gruvbox' " colorsheme
     Plug 'tomtom/tcomment_vim' " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
     Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
     Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
     Plug 'ConradIrwin/vim-bracketed-paste', {'on': []} " ペーストでインデントが崩れない
     Plug 'kana/vim-textobj-user', {'on': []} " textobj設定
-    Plug 'Yggdroot/indentLine', {'on': []} " インデントを見やすく
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
@@ -159,6 +134,13 @@ if has('nvim')
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
+    Plug 'jpo/vim-railscasts-theme' " color
+
+    " インデントを見やすく
+    Plug 'nathanaelkane/vim-indent-guides'
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
 
     " 画面内の任意の場所にジャンプ
     Plug 'easymotion/vim-easymotion', {'on': []}
@@ -223,9 +205,9 @@ if has('nvim')
     "-------------
     " その他言語別
     "-------------
+    Plug 'sheerun/vim-polyglot'
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
-    Plug 'sheerun/vim-polyglot'
     Plug 'mattn/emmet-vim', {'for': 'html'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
@@ -276,9 +258,9 @@ if has('nvim')
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
     Plug 'ap/vim-buftabline' " バッファ表示(画面
-    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeToggle'} " ファイルツリー（画面右）
-    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeToggle'} " git gutter
-    " Plug 'majutsushi/tagbar', {'on': 'TagBarToggle'} " タグ関連(画面右
+    Plug 'scrooloose/nerdtree', {'on': []} " ファイルツリー（画面右）
+    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': []} " git gutter
+    Plug 'ryanoasis/vim-devicons', {'on': []} " icon
 
     let g:lightline = {
         \ 'colorscheme': 'wombat',
@@ -440,8 +422,11 @@ if has('nvim')
 
     " auto close nerdtree when close window and there is only one window at that time
     augroup NERDTreeAutoClose
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
     augroup END
+
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
     call plug#end()
 
@@ -465,7 +450,6 @@ if has('nvim')
         \ 'vim-trailing-whitespace',
         \ 'vim-bracketed-paste',
         \ 'vim-textobj-user',
-        \ 'indentLine',
         \ 'vim-repeat',
         \ 'vim-surround',
         \ 'vim-speeddating',
@@ -476,8 +460,7 @@ if has('nvim')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-
-    colorscheme gruvbox " setting color
+    colorscheme railscasts
 
     " ローカルの設定を反映
     if filereadable(expand('~/.nvimrc.local'))

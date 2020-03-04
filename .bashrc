@@ -104,7 +104,7 @@ exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists gsed && alias sed='gsed'
 exists tmux && alias tmux="tmux -2"
-exists git && alias g='git' && __git_complete g _git
+exists git && alias g='git'
 
 if exists kubectl ; then
     alias k='kubectl'
@@ -172,6 +172,6 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash
+[ -f ~/.git-completion.bash ] && source ~/.git-completion.bash && __git_complete g _git
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
