@@ -224,6 +224,7 @@ if has('nvim')
     " その他言語別
     "-------------
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+    Plug 'thosakwe/vim-flutter', {'for': 'dart'}
     Plug 'sheerun/vim-polyglot'
     Plug 'mattn/emmet-vim', {'for': 'html'}
     Plug 'alvan/vim-closetag', {'for': 'html'}

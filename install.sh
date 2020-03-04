@@ -5,38 +5,51 @@
 #
 # Distributed under terms of the MIT license.
 #
-set -eu
+set -euxC
 
 BASE_DIR=`realpath $(dirname $0)`
-cd /tmp
 
+CURL="curl -sSLf"
+GO111MODULE=on
+
+# versions
 NVIM_PYTHON2_VERSION=2.7.16
 NVIM_PYTHON3_VERSION=3.7.3
-NODE_VERSION=10.16.3
 GO_VERSION=1.13.1
+DART_VERSION=2.14
 TMUX_VERSION=2.9
 GLOBAL_VERSION=6.5.6
 HUB_VERSION=2.12.8
+KUBERNETES_VERSION=1.16.4
+HELM_VERSION=3.1.1
+STERN_VERSION=1.11.0
+
+# path
+BASH_GIT_PROMPT_DIR=${HOME}/.bash-git-prompt
+PYENV_DIR=$HOME/.pyenv
+PYENV_VIRTUALENV_DIR=$PYENV_DIR/plugins/pyenv-virtualenv
+PYENV=$PYENV_DIR/bin/pyenv
+GOROOT=/usr/local/go
+FZF_DIR=$HOME/.fzf
+TMUX_PLUGINS_DIR=${HOME}/.tmux/plugins/tpm
 
 echo "install debian package..."
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository \
-	"deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+sudo sh -c "${CURL} https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
+sudo sh -c "${CURL} https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -"
+sudo sh -c "${CURL} https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list"
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 sudo add-apt-repository -y ppa:neovim-ppa/stable
-sudo apt -y purge unattended-upgrades
 
-# sudo apt update
+sudo apt -y purge unattended-upgrades
+sudo apt update
 sudo apt -y --no-install-recommends install \
     zsh \
     git \
     vim \
     neovim \
-    curl \
-    wget \
+    curl \ wget \
     screen \
     tig \
-    nodejs \
-    npm \
     htop \
     tree \
     jq \
@@ -57,20 +70,16 @@ sudo apt -y --no-install-recommends install \
     clang-format-8 \
     compiz-plugins \
     compiz-plugins-extra \
-    compizconfig-settings-manager
-
-# for docker
-sudo apt -y --no-install-recommends install \
+    compizconfig-settings-manager \
+    # for docker
     docker-ce \
     docker-ce-cli \
     apt-transport-https \
     ca-certificates \
     gnupg-agent \
     software-properties-common \
-    containerd.io
-
-# for python 2.7
-sudo apt -y --no-install-recommends install \
+    containerd.io \
+    # for python 2.7
     libssl-dev \
     zlib1g-dev \
     libbz2-dev \
@@ -82,9 +91,10 @@ sudo apt -y --no-install-recommends install \
     tk-dev \
     libffi-dev \
     liblzma-dev \
-    python-openssl
-
-sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
+    python-openssl \
+    # for dart
+    dart \
+    apt-transport-https
 
 # link
 echo "link dotfiles ..."
@@ -97,115 +107,65 @@ mkdir -p ${HOME}/.config
 [ -d ${HOME}/.config/nvim -o -L ${HOME}/.config/nvim ] || ln -s ${BASE_DIR}/nvim          ${HOME}/.config/
 [ -e ${HOME}/.vimrc       -o -L ${HOME}/.vimrc       ] || ln -s ${BASE_DIR}/nvim/init.vim ${HOME}/.vimrc
 
-# pyenv
-echo "install pyenv ..."
-PYENV_ROOT=$HOME/.pyenv
-PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
-if [ ! -d $PYENV_ROOT ]; then
-    git clone https://github.com/pyenv/pyenv.git ${PYENV_ROOT}
-    git clone https://github.com/pyenv/pyenv-virtualenv.git ${PYENV_ROOT}/plugins/pyenv-virtualenv
-    eval "$(pyenv init -)"
-fi
+# git
+[ -d ${BASH_GIT_PROMPT_DIR} ] || git clone https://github.com/magicmonty/bash-git-prompt.git ${BASH_GIT_PROMPT_DIR} --depth=1
+sudo ${CURL} https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz | tar xz -C /usr/local/bin --strip-component=2
 
-if [ ! "$(pyenv versions | grep ${NVIM_PYTHON2_VERSION}$)" ]; then
-    pyenv install -s ${NVIM_PYTHON2_VERSION}
-    pyenv rehash
-    pyenv virtualenv ${NVIM_PYTHON2_VERSION} neovim2
-    pyenv global neovim2
+# python
+echo "install pyenv ..."
+[ -d ${PYENV_DIR} ] || git clone https://github.com/pyenv/pyenv.git ${PYENV_DIR}
+[ -d ${PYENV_VIRTUALENV_DIR} ] || git clone https://github.com/pyenv/pyenv-virtualenv.git ${PYENV_VIRTUALENV_DIR}
+eval "$(${PYENV} init -)"
+
+if [ ! "$(${PYENV} versions | grep ${NVIM_PYTHON2_VERSION}$)" ]; then
+    ${PYENV} install -s ${NVIM_PYTHON2_VERSION}
+    ${PYENV} rehash
+    ${PYENV} virtualenv ${NVIM_PYTHON2_VERSION} neovim2
+    ${PYENV} global neovim2
     pip install neovim
 fi
 
 if [ ! "$(pyenv versions | grep ${NVIM_PYTHON3_VERSION}$)" ]; then
-    pyenv install -s ${NVIM_PYTHON3_VERSION}
-    pyenv rehash
-    pyenv virtualenv ${NVIM_PYTHON3_VERSION} neovim3
-    pyenv global neovim3
+    ${PYENV} install -s ${NVIM_PYTHON3_VERSION}
+    ${PYENV} rehash
+    ${PYENV} virtualenv ${NVIM_PYTHON3_VERSION} neovim3
+    ${PYENV} global neovim3
     pip install neovim
     pip install pyls
 fi
 
-# go
-GOROOT=/usr/local/go
-if [ ! -d $GOROOT ]; then
-    wget https://dl.google.com/go/go$GO_VERSION.linux-amd64.tar.gz -O /tmp/go.tar.gz
-    cd /tmp && tar xvzf /tmp/go.tar.gz
-    sudo mv /tmp/go $GOROOT
-    rm -f /tmp/go.tar.gz
-    mkdir -p ~/go/{src,bin,pkg}
-    PATH=$PATH:$GOROOT/bin
+# golang
+echo "install golang ..."
+[ -d ${GOROOT} ] || sudo ${CURL} https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz | tar xz -C ${GOROOT}
+mkdir -p ${HOME}/go/{src,bin,pkg}
+cd /tmp && \
+    ${GO} get -u golang.org/x/tools/cmd/goimports && \
+    ${GO} get -u github.com/motemen/ghq && \
+    ${GO} get -u golang.org/x/tools/cmd/gopls@latest
 
-    GO111MODULE=off go get -u golang.org/x/tools/cmd/goimports
-    GO111MODULE=off go get -u github.com/motemen/ghq
+# kubernetes
+echo "install kubernetes binaries ..."
+sudo ${CURL} https://storage.googleapis.com/kubernetes-release/release/v$KUBERNETES_VERSION/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+sudo ${CURL} https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz -o /usr/local/bin/helm
+sudo ${CURL} https://github.com/wercker/stern/releases/download/$STERN_VERSION/stern_linux_amd64 -o /usr/local/bin/stern
+sudo ${CURL} https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz | tar xz -C /usr/local/bin
 
-    GO111MODULE=on go get -u golang.org/x/tools/cmd/gopls@latest
-fi
-
-# n
-echo "install n ..."
-if type n > /dev/null 2>&1; then
-    sudo npm -g i n
-    sudo npm -g i yarn
-    sudo n $NODE_VERSION
-    sudo npm -g i neovim
-fi
-
-# fzf
-FZF_ROOT=$HOME/.fzf
-if [ ! -d $FZF_ROOT ]; then
-    git clone https://github.com/junegunn/fzf.git $FZF_ROOT
-    $FZF_ROOT/install
-fi
-
-# tmux
+# other tools
 echo "install tmux ..."
-if [ ! "$(tmux -V | grep $TMUX_VERSION)" ]; then
-    TMUX_TMP_PATH=/tmp/tmux-${TMUX_VERSION}.tar.gz
-    curl -sSLf https://github.com/tmux/tmux/archive/${TMUX_VERSION}.tar.gz -o ${TMUX_TMP_PATH}
-    tar zxf ${TMUX_TMP_PATH}
-    cd ${TMUX_TMP_PATH%.tar.gz}
-    sh autogen.sh
-    ./configure && make
-    sudo make install
-    rm -f ${TMUX_TMP_PATH}
+if [ ! -e /usr/local/bin/tmux ]; then
+    TMUX_TMP_DIR=/tmp/tmux
+    ${CURL} https://github.com/tmux/tmux/archive/${TMUX_VERSION}.tar.gz | tar xz -C ${TMUX_TMP_DIR}
+    cd ${TMUX_TMP_DIR} && sh autogen.sh && ./configure && make && sudo make install
 fi
+[ -d ${TMUX_PLUGINS_DIR} ] || git clone https://github.com/tmux-plugins/tpm ${TMUX_PLUGINS_DIR}
 
-[ ! -d ${HOME}/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
+echo "install other tools ..."
+# fzf
+[ -d ${FZF_DIR} ] || git clone https://github.com/junegunn/fzf.git ${FZF_DIR} && ${FZF_DIR}/install
 
-# git branch
-if [ ! -e ~/.git-completion.bash ]; then
-    curl -sSLf https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash \
-        -o ${HOME}/.git-completion.bash
-fi
-if [ ! -d ${HOME}/.bash-git-prompt ]; then
-    git clone https://github.com/magicmonty/bash-git-prompt.git ${HOME}/.bash-git-prompt --depth=1
-fi
+# c++
+sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
-# enhancd
-ENHANCD_ROOT=$HOME/.config/enhancd
-if [ ! -d $ENHANCD_ROOT ]; then
-    git clone https://github.com/b4b4r07/enhancd $ENHANCD_ROOT
-fi
-
-# hub
-echo "install hub ..."
-if [ ! -e /usr/local/bin/hub ]; then
-    curl -sSLf https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz \
-        -o hub.tgz
-    mkdir -p hub && tar xzf hub.tgz -C hub --strip-components=1
-    sudo cp hub/bin/hub /usr/local/bin
-fi
-
-# stern
-echo "install stern..."
-if [ ! -e /usr/loca/bin/stern ]; then
-    curl -sSLf https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 -o /usr/local/bin/stern
-fi
-
-# k9s
-echo "install k9s..."
-if [ ! -e /usr/local/bin/k9s ]; then
-    curl -sSLf https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz -o /tmp/k9s.tar.gz
-    mkdir -p /tmp/k9s/ && tar xvf /tmp/k9s.tar.gz -C /tmp/k9s
-    cp /tmp/k9s/k9s /usr/local/bin/k9s
-fi
+# completion
+${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ${HOME}/.git-completion.bash
 
