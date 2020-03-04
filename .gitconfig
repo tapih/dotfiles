@@ -4,7 +4,7 @@
     u = add -u
     f = fetch
     fo = fetch origin
-    s = status -s
+    s = status
     ss = status -s
     st = status
     co = checkout
@@ -13,7 +13,7 @@
     dfc = diff --cached
     dfs = diff --staged
     df = diff
-    dft = difftool
+    dt = difftool
     ai = update-index --add
     ri = update-index --remove
     po = push
@@ -38,6 +38,7 @@
 
 [include]
     path = ~/.gitconfig.local
+
 [diff]
     tool = vimdiff
 
