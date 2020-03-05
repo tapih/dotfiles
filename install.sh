@@ -143,6 +143,7 @@ cd /tmp && \
     ${GO} get -u golang.org/x/tools/cmd/goimports && \
     ${GO} get -u github.com/motemen/ghq && \
     ${GO} get -u golang.org/x/tools/cmd/gopls@latest
+GO111MODULE=off ${GO} get -u github.com/spf13/cobra/cobra
 
 # kubernetes
 echo "install kubernetes binaries ..."

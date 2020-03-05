@@ -44,10 +44,10 @@ cd() {
         echo "no files in: $(pwd)$reset_color"
       else
         echo "only hidden files in: $(pwd)$reset_color"
-        ls -A
+        ls -A --color=auto
       fi
     elif [ $lscdmax -ge $nfiles ]; then
-      ls
+      ls -F --color=auto
     else
       echo "$nfiles files in: $(pwd)$reset_color"
     fi
