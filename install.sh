@@ -47,7 +47,8 @@ sudo apt -y --no-install-recommends install \
     git \
     vim \
     neovim \
-    curl \ wget \
+    curl \
+    wget \
     screen \
     tig \
     htop \
@@ -152,6 +153,10 @@ sudo ${CURL} https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz -o /usr/
 sudo ${CURL} https://github.com/wercker/stern/releases/download/$STERN_VERSION/stern_linux_amd64 -o /usr/local/bin/stern
 sudo ${CURL} https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz | tar xz -C /usr/local/bin
 
+# flutter
+mkdir -p ${HOME}/dart/flutter && cd -
+git clone https://github.com/flutter/flutter.git -b stable
+
 # other tools
 echo "install tmux ..."
 if [ ! -e /usr/local/bin/tmux ]; then
@@ -170,4 +175,3 @@ sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
 # completion
 ${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ${HOME}/.git-completion.bash
-
