@@ -488,8 +488,8 @@ nnoremap <silent> Q :q!<CR>
 nnoremap [Tag] <Nop>
 
 " 修正した場所に飛ぶ
-nnoremap <C-j> g;
-nnoremap <C-k> g,
+nnoremap <C-h> g;
+nnoremap <C-l> g,
 
 " H,Lで行頭、行末に移動
 nnoremap H ^
