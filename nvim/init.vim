@@ -566,6 +566,11 @@ nnoremap <silent> sl <C-w>l:q<CR>
 nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
 nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
 
+nnoremap <silent> sn :<C-u>set nonumber<CR>:set list listchars=<CR>
+nnoremap <silent> sm :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
+
+nnoremap s[ :<C-u>noh<CR>
+
 " for plugins
 if has('nvim')
     "easymotion
@@ -575,7 +580,7 @@ if has('nvim')
     nmap st <Plug>(easymotion-t)
 
     " choosewin
-    nnoremap sm :<C-u>ChooseWin<CR>
+    nnoremap si :<C-u>ChooseWin<CR>
 
     " buffer
     nnoremap <silent> tp :<C-u>bprev<CR>
