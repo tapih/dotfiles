@@ -150,6 +150,7 @@ fi
 
 # dart
 exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin:${HOME}/dart/flutter/bin
+exists flutter && export ANDROID_HOME=~/Android/Sdk
 
 # prompt
 if [ $UID -eq 0 ]; then

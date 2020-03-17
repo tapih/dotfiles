@@ -48,5 +48,6 @@
 [ghq]
     root=~/.ghq
     root=~/.go/src
+    root=~/dart/src
     root=~/go/src
     root=~/src
