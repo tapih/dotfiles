@@ -152,6 +152,8 @@ sudo ${CURL} https://storage.googleapis.com/kubernetes-release/release/v$KUBERNE
 sudo ${CURL} https://get.helm.sh/helm-v$HELM_VERSION-linux-amd64.tar.gz -o /usr/local/bin/helm
 sudo ${CURL} https://github.com/wercker/stern/releases/download/$STERN_VERSION/stern_linux_amd64 -o /usr/local/bin/stern
 sudo ${CURL} https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz | tar xz -C /usr/local/bin
+$(CURL) https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o ~/.kube-ps1
+
 
 # flutter
 mkdir -p ${HOME}/dart/flutter && cd -
