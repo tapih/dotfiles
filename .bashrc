@@ -149,8 +149,9 @@ if [ -x $GOROOT/bin/go ]; then
 fi
 
 # dart
-exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin:${HOME}/dart/flutter/bin
-exists flutter && export ANDROID_HOME=~/Android/Sdk
+exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin
+# exists dart && export PATH=${PATH}:${HOME}/dart/flutter/bin
+# exists flutter && export ANDROID_HOME=~/Android/Sdk
 
 # prompt
 function get_cluster_short() {

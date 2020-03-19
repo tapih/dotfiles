@@ -156,8 +156,8 @@ $(CURL) https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -
 
 
 # flutter
-mkdir -p ${HOME}/dart/flutter && cd -
-git clone https://github.com/flutter/flutter.git -b stable
+# mkdir -p ${HOME}/dart/flutter && cd -
+# git clone https://github.com/flutter/flutter.git -b stable
 
 # other tools
 echo "install tmux ..."
