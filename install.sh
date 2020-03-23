@@ -154,6 +154,13 @@ sudo ${CURL} https://github.com/wercker/stern/releases/download/$STERN_VERSION/s
 sudo ${CURL} https://github.com/derailed/k9s/releases/download/0.9.3/k9s_0.9.3_Linux_x86_64.tar.gz | tar xz -C /usr/local/bin
 $(CURL) https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o ~/.kube-ps1
 
+set -x; cd "$(mktemp -d)" &&
+    curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.{tar.gz,yaml}" &&
+    tar zxvf krew.tar.gz &&
+    KREW=./krew-"$(uname | tr '[:upper:]' '[:lower:]')_amd64" &&
+    "$KREW" install --manifest=krew.yaml --archive=krew.tar.gz &&
+    "$KREW" update
+
 
 # flutter
 # mkdir -p ${HOME}/dart/flutter && cd -

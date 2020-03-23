@@ -111,6 +111,7 @@ if exists kubectl ; then
     alias kex='kubectl exec -it'
     complete -F __start_kubectl k
     source <(kubectl completion bash)
+    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
 # fzf
