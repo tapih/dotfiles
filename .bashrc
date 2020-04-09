@@ -84,6 +84,9 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias quit='exit'
+alias J='cd -'
+alias H='cd ~'
+alias ..='cd ..'
 alias ..='cd ..'
 alias ...='cd ...'
 alias ....='cd ....'
@@ -127,7 +130,7 @@ __fzf_cd__() {
 
 __fzf_file__() {
     files=$(git ls-files) &&
-        selected_files=$(echo "$files" | fzf -m --preview 'head -100 {}') &&
+        selected_files=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
         vim $selected_files
 }
 # tmux
