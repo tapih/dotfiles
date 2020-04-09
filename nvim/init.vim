@@ -462,12 +462,13 @@ inoremap jj <ESC>
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
-" マクロ
-nnoremap q <Nop>
-
-" 閉じる
-nnoremap <silent> q :q<CR>
-nnoremap <silent> Q :q!<CR>
+if has('nvim')
+    nnoremap <silent> q :bd<CR>
+    nnoremap <silent> Q :q<CR>
+else
+    nnoremap <silent> q :q<CR>
+    nnoremap <silent> Q :q<CR>
+endif
 
 " タグは使わない
 nnoremap [Tag] <Nop>
