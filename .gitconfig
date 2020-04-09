@@ -4,9 +4,10 @@
     u = add -u
     f = fetch
     fo = fetch origin
-    s = status
-    ss = status -s
+    s = status -s
     st = status
+    m = checkout master
+    m = !git checkout master && git pull
     co = checkout
     ci = commit
     cs = commit -sm
