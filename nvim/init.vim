@@ -46,10 +46,14 @@ if !has('nvim')
     set clipboard^=unnamedplus " ヤンクバッファを共有
 endif
 
-autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
 let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
+
+augroup SetYAMLIndent
+    autocmd!
+    autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
+augroup END
 
 " do not add comment simbol after line break
 augroup DisableAutoComment
@@ -562,6 +566,10 @@ if has('nvim')
     " nerdtree
     nnoremap sb :<C-u>NERDTreeFocus<CR>
     nnoremap ss :<C-u>Format<CR>
+    augroup SetGoFmtNMap
+        autocmd!
+        autocmd FileType go nnoremap ss :<C-u>GoFmt<CR>
+    augroup END
 
     "-----------------------
     " gで始まるショートカット
