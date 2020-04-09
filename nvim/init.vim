@@ -185,6 +185,8 @@ if has('nvim')
     "-------------
     " Plug 'sheerun/vim-polyglot'
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+    Plug 'natebosch/vim-lsc', {'for': 'dart'}
+    Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
