@@ -54,13 +54,6 @@ cd() {
   fi
 }
 
-# gcd
-bind -x '"\C-g": gcd'
-gcd() {
-    JUMP_TO=$(ghq list -p | fzf)
-    [ -z $JUMP_TO ] || cd $JUMP_TO
-}
-
 # color 256
 case "$TERM" in
   xterm*)
@@ -91,15 +84,12 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias quit='exit'
-alias Q='exit'
-alias H='cd ~'
 alias ..='cd ..'
 alias ...='cd ...'
 alias ....='cd ....'
 alias diff='colordiff'
-exists notify-send && alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal ||
-    echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-exists nvim && alias nv='nvim'
+exists vim && alias v='vim'
+exists nvim && alias v='nvim'
 exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists gsed && alias sed='gsed'
@@ -116,8 +106,30 @@ fi
 
 # fzf
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
-export FZF_DEFAULT_OPTS='--height 95% --reverse --border'
+export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
+bind -r "\C-g"
+bind -r "\C-j"
+bind -r "\C-o"
+bind -x '"\C-g": __fzf_git__'
+bind -x '"\C-j": __fzf_cd__'
+bind -x '"\C-o": __fzf_file__'
+
+__fzf_git__() {
+    NAME=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    [ -z $NAME ] || cd $NAME
+}
+
+__fzf_cd__() {
+    NAME=$(fd --type d | fzf --preview 'tree -C {} | head -200')
+    [ -z $NAME ] || cd $NAME
+}
+
+__fzf_file__() {
+    files=$(git ls-files) &&
+        selected_files=$(echo "$files" | fzf -m --preview 'head -100 {}') &&
+        vim $selected_files
+}
 # tmux
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     base_session='auto'

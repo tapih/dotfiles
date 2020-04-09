@@ -23,6 +23,7 @@ HUB_VERSION=2.12.8
 KUBERNETES_VERSION=1.16.4
 HELM_VERSION=3.1.1
 STERN_VERSION=1.11.0
+FD_VERSION=7.5.0
 
 # path
 BASH_GIT_PROMPT_DIR=${HOME}/.bash-git-prompt
@@ -113,6 +114,12 @@ mkdir -p ${HOME}/.config
 [ -d ${BASH_GIT_PROMPT_DIR} ] || git clone https://github.com/magicmonty/bash-git-prompt.git ${BASH_GIT_PROMPT_DIR} --depth=1
 sudo ${CURL} https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz | tar xz -C /usr/local/bin --strip-component=2
 
+# fd
+${CURL} https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd-musl_${FD_VERSION}_amd64.deb -o /tmp/fd.deb
+sudo dpkg -i /tmp/fd.deb
+rm -f /tmp/fd.deb
+
+
 # python
 echo "install pyenv ..."
 [ -d ${PYENV_DIR} ] || git clone https://github.com/pyenv/pyenv.git ${PYENV_DIR}
@@ -177,7 +184,11 @@ fi
 
 echo "install other tools ..."
 # fzf
-[ -d ${FZF_DIR} ] || git clone https://github.com/junegunn/fzf.git ${FZF_DIR} && ${FZF_DIR}/install
+if [ -d ${FZF_DIR} ]; then
+    cd ${FZF_DIR} && git checkout master && git pull
+else
+    git clone https://github.com/junegunn/fzf.git ${FZF_DIR} && ${FZF_DIR}/install
+fi
 
 # c++
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100

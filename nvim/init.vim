@@ -7,7 +7,7 @@ set cpoptions&vim "vimモードに
 "-----------------------
 " 基本設定
 "-----------------------
-" ファイルタイプ関連を一旦切っておく filetype off filetype plugin indent off
+" ファイルタイプ関連を一旦切っておくfiletype off filetype plugin indent off
 syntax enable " シンタックス有効に
 set encoding=utf-8 " エンコーディング
 set number     " 行番号の表示
@@ -31,7 +31,6 @@ set nowrapscan " 検索で文頭にループしない
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
 set fileformats=unix,dos,mac  " 改行コードの自動判別。左が優先
 set ambiwidth=double " □といった文字が崩れる問題の解決
-set clipboard^=unnamedplus " ヤンクバッファを共有
 set nobackup nowritebackup " backup file作らない
 set noswapfile " swap file作らない
 set hidden " バッファを移動する際に保存しなくて済む
@@ -42,8 +41,12 @@ set conceallevel=0 " 特殊文字を隠さない
 set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
-autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 
+if !has('nvim')
+    set clipboard^=unnamedplus " ヤンクバッファを共有
+endif
+
+autocmd FileType yaml setlocal sw=2 sts=2 ts=2 et
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
 let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
@@ -80,27 +83,6 @@ function! AutoCloseBuf()
     endif
 endfunction
 
-" バッファが一つならウィンドウを閉じる
-function! GetNumBufs()
-    let i = bufnr('$')
-    let j = 0
-    while i >= 1
-        if buflisted(i)
-            let j+=1
-        endif
-        let i-=1
-    endwhile
-    return j
-endfunction
-
-function! CloseBufOrWindow()
-    if GetNumBufs() > 1
-        bdelete
-    else
-        quit
-    endif
-endfunction
-
 
 
 "=========================================================================
@@ -114,6 +96,7 @@ if has('nvim')
     endif
 
     let g:plug_dir = expand('~/.cache/plug')
+    let g:plug_window = 'new'
     call plug#begin(g:plug_dir)
 
     "-----------------------
@@ -127,29 +110,24 @@ if has('nvim')
     Plug 'kana/vim-textobj-user', {'on': []} " textobj設定
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
-    Plug 'tpope/vim-speeddating', {'on': []} " C-a, C-xを日付に拡張
     Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
     Plug 'terryma/vim-expand-region' " 範囲選択をショートカットで
-    Plug 'AndrewRadev/switch.vim', {'on': 'Switch'} "  toggle true false
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
-    Plug 'jpo/vim-railscasts-theme' " color
+    Plug 'srcery-colors/srcery-vim'
+    Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
 
     " インデントを見やすく
-    " Plug 'nathanaelkane/vim-indent-guides'
-    " let g:indent_guides_enable_on_vim_startup = 1
-    " let g:indent_guides_start_level = 2
-    " let g:indent_guides_guide_size = 1
+    Plug 'nathanaelkane/vim-indent-guides'
+    let g:indent_guides_enable_on_vim_startup = 1
+    let g:indent_guides_start_level = 2
+    let g:indent_guides_guide_size = 1
 
     " 画面内の任意の場所にジャンプ
     Plug 'easymotion/vim-easymotion', {'on': []}
     let g:EasyMotion_keys = 'fjdkslaureiwoqpvncm' " ジャンプ用のタグに使う文字の優先順位
     let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-
-    " 任意のバッファにジャンプ
-    Plug 't9md/vim-choosewin'  " ウィンドウ選択
-    let g:choosewin_label = 'fjsldka;'
 
 
 
@@ -158,7 +136,7 @@ if has('nvim')
     " ---
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
     Plug 'junegunn/fzf.vim'
-    let g:fzf_layout = { 'right': '~30%' }
+    let g:fzf_preview_window = 'right:60%'
     let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
     command! -bang -nargs=* GGrep
         \ call fzf#vim#grep(
@@ -205,19 +183,21 @@ if has('nvim')
     "-------------
     " その他言語別
     "-------------
-    Plug 'sheerun/vim-polyglot'
+    " Plug 'sheerun/vim-polyglot'
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
-    Plug 'mattn/emmet-vim', {'for': 'html'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
-    Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
-    let g:user_emmet_leader_key='<C-q>'
+
+    Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
+
+    Plug 'mattn/emmet-vim', {'for': 'html'}
+    let g:user_emmet_leader_key='<C-q>'
 
 
 
@@ -225,7 +205,7 @@ if has('nvim')
     " git
     "=========================================================================
     Plug 'tpope/vim-fugitive', {'on': []}
-    Plug 'airblade/vim-gitgutter', {'on': []} " 差分のある行にマークをつける
+    Plug 'airblade/vim-gitgutter' " 差分のある行にマークをつける
     Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
     Plug 'rhysd/committia.vim' " commitの画面をリッチに
     let g:gitgutter_sign_added = '✚'
@@ -258,12 +238,11 @@ if has('nvim')
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
     Plug 'ap/vim-buftabline' " バッファ表示(画面
-    Plug 'scrooloose/nerdtree', {'on': []} " ファイルツリー（画面右）
-    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': []} " git gutter
-    Plug 'ryanoasis/vim-devicons', {'on': []} " icon
+    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeFocus'} " ファイルツリー（画面右）
+    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeFocus'} " git gutter
 
     let g:lightline = {
-        \ 'colorscheme': 'wombat',
+        \ 'colorscheme': 'srcery',
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
@@ -430,6 +409,7 @@ if has('nvim')
     " ---------
     " lazy load
     " ---------
+    "
     " after first insert
     augroup load_us_insert
         autocmd!
@@ -440,7 +420,8 @@ if has('nvim')
         \ ) | autocmd! load_us_insert
     augroup END
 
-    " after certain period
+
+
     function! s:load_plug(timer)
         call plug#load(
         \ 'textobj-word-column.vim',
@@ -449,17 +430,14 @@ if has('nvim')
         \ 'vim-textobj-user',
         \ 'vim-repeat',
         \ 'vim-surround',
-        \ 'vim-speeddating',
         \ 'vim-fugitive',
         \ 'vim-gitgutter',
-        \ 'vim-easymotion',
-        \ )
+        \ 'vim-easymotion')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-    colorscheme railscasts
+    colorscheme srcery
 
-    " ローカルの設定を反映
     if filereadable(expand('~/.nvimrc.local'))
         source ~/.nvimrc.local
     endif
@@ -474,14 +452,15 @@ vnoremap ; :
 nnoremap : ;
 vnoremap : ;
 
-" 検索時に/をエスケープしない
+inoremap jj <ESC>
+" 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
 " マクロ
 nnoremap q <Nop>
 
 " 閉じる
-nnoremap <silent> q :<C-u>call CloseBufOrWindow()<CR>
+nnoremap <silent> q :q<CR>
 nnoremap <silent> Q :q!<CR>
 
 " タグは使わない
@@ -499,9 +478,7 @@ vnoremap L $
 nnoremap M *
 
 " Select entire buffer
-nnoremap vy ggVG
-
-" 検索後にジャンプした際に検索単語を画面中央に持ってくる
+nnoremap vy ggVG " 検索後にジャンプした際に検索単語を画面中央に持ってくる
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -542,9 +519,6 @@ inoremap <silent><expr> <C-Space> coc#refresh()
 vnoremap <C-v> <Plug>(expand_region_shrink)
 vnoremap v <Plug>(expand_region_expand)
 
-" fzf
-nnoremap <silent> <C-i> :<C-u>Buffers<CR>
-
 "-----------------------
 " sで始まるショートカット
 "-----------------------
@@ -556,15 +530,11 @@ vnoremap s <Nop>
 nnoremap s- :<C-u>sp<CR>
 nnoremap s\ :<C-u>vs<CR>
 
-" s+hjklでウィンドウを削除
-nnoremap <silent> sh <C-w>h:q<CR>
-nnoremap <silent> sj <C-w>j:q<CR>
-nnoremap <silent> sk <C-w>k:q<CR>
-nnoremap <silent> sl <C-w>l:q<CR>
-
-" ノーマルモードで行挿入
-nnoremap <silent> so :<C-u>for i in range(1, v:count1) \| call append(line('.'),   '') \| endfor \| silent! call repeat#set("<Space>o", v:count1)<CR>
-nnoremap <silent> sO :<C-u>for i in range(1, v:count1) \| call append(line('.')-1, '') \| endfor \| silent! call repeat#set("<Space>O", v:count1)<CR>
+" s+hjklでウィンドウを移動
+nnoremap <silent> sh <C-w>h<CR>
+nnoremap <silent> sj <C-w>j<CR>
+nnoremap <silent> sk <C-w>k<CR>
+nnoremap <silent> sl <C-w>l<CR>
 
 nnoremap <silent> sn :<C-u>set nonumber<CR>:set list listchars=<CR>
 nnoremap <silent> sm :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
@@ -574,40 +544,33 @@ nnoremap s[ :<C-u>noh<CR>
 " for plugins
 if has('nvim')
     "easymotion
-    nmap f <Plug>(easymotion-f)
-    nmap F <Plug>(easymotion-F)
-    nmap ss <Plug>(easymotion-s)
-    nmap st <Plug>(easymotion-t)
-
-    " choosewin
-    nnoremap si :<C-u>ChooseWin<CR>
+    nmap <leader>f <Plug>(easymotion-f)
+    nmap <leader>F <Plug>(easymotion-F)
+    nmap <leader>s <Plug>(easymotion-s)
+    nmap <leader>t <Plug>(easymotion-t)
 
     " buffer
     nnoremap <silent> tp :<C-u>bprev<CR>
     nnoremap <silent> tn :<C-u>bnext<CR>
-
-    " switch
-    nnoremap sw :<C-u>Switch<CR>
 
     " easyalign
     xnoremap sa <Plug>(EasyAlign)
     nnoremap sa <Plug>(EasyAlign)
 
     " nerdtree
-    nnoremap <silent> sb :<C-u>NERDTreeToggle<CR>
-    nnoremap <silent> sl :<C-u>Format<CR>
-endif
+    nnoremap sb :<C-u>NERDTreeFocus<CR>
+    nnoremap ss :<C-u>Format<CR>
 
-"-----------------------
-" gで始まるショートカット
-"-----------------------
-if has('nvim')
+    "-----------------------
+    " gで始まるショートカット
+    "-----------------------
     nnoremap gj <Nop>
     nnoremap gk <Nop>
     nnoremap gh <Nop>
     nnoremap gl <Nop>
 
     " fzf
+    nnoremap <silent> gi :<C-u>Buffers<CR>
     nnoremap <silent> gb :<C-u>GFiles<CR>
     nnoremap <silent> gh :<C-u>History<CR>
     nnoremap <silent> gf :<C-u>BLines<CR>
@@ -624,9 +587,7 @@ if has('nvim')
 
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)"
-endif
 
-if has('nvim')
     nnoremap t <Nop>
 endif
 
