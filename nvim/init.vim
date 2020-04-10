@@ -517,11 +517,6 @@ cnoremap <C-n> <Down>
 " C-y でも visual mode に
 nnoremap <C-y> <C-v>
 
-" coc
-nnoremap <silent> <C-,> :call <SID>show_documentation()<CR>
-inoremap <silent> <C-,> <ESC>:call <SID>show_documentation()<CR>a
-inoremap <silent><expr> <C-Space> coc#refresh()
-
 " expand region
 vnoremap <C-v> <Plug>(expand_region_shrink)
 vnoremap v <Plug>(expand_region_expand)
@@ -572,6 +567,8 @@ if has('nvim')
         autocmd FileType go nnoremap ss :<C-u>GoFmt<CR>
     augroup END
 
+    inoremap <silent><expr> <C-Space> coc#refresh()
+
     "-----------------------
     " gで始まるショートカット
     "-----------------------
@@ -589,8 +586,8 @@ if has('nvim')
     nnoremap <silent> gm :<C-u>BCommits<CR>
 
     " coc navigate diagnostics
-    nmap <silent> gp <Plug>(coc-diagnostic-prev)
-    nmap <silent> gn <Plug>(coc-diagnostic-next)
+    nmap <silent> gj <Plug>(coc-diagnostic-prev)
+    nmap <silent> gk <Plug>(coc-diagnostic-next)
 
     " coc Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
@@ -599,6 +596,10 @@ if has('nvim')
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
     nmap <silent> gn <Plug>(coc-rename)
+
+    nnoremap <silent> gl :call <SID>show_documentation()<CR>
+    nnoremap <silent> <C-,> :call <SID>show_documentation()<CR>
+    inoremap <silent> <C-,> <ESC>:call <SID>show_documentation()<CR>a
 
     nnoremap t <Nop>
 endif
