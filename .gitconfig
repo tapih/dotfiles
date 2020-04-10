@@ -12,8 +12,10 @@
     ci = commit
     cs = commit -sm
     cm = commit -m
+    cam = commit -am
     dc = diff --cached
     ds = diff --staged
+    df = diff
     d = diff
     dt = difftool
     ai = update-index --add
@@ -21,6 +23,7 @@
     po = push
     pi = pull
     l = log
+    ll = log --oneline
     ul = log --no-merges
     ulog = log --no-merges
     ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
