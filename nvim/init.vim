@@ -598,8 +598,8 @@ if has('nvim')
     nmap <silent> gn <Plug>(coc-rename)
 
     nnoremap <silent> gl :call <SID>show_documentation()<CR>
-    nnoremap <silent> <C-,> :call <SID>show_documentation()<CR>
-    inoremap <silent> <C-,> <ESC>:call <SID>show_documentation()<CR>a
+    nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
+    inoremap <silent> <C-k> <ESC>:call <SID>show_documentation()<CR>a
 
     nnoremap t <Nop>
 endif

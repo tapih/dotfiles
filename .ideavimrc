@@ -39,20 +39,11 @@ nnoremap <CR> :<C-u>w<CR>
 " extend
 nnoremap vv <C-w>
 
-" 下に行を挿入
-" nnoremap <CR><CR> o<ESC>k
-
 " jjで抜ける
 inoremap jj <ESC>
 
-" 末尾にセミコロン
-" nnoremap ;; $A;<ESC>
-
-" 末尾にカンマ
-" nnoremap ,, $A,<ESC>
-
 " AceJump
-nnoremap <Space><Space> :<C-u>action AceAction<CR>
+nnoremap <Space>f :<C-u>action AceAction<CR>
 
 " https://qiita.com/sei40kr/items/09e7e92eb7686f9b5950
 " 折りたたみ無効
@@ -87,4 +78,10 @@ nnoremap cc yiw
 
 " ビジュアルモード
 nnoremap <C-y> <C-v>
+
+" s+hjklでウィンドウを移動
+nnoremap <silent> sh <C-w>h<CR>
+nnoremap <silent> sj <C-w>j<CR>
+nnoremap <silent> sk <C-w>k<CR>
+nnoremap <silent> sl <C-w>l<CR>
 
