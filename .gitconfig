@@ -11,8 +11,8 @@
     co = checkout
     ci = commit
     cs = commit -sm
-    cm = commit -m
-    cam = commit -am
+    c = commit -m
+    ca = commit -am
     dc = diff --cached
     ds = diff --staged
     df = diff
@@ -54,5 +54,6 @@
     root=~/.ghq
     root=~/.go/src
     root=~/dart/src
+    root=~/python/src
     root=~/go/src
     root=~/src
