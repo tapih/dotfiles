@@ -42,7 +42,9 @@ set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
 
-if !has('nvim')
+if has('nvim')
+    set inccommand=split
+else
     set clipboard^=unnamedplus " ヤンクバッファを共有
 endif
 
