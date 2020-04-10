@@ -248,7 +248,7 @@ if has('nvim')
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeFocus'} " git gutter
 
     let g:lightline = {
-        \ 'colorscheme': 'srcery',
+        \ 'colorscheme': 'jellybeans',
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],

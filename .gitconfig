@@ -16,7 +16,7 @@
     dc = diff --cached
     ds = diff --staged
     df = diff
-    d = diff
+    i = diff
     dt = difftool
     ai = update-index --add
     ri = update-index --remove
