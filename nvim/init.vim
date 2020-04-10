@@ -119,7 +119,7 @@ if has('nvim')
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
-    Plug 'srcery-colors/srcery-vim'
+    Plug 'nanotech/jellybeans.vim'
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
 
     " インデントを見やすく
@@ -442,7 +442,7 @@ if has('nvim')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-    colorscheme srcery
+    colorscheme jellybeans
 
     if filereadable(expand('~/.nvimrc.local'))
         source ~/.nvimrc.local
