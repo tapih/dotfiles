@@ -5,7 +5,7 @@
 #
 # Distributed under terms of the MIT license.
 #
-set -euxC
+set -eu
 
 BASE_DIR=`realpath $(dirname $0)`
 
@@ -74,7 +74,6 @@ sudo apt -y --no-install-recommends install \
     compiz-plugins-extra \
     compizconfig-settings-manager \
     libnotify-bin \
-    # for docker
     docker-ce \
     docker-ce-cli \
     apt-transport-https \
@@ -82,7 +81,6 @@ sudo apt -y --no-install-recommends install \
     gnupg-agent \
     software-properties-common \
     containerd.io \
-    # for python 2.7
     libssl-dev \
     zlib1g-dev \
     libbz2-dev \
@@ -95,24 +93,25 @@ sudo apt -y --no-install-recommends install \
     libffi-dev \
     liblzma-dev \
     python-openssl \
-    # for dart
     dart \
     apt-transport-https
 
 # link
 echo "link dotfiles ..."
 mkdir -p ${HOME}/.config
-[ -e ${HOME}/.zshrc       -o -L ${HOME}/.zshrc       ] || ln -s ${BASE_DIR}/.zshrc        ${HOME}/
-[ -e ${HOME}/.bashrc      -o -L ${HOME}/.bashrc      ] || ln -s ${BASE_DIR}/.bashrc       ${HOME}/
+[ -e ${HOME}/.bashrc      -o -f ${HOME}/.bashrc      ] || rm -f ${HOME}/.bashrc && ln -s ${BASE_DIR}/.bashrc ${HOME}/
 [ -e ${HOME}/.gitconfig   -o -L ${HOME}/.gitconfig   ] || ln -s ${BASE_DIR}/.gitconfig    ${HOME}/
 [ -e ${HOME}/.screenrc    -o -L ${HOME}/.screenrc    ] || ln -s ${BASE_DIR}/.screenrc     ${HOME}/
 [ -e ${HOME}/.tmux.conf   -o -L ${HOME}/.tmux.conf   ] || ln -s ${BASE_DIR}/.tmux.conf    ${HOME}/
 [ -d ${HOME}/.config/nvim -o -L ${HOME}/.config/nvim ] || ln -s ${BASE_DIR}/nvim          ${HOME}/.config/
 [ -e ${HOME}/.vimrc       -o -L ${HOME}/.vimrc       ] || ln -s ${BASE_DIR}/nvim/init.vim ${HOME}/.vimrc
 
+# docker
+sudo groupadd docker && sudo usermod -aG docker $USER
+
 # git
 [ -d ${BASH_GIT_PROMPT_DIR} ] || git clone https://github.com/magicmonty/bash-git-prompt.git ${BASH_GIT_PROMPT_DIR} --depth=1
-sudo ${CURL} https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz | tar xz -C /usr/local/bin --strip-component=2
+sudo sh -c "${CURL} https://github.com/github/hub/releases/download/v${HUB_VERSION}/hub-linux-amd64-${HUB_VERSION}.tgz | tar xz -C /usr/local/bin --strip-component=2"
 
 # fd
 ${CURL} https://github.com/sharkdp/fd/releases/download/v${FD_VERSION}/fd-musl_${FD_VERSION}_amd64.deb -o /tmp/fd.deb
@@ -126,7 +125,7 @@ echo "install pyenv ..."
 [ -d ${PYENV_VIRTUALENV_DIR} ] || git clone https://github.com/pyenv/pyenv-virtualenv.git ${PYENV_VIRTUALENV_DIR}
 eval "$(${PYENV} init -)"
 
-if [ ! "$(${PYENV} versions | grep ${NVIM_PYTHON2_VERSION}$)" ]; then
+if [ -z "$(${PYENV} versions | grep ${NVIM_PYTHON2_VERSION}$)" ]; then
     ${PYENV} install -s ${NVIM_PYTHON2_VERSION}
     ${PYENV} rehash
     ${PYENV} virtualenv ${NVIM_PYTHON2_VERSION} neovim2
@@ -134,7 +133,7 @@ if [ ! "$(${PYENV} versions | grep ${NVIM_PYTHON2_VERSION}$)" ]; then
     pip install neovim
 fi
 
-if [ ! "$(pyenv versions | grep ${NVIM_PYTHON3_VERSION}$)" ]; then
+if [ -z "$(${PYENV} versions | grep ${NVIM_PYTHON3_VERSION}$)" ]; then
     ${PYENV} install -s ${NVIM_PYTHON3_VERSION}
     ${PYENV} rehash
     ${PYENV} virtualenv ${NVIM_PYTHON3_VERSION} neovim3
@@ -150,8 +149,8 @@ mkdir -p ${HOME}/go/{src,bin,pkg}
 cd /tmp && \
     ${GO} get -u golang.org/x/tools/cmd/goimports && \
     ${GO} get -u github.com/motemen/ghq && \
-    ${GO} get -u golang.org/x/tools/cmd/gopls@latest
-GO111MODULE=off ${GO} get -u github.com/spf13/cobra/cobra
+    ${GO} get -u golang.org/x/tools/cmd/gopls@latest && \
+    GO111MODULE=off ${GO} get -u github.com/spf13/cobra/cobra
 
 # kubernetes
 echo "install kubernetes binaries ..."
