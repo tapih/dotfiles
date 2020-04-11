@@ -77,7 +77,6 @@ apt-misc: /usr/bin/curl git
 	sudo apt -y purge unattended-upgrades
 	sudo apt update
 	sudo apt -y --no-install-recommends install \
-		vim \
 		wget \
 		screen \
 		tig \
@@ -115,6 +114,16 @@ apt-misc: /usr/bin/curl git
 		libffi-dev \
 		liblzma-dev \
 		python-openssl
+	if [ -z "uname -a | grep microsoft" ]; then \
+		sudo apt -y --no-install-recommends install \
+			vim-gnome \
+			x11-apps \
+			x11-utils \
+			x11-xserver-utils \
+			dbus-x11
+	else \
+		sudo apt -y --no-install-recommends install vim; \
+	fi
 
 links: bashrc $(HOME)/.gitconfig $(HOME)/.screenrc $(HOME)/.tmux.conf $(HOME)/.config/nvim $(HOME)/.vimrc
 

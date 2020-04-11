@@ -225,3 +225,6 @@ fi
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash && __git_complete g _git
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
+
+[ -n "uname -a | grep microsoft" ] && export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+
