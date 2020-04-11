@@ -169,6 +169,11 @@ exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin
 # exists dart && export PATH=${PATH}:${HOME}/dart/flutter/bin
 # exists flutter && export ANDROID_HOME=~/Android/Sdk
 
+# node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # prompt
 function get_cluster_short() {
     if [ "$1" = "N/A" ]; then
@@ -177,6 +182,7 @@ function get_cluster_short() {
         echo "$1"
     fi
 }
+
 KUBE_PS1_NS_ENABLE=false
 KUBE_PS1_PREFIX="["
 KUBE_PS1_SUFFIX="]"
