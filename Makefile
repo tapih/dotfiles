@@ -315,7 +315,7 @@ $(HOME)/.krew:
 		"$${KREW}" install --manifest=krew.yaml --archive=krew.tar.gz && \
 		"$${KREW}" update
 
-prompt: $(BASH_GIT_PROMPT_DIR) $(HOME)/.kube-ps1 $(HOME)/git-completion.bash
+prompt: $(BASH_GIT_PROMPT_DIR) $(HOME)/.kube-ps1 $(HOME)/.git-completion.bash
 
 $(BASH_GIT_PROMPT_DIR):
 	git clone https://github.com/magicmonty/bash-git-prompt.git $@ --depth=1
@@ -323,7 +323,7 @@ $(BASH_GIT_PROMPT_DIR):
 $(HOME)/.kube-ps1:
 	$(CURL) https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o $@
 
-$(HOME)/git-completion.bash:
+$(HOME)/.git-completion.bash:
 	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $@
 
 .PHONY: \
