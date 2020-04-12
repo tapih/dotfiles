@@ -4,31 +4,32 @@
     u = add -u
     f = fetch
     fo = fetch origin
+    h = show
     s = status -s
+    ss = status -s
     st = status
     m = checkout master
     mp = !git checkout master && git pull
     co = checkout
     ci = commit
-    cs = commit -sm
-    c = commit -m
-    ca = commit -am
+    cm = commit -m
+    cms = commit -sm
+    amend = commit --amend
+    d = diff
+    df = diff
     dc = diff --cached
     ds = diff --staged
-    df = diff
-    i = diff
-    dt = difftool
     ai = update-index --add
     ri = update-index --remove
     po = push
     pi = pull
     l = log
-    ll = log --oneline
+    ll = log -p
+    lo = log --oneline
     ul = log --no-merges
-    ulog = log --no-merges
     ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    g = grep
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
 
 [core]

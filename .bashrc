@@ -226,5 +226,6 @@ fi
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
+# wsl
 [ -n "uname -a | grep microsoft" ] && export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 

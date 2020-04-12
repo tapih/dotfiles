@@ -4,7 +4,6 @@ ANACONDA_VERSION := 5.3.1
 GO_VERSION := 1.13.1
 DART_VERSION := 2.14
 TMUX_VERSION := 2.9
-GLOBAL_VERSION := 6.5.6
 HUB_VERSION := 2.12.8
 KUBERNETES_VERSION := 1.16.4
 HELM_VERSION := 3.1.1
@@ -113,6 +112,7 @@ apt-misc: /usr/bin/curl git
 		tk-dev \
 		libffi-dev \
 		liblzma-dev \
+		libasound2 \
 		python-openssl
 	if [ -z "uname -a | grep microsoft" ]; then \
 		sudo apt -y --no-install-recommends install \
@@ -120,10 +120,12 @@ apt-misc: /usr/bin/curl git
 			x11-apps \
 			x11-utils \
 			x11-xserver-utils \
-			dbus-x11
+			dbus-x11; \
 	else \
 		sudo apt -y --no-install-recommends install vim; \
 	fi
+	sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	sudo apt -y --no-install-recommends install google-chrome-stable
 
 links: bashrc $(HOME)/.gitconfig $(HOME)/.screenrc $(HOME)/.tmux.conf $(HOME)/.config/nvim $(HOME)/.vimrc
 

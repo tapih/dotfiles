@@ -41,11 +41,10 @@ set conceallevel=0 " 特殊文字を隠さない
 set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
+set clipboard=unnamedplus
 
 if has('nvim')
     set inccommand=split
-else
-    set clipboard^=unnamedplus " ヤンクバッファを共有
 endif
 
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
