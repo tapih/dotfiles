@@ -1,3 +1,5 @@
+CURRENT_DIR := $(abspath .)
+
 NVIM_PYTHON2_VERSION := 2.7.16
 NVIM_PYTHON3_VERSION := 3.7.3
 ANACONDA_VERSION := 5.3.1
@@ -127,27 +129,37 @@ apt-misc: /usr/bin/curl git
 	sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 	sudo apt -y --no-install-recommends install google-chrome-stable
 
-links: bashrc $(HOME)/.gitconfig $(HOME)/.screenrc $(HOME)/.tmux.conf $(HOME)/.config/nvim $(HOME)/.vimrc
+links: \
+	bashrc \
+	$(HOME)/.gitconfig \
+	$(HOME)/.screenrc \
+	$(HOME)/.tmux.conf \
+	$(HOME)/.config/nvim \
+	$(HOME)/.vimrc \
+	$(HOME)/.ideavimrc
 
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
-	if [ ! -L $(HOME)/.bashrc ]; then ln -s .bashrc $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
 
 $(HOME)/.gitconfig:
-	ln -s .gitconfig $(HOME)/
+	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
 
 $(HOME)/.screenrc:
-	ln -s .screenrc $(HOME)/
+	ln -s $(CURRENT_DIR).screenrc $(HOME)/
 
 $(HOME)/.tmux.conf:
-	ln -s .tmux.conf $(HOME)/
+	ln -s $(CURRENT_DIR) .tmux.conf $(HOME)/
 
 $(HOME)/.config/nvim:
 	mkdir -p $(HOME)/.config
-	ln -s nvim $(HOME)/.config/
+	ln -s $(CURRENT_DIR)/nvim $(HOME)/.config/
 
 $(HOME)/.vimrc:
-	ln -s nvim/init.vim $(HOME)/.vimrc
+	ln -s $(CURRENT_DIR)/nvim/init.vim $(HOME)/.vimrc
+
+$(HOME)/.ideavimrc:
+	ln -s $(CURRENT_DIR)/.ideavimrc $(HOME)/
 
 docker: /usr/bin/docker
 
