@@ -6,7 +6,7 @@
     fo = fetch origin
     h = show
     s = status -s
-    ss = status -s
+    ss = status
     st = status
     m = checkout master
     mp = !git checkout master && git pull
