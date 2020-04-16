@@ -1,36 +1,45 @@
 [alias]
-    b = branch
-    br = branch
+    a = add
     u = add -u
+    b = branch
     f = fetch
     fo = fetch origin
     h = show
     s = status -s
     ss = status
     st = status
+    r = remote
+    rs = remote show
+    rp = remote prune origin
+    co = checkout
+    cb = checkout -b
     m = checkout master
     mp = !git checkout master && git pull
-    co = checkout
-    ci = commit
     cm = commit -m
-    cms = commit -sm
+    cs = commit -sm
     amend = commit --amend
-    d = diff
-    df = diff
-    dc = diff --cached
-    ds = diff --staged
+    cp = cherry-pick
+    mg = merge --no-ff
+    ff = merge --ff
+    i = diff
+    w = diff --word-diff
+    ic = diff --cached
+    is = diff --staged
     ai = update-index --add
     ri = update-index --remove
-    po = push
-    pi = pull
+    ps = push
+    pl = pull --rebase
+    plm = pull --merge
     l = log
-    ll = log -p
+    lp = log -p
     lo = log --oneline
-    ul = log --no-merges
-    ol = log --format=\" %C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    tr = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    lm = log --no-merges
+    ll = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     g = grep
+    vg = !git grep "$@" -- "./*" ":!vendor/**"
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
+    cf = !git ls-files -u | cut -f 2 | sort -u
+    conflicts = !git ls-files -u | cut -f 2 | sort -u
 
 [core]
     editor=vim

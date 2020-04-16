@@ -463,13 +463,8 @@ inoremap jj <ESC>
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
-if has('nvim')
-    nnoremap <silent> q :bd<CR>
-    nnoremap <silent> Q :q<CR>
-else
-    nnoremap <silent> q :q<CR>
-    nnoremap <silent> Q :q<CR>
-endif
+nnoremap <silent> q :q<CR>
+nnoremap <silent> Q :bd<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
