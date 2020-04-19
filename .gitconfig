@@ -1,3 +1,7 @@
+[user]
+    name=Hiroshi Muraoka
+    email=h.muraoka714@gmail.com
+
 [alias]
     a = add
     u = add -u
