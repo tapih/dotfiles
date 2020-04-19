@@ -46,7 +46,7 @@
     soft = reset --soft
 
 [core]
-    editor=vim
+    editor=nvim
     autocrlf= false
 
 [pull]
