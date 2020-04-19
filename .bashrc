@@ -111,6 +111,23 @@ fi
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
+__fzf_git__() {
+    NAME=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    [ -z $NAME ] || cd $NAME
+}
+
+__fzf_cd__() {
+    directories=$(git ls-files $(git rev-parse --show-toplevel) | xargs -n 1 dirname | sort -n | uniq) &&
+        selected_dirs=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
+        cd $selected_dirs
+}
+
+__fzf_file__() {
+    files=$(git ls-files $(git rev-parse --show-toplevel)) &&
+        selected_files=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
+        nvim $selected_files
+}
+
 bind -r "\C-g"
 bind -r "\C-j"
 bind -r "\C-o"
@@ -118,21 +135,6 @@ bind -x '"\C-g": __fzf_git__'
 bind -x '"\C-j": __fzf_cd__'
 bind -x '"\C-o": __fzf_file__'
 
-__fzf_git__() {
-    NAME=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    [ -z $NAME ] || cd $NAME
-}
-
-__fzf_cd__() {
-    NAME=$(fd --type d | fzf --preview 'tree -C {} | head -200')
-    [ -z $NAME ] || cd $NAME
-}
-
-__fzf_file__() {
-    files=$(git ls-files) &&
-        selected_files=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
-        vim $selected_files
-}
 # tmux
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     base_session='auto'

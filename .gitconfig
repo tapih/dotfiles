@@ -6,8 +6,8 @@
     fo = fetch origin
     h = show
     s = status -s
-    ss = status
     st = status
+    t = tag
     r = remote
     rs = remote show
     rp = remote prune origin
@@ -16,20 +16,21 @@
     m = checkout master
     mp = !git checkout master && git pull
     cm = commit -m
+    ci = commit
     cs = commit -sm
     amend = commit --amend
     cp = cherry-pick
     mg = merge --no-ff
     ff = merge --ff
     i = diff
-    w = diff --word-diff
+    iw = diff --word-diff
     ic = diff --cached
     is = diff --staged
     ai = update-index --add
     ri = update-index --remove
-    ps = push
-    pl = pull --rebase
-    plm = pull --merge
+    po = push
+    pi = pull --rebase
+    pmg = pull --merge
     l = log
     lp = log -p
     lo = log --oneline
@@ -40,6 +41,9 @@
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
     cf = !git ls-files -u | cut -f 2 | sort -u
     conflicts = !git ls-files -u | cut -f 2 | sort -u
+    hard = reset --hard
+    mixed = reset --mixed
+    soft = reset --soft
 
 [core]
     editor=vim
