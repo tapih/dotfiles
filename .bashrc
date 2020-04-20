@@ -118,14 +118,14 @@ __fzf_git__() {
 
 __fzf_cd__() {
     directories=$(git ls-files $(git rev-parse --show-toplevel) | xargs -n 1 dirname | sort -n | uniq) &&
-        selected_dirs=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
-        cd $selected_dirs
+        selected_dir=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
+        cd $selected_dir
 }
 
 __fzf_file__() {
     files=$(git ls-files $(git rev-parse --show-toplevel)) &&
-        selected_files=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
-        nvim $selected_files
+        selected_file=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
+        nvim $selected_file
 }
 
 bind -r "\C-g"
