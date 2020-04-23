@@ -29,6 +29,8 @@ GO := $(GOROOT)/bin/go
 CURL := curl -sSLf
 PYENV := $(PYENV_DIR)/bin/pyenv
 
+TMUX_AUTO_RUN ?= 1
+
 all: \
 	apt-misc \
 	links \
@@ -37,7 +39,7 @@ all: \
 	fd \
 	tmux \
 	fzf \
-	nvim \
+	neovim \
 	go \
 	anaconda \
 	dart \
@@ -141,7 +143,7 @@ links: \
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
 	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
-	if [ -n "$(TMUX_AUTO_RUN)" ]; then ln -s $(CURRENT_DIR)/.bashrc.tmux $(HOME)/; fi
+	if [ $(TMUX_AUTO_RUN) -eq 1 ]; then ln -s $(CURRENT_DIR)/.bashrc.tmux $(HOME)/; fi
 
 $(HOME)/.gitconfig:
 	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
@@ -359,7 +361,7 @@ $(HOME)/.git-completion.bash:
 	fd \
 	tmux \
 	fzf \
-	nvim \
+	neovim \
 	go \
 	anaconda \
 	dart \
