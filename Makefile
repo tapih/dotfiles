@@ -141,6 +141,7 @@ links: \
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
 	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
+	if [ -n "$(TMUX_AUTO_RUN)" ]; then ln -s $(CURRENT_DIR)/.bashrc.tmux $(HOME)/; fi
 
 $(HOME)/.gitconfig:
 	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/

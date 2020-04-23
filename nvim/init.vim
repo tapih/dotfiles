@@ -518,86 +518,55 @@ vnoremap <C-v> <Plug>(expand_region_shrink)
 vnoremap v <Plug>(expand_region_expand)
 
 "-----------------------
-" sで始まるショートカット
+" gで始まるショートカット
 "-----------------------
-" sを無効に
-nnoremap s <Nop>
-vnoremap s <Nop>
+nnoremap <silent> gp :<C-u>bprev<CR>
+nnoremap <silent> gn :<C-u>bnext<CR>
 
-" s+-\ で画面分割
-nnoremap s- :<C-u>sp<CR>
-nnoremap s\ :<C-u>vs<CR>
+nnoremap <silent> g[ :<C-u>set nonumber<CR>:set list listchars=<CR>
+nnoremap <silent> g] :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
 
-" s+hjklでウィンドウを移動
-nnoremap <silent> sh <C-w>h<CR>
-nnoremap <silent> sj <C-w>j<CR>
-nnoremap <silent> sk <C-w>k<CR>
-nnoremap <silent> sl <C-w>l<CR>
-
-nnoremap <silent> sn :<C-u>set nonumber<CR>:set list listchars=<CR>
-nnoremap <silent> sm :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
-
-nnoremap s[ :<C-u>noh<CR>
+nnoremap gu :<C-u>noh<CR>
 
 " for plugins
 if has('nvim')
-    "easymotion
-    nmap <leader>f <Plug>(easymotion-f)
-    nmap <leader>F <Plug>(easymotion-F)
-    nmap <leader>s <Plug>(easymotion-s)
-    nmap <leader>t <Plug>(easymotion-t)
-
-    " buffer
-    nnoremap <silent> tp :<C-u>bprev<CR>
-    nnoremap <silent> tn :<C-u>bnext<CR>
-
-    " easyalign
-    xnoremap sa <Plug>(EasyAlign)
-    nnoremap sa <Plug>(EasyAlign)
-
-    " nerdtree
-    nnoremap sb :<C-u>NERDTreeFocus<CR>
-    nnoremap ss :<C-u>Format<CR>
-    augroup SetGoFmtNMap
-        autocmd!
-        autocmd FileType go nnoremap ss :<C-u>GoFmt<CR>
-    augroup END
-
-    inoremap <silent><expr> <C-Space> coc#refresh()
-
-    "-----------------------
-    " gで始まるショートカット
-    "-----------------------
     nnoremap gj <Nop>
     nnoremap gk <Nop>
     nnoremap gh <Nop>
     nnoremap gl <Nop>
 
-    " fzf
-    nnoremap <silent> gi :<C-u>Buffers<CR>
-    nnoremap <silent> gb :<C-u>GFiles<CR>
-    nnoremap <silent> gh :<C-u>History<CR>
-    nnoremap <silent> gf :<C-u>BLines<CR>
-    nnoremap <silent> gF :<C-u>GGrep<CR>
-    nnoremap <silent> gm :<C-u>BCommits<CR>
+    " nerdtree
+    nnoremap gb :<C-u>NERDTreeFocus<CR>
 
-    " coc navigate diagnostics
+    " coc
+    inoremap <silent><expr> <C-Space> coc#refresh()
     nmap <silent> gj <Plug>(coc-diagnostic-prev)
     nmap <silent> gk <Plug>(coc-diagnostic-next)
-
-    " coc Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gy <Plug>(coc-type-definition)
-
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
-    nmap <silent> gn <Plug>(coc-rename)
-
+    nmap <silent> gc <Plug>(coc-rename)
     nnoremap <silent> gl :call <SID>show_documentation()<CR>
     nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-k> <ESC>:call <SID>show_documentation()<CR>a
+    nnoremap gl :<C-u>Format<CR>
+    augroup SetGoFmtNMap
+        autocmd!
+        autocmd FileType go nnoremap gg :<C-u>GoFmt<CR>
+    augroup END
 
-    nnoremap t <Nop>
+    let mapleader = " "
+    " fzf
+    nnoremap <silent> <leader>i :<C-u>Buffers<CR>
+    nnoremap <silent> <leader>b :<C-u>GFiles<CR>
+    nnoremap <silent> <leader>h :<C-u>History<CR>
+    nnoremap <silent> <leader>f :<C-u>BLines<CR>
+    nnoremap <silent> <leader>F :<C-u>GGrep<CR>
+    nnoremap <silent> <leader>m :<C-u>BCommits<CR>
+
+    " easymotion
+    nmap go <Plug>(easymotion-s)
 endif
 
 "=========================================================================
