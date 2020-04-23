@@ -218,7 +218,8 @@ go: \
 	$(GOPATH)/bin/gorename \
 	$(GOPATH)/bin/goreturns \
 	$(GOPATH)/bin/gopls \
-	$(GOPATH)/bin/cobra
+	$(GOPATH)/bin/cobra \
+	$(GOPATH)/bin/dlv
 
 $(GOROOT):
 	sudo mkdir $(GOROOT)
@@ -245,6 +246,9 @@ $(GOPATH)/bin/gopls:
 
 $(GOPATH)/bin/cobra:
 	GO111MODULE=off ${GO} get -u github.com/spf13/cobra/cobra
+
+$(GOPATH)/bin/dlv:
+	GO111MODULE=off go get github.com/go-delve/delve/cmd/dlv
 
 dart: /usr/bin/dart $(HOME)/dart/flutter
 
