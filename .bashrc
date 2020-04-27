@@ -201,6 +201,8 @@ else
     fi
 fi
 
+export VTE_CJK_WIDTH=1
+
 # completion
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
