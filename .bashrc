@@ -162,44 +162,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # prompt
-function get_cluster_short() {
-    if [ "$1" = "N/A" ]; then
-        echo ""
-    else
-        echo "$1"
-    fi
-}
-
-KUBE_PS1_NS_ENABLE=false
-KUBE_PS1_PREFIX="["
-KUBE_PS1_SUFFIX="]"
-KUBE_PS1_SYMBOL_USE_IMG=true
-KUBE_PS1_SEPARATOR="|"
-KUBE_PS1_SYMBOL_COLOR="cyan"
-KUBE_PS1_CTX_COLOR="magenta"
-KUBE_PS1_CLUSTER_FUNCTION=get_cluster_short
-
-if [ $UID -eq 0 ]; then
-    PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\$ '
-else
-    if [ -f "$HOME/.bash-git-prompt/gitprompt.sh" ]; then
-        source $HOME/.bash-git-prompt/gitprompt.sh
-        GIT_PROMPT_START='\e[0;30;46m[\u@\h] \w \]\e[m\] '
-        if [ -f $HOME/.kube-ps1 ]; then
-            source $HOME/.kube-ps1
-            GIT_PROMPT_END=' $(kube_ps1)\n%\$ '
-        else
-            GIT_PROMPT_END='\n%\$ '
-        fi
-    else
-        if [ -f $HOME/.kube-ps1 ]; then
-            source $HOME/.kube-ps1
-            PS1='\e[0;30;45m[\u@\h] \w \]\e[m\] $(kube_ps1)\n%\$ '
-        else
-            PS1='\e[0;30;45m[\u@\h] \w \]\e[m\]\n%\$ '
-        fi
-    fi
-fi
+eval "$(starship init bash)"
 
 export VTE_CJK_WIDTH=1
 

@@ -138,7 +138,8 @@ links: \
 	$(HOME)/.tmux.conf \
 	$(HOME)/.config/nvim \
 	$(HOME)/.vimrc \
-	$(HOME)/.ideavimrc
+	$(HOME)/.ideavimrc \
+	$(HOME)/starship.toml
 
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
@@ -163,6 +164,9 @@ $(HOME)/.vimrc:
 
 $(HOME)/.ideavimrc:
 	ln -s $(CURRENT_DIR)/.ideavimrc $(HOME)/
+
+$(HOME)/starship.toml:
+	ln -s $(CURRENT_DIR)/starship.toml $(HOME)/.config/
 
 docker: /usr/bin/docker
 
@@ -345,13 +349,12 @@ $(HOME)/.krew:
 		"$${KREW}" install --manifest=krew.yaml --archive=krew.tar.gz && \
 		"$${KREW}" update
 
-prompt: $(BASH_GIT_PROMPT_DIR) $(HOME)/.kube-ps1 $(HOME)/.git-completion.bash
+prompt: $(MISC_INSTALL_DIR)/starship
 
-$(BASH_GIT_PROMPT_DIR):
-	git clone https://github.com/magicmonty/bash-git-prompt.git $@ --depth=1
-
-$(HOME)/.kube-ps1:
-	$(CURL) https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o $@
+$(MISC_INSTALL_DIR)/starship:
+	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
+	chmod +x /tmp/starship_install.sh
+	/tmp/starship_install.sh -y
 
 $(HOME)/.git-completion.bash:
 	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $@
