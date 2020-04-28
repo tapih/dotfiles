@@ -46,6 +46,7 @@ all: \
 	node \
 	cpp \
 	k8scli \
+	completion \
 	prompt
 
 help:
@@ -57,13 +58,14 @@ help:
 	@echo "    fd          - install fd v$(FD_VERSION)"
 	@echo "    tmux        - install tmux v$(TMUX_VERSION)"
 	@echo "    fzf         - install fzf"
-	@echo "    nvim        - install nvim"
+	@echo "    neovim      - install neovim"
 	@echo "    go          - install go $(GO_VERSION)"
 	@echo "    anaconda    - install anaconda3 v$(ANACONDA_VERSION)"
 	@echo "    dart        - install dart"
 	@echo "    node        - install node v$(NODE_VERSION) with nvm v$(NVM_VERSION)"
 	@echo "    cpp         - install cpp lsp"
 	@echo "    k8scli      - install k8s cli tools"
+	@echo "    completion  - install bash prompt completion scripts"
 	@echo "    prompt      - install bash prompt scripts"
 
 curl: /usr/bin/curl
@@ -144,6 +146,7 @@ links: \
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
 	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/.bashrc.commands $(HOME)/; fi
 	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/.bashrc.tmux $(HOME)/; fi
 
 $(HOME)/.gitconfig:
@@ -356,6 +359,8 @@ $(MISC_INSTALL_DIR)/starship:
 	chmod +x /tmp/starship_install.sh
 	/tmp/starship_install.sh -y
 
+completion: $(HOME)/.git-completion.bash
+
 $(HOME)/.git-completion.bash:
 	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $@
 
@@ -375,4 +380,5 @@ $(HOME)/.git-completion.bash:
 	node \
 	cpp \
 	k8scli \
+	completion \
 	prompt

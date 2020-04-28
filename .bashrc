@@ -30,30 +30,6 @@ export PROMPT_COMMAND='history -a'
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
-# enhanced cd
-cd() {
-  if ! builtin cd 2>/dev/null $@; then
-    echo "cannot cd: $@$reset_color"
-    return
-  fi
-  if [ "$?" -eq 0 ]; then
-    lscdmax=40
-    nfiles=$(/bin/ls|wc -l)
-    if [ $nfiles -eq 0 ]; then
-      if [ "$(/bin/ls -A|wc -l)" -eq 0 ]; then
-        echo "no files in: $(pwd)$reset_color"
-      else
-        echo "only hidden files in: $(pwd)$reset_color"
-        ls -A --color=auto
-      fi
-    elif [ $lscdmax -ge $nfiles ]; then
-      ls -F --color=auto
-    else
-      echo "$nfiles files in: $(pwd)$reset_color"
-    fi
-  fi
-}
-
 # color 256
 case "$TERM" in
   xterm*)
@@ -70,71 +46,6 @@ case "$TERM" in
 esac
 
 shopt -s checkwinsize
-
-# colorize less
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-alias ls='ls -F --color=auto'
-alias ll='ls -Flh --color=auto'
-alias la='ls -Flha --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias mv='mv -i'
-alias rm='rm -i'
-alias cp='cp -i'
-alias quit='exit'
-alias J='cd -'
-alias H='cd ~'
-alias ..='cd ..'
-alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
-alias diff='colordiff'
-alias mktmp='mkdir t'
-exists vim && alias v='vim'
-exists nvim && alias v='nvim'
-exists nvim && alias agit='nvim +Agit'
-exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
-exists gsed && alias sed='gsed'
-exists tmux && alias tmux="tmux -2"
-exists git && alias g='git'
-
-if exists kubectl ; then
-    alias k='kubectl'
-    alias kex='kubectl exec -it'
-    complete -F __start_kubectl k
-    source <(kubectl completion bash)
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-fi
-
-# fzf
-[ -f ~/.fzf.bash ] && . ~/.fzf.bash
-export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
-
-__fzf_git__() {
-    NAME=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    [ -z $NAME ] || cd $NAME
-}
-
-__fzf_cd__() {
-    directories=$(git ls-files $(git rev-parse --show-toplevel) | xargs -n 1 dirname | sort -n | uniq) &&
-        selected_dir=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
-        cd $selected_dir
-}
-
-__fzf_file__() {
-    files=$(git ls-files $(git rev-parse --show-toplevel)) &&
-        selected_file=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
-        nvim $selected_file
-}
-
-bind -r "\C-g"
-bind -r "\C-j"
-bind -r "\C-o"
-bind -x '"\C-g": __fzf_git__'
-bind -x '"\C-j": __fzf_cd__'
-bind -x '"\C-o": __fzf_file__'
 
 # python
 if [ -d ${HOME}/.pyenv ]; then
@@ -177,6 +88,7 @@ fi
 [ -f ~/.git-completion.bash ] && source ~/.git-completion.bash && __git_complete g _git
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
+[ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
 # wsl
