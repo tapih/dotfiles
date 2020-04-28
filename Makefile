@@ -172,7 +172,7 @@ $(HOME)/.ideavimrc:
 	ln -s $(CURRENT_DIR)/.ideavimrc $(HOME)/
 
 $(HOME)/.config/starship.toml:
-	ln -s $(CURRENT_DIR)/starship.toml $(HOME)/.config/
+	ln -s $(CURRENT_DIR)/.config/starship.toml $(HOME)/.config/
 
 docker: /usr/bin/docker
 

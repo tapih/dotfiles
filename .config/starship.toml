@@ -1,0 +1,33 @@
+prompt_order = [
+    "username",
+    "hostname",
+    "directory",
+    "kubernetes",
+    "git_branch",
+    "git_commit",
+    "git_state",
+    "git_status",
+    "docker_context",
+    "package",
+    "golang",
+    "python",
+    "nodejs",
+    "rust",
+    "memory_usage",
+    "aws",
+    "env_var",
+    "cmd_duration",
+    "custom",
+    "line_break",
+    "jobs",
+    "battery",
+    "time",
+    "character",
+]
+
+[directory]
+truncation_length = 8
+truncate_to_repo = false
+
+[kubernetes]
+disabled = false
