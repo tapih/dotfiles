@@ -8,7 +8,7 @@ exists() { type $1 >/dev/null 2>&1; return $?; }
 
 export SHELL=`which bash`
 export PATH=$HOME/bin:$PATH
-exists vim && export EDITOR=vim
+export EDITOR=nvim
 
 stty werase undef
 bind '"\C-w": unix-filename-rubout'

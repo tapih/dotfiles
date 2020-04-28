@@ -141,16 +141,16 @@ links: \
 	$(HOME)/.config/nvim \
 	$(HOME)/.vimrc \
 	$(HOME)/.ideavimrc \
-	$(HOME)/starship.toml
+	$(HOME)/.config/starship.toml
 
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
 	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/.bashrc.langs $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/.bashrc.commands $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/.bashrc.prompt $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/.bashrc.wsl $(HOME)/; fi
-	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/.bashrc.tmux $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.langs $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.commands $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.prompt $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.wsl $(HOME)/; fi
+	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.tmux $(HOME)/; fi
 
 $(HOME)/.gitconfig:
 	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
@@ -171,7 +171,7 @@ $(HOME)/.vimrc:
 $(HOME)/.ideavimrc:
 	ln -s $(CURRENT_DIR)/.ideavimrc $(HOME)/
 
-$(HOME)/starship.toml:
+$(HOME)/.config/starship.toml:
 	ln -s $(CURRENT_DIR)/starship.toml $(HOME)/.config/
 
 docker: /usr/bin/docker
