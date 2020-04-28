@@ -1,0 +1,23 @@
+case "$TERM" in
+  xterm*)
+  # determine best terminal
+  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
+    export TERM=xterm-256color
+  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
+    export TERM=xterm-debian
+  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
+    export TERM=xterm-color
+  else
+    export TERM=xterm
+  fi ;;
+esac
+
+shopt -s checkwinsize
+
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+eval "$(starship init bash)"
+export VTE_CJK_WIDTH=1
+

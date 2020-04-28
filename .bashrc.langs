@@ -1,0 +1,25 @@
+# python
+if [ -d ${HOME}/.pyenv ]; then
+  export PYENV_ROOT=$HOME/.pyenv
+  export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
+  eval "$(pyenv init -)";
+fi
+
+# go
+GOROOT="/usr/local/go"
+if [ -x $GOROOT/bin/go ]; then
+    export GOPATH="$HOME/go"
+    export GOROOT
+    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+fi
+
+# dart
+exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin
+# exists dart && export PATH=${PATH}:${HOME}/dart/flutter/bin
+# exists flutter && export ANDROID_HOME=~/Android/Sdk
+
+# node
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
