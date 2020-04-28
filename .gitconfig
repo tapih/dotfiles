@@ -6,6 +6,7 @@
     a = add
     u = add -u
     b = branch
+    br = branch -r
     f = fetch
     fo = fetch origin
     h = show
@@ -39,15 +40,15 @@
     lp = log -p
     lo = log --oneline
     lm = log --no-merges
-    ll = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     g = grep
     vg = !git grep "$@" -- "./*" ":!vendor/**"
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
     cf = !git ls-files -u | cut -f 2 | sort -u
     conflicts = !git ls-files -u | cut -f 2 | sort -u
-    hard = reset --hard
-    mixed = reset --mixed
-    soft = reset --soft
+    rhard = reset --hard
+    rmix = reset --mixed
+    rsoft = reset --soft
 
 [core]
     editor=nvim
