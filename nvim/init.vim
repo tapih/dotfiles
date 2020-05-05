@@ -10,7 +10,9 @@ set cpoptions&vim "vimモードに
 " ファイルタイプ関連を一旦切っておくfiletype off filetype plugin indent off
 syntax enable " シンタックス有効に
 set encoding=utf-8 " エンコーディング
+set relativenumber
 set number     " 行番号の表示
+set number relativenumber
 set scrolloff=10 " scroll offset
 set cursorline   " カーソルライン横
 set splitbelow " spで下に分割
