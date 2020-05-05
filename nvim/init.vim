@@ -124,6 +124,11 @@ if has('nvim')
     Plug 'honza/vim-snippets', {'on': []} " snippets
     Plug 'nanotech/jellybeans.vim'
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
+    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+
+    " ranger
+    Plug 'francoiscabrol/ranger.vim'
+    Plug 'rbgrouleff/bclose.vim'
 
     " インデントを見やすく
     Plug 'nathanaelkane/vim-indent-guides'
