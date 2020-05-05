@@ -46,9 +46,9 @@
     vgrep = !git grep "$@" -- "./*" ":!vendor/**"
     cf = !git ls-files -u | cut -f 2 | sort -u
     conflicts = !git ls-files -u | cut -f 2 | sort -u
-    rhard = reset --hard
-    rmix = reset --mixed
-    rsoft = reset --soft
+    hard = reset --hard
+    mix = reset --mixed
+    soft = reset --soft
 
 [core]
     editor=nvim
