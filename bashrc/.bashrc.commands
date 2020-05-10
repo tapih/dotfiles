@@ -52,7 +52,8 @@ exists git && alias g='git'
 
 if exists kubectl ; then
     alias k='kubectl'
-    alias kex='kubectl exec -it'
+    alias kx='kubectl exec -it'
+    alias kang='kubectl apply -f https://k8s.io/examples/controllers/nginx-deployment.yaml'
     complete -F __start_kubectl k
     source <(kubectl completion bash)
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

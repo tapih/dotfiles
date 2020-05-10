@@ -10,6 +10,7 @@ HUB_VERSION := 2.12.8
 KUBERNETES_VERSION := 1.16.4
 HELM_VERSION := 3.1.1
 STERN_VERSION := 1.11.0
+KUSTOMIZE_VERSION := 3.5.4
 K9S_VERSION := 0.9.3
 KIND_VERSION := 0.7.0
 FD_VERSION := 7.5.0
@@ -302,6 +303,7 @@ k8scli: \
 	$(MISC_INSTALL_DIR)/stern \
 	$(MISC_INSTALL_DIR)/k9s \
 	$(MISC_INSTALL_DIR)/kind \
+	$(MISC_INSTALL_DIR)/kustomize \
 	$(HOME)/.krew
 
 neovim: /usr/bin/nvim
@@ -341,6 +343,11 @@ $(MISC_INSTALL_DIR)/stern:
 $(MISC_INSTALL_DIR)/kind:
 	sudo $(CURL) https://github.com/kubernetes-sigs/kind/releases/download/v$(KIND_VERSION)/kind-linux-amd64 -o $@
 	sudo chmod 755 $@
+
+$(MISC_INSTALL_DIR)/kustomize:
+	sudo sh -c "$$(echo \
+		"$(CURL) https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv$(KUSTOMIZE_VERSION)/kustomize_v$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz |" \
+		"tar xz -C $(MISC_INSTALL_DIR)")"
 
 $(MISC_INSTALL_DIR)/k9s:
 	sudo sh -c "$$(echo \

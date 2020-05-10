@@ -125,6 +125,7 @@ if has('nvim')
     Plug 'nanotech/jellybeans.vim'
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+    Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
 
     " ranger
     Plug 'francoiscabrol/ranger.vim'
