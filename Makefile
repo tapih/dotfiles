@@ -304,6 +304,7 @@ k8scli: \
 	$(MISC_INSTALL_DIR)/k9s \
 	$(MISC_INSTALL_DIR)/kind \
 	$(MISC_INSTALL_DIR)/kustomize \
+	$(MISC_INSTALL_DIR)/terraform \
 	$(HOME)/.krew
 
 neovim: /usr/bin/nvim
@@ -353,6 +354,11 @@ $(MISC_INSTALL_DIR)/k9s:
 	sudo sh -c "$$(echo \
 		"$(CURL) https://github.com/derailed/k9s/releases/download/$(K9S_VERSION)/k9s_$(K9S_VERSION)_Linux_x86_64.tar.gz |" \
 		"tar xz -C $(MISC_INSTALL_DIR)")"
+
+$(MISC_INSTALL_DIR)/terraform:
+	$(CURL) https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip -o /tmp/terraform.zip
+	sudo unzip /tmp/terraform.zip -d $(MISC_INSTALL_DIR)
+	sudo chmod 755 $@
 
 $(HOME)/.krew:
 	set -x; cd "$(mktemp -d)" && \

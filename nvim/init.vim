@@ -126,6 +126,7 @@ if has('nvim')
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
+    Plug 'hashivim/vim-terraform', {'for': 'tf'}
 
     " ranger
     Plug 'francoiscabrol/ranger.vim'
