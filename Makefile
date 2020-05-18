@@ -149,6 +149,7 @@ bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
 	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
 	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.langs $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.completion ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.completion $(HOME)/; fi
 	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.commands $(HOME)/; fi
 	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.prompt $(HOME)/; fi
 	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.wsl $(HOME)/; fi
