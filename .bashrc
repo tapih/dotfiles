@@ -26,6 +26,7 @@ bind '"\C-n": history-search-forward'
 [ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
 [ -f ~/.bashrc.langs ] && . ~/.bashrc.langs
 [ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
+[ -f ~/.bashrc.completion ] && . ~/.bashrc.completion
 [ -f ~/.bashrc.prompt ] && . ~/.bashrc.prompt
 [ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
 
