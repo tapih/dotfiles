@@ -88,6 +88,7 @@ apt-misc: /usr/bin/curl git
 		tig \
 		htop \
 		tree \
+		cloc \
 		jq \
 		xsel \
 		make \
