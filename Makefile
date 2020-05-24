@@ -224,7 +224,7 @@ $(FZF_DIR):
 	git clone https://github.com/junegunn/fzf.git $(FZF_DIR) && $(FZF_DIR)/install
 
 go: \
-	$(GOROOT) \
+	$(GOROOT)/bin/go \
 	$(GOPATH)/bin/ghq \
 	$(GOPATH)/bin/goimports \
 	$(GOPATH)/bin/golint \
@@ -234,7 +234,7 @@ go: \
 	$(GOPATH)/bin/cobra \
 	$(GOPATH)/bin/dlv
 
-$(GOROOT):
+$(GOROOT)/bin/go:
 	sudo mkdir $(GOROOT)
 	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C $(GOROOT) --strip-components=1"
 	mkdir -p $(GOPATH)/src $(GOPATH)/bin $(GOPATH)/pkg
