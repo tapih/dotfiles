@@ -474,7 +474,7 @@ inoremap jj <ESC>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
 nnoremap <silent> q :q<CR>
-nnoremap <silent> Q :bd<CR>
+nnoremap <silent> <C-w> :bd<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
@@ -557,7 +557,6 @@ if has('nvim')
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
     nmap <silent> gc <Plug>(coc-rename)
-    nnoremap <silent> gl :call <SID>show_documentation()<CR>
     nnoremap <silent> <C-k> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-k> <ESC>:call <SID>show_documentation()<CR>a
     nnoremap gl :<C-u>Format<CR>
