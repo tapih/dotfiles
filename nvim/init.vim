@@ -562,7 +562,7 @@ if has('nvim')
     nnoremap gl :<C-u>Format<CR>
     augroup SetGoFmtNMap
         autocmd!
-        autocmd FileType go nnoremap gg :<C-u>GoFmt<CR>
+        autocmd FileType go nnoremap gl :<C-u>GoFmt<CR>
     augroup END
 
     let mapleader = " "
