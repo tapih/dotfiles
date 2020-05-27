@@ -13,7 +13,7 @@ STERN_VERSION := 1.11.0
 KUSTOMIZE_VERSION := 3.5.4
 K9S_VERSION := 0.9.3
 KIND_VERSION := 0.7.0
-FD_VERSION := 7.5.0
+FD_VERSION := 8.1.0
 NVM_VERSION := 0.35.3
 NODE_VERSION := 12.16.2
 
@@ -204,7 +204,7 @@ $(MISC_INSTALL_DIR)/hub:
 fd: /usr/bin/fd
 
 /usr/bin/fd:
-	${CURL} https://github.com/sharkdp/fd/releases/download/v$(FD_VERSION)/fd-musl_$(FD_VERSION)_amd64.deb
+	${CURL} https://github.com/sharkdp/fd/releases/download/v$(FD_VERSION)/fd-musl_$(FD_VERSION)_amd64.deb -O
 	sudo dpkg -i fd-musl_$(FD_VERSION)_amd64.deb
 	rm -f fd-musl_$(FD_VERSION)_amd64.deb
 
@@ -281,7 +281,8 @@ $(HOME)/.nvm:
 	$(CURL) https://raw.githubusercontent.com/nvm-sh/nvm/v$(NVM_VERSION)/install.sh | bash
 
 $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node: $(HOME)/.nvm
-	. $(HOME)/.nvm/nvm.sh && nvm install $(NODE_VERSION)
+	chmod 755 $(HOME)/.nvm/nvm.sh && . $(HOME)/.nvm/nvm.sh
+	sudo $(HOME)/.nvm/nvm.sh install $(NODE_VERSION)
 
 anaconda: $(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION)
 
@@ -319,17 +320,20 @@ neovim: /usr/bin/nvim
 $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR)
 	$(PYENV) install -s ${NVIM_PYTHON2_VERSION}
 	$(PYENV) rehash
-	$(PYENV) virtualenv ${NVIM_PYTHON2_VERSION} neovim2
-	$(PYENV) global neovim2
-	pip install neovim
+	$(PYENV) virtualenv -f ${NVIM_PYTHON2_VERSION} neovim2
+	CURRENT=$($(PYENV) global) && \
+			$(PYENV) global neovim2 && \
+			pip install neovim && \
+			$(PYENV) global $${CURRENT}
 
 $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR)
 	$(PYENV) install -s ${NVIM_PYTHON3_VERSION}
 	$(PYENV) rehash
 	$(PYENV) virtualenv ${NVIM_PYTHON3_VERSION} neovim3
-	$(PYENV) global neovim3
-	pip install neovim
-	pip install pyls
+	CURRENT=$($(PYENV) global) && \
+			$(PYENV) global neovim3 && \
+			pip install neovim && \
+			$(PYENV) global $${CURRENT}
 
 $(MISC_INSTALL_DIR)/kubectl:
 	sudo $(CURL) https://storage.googleapis.com/kubernetes-release/release/v$(KUBERNETES_VERSION)/bin/linux/amd64/kubectl -o $@
