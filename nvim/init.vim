@@ -474,7 +474,6 @@ inoremap jj <ESC>
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
 nnoremap <silent> q :q<CR>
-nnoremap <silent> <C-w> :bd<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
