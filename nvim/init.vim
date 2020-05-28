@@ -463,17 +463,12 @@ endif
 "-----------------------
 " コマンド
 "-----------------------
-" ; : 入れ替え
-nnoremap ; :
-vnoremap ; :
-nnoremap : ;
-vnoremap : ;
-
 inoremap jj <ESC>
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
 nnoremap <silent> q :q<CR>
+nnoremap <silent> z :bd<CR>
 
 " タグは使わない
 nnoremap [Tag] <Nop>
