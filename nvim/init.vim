@@ -569,7 +569,7 @@ if has('nvim')
     nnoremap <silent> <leader>m :<C-u>BCommits<CR>
 
     " easymotion
-    nmap go <Plug>(easymotion-s)
+    nmap , <Plug>(easymotion-s)
 endif
 
 "=========================================================================
