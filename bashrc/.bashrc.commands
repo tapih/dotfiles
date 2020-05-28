@@ -64,8 +64,11 @@ fi
 export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
 __fzf_git__() {
-    NAME=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    [ -z $NAME ] || cd $NAME
+    name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    if [ ! -z $name ]; then
+        history -s "cd $name"
+        cd $name
+    fi
 }
 
 __fzf_cd__() {
@@ -75,6 +78,7 @@ __fzf_cd__() {
     else
         directories=$(fd . --type d --full-path "$(realpath --relative-to=. ${toplevel})") &&
         selected_dir=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
+        history -s "cd $selected_dir" &&
         cd $selected_dir
     fi
 }
@@ -86,6 +90,7 @@ __fzf_file__() {
     else
         files=$(git ls-files ${toplevel}) &&
             selected_file=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
+            history -s "${EDITOR} $selected_file" &&
             ${EDITOR} $selected_file
     fi
 }
