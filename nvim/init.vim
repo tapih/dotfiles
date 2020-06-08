@@ -562,10 +562,10 @@ if has('nvim')
     let mapleader = " "
     " fzf
     nnoremap <silent> <leader>i :<C-u>Buffers<CR>
-    nnoremap <silent> <leader>b :<C-u>GFiles<CR>
+    nnoremap <silent> <leader>f :<C-u>GFiles<CR>
     nnoremap <silent> <leader>h :<C-u>History<CR>
-    nnoremap <silent> <leader>f :<C-u>BLines<CR>
-    nnoremap <silent> <leader>F :<C-u>GGrep<CR>
+    nnoremap <silent> <leader>b :<C-u>BLines<CR>
+    nnoremap <silent> <leader>g :<C-u>GGrep<CR>
     nnoremap <silent> <leader>m :<C-u>BCommits<CR>
 
     " easymotion
