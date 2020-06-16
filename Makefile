@@ -154,6 +154,7 @@ bashrc:
 	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.prompt $(HOME)/; fi
 	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.wsl $(HOME)/; fi
 	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.tmux $(HOME)/; fi
+	if [ $(TMUX_AUTO_RUN) -eq 0 -a -L $(HOME)/.bashrc.tmux ]; then rm -f $(CURRENT_DIR)/bashrc/.bashrc.tmux; fi
 
 $(HOME)/.gitconfig:
 	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
