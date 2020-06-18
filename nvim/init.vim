@@ -476,14 +476,13 @@ nnoremap <silent> q :q<CR>
 nnoremap <silent> z :bd<CR>
 
 " タグは使わない
-nnoremap [Tag] <Nop>
+noremap [Tag] <Nop>
 
 " H,Lで行頭、行末に移動
 nnoremap H ^
 nnoremap L $
 vnoremap H ^
 vnoremap L $
-nnoremap M *
 
 " Select entire buffer
 nnoremap vy ggVG " 検索後にジャンプした際に検索単語を画面中央に持ってくる
@@ -528,8 +527,8 @@ vnoremap v <Plug>(expand_region_expand)
 nnoremap <silent> gp :<C-u>bprev<CR>
 nnoremap <silent> gn :<C-u>bnext<CR>
 
-nnoremap <silent> g[ :<C-u>set norelativenumber<CR>:set nonumber<CR>:set list listchars=<CR>
-nnoremap <silent> g] :<C-u>set number<CR>:set relativenumber<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
+nnoremap <silent> g( :<C-u>set norelativenumber<CR>:set nonumber<CR>:set list listchars=<CR>
+nnoremap <silent> g) :<C-u>set number<CR>:set relativenumber<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
 
 nnoremap gu :<C-u>noh<CR>
 
@@ -545,18 +544,17 @@ if has('nvim')
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
-    nmap <silent> gj <Plug>(coc-diagnostic-prev)
-    nmap <silent> gk <Plug>(coc-diagnostic-next)
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
+    nmap <silent> <C-g> <Plug>(coc-diagnostic-prev)
+    nmap <silent> <C-G> <Plug>(coc-diagnostic-next)
+    nmap <silent> g] <Plug>(coc-definition)
+    nmap <silent> gd <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
     nmap <silent> gc <Plug>(coc-rename)
     nnoremap <silent> <C-l> :call <SID>show_documentation()<CR>
-    nnoremap gl :<C-u>Format<CR>
     augroup SetGoFmtNMap
         autocmd!
-        autocmd FileType go nnoremap gl :<C-u>GoFmt<CR>
+        autocmd FileType go nnoremap <silent> <C-l> :<C-u>GoFmt<CR>
     augroup END
 
     let mapleader = " "

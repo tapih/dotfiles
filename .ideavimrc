@@ -7,6 +7,7 @@ set visualbell t_vb=
 
 " qでウィンドウ閉じる
 nnoremap q :<C-u>q<CR>
+nnoremap z :<C-u>q<CR>
 
 " 現在のタブ以外を閉じる
 nnoremap Q :<C-u>action CloseAllEditorsButActive<CR>
@@ -20,6 +21,10 @@ vnoremap L  $
 " ; :
 nnoremap ; :
 vnoremap ; :
+nnoremap : m
+vnoremap : m
+nnoremap m ;
+vnoremap m ;
 
 " Select entire buffer
 nnoremap vy ggVG
@@ -43,7 +48,7 @@ nnoremap vv <C-w>
 inoremap jj <ESC>
 
 " AceJump
-nnoremap <Space>f :<C-u>action AceAction<CR>
+nnoremap , :<C-u>action AceAction<CR>
 
 " https://qiita.com/sei40kr/items/09e7e92eb7686f9b5950
 " 折りたたみ無効
@@ -78,10 +83,4 @@ nnoremap cc yiw
 
 " ビジュアルモード
 nnoremap <C-y> <C-v>
-
-" s+hjklでウィンドウを移動
-nnoremap <silent> sh <C-w>h<CR>
-nnoremap <silent> sj <C-w>j<CR>
-nnoremap <silent> sk <C-w>k<CR>
-nnoremap <silent> sl <C-w>l<CR>
 
