@@ -464,6 +464,11 @@ endif
 " コマンド
 "-----------------------
 inoremap jj <ESC>
+
+nnoremap ; :
+nnoremap : m
+nnoremap m ;
+
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
@@ -523,8 +528,8 @@ vnoremap v <Plug>(expand_region_expand)
 nnoremap <silent> gp :<C-u>bprev<CR>
 nnoremap <silent> gn :<C-u>bnext<CR>
 
-nnoremap <silent> g[ :<C-u>set norelativenumber<CR>:set list listchars=<CR>
-nnoremap <silent> g] :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
+nnoremap <silent> g[ :<C-u>set norelativenumber<CR>:set nonumber<CR>:set list listchars=<CR>
+nnoremap <silent> g] :<C-u>set number<CR>:set relativenumber<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
 
 nnoremap gu :<C-u>noh<CR>
 
@@ -557,7 +562,7 @@ if has('nvim')
     let mapleader = " "
     " fzf
     nnoremap <silent> <leader>i :<C-u>Buffers<CR>
-    nnoremap <silent> <leader>f :<C-u>GFiles<CR>
+    nnoremap <silent> <leader>o :<C-u>GFiles<CR>
     nnoremap <silent> <leader>h :<C-u>History<CR>
     nnoremap <silent> <leader>b :<C-u>BLines<CR>
     nnoremap <silent> <leader>g :<C-u>GGrep<CR>

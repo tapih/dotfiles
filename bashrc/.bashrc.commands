@@ -76,8 +76,9 @@ __fzf_cd__() {
     if [ -z ${toplevel} ]; then
         echo "error: this is not a git repository"
     else
-        directories=$(fd . --type d --full-path "$(realpath --relative-to=. ${toplevel})") &&
-        selected_dir=$(echo "$directories" | fzf -m --preview 'tree -C {} | head -200') &&
+        root_directory=$(realpath --relative-to=. ${toplevel}) &&
+        directories=$(fd . --type d --full-path ${root_directory}) &&
+        selected_dir=$(printf "${root_directory}\n${directories}" | fzf -m --preview 'tree -C {} | head -200') &&
         history -s "cd $selected_dir" &&
         cd $selected_dir
     fi
