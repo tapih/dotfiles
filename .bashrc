@@ -19,7 +19,8 @@ HISTCONTROL=ignoreboth
 HISTSIZE=100000
 HISTFILESIZE=100000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
-export PROMPT_COMMAND='history -a'
+export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
