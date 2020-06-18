@@ -523,7 +523,7 @@ vnoremap v <Plug>(expand_region_expand)
 nnoremap <silent> gp :<C-u>bprev<CR>
 nnoremap <silent> gn :<C-u>bnext<CR>
 
-nnoremap <silent> g[ :<C-u>set nonumber<CR>:set list listchars=<CR>
+nnoremap <silent> g[ :<C-u>set norelativenumber<CR>:set list listchars=<CR>
 nnoremap <silent> g] :<C-u>set number<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
 
 nnoremap gu :<C-u>noh<CR>
