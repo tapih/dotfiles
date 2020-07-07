@@ -6,7 +6,7 @@
     a = add
     u = add -u
     b = branch
-    br = branch
+    br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short)' --color
     f = fetch
     fo = fetch origin
     h = show
