@@ -554,7 +554,7 @@ if has('nvim')
     nnoremap <silent> <C-l> :call <SID>show_documentation()<CR>
     augroup SetGoFmtNMap
         autocmd!
-        autocmd FileType go nnoremap <silent> <C-l> :<C-u>GoFmt<CR>
+        autocmd FileType go nnoremap <silent> <C-j> :<C-u>GoFmt<CR>
     augroup END
 
     let mapleader = " "
