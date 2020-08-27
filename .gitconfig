@@ -32,7 +32,8 @@
     pm = pull --merge
     l = log
     lp = log -p
-    lo = log --oneline
+    lo = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'[%ad] %Cgreen%h%Creset %s by %Cgreen%d%an%Creset'
+
     lm = log --no-merges
     g = !git grep
     vg = !git grep "$@" -- "./*" ":!vendor/**"
