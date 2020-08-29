@@ -89,6 +89,7 @@ apt-misc: /usr/bin/curl git
 		htop \
 		tree \
 		cloc \
+		net-tools \
 		jq \
 		xsel \
 		make \
