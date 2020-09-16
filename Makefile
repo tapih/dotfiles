@@ -278,13 +278,17 @@ $(HOME)/dart/flutter:
 	git clone https://github.com/flutter/flutter.git $@ -b stable
 
 node: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node
+yarn: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/yarn
 
-$(HOME)/.nvm:
+$(HOME)/.nvm/nvm.sh:
 	$(CURL) https://raw.githubusercontent.com/nvm-sh/nvm/v$(NVM_VERSION)/install.sh | bash
+	chmod 755 $(HOME)/.nvm/nvm.sh
 
-$(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node: $(HOME)/.nvm
-	chmod 755 $(HOME)/.nvm/nvm.sh && . $(HOME)/.nvm/nvm.sh
-	sudo $(HOME)/.nvm/nvm.sh install $(NODE_VERSION)
+$(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node: $(HOME)/.nvm/nvm.sh
+	. $(HOME)/.nvm/nvm.sh && nvm install $(NODE_VERSION)
+
+$(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/yarn: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node
+	npm -g i yarn
 
 anaconda: $(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION)
 
@@ -402,6 +406,7 @@ $(HOME)/.git-completion.bash:
 	anaconda \
 	dart \
 	node \
+	yarn \
 	cpp \
 	k8scli \
 	completion \
