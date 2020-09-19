@@ -468,6 +468,9 @@ inoremap jj <ESC>
 nnoremap ; :
 nnoremap : m
 nnoremap m ;
+vnoremap ; :
+vnoremap : m
+vnoremap m ;
 
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
