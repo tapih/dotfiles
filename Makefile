@@ -306,16 +306,6 @@ $(PYENV_VIRTUALENV_DIR):
 cpp:
 	sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
 
-k8scli: \
-	$(MISC_INSTALL_DIR)/kubectl \
-	$(MISC_INSTALL_DIR)/helm \
-	$(MISC_INSTALL_DIR)/stern \
-	$(MISC_INSTALL_DIR)/k9s \
-	$(MISC_INSTALL_DIR)/kind \
-	$(MISC_INSTALL_DIR)/kustomize \
-	$(MISC_INSTALL_DIR)/terraform \
-	$(HOME)/.krew
-
 neovim: /usr/bin/nvim
 
 /usr/bin/nvim: $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION) $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION)
@@ -340,6 +330,24 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 			$(PYENV) global neovim3 && \
 			pip install neovim && \
 			$(PYENV) global $${CURRENT}
+
+gcloud: /usr/bin/gcloud
+
+/usr/bin/gcloud:
+	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+	sudo apt-get install -y apt-transport-https ca-certificates gnupg
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+	sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
+k8scli: \
+	$(MISC_INSTALL_DIR)/kubectl \
+	$(MISC_INSTALL_DIR)/helm \
+	$(MISC_INSTALL_DIR)/stern \
+	$(MISC_INSTALL_DIR)/k9s \
+	$(MISC_INSTALL_DIR)/kind \
+	$(MISC_INSTALL_DIR)/kustomize \
+	$(MISC_INSTALL_DIR)/terraform \
+	$(HOME)/.krew
 
 $(MISC_INSTALL_DIR)/kubectl:
 	sudo $(CURL) https://storage.googleapis.com/kubernetes-release/release/v$(KUBERNETES_VERSION)/bin/linux/amd64/kubectl -o $@
@@ -408,6 +416,7 @@ $(HOME)/.git-completion.bash:
 	node \
 	yarn \
 	cpp \
+	gcloud \
 	k8scli \
 	completion \
 	prompt
