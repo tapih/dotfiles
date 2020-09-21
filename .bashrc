@@ -15,6 +15,7 @@ bind '"\C-w": unix-filename-rubout'
 
 shopt -s histappend
 shopt -s cmdhist
+shopt -s globstar
 HISTCONTROL=ignoreboth
 HISTSIZE=100000
 HISTFILESIZE=100000

@@ -7,6 +7,7 @@ GO_VERSION := 1.13.11
 DART_VERSION := 2.14
 TMUX_VERSION := 2.9
 HUB_VERSION := 2.12.8
+TERRAFORM_VERSION := 0.13.3
 KUBERNETES_VERSION := 1.16.4
 HELM_VERSION := 3.1.1
 STERN_VERSION := 1.11.0
@@ -17,7 +18,7 @@ FD_VERSION := 8.1.0
 NVM_VERSION := 0.35.3
 NODE_VERSION := 12.16.2
 
-MISC_INSTALL_DIR := /usr/local/bin
+MISC_INSTALL_DIR := $(HOME)/bin
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
 PYENV_DIR=$(HOME)/.pyenv
 PYENV_VIRTUALENV_DIR=$(PYENV_DIR)/plugins/pyenv-virtualenv
@@ -93,6 +94,8 @@ apt-misc: /usr/bin/curl git
 		jq \
 		xsel \
 		make \
+		gnupg \
+		gnupg-agent \
 		colordiff \
 		ranger \
 		build-essential \
@@ -122,6 +125,8 @@ apt-misc: /usr/bin/curl git
 		libffi-dev \
 		liblzma-dev \
 		libasound2 \
+		apt-transport-https \
+		ca-certificates \
 		python-openssl
 	if [ -z "uname -a | grep microsoft" ]; then \
 		sudo apt -y --no-install-recommends install \
@@ -189,9 +194,6 @@ docker: /usr/bin/docker
 	sudo apt -y --no-install-recommends install \
 		docker-ce \
 		docker-ce-cli \
-		apt-transport-https \
-		ca-certificates \
-		gnupg-agent \
 		software-properties-common \
 		containerd.io
 	sudo groupadd docker
@@ -331,13 +333,17 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 			pip install neovim && \
 			$(PYENV) global $${CURRENT}
 
-gcloud: /usr/bin/gcloud
+gcloud: /usr/bin/gcloud $(MISC_INSTALL_DIR)/terraform
 
 /usr/bin/gcloud:
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	sudo apt-get install -y apt-transport-https ca-certificates gnupg
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+	$(CURL) https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 	sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+
+$(MISC_INSTALL_DIR)/terraform:
+	$(CURL) https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -o /tmp/terraform.zip
+	sudo unzip /tmp/terraform.zip -d $(MISC_INSTALL_DIR)
+	sudo chmod 755 $@
 
 k8scli: \
 	$(MISC_INSTALL_DIR)/kubectl \
@@ -346,7 +352,6 @@ k8scli: \
 	$(MISC_INSTALL_DIR)/k9s \
 	$(MISC_INSTALL_DIR)/kind \
 	$(MISC_INSTALL_DIR)/kustomize \
-	$(MISC_INSTALL_DIR)/terraform \
 	$(HOME)/.krew
 
 $(MISC_INSTALL_DIR)/kubectl:
@@ -374,11 +379,6 @@ $(MISC_INSTALL_DIR)/k9s:
 	sudo sh -c "$$(echo \
 		"$(CURL) https://github.com/derailed/k9s/releases/download/$(K9S_VERSION)/k9s_$(K9S_VERSION)_Linux_x86_64.tar.gz |" \
 		"tar xz -C $(MISC_INSTALL_DIR)")"
-
-$(MISC_INSTALL_DIR)/terraform:
-	$(CURL) https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip -o /tmp/terraform.zip
-	sudo unzip /tmp/terraform.zip -d $(MISC_INSTALL_DIR)
-	sudo chmod 755 $@
 
 $(HOME)/.krew:
 	set -x; cd "$(mktemp -d)" && \
