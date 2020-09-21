@@ -47,7 +47,8 @@ all: \
 	dart \
 	node \
 	cpp \
-	k8scli \
+	gcloud \
+	kubernetes \
 	completion \
 	prompt
 
@@ -56,6 +57,7 @@ help:
 	@echo "    apt-misc    - instal a bunch of commands with apt"
 	@echo "    links       - make symlinks of dotfiles"
 	@echo "    docker      - install docker"
+	@echo "    gh          - install gh"
 	@echo "    hub         - install hub v$(HUB_VERSION)"
 	@echo "    fd          - install fd v$(FD_VERSION)"
 	@echo "    tmux        - install tmux v$(TMUX_VERSION)"
@@ -66,7 +68,8 @@ help:
 	@echo "    dart        - install dart"
 	@echo "    node        - install node v$(NODE_VERSION) with nvm v$(NVM_VERSION)"
 	@echo "    cpp         - install cpp lsp"
-	@echo "    k8scli      - install k8s cli tools"
+	@echo "    gcloud      - install gcloud cli tools and terraform"
+	@echo "    kubernetes      - install k8s cli tools"
 	@echo "    completion  - install bash prompt completion scripts"
 	@echo "    prompt      - install bash prompt scripts"
 
@@ -80,7 +83,7 @@ git: /usr/bin/git
 /usr/bin/git:
 	sudo apt -y --no-install-recommends install /usr/bin/git
 
-apt-misc: /usr/bin/curl git
+apt-misc: curl git
 	sudo apt -y purge unattended-upgrades
 	sudo apt update
 	sudo apt -y --no-install-recommends install \
@@ -187,7 +190,7 @@ $(HOME)/.config/starship.toml:
 docker: /usr/bin/docker
 
 /usr/bin/docker: /usr/bin/curl
-	sudo apt-get remove docker docker-engine docker.io containerd runc
+	sudo apt remove docker docker-engine docker.io containerd runc
 	sudo sh -c "${CURL} https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	sudo apt update
@@ -204,6 +207,14 @@ hub: $(MISC_INSTALL_DIR)/hub
 $(MISC_INSTALL_DIR)/hub:
 	sudo sh -c "$(CURL) https://github.com/github/hub/releases/download/v$(HUB_VERSION)/hub-linux-amd64-$(HUB_VERSION).tgz | \
 		tar xz -C $(MISC_INSTALL_DIR) --strip-component=2"
+
+gh: /usr/bin/gh
+
+/usr/local/bin/gh:
+	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key C99B11DEB97541F0
+	sudo apt-add-repository https://cli.github.com/packages
+	sudo apt update
+	sudo apt install gh
 
 fd: /usr/bin/fd
 
@@ -338,14 +349,14 @@ gcloud: /usr/bin/gcloud $(MISC_INSTALL_DIR)/terraform
 /usr/bin/gcloud:
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 	$(CURL) https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-	sudo apt-get update && sudo apt-get install -y google-cloud-sdk
+	sudo apt update && sudo apt install -y google-cloud-sdk
 
 $(MISC_INSTALL_DIR)/terraform:
 	$(CURL) https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -o /tmp/terraform.zip
 	sudo unzip /tmp/terraform.zip -d $(MISC_INSTALL_DIR)
 	sudo chmod 755 $@
 
-k8scli: \
+kubernetes: \
 	$(MISC_INSTALL_DIR)/kubectl \
 	$(MISC_INSTALL_DIR)/helm \
 	$(MISC_INSTALL_DIR)/stern \
@@ -417,6 +428,6 @@ $(HOME)/.git-completion.bash:
 	yarn \
 	cpp \
 	gcloud \
-	k8scli \
+	kubernetes \
 	completion \
 	prompt
