@@ -24,6 +24,7 @@ cd() {
 # colorize less
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+alias mmm='man bash | grep "^\s*\${.*}$" | tr -d " "'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
 alias la='ls -Flha --color=auto'
