@@ -1,8 +1,8 @@
 # dotfiles
 
 This is @tapih's dotfiles repository and includes a script which does all the boring initial setup after installing OS.
-`make links` creates only symbolic links on your home directory.
 
+`make links` creates only symbolic links on your home directory.
 If you are interested in my dotfiles, please feel free to refer to this repository !!
 
 ## OS
