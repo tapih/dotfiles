@@ -14,6 +14,6 @@ Ubuntu 20.04
 
 `C-g`: Jump to any repository managed with `git`
 
-`C-o`: Open any file in a `git` repository.
+`C-o`: Open any file you want in a `git`-managed repository.
 
-`C-j`: Jump to any directory in a `git` repository.
+`C-j`: Jump to any `git`-manged directory.
