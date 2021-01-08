@@ -1,3 +1,4 @@
+# cd+ls
 cd() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
@@ -22,8 +23,9 @@ cd() {
 }
 
 # colorize less
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+exists /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 
+# aliases
 alias mmm='man bash | grep "^\s*\${.*}$" | tr -d " "'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
@@ -38,18 +40,18 @@ alias quit='exit'
 alias J='cd -'
 alias H='cd ~'
 alias ..='cd ..'
-alias ..='cd ..'
-alias ...='cd ...'
-alias ....='cd ....'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
 alias diff='colordiff'
 alias mktmp='mkdir t'
 exists vim && alias v='vim'
 exists nvim && alias v='nvim'
 exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
-exists gsed && alias sed='gsed'
 exists tmux && alias tmux="tmux -2"
 exists git && alias g='git'
+exists docker && alias d='docker'
 exists docker-compose && alias dcc='docker-compose'
 
 if exists kubectl ; then
