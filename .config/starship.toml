@@ -1,33 +1,53 @@
 prompt_order = [
-    "username",
     "hostname",
+    "username",
     "directory",
     "git_branch",
     "git_commit",
     "git_state",
     "git_status",
-    "kubernetes",
-    "docker_context",
-    "package",
     "golang",
     "dart",
     "python",
     "nodejs",
-    "memory_usage",
+    "kubernetes",
+    "docker_context",
+    "package",
     "aws",
+    "gcloud",
     "env_var",
+    "memory_usage",
     "cmd_duration",
-    "custom",
-    "line_break",
     "jobs",
     "battery",
     "time",
+    "custom",
+    "line_break",
     "character",
 ]
+
+[hostname]
+ssh_only = false
+style = "bold red"
+
+[username]
+show_always  = true
+
+[git_branch]
+symbol = "🍣 "
+style = "bold black"
+
+[character]
+symbol = "❯❯❯"
 
 [directory]
 truncation_length = 8
 truncate_to_repo = false
+style = "bold green"
 
 [kubernetes]
 disabled = false
+
+[nodejs]
+symbol = "🐢 "
+style = "bold blue"
