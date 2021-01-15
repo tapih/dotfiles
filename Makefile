@@ -50,7 +50,8 @@ all: \
 	gcloud \
 	kubernetes \
 	completion \
-	prompt
+	prompt \
+	wsl
 
 help:
 	@echo "Select a target from the followings"
@@ -418,6 +419,11 @@ completion: $(HOME)/.git-completion.bash
 $(HOME)/.git-completion.bash:
 	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $@
 
+wsl:
+	if uname -r | grep -i microsoft > /dev/null; then \
+		sudo apt-get install systemd-genie; \
+	fi
+
 .PHONY: \
 	bashrc \
 	apt-misc \
@@ -437,4 +443,5 @@ $(HOME)/.git-completion.bash:
 	gcloud \
 	kubernetes \
 	completion \
-	prompt
+	prompt \
+	wsl

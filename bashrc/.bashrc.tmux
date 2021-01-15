@@ -12,4 +12,3 @@ if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
         tmux -2 attach-session -t $base_session
     fi
 fi
-

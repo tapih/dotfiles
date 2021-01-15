@@ -25,12 +25,13 @@ export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
+# NOTE: .bashrc.wsl should be read before .bashrc.tmux
+[ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
 [ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
 [ -f ~/.bashrc.langs ] && . ~/.bashrc.langs
 [ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
 [ -f ~/.bashrc.completion ] && . ~/.bashrc.completion
 [ -f ~/.bashrc.prompt ] && . ~/.bashrc.prompt
-[ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
 
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
