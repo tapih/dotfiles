@@ -138,7 +138,8 @@ apt-misc: curl git
 		libasound2 \
 		apt-transport-https \
 		ca-certificates \
-		python-openssl
+		python-openssl \
+		firefox
 	if [ -z "uname -a | grep microsoft" ]; then \
 		sudo apt -y --no-install-recommends install \
 			vim-gnome \
@@ -149,8 +150,6 @@ apt-misc: curl git
 	else \
 		sudo apt -y --no-install-recommends install vim; \
 	fi
-	sudo wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-	sudo apt -y --no-install-recommends install google-chrome-stable
 
 links: \
 	bashrc \
