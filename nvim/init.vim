@@ -127,6 +127,8 @@ if has('nvim')
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
+    Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
+    Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
 
     " ranger
     Plug 'francoiscabrol/ranger.vim'
