@@ -1,21 +1,15 @@
 format = """\
+    $directory\
     $hostname\
     $username\
-    $directory\
-    $time\
     $git_branch\
     $git_commit\
     $git_state\
     $git_status\
-    $golang\
-    $dart\
-    $python\
-    $nodejs\
-    $package\
-    $aws\
-    $gcloud\
-    $terraform\
     $kubernetes\
+    $aws\
+    $terraform\
+    $python\
     $custom\
     $line_break\
     $character\
@@ -23,52 +17,68 @@ format = """\
 
 [username]
 show_always  = true
+format = "🌍 [$user]($style) "
+style_user = "bold black"
 
 [hostname]
 ssh_only = false
 style = "bold red"
+format = "🍣 [$hostname]($style) "
 
 [git_branch]
-symbol = "🍣 "
-style = "bold red"
+symbol = "😎 "
+style = "bold yellow"
+format = "[$symbol$branch]($style) "
+
+[git_status]
+style = "bold yellow"
 
 [character]
-symbol = "❯❯❯"
+success_symbol = "[❯❯❯](bold green)"
 
 [directory]
 truncation_length = 8
 truncate_to_repo = false
 style = "bold green"
+format = "[$path]($style)[$read_only]($read_only_style) "
 
 [golang]
-style = "bold yellow"
+style = "bold black"
+format = "[$symbol$version]($style) "
 
 [dart]
-style = "bold yellow"
+style = "bold black"
+format = "[$symbol$version]($style) "
 
 [python]
-style = "bold yellow"
+style = "bold black"
+format = "[$symbol$version]($style) "
 
 [nodejs]
+style = "bold black"
+format = "[$symbol$version]($style) "
 symbol = "🐢 "
-style = "bold yellow"
 
 [kubernetes]
 disabled = false
-style = "bold green"
+format = '[$symbol$context( \($namespace\) )]($style) '
+style = "bold cyan"
 
 [gcloud]
 style = "bold black"
 symbol = "🐘 "
+format = '[$symbol$account(\($region\))]($style) '
 
 [aws]
 style = "bold black"
+symbol = "🌴 "
+format = '[$symbol$profile(\($region\))]($style) '
 
 [terraform]
 style = "bold black"
+format = "[$symbol$workspace]($style) "
 
 [time]
 disabled = false
+format = "🕘 [$time]($style) "
 style = "bold black"
-
-
