@@ -1,41 +1,36 @@
-prompt_order = [
-    "hostname",
-    "username",
-    "directory",
-    "git_branch",
-    "git_commit",
-    "git_state",
-    "git_status",
-    "golang",
-    "dart",
-    "python",
-    "nodejs",
-    "kubernetes",
-    "docker_context",
-    "package",
-    "aws",
-    "gcloud",
-    "env_var",
-    "memory_usage",
-    "cmd_duration",
-    "jobs",
-    "battery",
-    "time",
-    "custom",
-    "line_break",
-    "character",
-]
+format = """\
+    $hostname\
+    $username\
+    $directory\
+    $time\
+    $git_branch\
+    $git_commit\
+    $git_state\
+    $git_status\
+    $golang\
+    $dart\
+    $python\
+    $nodejs\
+    $package\
+    $aws\
+    $gcloud\
+    $terraform\
+    $kubernetes\
+    $custom\
+    $line_break\
+    $character\
+"""
+
+[username]
+show_always  = true
 
 [hostname]
 ssh_only = false
 style = "bold red"
 
-[username]
-show_always  = true
-
 [git_branch]
 symbol = "🍣 "
-style = "bold black"
+style = "bold red"
 
 [character]
 symbol = "❯❯❯"
@@ -45,9 +40,35 @@ truncation_length = 8
 truncate_to_repo = false
 style = "bold green"
 
-[kubernetes]
-disabled = false
+[golang]
+style = "bold yellow"
+
+[dart]
+style = "bold yellow"
+
+[python]
+style = "bold yellow"
 
 [nodejs]
 symbol = "🐢 "
-style = "bold blue"
+style = "bold yellow"
+
+[kubernetes]
+disabled = false
+style = "bold green"
+
+[gcloud]
+style = "bold black"
+symbol = "🐘 "
+
+[aws]
+style = "bold black"
+
+[terraform]
+style = "bold black"
+
+[time]
+disabled = false
+style = "bold black"
+
+
