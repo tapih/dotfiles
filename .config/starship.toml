@@ -17,8 +17,8 @@ format = """\
 
 [username]
 show_always  = true
-format = "🌍 [$user]($style) "
-style_user = "bold black"
+format = "😎 [$user]($style) "
+style_user = "bold yellow"
 
 [hostname]
 ssh_only = false
@@ -26,12 +26,12 @@ style = "bold red"
 format = "🍣 [$hostname]($style) "
 
 [git_branch]
-symbol = "😎 "
-style = "bold yellow"
+symbol = "🌍 "
+style = "bold black"
 format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "bold yellow"
+style = "bold red"
 
 [character]
 success_symbol = "[❯❯❯](bold green)"
