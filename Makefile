@@ -84,7 +84,15 @@ git: /usr/bin/git
 	sudo apt -y --no-install-recommends install /usr/bin/git
 
 apt-misc: curl git
-	sudo apt -y purge unattended-upgrades
+	sudo apt -y purge \
+		unattended-upgrades \
+		apport \
+		apport-symptoms \
+		fwupd \
+		nano \
+		netplan.io \
+		popularity-contest \
+		update-manager-core
 	sudo apt update
 	sudo apt -y --no-install-recommends install \
 		wget \
