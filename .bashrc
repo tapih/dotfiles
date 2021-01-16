@@ -9,6 +9,8 @@ exists() { type $1 >/dev/null 2>&1; return $?; }
 export SHELL=`which bash`
 export PATH=$HOME/bin:$PATH
 export EDITOR=nvim
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
 
 stty werase undef
 bind '"\C-w": unix-filename-rubout'

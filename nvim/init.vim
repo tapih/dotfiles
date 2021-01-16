@@ -122,7 +122,7 @@ if has('nvim')
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
-    Plug 'nanotech/jellybeans.vim'
+    Plug 'tomasr/molokai'
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
@@ -261,7 +261,7 @@ if has('nvim')
     Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeFocus'} " git gutter
 
     let g:lightline = {
-        \ 'colorscheme': 'jellybeans',
+        \ 'colorscheme': 'molokai',
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
@@ -455,7 +455,7 @@ if has('nvim')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-    colorscheme jellybeans
+    colorscheme molokai
 
     if filereadable(expand('~/.nvimrc.local'))
         source ~/.nvimrc.local

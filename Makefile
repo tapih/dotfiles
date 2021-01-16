@@ -411,8 +411,7 @@ prompt: $(MISC_INSTALL_DIR)/starship
 
 $(MISC_INSTALL_DIR)/starship:
 	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
-	chmod +x /tmp/starship_install.sh
-	/tmp/starship_install.sh -y
+	bash /tmp/starship_install.sh -y -b $(MISC_INSTALL_DIR)
 
 completion: $(HOME)/.git-completion.bash
 
