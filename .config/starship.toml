@@ -17,7 +17,7 @@ format = """\
 
 [username]
 show_always  = true
-format = "😎 [$user]($style) "
+format = "🤔 [$user]($style) "
 style_user = "bold yellow"
 
 [hostname]
