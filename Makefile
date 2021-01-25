@@ -16,6 +16,7 @@ K9S_VERSION := 0.9.3
 KIND_VERSION := 0.7.0
 FD_VERSION := 8.1.0
 NVM_VERSION := 0.35.3
+DOCKER_COMPOSE_VERSION := 1.28.0
 NODE_VERSION := 12.16.2
 
 MISC_INSTALL_DIR := $(HOME)/bin
@@ -34,7 +35,7 @@ PYENV := $(PYENV_DIR)/bin/pyenv
 TMUX_AUTO_RUN ?= 1
 
 all: \
-	apt-misc \
+	dpkg \
 	links \
 	docker \
 	hub \
@@ -55,7 +56,7 @@ all: \
 
 help:
 	@echo "Select a target from the followings"
-	@echo "    apt-misc    - instal a bunch of commands with apt"
+	@echo "    dpkg        - instal a bunch of commands with apt"
 	@echo "    links       - make symlinks of dotfiles"
 	@echo "    docker      - install docker"
 	@echo "    gh          - install gh"
@@ -70,7 +71,7 @@ help:
 	@echo "    node        - install node v$(NODE_VERSION) with nvm v$(NVM_VERSION)"
 	@echo "    cpp         - install cpp lsp"
 	@echo "    gcloud      - install gcloud cli tools and terraform"
-	@echo "    kubernetes      - install k8s cli tools"
+	@echo "    kubernetes  - install k8s cli tools"
 	@echo "    completion  - install bash prompt completion scripts"
 	@echo "    prompt      - install bash prompt scripts"
 
@@ -84,7 +85,7 @@ git: /usr/bin/git
 /usr/bin/git:
 	sudo apt -y --no-install-recommends install /usr/bin/git
 
-apt-misc: curl git
+dpkg: curl git
 	sudo apt -y purge \
 		unattended-upgrades \
 		apport \
@@ -140,7 +141,8 @@ apt-misc: curl git
 		apt-transport-https \
 		ca-certificates \
 		python-openssl \
-		firefox
+		firefox \
+		vagrant
 	if [ -z "uname -a | grep microsoft" ]; then \
 		sudo apt -y --no-install-recommends install \
 			vim-gnome \
@@ -195,7 +197,7 @@ $(HOME)/.ideavimrc:
 $(HOME)/.config/starship.toml:
 	ln -s $(CURRENT_DIR)/.config/starship.toml $(HOME)/.config/
 
-docker: /usr/bin/docker
+docker: /usr/bin/docker /usr/local/bin/docker-compose
 
 /usr/bin/docker: /usr/bin/curl
 	sudo apt remove docker docker-engine docker.io containerd runc
@@ -209,6 +211,10 @@ docker: /usr/bin/docker
 		containerd.io
 	sudo groupadd docker
 	sudo usermod -aG docker $${USER}
+
+/usr/local/bin/docker-compose: /usr/bin/curl
+	sudo $(CURL) https://github.com/docker/compose/releases/download/$(DOCKER_COMPOSE_VERSION)/docker-compose-$$(uname -s)-$$(uname -m) -o /usr/local/bin/docker-compose
+	sudo chmod +x /usr/local/bin/docker-compose
 
 hub: $(MISC_INSTALL_DIR)/hub
 
@@ -334,6 +340,8 @@ neovim: /usr/bin/nvim
 	sudo apt update
 	sudo apt -y --no-install-recommends install neovim
 
+python3: $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION)
+
 $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR)
 	$(PYENV) install -s ${NVIM_PYTHON2_VERSION}
 	$(PYENV) rehash
@@ -342,6 +350,8 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 			$(PYENV) global neovim2 && \
 			pip install neovim && \
 			$(PYENV) global $${CURRENT}
+
+python2: $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION)
 
 $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR)
 	$(PYENV) install -s ${NVIM_PYTHON3_VERSION}
@@ -425,7 +435,7 @@ wsl:
 
 .PHONY: \
 	bashrc \
-	apt-misc \
+	dpkg \
 	links \
 	docker \
 	hub \

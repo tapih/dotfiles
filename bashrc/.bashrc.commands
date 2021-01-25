@@ -51,7 +51,7 @@ exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists tmux && alias tmux="tmux -2"
 exists git && alias g='git'
 exists docker && alias d='docker'
-exists docker-compose && alias dcc='docker-compose'
+exists docker-compose && alias c='docker-compose'
 
 if exists kubectl ; then
     alias k='kubectl'
