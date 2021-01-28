@@ -1,6 +1,6 @@
 # dotfiles
 
-This is @tapih's dotfiles repository and includes a script which does all the boring initial setup after installing OS.
+This is @tapih's dotfiles repository which includes a script for all the boring initial setup after installing OS.
 
 If you are interested in my dotfiles, please feel free to refer to this repository !!
 
