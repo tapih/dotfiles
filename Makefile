@@ -9,7 +9,7 @@ TMUX_VERSION := 2.9
 HUB_VERSION := 2.12.8
 TERRAFORM_VERSION := 0.13.3
 KUBERNETES_VERSION := 1.16.4
-HELM_VERSION := 3.1.1
+HELM_VERSION := 3.5.1
 STERN_VERSION := 1.11.0
 KUSTOMIZE_VERSION := 3.5.4
 K9S_VERSION := 0.9.3
@@ -387,6 +387,7 @@ $(MISC_INSTALL_DIR)/kubectl:
 	sudo $(CURL) https://storage.googleapis.com/kubernetes-release/release/v$(KUBERNETES_VERSION)/bin/linux/amd64/kubectl -o $@
 	sudo chmod 755 $@
 
+helm: $(MISC_INSTALL_DIR)/helm
 $(MISC_INSTALL_DIR)/helm:
 	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(MISC_INSTALL_DIR) --strip-components=1"
 	sudo chmod 755 $@
