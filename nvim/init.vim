@@ -457,6 +457,7 @@ if has('nvim')
 
     call timer_start(100, function("s:load_plug"))
     colorscheme molokai
+    hi Visual term=reverse cterm=reverse guibg=Grey
 
     if filereadable(expand('~/.nvimrc.local'))
         source ~/.nvimrc.local
