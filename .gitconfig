@@ -24,6 +24,7 @@
     go = !git grep "$@" -- "./*" ":!vendor/**"
     gp = grep
     h = show
+    hn = show --name-only
     i = diff
     iw = diff --word-diff
     in = diff --name-only
@@ -35,6 +36,7 @@
     iin = diff --staged --name-only
     l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %s %C(yellow)%d%an%C(reset)'
     ll = log
+    ln = log --name-only
     lp = log -p
     ld = log -S
     lm = log --no-merges
