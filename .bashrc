@@ -27,20 +27,22 @@ export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # NOTE: .bashrc.wsl should be read before .bashrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
     [ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
 fi
 [ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
 [ -f ~/.bashrc.langs ] && . ~/.bashrc.langs
-[ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
 [ -f ~/.bashrc.completion ] && . ~/.bashrc.completion
+
+# NOTE: .bashrc.commands should be read after .bashrc.completion
+[ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
 [ -f ~/.bashrc.prompt ] && . ~/.bashrc.prompt
 
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

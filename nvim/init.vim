@@ -444,8 +444,6 @@ endif
 "-----------------------
 " コマンド
 "-----------------------
-inoremap jj <ESC>
-
 nnoremap ; :
 nnoremap : m
 nnoremap m ;
