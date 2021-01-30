@@ -7,57 +7,68 @@
     u = add -u
     b = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
     br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+    bl = blame
+    co = checkout
+    cb = checkout -b
+    ci = commit
+    cm = commit -m
+    cs = commit -sm
+    cp = cherry-pick
+    amend = commit --amend
+    d = "!f(){ git checkout $(git branch | sed \"s/* //g\" | fzf -m --preview 'git show {} | head -200'); };f"
     e = !nvim ~/.gitconfig
     f = fetch
     fo = fetch origin
+    fd = !fd
+    g = !git grep
+    go = !git grep "$@" -- "./*" ":!vendor/**"
+    gp = grep
     h = show
-    s = status -s
-    st = status
-    pop = stash pop
-    t = tag
-    r = remote
-    rs = remote show
-    rp = remote prune origin
-    co = checkout
-    cb = checkout -b
-    mg = merge --no-ff
-    mgff = merge --ff
-    m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    mp = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}') && git pull
-    cm = commit -m
-    cs = commit -sm
     i = diff
     iw = diff --word-diff
     in = diff --name-only
     is = diff --staged
     isw = diff --staged --word-diff
     isn = diff --staged --name-only
-    po = push
-    pi = pull --rebase
-    pm = pull --merge
+    ii = diff --staged
+    iiw = diff --staged --word-diff
+    iin = diff --staged --name-only
     l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %s %C(yellow)%d%an%C(reset)'
     ll = log
     lp = log -p
-
-    fd = !fd
+    ld = log -S
     lm = log --no-merges
+    la = log --author
+    lg = log --grep
+    lt = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     ls = !git ls-files
-    g = !git grep
-    vg = !git grep "$@" -- "./*" ":!vendor/**"
-    sw = switch
-    rp = rev-parse
+    m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    mp = !git pull orogin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    merge = merge --no-ff
+    fmerge = merge --ff
+    po = push
+    pi = pull --rebase
+    pm = pull --merge
+    pop = stash pop
+    r = remote
+    rs = remote show
+    s = status -s
+    st = status
+    sw = switch -
+    t = tag
 
-    pwd = rev-parse --show-prefix
-    me = !git config --get-regexp user
     alias = !git config --get-regexp alias
-    amend = commit --amend
-    pick = cherry-pick
+    pwd = rev-parse --show-prefix
+    root = rev-parse --show-toplevel
+
     hard = reset --hard
     mix = reset
     soft = reset --soft
+
+    me = !git config --get-regexp user
+    us = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
     ours = checkout --ours
     theirs = checkout --theirs
-    tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
 
 [core]
     editor=nvim
@@ -89,9 +100,3 @@
     root=~/go/src
     root=~/src
 
-# memo:
-# g co -
-# g sw -
-# g log -S
-# g log --author
-# g log --grep

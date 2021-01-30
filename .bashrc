@@ -28,7 +28,9 @@ bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
 # NOTE: .bashrc.wsl should be read before .bashrc.tmux
-[ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
+if uname -r | grep -i 'microsoft' > /dev/null; then
+    [ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
+fi
 [ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
 [ -f ~/.bashrc.langs ] && . ~/.bashrc.langs
 [ -f ~/.bashrc.commands ] && . ~/.bashrc.commands

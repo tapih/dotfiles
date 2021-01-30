@@ -87,6 +87,8 @@ git: /usr/bin/git
 
 dpkg: curl git
 	sudo apt -y purge \
+		nano \
+		ghostscript \
 		unattended-upgrades \
 		apport \
 		apport-symptoms \
