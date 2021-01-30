@@ -130,6 +130,7 @@ if has('nvim')
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
     Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
+    Plug 'cocopon/vaffle.vim'
 
     " ranger
     Plug 'francoiscabrol/ranger.vim'
@@ -258,8 +259,6 @@ if has('nvim')
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
     Plug 'ap/vim-buftabline' " バッファ表示(画面
-    Plug 'scrooloose/nerdtree', {'on': 'NERDTreeFocus'} " ファイルツリー（画面右）
-    Plug 'Xuyuanp/nerdtree-git-plugin', {'on': 'NERDTreeFocus'} " git gutter
 
     let g:lightline = {
         \ 'colorscheme': 'molokai',
@@ -311,8 +310,7 @@ if has('nvim')
 
     function! MyFileName()
         let fname = expand('%p:t')
-        return  &ft == 'nerdtree' ? 'NERDTree' :
-                    \ &ft == 'tagbar' ? 'TagBar' :
+        return  &ft == 'tagbar' ? 'TagBar' :
                     \ &ft == 'denite' ? denite#get_status_string() :
                     \ ('' != MyReadOnly() ? MyReadOnly() . ' ' : '') .
                     \ ('' != fname ? fname : '[No Name]') .
@@ -403,27 +401,6 @@ if has('nvim')
         return "'". char ."' ". nr
     endfunction
 
-    let NERDTreeIgnore = ['.[oa]$', '.(so)$', '.(tgz|gz|zip)$', '\~$']
-    let NERDTreeShowHidden = 1
-    let g:NERDTreeWinPos = "right"
-    let g:NERDTreeIndicatorMapCustom = {
-                \ "Modified"  : "✹",
-                \ "Staged"    : "✚",
-                \ "Untracked" : "✭",
-                \ "Renamed"   : "➜",
-                \ "Unmerged"  : "═",
-                \ "Deleted"   : "✖",
-                \ "Dirty"     : "✗",
-                \ "Clean"     : "✔︎",
-                \ 'Ignored'   : '☒',
-                \ "Unknown"   : "?"
-                \ }
-
-    " auto close nerdtree when close window and there is only one window at that time
-    augroup NERDTreeAutoClose
-        autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-    augroup END
-
     call plug#end()
 
     " ---------
@@ -479,8 +456,30 @@ vnoremap m ;
 " 検索時に/をエjjスケープしない
 cnoremap <expr> / (getcmdtype() == '/') ? '\/' : '/'
 
-nnoremap <silent> q :q<CR>
-nnoremap <silent> z :bd<CR>
+if has('nvim')
+    function! OpenBufferNumber()
+        let count = 0
+        for i in range(0, bufnr("$"))
+            if buflisted(i)
+                let count += 1
+            endif
+        endfor
+        return count
+    endfunction
+
+    function! CloseOnLast()
+        if OpenBufferNumber() <= 1
+            q
+        else
+            bd
+        endif
+    endfunction
+
+    nnoremap <silent> q :call CloseOnLast()<CR>
+    nnoremap <silent> Q :q<CR>
+else
+    nnoremap <silent> q :q<CR>
+endif
 
 " タグは使わない
 noremap [Tag] <Nop>
@@ -531,47 +530,38 @@ vnoremap v <Plug>(expand_region_expand)
 "-----------------------
 " gで始まるショートカット
 "-----------------------
-nnoremap <silent> gp :<C-u>bprev<CR>
-nnoremap <silent> gn :<C-u>bnext<CR>
+nnoremap <silent> tp :<C-u>bprev<CR>
+nnoremap <silent> tn :<C-u>bnext<CR>
 
-nnoremap <silent> g( :<C-u>set norelativenumber<CR>:set nonumber<CR>:set list listchars=<CR>
-nnoremap <silent> g) :<C-u>set number<CR>:set relativenumber<CR>:set list listchars=tab:>-,trail:-,nbsp:%,eol:$<CR>
-
-nnoremap gu :<C-u>noh<CR>
+nnoremap t[ :<C-u>noh<CR>
 
 " for plugins
 if has('nvim')
-    nnoremap gj <Nop>
-    nnoremap gk <Nop>
-    nnoremap gh <Nop>
-    nnoremap gl <Nop>
-
-    " nerdtree
-    nnoremap gb :<C-u>NERDTreeFocus<CR>
+    " vaffle
+    nnoremap <silent> tj :<C-u>Vaffle<CR>
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
     nmap <silent> <C-g> <Plug>(coc-diagnostic-prev)
     nmap <silent> <C-G> <Plug>(coc-diagnostic-next)
-    nmap <silent> g] <Plug>(coc-definition)
-    nmap <silent> gd <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-    nmap <silent> gc <Plug>(coc-rename)
+    nmap <silent> t] <Plug>(coc-definition)
+    nmap <silent> td <Plug>(coc-type-definition)
+    nmap <silent> ti <Plug>(coc-implementation)
+    nmap <silent> tr <Plug>(coc-references)
+    nmap <silent> tc <Plug>(coc-rename)
     nnoremap <silent> <C-l> :call <SID>show_documentation()<CR>
     augroup SetGoFmtNMap
         autocmd!
-        autocmd FileType go nnoremap <silent> <C-j> :<C-u>GoFmt<CR>
+        autocmd FileType tg nnoremap <silent> <C-j> :<C-u>GoFmt<CR>
     augroup END
 
-    let mapleader = " "
     " fzf
-    nnoremap <silent> <leader>i :<C-u>Buffers<CR>
-    nnoremap <silent> <leader>o :<C-u>GFiles<CR>
-    nnoremap <silent> <leader>h :<C-u>History<CR>
-    nnoremap <silent> <leader>b :<C-u>BLines<CR>
-    nnoremap <silent> <leader>g :<C-u>GGrep<CR>
-    nnoremap <silent> <leader>m :<C-u>BCommits<CR>
+    nnoremap <silent> to :<C-u>GFiles<CR>
+    nnoremap <silent> tt :<C-u>Buffers<CR>
+    nnoremap <silent> te :<C-u>History<CR>
+    nnoremap <silent> tf :<C-u>BLines<CR>
+    nnoremap <silent> tg :<C-u>GGrep<CR>
+    nnoremap <silent> tm :<C-u>BCommits<CR>
 
     " easymotion
     nmap , <Plug>(easymotion-s)
