@@ -5,8 +5,9 @@
 [alias]
     a = add
     u = add -u
-    b = branch
-    br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short)' --color
+    b = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+    br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+    e = !nvim ~/.gitconfig
     f = fetch
     fo = fetch origin
     h = show
@@ -19,28 +20,39 @@
     rp = remote prune origin
     co = checkout
     cb = checkout -b
+    mg = merge --no-ff
+    mgff = merge --ff
     m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
     mp = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}') && git pull
     cm = commit -m
     cs = commit -sm
     i = diff
-    is = diff --staged
     iw = diff --word-diff
-    isw = diff --word-diff --staged
+    in = diff --name-only
+    is = diff --staged
+    isw = diff --staged --word-diff
+    isn = diff --staged --name-only
     po = push
     pi = pull --rebase
     pm = pull --merge
-    l = log
+    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %s %C(yellow)%d%an%C(reset)'
+    ll = log
     lp = log -p
-    lo = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'[%ad] %Cgreen%h%Creset %s by %Cgreen%d%an%Creset'
 
     lm = log --no-merges
+    ls = ls-files
     g = !git grep
     vg = !git grep "$@" -- "./*" ":!vendor/**"
+    sw = switch
+    rp = rev-parse
 
+    pwd = rev-parse --show-prefix
+    me = !git config --get-regexp user
+    alias = !git config --get-regexp alias
     amend = commit --amend
     pick = cherry-pick
     hard = reset --hard
+    mix = reset
     soft = reset --soft
     ours = checkout --ours
     theirs = checkout --theirs
@@ -75,3 +87,8 @@
     root=~/python/src
     root=~/go/src
     root=~/src
+
+# memo:
+# g co -
+# g sw -
+# g log -S
