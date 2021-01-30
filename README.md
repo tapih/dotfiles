@@ -16,4 +16,4 @@ Ubuntu 20.04
 
 `C-o`: Open any file you want in a `git`-managed repository.
 
-`C-j`: Jump to any `git`-manged directory.
+`C-j`: Check out branch.
