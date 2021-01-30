@@ -15,7 +15,6 @@
     cs = commit -sm
     cp = cherry-pick
     amend = commit --amend
-    d = "!f(){ git checkout $(git branch | sed \"s/* //g\" | fzf -m --preview 'git show {} | head -200'); };f"
     e = !nvim ~/.gitconfig
     f = fetch
     fo = fetch origin

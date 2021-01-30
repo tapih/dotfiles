@@ -95,6 +95,10 @@ __fzf_git_cd__() {
     fi
 }
 
+gcd() {
+    __fzf_git_cd__
+}
+
 __fzf_git_file__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]; then
@@ -130,8 +134,8 @@ bind -r "\C-g"
 bind -r "\C-j"
 bind -r "\C-o"
 bind -x '"\C-g": __fzf_ghq__'
-bind -x '"\C-j": __fzf_git_cd__'
 bind -x '"\C-o": __fzf_git_file__'
+bind -x '"\C-j": __fzf_git_branch__'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
