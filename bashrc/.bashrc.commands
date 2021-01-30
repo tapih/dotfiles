@@ -92,16 +92,29 @@ __fzf_file__() {
     if [ -z ${toplevel} ]; then
         echo "error: this is not a git repository"
     else
-        files=$(git ls-files ${toplevel}) &&
-            selected_file=$(echo "$files" | fzf -m --preview 'head -200 {}') &&
-            history -s "${EDITOR} $selected_file" &&
-            ${EDITOR} $selected_file
+        # git ls is defined in .gitconfig
+        selected=$(git ls| fzf -m --preview 'head -200 {}') &&
+            history -s "${EDITOR} ${toplevel}/${selected}" &&
+            ${EDITOR} ${toplevel}/${selected}
+    fi
+}
+
+__fzf_branch__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z ${toplevel} ]; then
+        echo "error: this is not a git repository"
+    else
+        branches=$(git branch --sort=committerdate --format='[%(committerdate:short)] %(refname:short) %(authorname)') &&
+            selected_branch=$(echo "$branches" | fzf -m --preview "git show $(cut -d' ' -f 2 {})") &&
+            echo $(cut -d' ' -f 2 \"$selected_branch\")
+
     fi
 }
 
 bind -r "\C-g"
 bind -r "\C-j"
 bind -r "\C-o"
+bind -r "\C-i"
 bind -x '"\C-g": __fzf_git__'
 bind -x '"\C-j": __fzf_cd__'
 bind -x '"\C-o": __fzf_file__'

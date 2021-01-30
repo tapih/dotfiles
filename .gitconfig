@@ -40,7 +40,7 @@
     lp = log -p
 
     lm = log --no-merges
-    ls = ls-files
+    ls = !git ls-files
     g = !git grep
     vg = !git grep "$@" -- "./*" ":!vendor/**"
     sw = switch
@@ -92,3 +92,5 @@
 # g co -
 # g sw -
 # g log -S
+# g log --author
+# g log --grep
