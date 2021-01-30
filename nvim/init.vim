@@ -558,14 +558,18 @@ if has('nvim')
     " fzf
     nnoremap <silent> to :<C-u>GFiles<CR>
     nnoremap <silent> tt :<C-u>Buffers<CR>
-    nnoremap <silent> te :<C-u>History<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tg :<C-u>GGrep<CR>
-    nnoremap <silent> tm :<C-u>BCommits<CR>
+    nnoremap <silent> tm :<C-u>Maps<CR>
 
     " easymotion
     nmap , <Plug>(easymotion-s)
 endif
+
+" cheatseat
+" C-o go back to the original line
+" daw delete outer
+" ds" delete surronding "
 
 "=========================================================================
 " finalize
