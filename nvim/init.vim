@@ -39,11 +39,12 @@ set hidden " バッファを移動する際に保存しなくて済む
 set colorcolumn=80 " 80行目に線
 set list listchars=tab:>-,trail:-,nbsp:%,eol:$ " 不可視文字を表示
 set iskeyword-=/ " /を区切り文字に追加
+set visualbell t_vb=
 set conceallevel=0 " 特殊文字を隠さない
 set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
-" set clipboard=unnamedplus
+set clipboard=unnamedplus
 
 if has('nvim')
     set inccommand=split
