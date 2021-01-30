@@ -39,6 +39,7 @@
     ll = log
     lp = log -p
 
+    fd = !fd
     lm = log --no-merges
     ls = !git ls-files
     g = !git grep

@@ -66,7 +66,7 @@ fi
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
 export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
-__fzf_git__() {
+__fzf_ghq__() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z $name ]; then
         history -s "cd $name"
@@ -74,32 +74,33 @@ __fzf_git__() {
     fi
 }
 
-__fzf_cd__() {
+__fzf_git_cd__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z ${toplevel} ]; then
         echo "error: this is not a git repository"
-    else
-        root_directory=$(realpath --relative-to=. ${toplevel}) &&
-        directories=$(fd . --type d --full-path ${root_directory}) &&
-        selected_dir=$(printf "${root_directory}\n${directories}" | fzf -m --preview 'tree -C {} | head -200') &&
-        history -s "cd $selected_dir" &&
-        cd $selected_dir
+        return 1
     fi
+
+    # git fd is defined in .gitconfig
+    selected=$(git fd --type d| fzf -m --preview 'tree -C {} | head -200') &&
+        history -s "cd ${toplevel}/${selected}" &&
+        cd ${toplevel}/${selected}
 }
 
-__fzf_file__() {
+__fzf_git_file__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z ${toplevel} ]; then
         echo "error: this is not a git repository"
-    else
-        # git ls is defined in .gitconfig
-        selected=$(git ls| fzf -m --preview 'head -200 {}') &&
-            history -s "${EDITOR} ${toplevel}/${selected}" &&
-            ${EDITOR} ${toplevel}/${selected}
+        return 1
     fi
+
+    # git ls is defined in .gitconfig
+    selected=$(git ls| fzf -m --preview 'head -200 {}') &&
+        history -s "${EDITOR} ${toplevel}/${selected}" &&
+        ${EDITOR} ${toplevel}/${selected}
 }
 
-__fzf_branch__() {
+__fzf_git_branch__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z ${toplevel} ]; then
         echo "error: this is not a git repository"
@@ -115,9 +116,9 @@ bind -r "\C-g"
 bind -r "\C-j"
 bind -r "\C-o"
 bind -r "\C-i"
-bind -x '"\C-g": __fzf_git__'
-bind -x '"\C-j": __fzf_cd__'
-bind -x '"\C-o": __fzf_file__'
+bind -x '"\C-g": __fzf_ghq__'
+bind -x '"\C-j": __fzf_git_cd__'
+bind -x '"\C-o": __fzf_git_file__'
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
