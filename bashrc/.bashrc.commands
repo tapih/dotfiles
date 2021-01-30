@@ -37,6 +37,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias quit='exit'
+alias u='. ~/.bashrc'
 alias J='cd -'
 alias H='cd ~'
 alias ..='cd ..'
@@ -68,7 +69,7 @@ export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
 
 __fzf_ghq__() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    if [ ! -z $name ]; then
+    if [ ! -z "${name}" ]; then
         history -s "cd $name"
         cd $name
     fi
@@ -76,46 +77,53 @@ __fzf_ghq__() {
 
 __fzf_git_cd__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z ${toplevel} ]; then
+    if [ -z "${toplevel}" ]; then
         echo "error: this is not a git repository"
         return 1
     fi
 
     # git fd is defined in .gitconfig
-    selected=$(git fd --type d| fzf -m --preview 'tree -C {} | head -200') &&
-        history -s "cd ${toplevel}/${selected}" &&
+    selected=$(git fd --type d | fzf -m --preview 'tree -C {} | head -200')
+    if [ ! -z "${selected}" ]; then
+        history -s "cd ${toplevel}/${selected}"
         cd ${toplevel}/${selected}
+    fi
 }
 
 __fzf_git_file__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z ${toplevel} ]; then
+    if [ -z "${toplevel}" ]; then
         echo "error: this is not a git repository"
         return 1
     fi
 
     # git ls is defined in .gitconfig
-    selected=$(git ls| fzf -m --preview 'head -200 {}') &&
-        history -s "${EDITOR} ${toplevel}/${selected}" &&
+    selected=$(git ls| fzf -m --preview 'head -200 {}')
+    if [ ! -z "${selected}" ]; then
+        history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
+    fi
 }
 
 __fzf_git_branch__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z ${toplevel} ]; then
+    if [ -z "${toplevel}" ]; then
         echo "error: this is not a git repository"
-    else
-        branches=$(git branch --sort=committerdate --format='[%(committerdate:short)] %(refname:short) %(authorname)') &&
-            selected_branch=$(echo "$branches" | fzf -m --preview "git show $(cut -d' ' -f 2 {})") &&
-            echo $(cut -d' ' -f 2 \"$selected_branch\")
+        return 1
+    fi
 
+    branches=$(env IFS='\n' git branch --sort=committerdate --format='[%(committerdate:short)] %(refname:short) %(authorname)')
+    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | head -200'")
+    if [ ! -z "${selected}" ]; then
+        branch=$(echo ${selected} | cut -d" " -f2)
+        history -s "git checkout ${branch}"
+        git checkout ${branch}
     fi
 }
 
 bind -r "\C-g"
 bind -r "\C-j"
 bind -r "\C-o"
-bind -r "\C-i"
 bind -x '"\C-g": __fzf_ghq__'
 bind -x '"\C-j": __fzf_git_cd__'
 bind -x '"\C-o": __fzf_git_file__'
