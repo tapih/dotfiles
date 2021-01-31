@@ -526,7 +526,7 @@ vnoremap <C-v> <Plug>(expand_region_shrink)
 vnoremap v <Plug>(expand_region_expand)
 
 "-----------------------
-" gで始まるショートカット
+" tで始まるショートカット
 "-----------------------
 nnoremap <silent> tp :<C-u>bprev<CR>
 nnoremap <silent> tn :<C-u>bnext<CR>
@@ -543,11 +543,12 @@ if has('nvim')
     nmap <silent> <C-g> <Plug>(coc-diagnostic-prev)
     nmap <silent> <C-G> <Plug>(coc-diagnostic-next)
     nmap <silent> t] <Plug>(coc-definition)
-    nmap <silent> td <Plug>(coc-type-definition)
-    nmap <silent> ti <Plug>(coc-implementation)
-    nmap <silent> tr <Plug>(coc-references)
-    nmap <silent> tc <Plug>(coc-rename)
-    nnoremap <silent> <C-l> :call <SID>show_documentation()<CR>
+    nmap <silent> t} <Plug>(coc-type-definition)
+    nmap <silent> t" <Plug>(coc-implementation)
+    nmap <silent> t' <Plug>(coc-references)
+    nmap <silent> tr <Plug>(coc-rename)
+    nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
+    inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
     augroup SetGoFmtNMap
         autocmd!
         autocmd FileType tg nnoremap <silent> <C-j> :<C-u>GoFmt<CR>
