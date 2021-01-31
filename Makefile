@@ -19,7 +19,7 @@ NVM_VERSION := 0.35.3
 DOCKER_COMPOSE_VERSION := 1.28.0
 NODE_VERSION := 12.16.2
 
-MISC_INSTALL_DIR := $(HOME)/bin
+HOME_BIN_DIR := $(HOME)/bin
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
 PYENV_DIR=$(HOME)/.pyenv
 PYENV_VIRTUALENV_DIR=$(PYENV_DIR)/plugins/pyenv-virtualenv
@@ -218,11 +218,11 @@ docker: /usr/bin/docker /usr/local/bin/docker-compose
 	sudo $(CURL) https://github.com/docker/compose/releases/download/$(DOCKER_COMPOSE_VERSION)/docker-compose-$$(uname -s)-$$(uname -m) -o /usr/local/bin/docker-compose
 	sudo chmod +x /usr/local/bin/docker-compose
 
-hub: $(MISC_INSTALL_DIR)/hub
+hub: $(HOME_BIN_DIR)/hub
 
-$(MISC_INSTALL_DIR)/hub:
+$(HOME_BIN_DIR)/hub:
 	sudo sh -c "$(CURL) https://github.com/github/hub/releases/download/v$(HUB_VERSION)/hub-linux-amd64-$(HUB_VERSION).tgz | \
-		tar xz -C $(MISC_INSTALL_DIR) --strip-component=2"
+		tar xz -C $(HOME_BIN_DIR) --strip-component=2"
 
 gh: /usr/bin/gh
 
@@ -241,7 +241,7 @@ fd: /usr/bin/fd
 
 tmux: $(TMUX_PLUGINS_DIR)
 
-$(MISC_INSTALL_DIR)/tmux:
+$(HOME_BIN_DIR)/tmux:
 	mkdir -p /tmp/tmux
 	$(CURL) https://github.com/tmux/tmux/archive/$(TMUX_VERSION).tar.gz | tar xz -C /tmp/tmux --strip-components=1
 	cd /tmp/tmux && sh autogen.sh && ./configure && make && sudo make install
@@ -364,53 +364,53 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 			pip install neovim && \
 			$(PYENV) global $${CURRENT}
 
-gcloud: /usr/bin/gcloud $(MISC_INSTALL_DIR)/terraform
+gcloud: /usr/bin/gcloud $(HOME_BIN_DIR)/terraform
 
 /usr/bin/gcloud:
 	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
 	$(CURL) https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 	sudo apt update && sudo apt install -y google-cloud-sdk
 
-$(MISC_INSTALL_DIR)/terraform:
+$(HOME_BIN_DIR)/terraform:
 	$(CURL) https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -o /tmp/terraform.zip
-	sudo unzip /tmp/terraform.zip -d $(MISC_INSTALL_DIR)
+	sudo unzip /tmp/terraform.zip -d $(HOME_BIN_DIR)
 	sudo chmod 755 $@
 
 kubernetes: \
-	$(MISC_INSTALL_DIR)/kubectl \
-	$(MISC_INSTALL_DIR)/helm \
-	$(MISC_INSTALL_DIR)/stern \
-	$(MISC_INSTALL_DIR)/k9s \
-	$(MISC_INSTALL_DIR)/kind \
-	$(MISC_INSTALL_DIR)/kustomize \
+	$(HOME_BIN_DIR)/kubectl \
+	$(HOME_BIN_DIR)/helm \
+	$(HOME_BIN_DIR)/stern \
+	$(HOME_BIN_DIR)/k9s \
+	$(HOME_BIN_DIR)/kind \
+	$(HOME_BIN_DIR)/kustomize \
 	$(HOME)/.krew
 
-$(MISC_INSTALL_DIR)/kubectl:
+$(HOME_BIN_DIR)/kubectl:
 	sudo $(CURL) https://storage.googleapis.com/kubernetes-release/release/v$(KUBERNETES_VERSION)/bin/linux/amd64/kubectl -o $@
 	sudo chmod 755 $@
 
-helm: $(MISC_INSTALL_DIR)/helm
-$(MISC_INSTALL_DIR)/helm:
-	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(MISC_INSTALL_DIR) --strip-components=1"
+helm: $(HOME_BIN_DIR)/helm
+$(HOME_BIN_DIR)/helm:
+	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(HOME_BIN_DIR) --strip-components=1"
 	sudo chmod 755 $@
 
-$(MISC_INSTALL_DIR)/stern:
+$(HOME_BIN_DIR)/stern:
 	sudo $(CURL) https://github.com/wercker/stern/releases/download/$(STERN_VERSION)/stern_linux_amd64 -o $@
 	sudo chmod 755 $@
 
-$(MISC_INSTALL_DIR)/kind:
+$(HOME_BIN_DIR)/kind:
 	sudo $(CURL) https://github.com/kubernetes-sigs/kind/releases/download/v$(KIND_VERSION)/kind-linux-amd64 -o $@
 	sudo chmod 755 $@
 
-$(MISC_INSTALL_DIR)/kustomize:
+$(HOME_BIN_DIR)/kustomize:
 	sudo sh -c "$$(echo \
 		"$(CURL) https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv$(KUSTOMIZE_VERSION)/kustomize_v$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz |" \
-		"tar xz -C $(MISC_INSTALL_DIR)")"
+		"tar xz -C $(HOME_BIN_DIR)")"
 
-$(MISC_INSTALL_DIR)/k9s:
+$(HOME_BIN_DIR)/k9s:
 	sudo sh -c "$$(echo \
 		"$(CURL) https://github.com/derailed/k9s/releases/download/$(K9S_VERSION)/k9s_$(K9S_VERSION)_Linux_x86_64.tar.gz |" \
-		"tar xz -C $(MISC_INSTALL_DIR)")"
+		"tar xz -C $(HOME_BIN_DIR)")"
 
 $(HOME)/.krew:
 	set -x; cd "$(mktemp -d)" && \
@@ -420,11 +420,11 @@ $(HOME)/.krew:
 		"$${KREW}" install --manifest=krew.yaml --archive=krew.tar.gz && \
 		"$${KREW}" update
 
-prompt: $(MISC_INSTALL_DIR)/starship
+prompt: $(HOME_BIN_DIR)/starship
 
-$(MISC_INSTALL_DIR)/starship:
+$(HOME_BIN_DIR)/starship:
 	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
-	bash /tmp/starship_install.sh -y -b $(MISC_INSTALL_DIR)
+	bash /tmp/starship_install.sh -y -b $(HOME_BIN_DIR)
 
 completion: $(HOME)/.git-completion.bash
 

@@ -57,6 +57,9 @@ exists tmux && alias tmux="tmux -2"
 exists git && alias g='git'
 exists docker && alias d='docker'
 exists docker-compose && alias z='docker-compose'
+# tcpdump -nn -p -i eth0 tcp dst port 80 -tttt -vvv
+# tcpdump -i eth0 '(tcp[tcpflags] & tcp-syn)' != 0 and '(tcp[tcpflags] & tcp-ack) ==0'
+# ss -ntulp --unix
 
 if exists kubectl ; then
     alias k='kubectl'
