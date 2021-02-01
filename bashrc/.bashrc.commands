@@ -147,7 +147,7 @@ __fzf_git_branch__() {
         return 1
     fi
 
-    branches=$(env IFS='\n' git branch --sort=committerdate --format='[%(committerdate:short)] %(refname:short) %(authorname)')
+    branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
     # git l is defined in .gitconfig
     selected=$(echo "$branches" | fzf -m --preview "eval 'git l \$(echo '{}' | cut -d\" \" -f2) | head -200'")
     if [ ! -z "${selected}" ]; then
