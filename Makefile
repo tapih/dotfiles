@@ -1,4 +1,4 @@
-CURRENT_DIR := $(abspath .)
+CURRENT_DIR := $(CURDIR)
 
 NVIM_PYTHON2_VERSION := 2.7.16
 NVIM_PYTHON3_VERSION := 3.7.3
@@ -37,7 +37,6 @@ TMUX_AUTO_RUN ?= 1
 all: \
 	dpkg \
 	links \
-	docker \
 	hub \
 	fd \
 	tmux \
@@ -86,6 +85,7 @@ git: /usr/bin/git
 	sudo apt -y --no-install-recommends install /usr/bin/git
 
 dpkg: curl git
+	mkdir -p ${HOME_BIN_DIR}
 	sudo apt -y purge \
 		nano \
 		ghostscript \
@@ -144,6 +144,7 @@ dpkg: curl git
 		ca-certificates \
 		python-openssl \
 		firefox \
+		clangd-9 \
 		vagrant
 	if [ -z "uname -a | grep microsoft" ]; then \
 		sudo apt -y --no-install-recommends install \
@@ -181,10 +182,10 @@ $(HOME)/.gitconfig:
 	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
 
 $(HOME)/.screenrc:
-	ln -s $(CURRENT_DIR).screenrc $(HOME)/
+	ln -s $(CURRENT_DIR)/.screenrc $(HOME)/
 
 $(HOME)/.tmux.conf:
-	ln -s $(CURRENT_DIR) .tmux.conf $(HOME)/
+	ln -s $(CURRENT_DIR)/.tmux.conf $(HOME)/
 
 $(HOME)/.config/nvim:
 	mkdir -p $(HOME)/.config
@@ -202,7 +203,7 @@ $(HOME)/.config/starship.toml:
 docker: /usr/bin/docker /usr/local/bin/docker-compose
 
 /usr/bin/docker: /usr/bin/curl
-	sudo apt remove docker docker-engine docker.io containerd runc
+	sudo apt remove docker docker.io containerd runc
 	sudo sh -c "${CURL} https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
 	sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 	sudo apt update
@@ -292,7 +293,7 @@ $(GOPATH)/bin/cobra:
 	GO111MODULE=off ${GO} get -u github.com/spf13/cobra/cobra
 
 $(GOPATH)/bin/dlv:
-	GO111MODULE=off go get github.com/go-delve/delve/cmd/dlv
+	GO111MODULE=off ${GO} get github.com/go-delve/delve/cmd/dlv
 
 dart: /usr/bin/dart $(HOME)/dart/flutter
 
@@ -322,8 +323,8 @@ $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/yarn: $(HOME)/.nvm/versions/node
 anaconda: $(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION)
 
 $(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION): $(PYENV_DIR)
-	pyenv install anaconda3-$(ANACONDA_VERSION)
-	pyenv global anaconda3-$(ANACONDA_VERSION)
+	${PYENV} install anaconda3-$(ANACONDA_VERSION)
+	${PYENV} global anaconda3-$(ANACONDA_VERSION)
 
 $(PYENV_DIR):
 	git clone https://github.com/pyenv/pyenv.git $@
@@ -333,7 +334,7 @@ $(PYENV_VIRTUALENV_DIR):
 	git clone https://github.com/pyenv/pyenv-virtualenv.git $@
 
 cpp:
-	sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-8 100
+	sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-9 100
 
 neovim: /usr/bin/nvim
 
@@ -350,7 +351,7 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 	$(PYENV) virtualenv -f ${NVIM_PYTHON2_VERSION} neovim2
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim2 && \
-			pip install neovim && \
+			$(PYENV_DIR)/versions/$(NVIM_PYTHON2_VERSION)/bin/pip install neovim && \
 			$(PYENV) global $${CURRENT}
 
 python2: $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION)
@@ -361,7 +362,7 @@ $(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION): $(PYENV_DIR) $(PYENV_VIRTUALENV_D
 	$(PYENV) virtualenv ${NVIM_PYTHON3_VERSION} neovim3
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim3 && \
-			pip install neovim && \
+			$(PYENV_DIR)/versions/$(NVIM_PYTHON3_VERSION)/bin/pip install neovim && \
 			$(PYENV) global $${CURRENT}
 
 gcloud: /usr/bin/gcloud $(HOME_BIN_DIR)/terraform
@@ -433,7 +434,8 @@ $(HOME)/.git-completion.bash:
 
 wsl:
 	if uname -r | grep -i microsoft > /dev/null; then \
-		sudo apt-get install systemd-genie; \
+		wget --content-disposition https://packagecloud.io/arkane-systems/wsl-translinux/packages/ubuntu/focal/systemd-genie_1.31_amd64.deb; \
+		sudo dpkg -i /tmp/download.deb; \
 	fi
 
 .PHONY: \
