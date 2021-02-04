@@ -33,15 +33,15 @@ export NVM_DIR="$HOME/.nvm"
 
 # NOTE: .bashrc.wsl should be read before .bashrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
-    [ -f ~/.bashrc.wsl ] && . ~/.bashrc.wsl
+    [ -f ~/.bashrc_dir/wsl ] && .  ~/.bashrc_dir/wsl
 fi
-[ -f ~/.bashrc.tmux ] && . ~/.bashrc.tmux
-[ -f ~/.bashrc.langs ] && . ~/.bashrc.langs
-[ -f ~/.bashrc.completion ] && . ~/.bashrc.completion
+[ -f ~/.bashrc_dir/tmux ] && .  ~/.bashrc_dir/tmux
+[ -f ~/.bashrc_dir/langs ] && . ~/.bashrc_dir/langs
+[ -f ~/.bashrc_dir/completion ] && . ~/.bashrc_dir/completion
 
 # NOTE: .bashrc.commands should be read after .bashrc.completion
-[ -f ~/.bashrc.commands ] && . ~/.bashrc.commands
-[ -f ~/.bashrc.prompt ] && . ~/.bashrc.prompt
+[ -f ~/.bashrc_dir/commands ] && . ~/.bashrc_dir/commands
+[ -f ~/.bashrc_dir/prompt ] && . ~/.bashrc_dir/prompt
 
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local

@@ -1,19 +1,30 @@
 # dotfiles
 
-This is @tapih's dotfiles repository which includes a script for all the boring initial setup after installing OS.
-
-If you are interested in my dotfiles, please feel free to refer to this repository !!
+⚡
 
 ## OS
 
 Ubuntu 20.04
 
-## Key features
+## Install
 
-### Collboration with [fzf](https://github.com/junegunn/fzf)
+```bash
+$ mkdir -m 700 ~/.ssh
+$ ssh-keygen -t rsa -b 4096 -f github_rsa
+# register the public key to GitHub
 
-`C-g`: Jump to any repository managed with `git`
+$ cat << EOF > config
+HostName github.com
+Host github.com
+User git
+IdentityFile ~/.ssh/github_rsa
+EOF
 
-`C-o`: Open any file you want in a `git`-managed repository.
+$ sudo apt install make curl
 
-`C-j`: Check out branch.
+$ mkdir ~/src
+$ cd ~/src
+$ git clone ssh://github.com/tapih/dotfiles
+$ cd dotfiles
+$ make
+```

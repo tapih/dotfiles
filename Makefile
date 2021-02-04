@@ -30,8 +30,6 @@ GO := $(GOROOT)/bin/go
 CURL := curl -sSLf
 PYENV := $(PYENV_DIR)/bin/pyenv
 
-TMUX_AUTO_RUN ?= 1
-
 all: \
 	dpkg \
 	links \
@@ -166,24 +164,18 @@ links: \
 
 bashrc:
 	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/bashrc; fi
-	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/bashrc $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.langs $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.completion ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.completion $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.commands $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.prompt $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.wsl $(HOME)/; fi
-	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.tmux $(HOME)/; fi
-	if [ $(TMUX_AUTO_RUN) -eq 0 -a -L $(HOME)/.bashrc.tmux ]; then rm -f $(CURRENT_DIR)/bashrc/bashrc.tmux; fi
-	if [ ! -L $(HOME)/.inputrc ]; then ln -s $(CURRENT_DIR)/inputrc $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/bashrc $(HOME)/.bashrc; fi
+	if [ ! -d $(HOME)/.bashrc_dir ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc $(HOME)/.bashrc_dir; fi
+	if [ ! -L $(HOME)/.inputrc ]; then ln -s $(CURRENT_DIR)/inputrc $(HOME)/.inputrc; fi
 
 $(HOME)/.gitconfig:
-	ln -s $(CURRENT_DIR)/gitconfig $(HOME)/
+	ln -s $(CURRENT_DIR)/gitconfig $(HOME)/.gitconfig
 
 $(HOME)/.screenrc:
-	ln -s $(CURRENT_DIR)/screenrc $(HOME)/
+	ln -s $(CURRENT_DIR)/screenrc $(HOME)/.screenrc
 
 $(HOME)/.tmux.conf:
-	ln -s $(CURRENT_DIR)/tmux.conf $(HOME)/
+	ln -s $(CURRENT_DIR)/tmux.conf $(HOME)/.tmux.conf
 
 $(HOME)/.config/nvim:
 	mkdir -p $(HOME)/.config
@@ -193,7 +185,7 @@ $(HOME)/.vimrc:
 	ln -s $(CURRENT_DIR)/nvim/init.vim $(HOME)/.vimrc
 
 $(HOME)/.ideavimrc:
-	ln -s $(CURRENT_DIR)/ideavimrc $(HOME)/
+	ln -s $(CURRENT_DIR)/ideavimrc $(HOME)/.ideavimrc
 
 $(HOME)/.config/starship.toml:
 	ln -s $(CURRENT_DIR)/config/starship.toml $(HOME)/.config/
@@ -308,6 +300,7 @@ $(HOME)/dart/flutter:
 node:
 	sudo npm i -g n
 	sudo n $(NODE_VERSION)
+	sudo npm i -g yarn
 
 $(PYENV_DIR):
 	git clone https://github.com/pyenv/pyenv.git $@
@@ -362,24 +355,13 @@ $(HOME_BIN_DIR)/terraform:
 
 kubernetes: \
 	$(HOME_BIN_DIR)/kubectl \
-	$(HOME_BIN_DIR)/helm \
-	$(HOME_BIN_DIR)/stern \
-	$(HOME_BIN_DIR)/k9s \
 	$(HOME_BIN_DIR)/kind \
 	$(HOME_BIN_DIR)/kustomize \
+	$(HOME_BIN_DIR)/helm \
 	$(HOME)/.krew
 
 $(HOME_BIN_DIR)/kubectl:
 	sudo $(CURL) https://storage.googleapis.com/kubernetes-release/release/v$(KUBERNETES_VERSION)/bin/linux/amd64/kubectl -o $@
-	sudo chmod 755 $@
-
-helm: $(HOME_BIN_DIR)/helm
-$(HOME_BIN_DIR)/helm:
-	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(HOME_BIN_DIR) --strip-components=1"
-	sudo chmod 755 $@
-
-$(HOME_BIN_DIR)/stern:
-	sudo $(CURL) https://github.com/wercker/stern/releases/download/$(STERN_VERSION)/stern_linux_amd64 -o $@
 	sudo chmod 755 $@
 
 $(HOME_BIN_DIR)/kind:
@@ -391,10 +373,9 @@ $(HOME_BIN_DIR)/kustomize:
 		"$(CURL) https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv$(KUSTOMIZE_VERSION)/kustomize_v$(KUSTOMIZE_VERSION)_linux_amd64.tar.gz |" \
 		"tar xz -C $(HOME_BIN_DIR)")"
 
-$(HOME_BIN_DIR)/k9s:
-	sudo sh -c "$$(echo \
-		"$(CURL) https://github.com/derailed/k9s/releases/download/$(K9S_VERSION)/k9s_$(K9S_VERSION)_Linux_x86_64.tar.gz |" \
-		"tar xz -C $(HOME_BIN_DIR)")"
+$(HOME_BIN_DIR)/helm:
+	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(HOME_BIN_DIR) --strip-components=1"
+	sudo chmod 755 $@
 
 $(HOME)/.krew:
 	set -x; cd "$(mktemp -d)" && \
@@ -417,8 +398,13 @@ $(HOME)/.git-completion.bash:
 
 wsl:
 	if uname -r | grep -i microsoft > /dev/null; then \
-		wget --content-disposition https://packagecloud.io/arkane-systems/wsl-translinux/packages/ubuntu/focal/systemd-genie_1.31_amd64.deb; \
-		sudo dpkg -i /tmp/download.deb; \
+		$(CURL) https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -o /tmp/packages-microsoft-prod.deb; \
+		sudo dpkg -i /tmp/packages-microsoft-prod.deb; \
+		sudo apt-get update && \
+		  sudo apt-get install -y apt-transport-https && \
+			  sudo apt-get install -y dotnet-sdk-5.0 daemonize; \
+			  $(CURL) -o /tmp/download.deb https://github.com/arkane-systems/genie/releases/download/1.34/systemd-genie_1.34_amd64.deb; \
+			  sudo dpkg -i /tmp/download.deb; \
 	fi
 
 .PHONY: \
@@ -434,7 +420,6 @@ wsl:
 	go \
 	dart \
 	node \
-	yarn \
 	cpp \
 	gcloud \
 	kubernetes \
