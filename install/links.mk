@@ -6,19 +6,18 @@ BASHRC := $(HOME)/.bashrc
 BASHRC_DIR := $(HOME)/.bashrc_dir
 INPUTRC := $(HOME)/.inputrc
 GITCONFIG := $(HOME)/.gitconfig
-SCREENRC := $(HOME)/.screenrc
 TMUX_CONF := $(HOME)/.tmux.conf
 NVIMRC_DIR := $(HOME)/.config/nvim
 VIMRC := $(HOME)/.vimrc
 IDEAVIMRC := $(HOME)/.ideavimrc
 STARSHIPRC := $(HOME)/.config/starship.toml
 
+.PHONY: install
 install: \
 	bashrc \
 	bashrcdir \
 	inputrc \
 	gitconfig \
-	screenrc \
 	tmuxrc \
 	nvimrc \
 	vimrc \
@@ -44,11 +43,6 @@ $(INPUTRC):
 gitconfig: $(GITCONFIG)
 $(GITCONFIG):
 	ln -s $(ROOT_DIR)/gitconfig $@
-
-.PHONY: screenrc
-screenrc: $(SCREENRC)
-$(SCREENRC):
-	ln -s $(ROOT_DIR)/screenrc $@
 
 .PHONY: tmuxrc
 tmuxrc: $(TMUX_CONF)
@@ -82,7 +76,6 @@ clean:
 	rm -rf $(BASHRC_DIR)
 	rm -f $(INPUTRC)
 	rm -f $(GITCONFIG)
-	rm -f $(SCREENRC)
 	rm -f $(TMUX_CONF)
 	rm -rf $(NVIMRC_DIR)
 	rm -f $(VIMRC)
