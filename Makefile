@@ -165,24 +165,25 @@ links: \
 	$(HOME)/.config/starship.toml
 
 bashrc:
-	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/.bashrc; fi
-	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/.bashrc $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.langs $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.completion ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.completion $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.commands $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.prompt $(HOME)/; fi
-	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.wsl $(HOME)/; fi
-	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/bashrc/.bashrc.tmux $(HOME)/; fi
-	if [ $(TMUX_AUTO_RUN) -eq 0 -a -L $(HOME)/.bashrc.tmux ]; then rm -f $(CURRENT_DIR)/bashrc/.bashrc.tmux; fi
+	if [ -f $(HOME)/.bashrc ]; then rm -f $(HOME)/bashrc; fi
+	if [ ! -L $(HOME)/.bashrc ]; then ln -s $(CURRENT_DIR)/bashrc $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.langs ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.langs $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.completion ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.completion $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.commands ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.commands $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.prompt ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.prompt $(HOME)/; fi
+	if [ ! -L $(HOME)/.bashrc.wsl ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.wsl $(HOME)/; fi
+	if [ $(TMUX_AUTO_RUN) -eq 1 -a ! -L $(HOME)/.bashrc.tmux ]; then ln -s $(CURRENT_DIR)/bashrc/bashrc.tmux $(HOME)/; fi
+	if [ $(TMUX_AUTO_RUN) -eq 0 -a -L $(HOME)/.bashrc.tmux ]; then rm -f $(CURRENT_DIR)/bashrc/bashrc.tmux; fi
+	if [ ! -L $(HOME)/.inputrc ]; then ln -s $(CURRENT_DIR)/inputrc $(HOME)/; fi
 
 $(HOME)/.gitconfig:
-	ln -s $(CURRENT_DIR)/.gitconfig $(HOME)/
+	ln -s $(CURRENT_DIR)/gitconfig $(HOME)/
 
 $(HOME)/.screenrc:
-	ln -s $(CURRENT_DIR)/.screenrc $(HOME)/
+	ln -s $(CURRENT_DIR)/screenrc $(HOME)/
 
 $(HOME)/.tmux.conf:
-	ln -s $(CURRENT_DIR)/.tmux.conf $(HOME)/
+	ln -s $(CURRENT_DIR)/tmux.conf $(HOME)/
 
 $(HOME)/.config/nvim:
 	mkdir -p $(HOME)/.config
@@ -192,10 +193,10 @@ $(HOME)/.vimrc:
 	ln -s $(CURRENT_DIR)/nvim/init.vim $(HOME)/.vimrc
 
 $(HOME)/.ideavimrc:
-	ln -s $(CURRENT_DIR)/.ideavimrc $(HOME)/
+	ln -s $(CURRENT_DIR)/ideavimrc $(HOME)/
 
 $(HOME)/.config/starship.toml:
-	ln -s $(CURRENT_DIR)/.config/starship.toml $(HOME)/.config/
+	ln -s $(CURRENT_DIR)/config/starship.toml $(HOME)/.config/
 
 docker: /usr/bin/docker /usr/local/bin/docker-compose
 
@@ -306,7 +307,7 @@ $(HOME)/dart/flutter:
 
 node:
 	sudo npm i -g n
-	n $(NODE_VERSION)
+	sudo n $(NODE_VERSION)
 
 $(PYENV_DIR):
 	git clone https://github.com/pyenv/pyenv.git $@
