@@ -2,7 +2,6 @@ CURRENT_DIR := $(CURDIR)
 
 NVIM_PYTHON2_VERSION := 2.7.16
 NVIM_PYTHON3_VERSION := 3.7.3
-ANACONDA_VERSION := 5.3.1
 GO_VERSION := 1.13.11
 DART_VERSION := 2.14
 TMUX_VERSION := 2.9
@@ -15,7 +14,6 @@ KUSTOMIZE_VERSION := 3.5.4
 K9S_VERSION := 0.9.3
 KIND_VERSION := 0.7.0
 FD_VERSION := 8.1.0
-NVM_VERSION := 0.35.3
 DOCKER_COMPOSE_VERSION := 1.28.0
 NODE_VERSION := 12.16.2
 
@@ -43,7 +41,6 @@ all: \
 	fzf \
 	neovim \
 	go \
-	anaconda \
 	dart \
 	node \
 	cpp \
@@ -65,9 +62,8 @@ help:
 	@echo "    fzf         - install fzf"
 	@echo "    neovim      - install neovim"
 	@echo "    go          - install go $(GO_VERSION)"
-	@echo "    anaconda    - install anaconda3 v$(ANACONDA_VERSION)"
 	@echo "    dart        - install dart"
-	@echo "    node        - install node v$(NODE_VERSION) with nvm v$(NVM_VERSION)"
+	@echo "    node        - install node v$(NODE_VERSION)"
 	@echo "    cpp         - install cpp lsp"
 	@echo "    gcloud      - install gcloud cli tools and terraform"
 	@echo "    kubernetes  - install k8s cli tools"
@@ -113,6 +109,7 @@ dpkg: curl git
 		gnupg-agent \
 		colordiff \
 		ranger \
+		npm \
 		build-essential \
 		autotools-dev \
 		automake \
@@ -253,9 +250,9 @@ $(TMUX_PLUGINS_DIR):
 fzf: $(FZF_DIR)
 
 $(FZF_DIR):
-	git clone https://github.com/junegunn/fzf.git $(FZF_DIR) && $(FZF_DIR)/install
+	git clone https://github.com/junegunn/fzf.git $(FZF_DIR) && $(FZF_DIR)/install --no-key-bindings --no-completion --no-update-rc
 
-go: \
+th nvm v$(NVM_VERSION)go: \
 	$(GOROOT)/bin/go \
 	$(GOPATH)/bin/ghq \
 	$(GOPATH)/bin/goimports \
@@ -307,24 +304,9 @@ $(HOME)/dart/flutter:
 	mkdir -p $@
 	git clone https://github.com/flutter/flutter.git $@ -b stable
 
-node: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node
-yarn: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/yarn
-
-$(HOME)/.nvm/nvm.sh:
-	$(CURL) https://raw.githubusercontent.com/nvm-sh/nvm/v$(NVM_VERSION)/install.sh | bash
-	chmod 755 $(HOME)/.nvm/nvm.sh
-
-$(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node: $(HOME)/.nvm/nvm.sh
-	. $(HOME)/.nvm/nvm.sh && nvm install $(NODE_VERSION)
-
-$(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/yarn: $(HOME)/.nvm/versions/node/v$(NODE_VERSION)/bin/node
-	npm -g i yarn
-
-anaconda: $(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION)
-
-$(PYENV_DIR)/versions/anaconda3-$(ANACONDA_VERSION): $(PYENV_DIR)
-	${PYENV} install anaconda3-$(ANACONDA_VERSION)
-	${PYENV} global anaconda3-$(ANACONDA_VERSION)
+node:
+	sudo npm i -g n
+	n $(NODE_VERSION)
 
 $(PYENV_DIR):
 	git clone https://github.com/pyenv/pyenv.git $@
@@ -449,7 +431,6 @@ wsl:
 	fzf \
 	neovim \
 	go \
-	anaconda \
 	dart \
 	node \
 	yarn \
