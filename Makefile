@@ -1,4 +1,5 @@
-CURL := curl -sSLf
+.PHONY: all
+all: should-purge install
 
 .PHONY: install
 install:
