@@ -1,5 +1,8 @@
-CURL := curl -sSfL
+all: nvim-install
+
 include python.mk
+
+CURL := curl -sSfL
 
 NODE_VERSION := 12.16.2
 
@@ -36,16 +39,16 @@ $(NVIM2_DIR): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR) $(PYTHON2_DIR)
 	$(PYENV) virtualenv $(PYTHON2_VERSION) neovim2
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim2 && \
-			$(NVIM2_DIR)/bin/pip install neovim && \
+			$(NVIM2_DIR)/bin/pip install pynvim && \
 			$(PYENV) global $${CURRENT}
 
 .PHONY: neovim3
-neovim3: $(NVIM2_DIR)
+neovim3: $(NVIM3_DIR)
 $(NVIM3_DIR): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
 	$(PYENV) virtualenv $(PYTHON3_VERSION) neovim3
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim3 && \
-			$(NVIM3_DIR)/bin/pip install neovim && \
+			$(NVIM3_DIR)/bin/pip install pynvim && \
 			$(PYENV) global $${CURRENT}
 
 .PHONY: n

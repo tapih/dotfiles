@@ -14,7 +14,7 @@ FD := /usr/bin/fd
 FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
-BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash:
+BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash
 
 .PHONY: install
 install: \

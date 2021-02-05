@@ -1,6 +1,6 @@
 CURL := curl -sSfL
 
-DART_VERSION := 2.10
+DART_VERSION := 2.10.5
 FLUTTER_VERSION := 1.22.6
 
 DART := /usr/bin/dart
@@ -12,12 +12,8 @@ install: dart flutter
 .PHONY: dart
 dart: $(DART)
 $(DART):
-	sudo sh -c "${CURL} https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -"
-	sudo sh -c "${CURL} https://storage.googleapis.com/download.dartlang.org/linux/debian/dart_stable.list > /etc/apt/sources.list.d/dart_stable.list"
-	sudo apt-get update
-	sudo apt-get -y --no-install-recommends install \
-		dart=$(DART_VERSION) \
-		apt-transport-https
+	$(CURL) -o /tmp/dart.deb https://storage.googleapis.com/dart-archive/channels/stable/release/$(DART_VERSION)/linux_packages/dart_$(DART_VERSION)-1_amd64.deb
+	sudo dpkg -i /tmp/dart.deb; rm -f /tmp/dart.deb
 
 .PHONY: flutter
 flutter: $(FLUTTER_DIR)
@@ -27,5 +23,5 @@ $(FLUTTER_DIR):
 
 .PHONY: clean
 clean:
-	sudo apt-get purge -y dart
+	sudo dpkg -P dart
 	rm -rf $(FLUTTER_DIR)

@@ -9,10 +9,11 @@ install:
 		tree \
 		jq \
 		colordiff \
+		vim
+		firefox \
 		xsel \
 		openssl \
 		gnupg \
-		gnupg-agent \
 		ca-certificates \
 		build-essential \
 		autotools-dev \
@@ -37,10 +38,18 @@ install:
 		tk-dev \
 		libffi-dev \
 		liblzma-dev \
-		libasound2 \
-		apt-transport-https \
-		firefox \
-		vim
+		libasound2
+	$(MAKE) -f install/links.mk
+	$(MAKE) -f install/tools.mk
+	$(MAKE) -f install/go.mk
+	$(MAKE) -f install/dart.mk
+	$(MAKE) -f install/python.mk
+	$(MAKE) -f install/nvim.mk
+	$(MAKE) -f install/docker.mk
+	$(MAKE) -f install/kubernetes.mk
+	if uname -r | grep -i microsoft > /dev/null; then \
+		$(MAKE) -f install/wsl.mk; \
+	fi
 
 .PHONY: should-purge
 should-purge:

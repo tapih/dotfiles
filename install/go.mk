@@ -33,7 +33,7 @@ $(GO):
 .PHONY: goimports
 goimports: $(GOIMPORTS)
 $(GOIMPORTS):
-	cd /tmp; env GO111MODULE=on go get golang.org/x/tools/cmd/goimports
+	cd /tmp; env GO111MODULE=on $(GO) get golang.org/x/tools/cmd/goimports
 
 .PHONY: gopls
 gopls: $(GOPLS)
@@ -43,7 +43,7 @@ $(GOPLS):
 .PHONY: staticcheck
 staticcheck: $(STATICCHECK)
 $(STATICCHECK):
-	cd /tmp; env GO111MODULE=on go get honnef.co/go/tools/cmd/staticcheck
+	cd /tmp; env GO111MODULE=on $(GO) get honnef.co/go/tools/cmd/staticcheck
 
 .PHONY: cobra
 cobra: $(COBRA)
@@ -63,5 +63,10 @@ $(GHQ):
 .PHONY: clean
 clean:
 	sudo rm -rf $(GOROOT)
-	sudo rm -rf $(GOPATH)/{bin,pkg}
+	rm -f $(GOIMPORTS)
+	rm -f $(GOPLSS)
+	rm -f $(GHQ)
+	rm -f $(COBRA)
+	rm -f $(STATICCHECK)
+	rm -f $(DLV)
 
