@@ -55,7 +55,5 @@ $(DOCKER_COMPOSE):
 
 .PHONY: clean
 clean:
-	sudo dpkg -P docker-ce
-	sudo dpkg -P docker-ce-cli
-	sudo dpkg -P containerd
+	echo "docker related executables are not cleaned"
 	rm -f $(DOCKER_COMPOSE)

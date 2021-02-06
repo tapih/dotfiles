@@ -1,6 +1,6 @@
 CURL := curl -sSfL
 
-ROOT_DIR := $(abspath ..)
+ROOT_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/..
 
 BASHRC := $(HOME)/.bashrc
 BASHRC_DIR := $(HOME)/.bashrc_dir

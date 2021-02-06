@@ -6,7 +6,6 @@ FD_VERSION := 8.1.0
 
 PACKAGES := \
 	tmux \
-	gh \
 	fd-find \
 	jq \
 	tree \
@@ -36,6 +35,7 @@ install: \
 	apt \
 	tmuxplugins \
 	hub \
+	gh \
 	fzf \
 	starship \
 	completion
@@ -85,7 +85,7 @@ $(BASH_COMPLETION_PATH):
 
 .PHONY: clean
 clean:
-	sudo apt-get purge $(PACKAGES)
+	sudo apt-get purge -y $(PACKAGES) gh
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -f $(HUB)
 	rm -rf $(FZF_DIR)

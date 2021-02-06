@@ -6,13 +6,11 @@ CURL := curl -sSfL
 
 NODE_VERSION := 12.16.2
 
-VIM := /usr/bin/vim
 NVIM := /usr/bin/nvim
 PYENV_VIRTUALENV_DIR=$(PYENV_DIR)/plugins/pyenv-virtualenv
 NVIM2_DIR := $(PYENV_DIR)/versions/neovim2
 NVIM3_DIR := $(PYENV_DIR)/versions/neovim3
 
-N := /usr/local/bin/n
 NODE := /usr/local/bin/node
 
 .PHONY: nvim-install
@@ -21,11 +19,6 @@ nvim-install: \
 	neovim2 \
 	neovim3 \
 	node
-
-.PHONY: vim
-vim: $(VIM)
-$(VIM):
-	sudo apt-get -y --no-install-recommends install vim
 
 .PHONY: nvim
 nvim: $(NVIM)
@@ -60,16 +53,13 @@ $(NVIM3_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
 			$(NVIM3_DIR)/bin/pip install pynvim && \
 			$(PYENV) global $${CURRENT}
 
-.PHONY: n
-n: $(N)
-$(N):
+.PHONY: node
+node: $(NODE)
+$(NODE):
 	sudo apt-get update
 	sudo apt-get -y --no-install-recommends install npm
 	sudo npm i -g n
-
-.PHONY: node
-node: $(NODE)
-$(NODE): $(N)
+	sudo npm i -g yarn
 	sudo n $(NODE_VERSION)
 
 .PHONY: nvim-clean
@@ -78,6 +68,5 @@ nvim-clean:
 	rm -rf $(PYENV_VIRTUALENV_DIR)
 	rm -rf $(NVIM2_DIR)
 	rm -rf $(NVIM3_DIR)
-	sudo rm -rf $(N)
 	sudo rm -rf $(NODE)
 

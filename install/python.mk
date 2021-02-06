@@ -35,7 +35,7 @@ install: \
 .PHONY: pyenv
 pyenv: $(PYENV_DIR)
 $(PYENV_DIR):
-	sudo apt-get install --no-install-recommends $(PYENV_DEPENDENCY)
+	sudo apt-get install -y --no-install-recommends $(PYENV_DEPENDENCY)
 	git clone https://github.com/pyenv/pyenv.git $@
 	eval "$$($(PYENV) init -)"
 
@@ -53,5 +53,7 @@ $(PYTHON3_DIR): $(PYENV_DIR)
 
 .PHONY: clean
 clean:
-	sudp apt-get purge -y $(PYENV_DEPENDENCY)
+	sudo apt-get purge -y $(PYENV_DEPENDENCY)
+	# make will be removed by the command above
+	sudo apt-get install -y --no-install-recommends make
 	rm -rf $(PYENV_DIR)
