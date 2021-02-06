@@ -6,6 +6,7 @@ CURL := curl -sSfL
 
 NODE_VERSION := 12.16.2
 
+VIM := /usr/bin/vim
 NVIM := /usr/bin/nvim
 PYENV_VIRTUALENV_DIR=$(PYENV_DIR)/plugins/pyenv-virtualenv
 NVIM2_DIR := $(PYENV_DIR)/versions/neovim2
@@ -20,6 +21,11 @@ nvim-install: \
 	neovim2 \
 	neovim3 \
 	node
+
+.PHONY: vim
+vim: $(VIM)
+$(VIM):
+	sudo apt-get -y --no-install-recommends install vim
 
 .PHONY: nvim
 nvim: $(NVIM)
@@ -65,7 +71,7 @@ $(NODE): $(N)
 
 .PHONY: nvim-clean
 nvim-clean:
-	sudo apt-get purge -y neovim
+	sudo apt-get purge -y neovim vim
 	rm -rf $(PYENV_VIRTUALENV_DIR)
 	rm -rf $(NVIM2_DIR)
 	rm -rf $(NVIM3_DIR)

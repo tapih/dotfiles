@@ -4,10 +4,25 @@ TMUX_VERSION := 2.9
 HUB_VERSION := 2.12.8
 FD_VERSION := 8.1.0
 
-TMUX := $(HOME_BIN_DIR)/tmux
-TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
+PACKAGES := \
+	tmux \
+	gh \
+	fd-find \
+	jq \
+	tree \
+	htop \
+	colordiff \
+	firefox \
+	xsel \
+	openssl \
+	gnupg \
+	ca-certificates \
+	build-essential
 
 HOME_BIN_DIR := $(HOME)/bin
+JQ := /usr/bin/jq
+TMUX := $(HOME_BIN_DIR)/tmux
+TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
 HUB := $(HOME_BIN_DIR)/hub
 GH := /usr/bin/gh
 FD := /usr/bin/fd
@@ -18,19 +33,17 @@ BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash
 
 .PHONY: install
 install: \
-	tmux \
+	apt \
 	tmuxplugins \
 	hub \
-	gh \
-	fd \
 	fzf \
 	starship \
 	completion
 
-.PHONY: tmux
-tmux: $(TMUX) $(TMUX_PLUGINS_DIR)
-$(TMUX):
-	sudo apt-get install -y --no-install-recommends tmux
+.PHONY: apt
+tree: $(JQ)
+$(JQ):
+	sudo apt-get install -y --no-install-recommends $(PACKAGES)
 
 .PHONY: tmuxplugins
 tmuxplugins: $(TMUX_PLUGINS_DIR)
@@ -52,11 +65,6 @@ $(GH):
 	sudo apt-get update
 	sudo apt-get install -y --no-install-recommends gh
 
-.PHONY: fd
-fd: $(FD)
-$(FD):
-	sudo apt-get install -y --no-install-recommends fd-find
-
 .PHONY: fzf
 fzf: $(FZF_DIR)
 $(FZF_DIR):
@@ -77,7 +85,7 @@ $(BASH_COMPLETION_PATH):
 
 .PHONY: clean
 clean:
-	sudo apt-get purge tmux gh fd
+	sudo apt-get purge $(PACKAGES)
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -f $(HUB)
 	rm -rf $(FZF_DIR)
