@@ -42,8 +42,10 @@ $(DOCKERD): $(CONTAINERD) $(DOCKER)
 	sudo apt-get purge -y docker-engine
 	$(CURL) -o /tmp/docker-ce.deb https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_$(DOCKER_VERSION)~ubuntu-focal_amd64.deb
 	sudo dpkg -i /tmp/docker-ce.deb
-	sudo groupadd docker
-	sudo usermod -aG docker $${USER}
+	if ! grep -q docker /etc/group; then \
+		sudo groupadd docker; \
+	fi
+	sudo usermod -aG docker $${USER}; \
 
 .PHONY: docker-compose
 docker-compose: $(DOCKER_COMPOSE)

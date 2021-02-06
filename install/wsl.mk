@@ -1,5 +1,6 @@
 CURL := curl -sSfL
 
+GENIE := /usr/bin/genie
 GENIE_VERSION := 1.34
 
 PACKAGES := \
@@ -13,10 +14,14 @@ PACKAGES := \
 	dbus-x11
 
 .PHONY: install
-install:
+install: genie
+
+.PHONY: genie
+genie: $(GENIE)
+$(GENIE):
 	$(CURL) https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -o /tmp/packages-microsoft-prod.deb
 	sudo dpkg -i /tmp/packages-microsoft-prod.deb
-	sudo apt-get update &&
+	sudo apt-get update && \
 		sudo apt-get install -y --no-install-recommends $(PACKAGES)
 	$(CURL) -o /tmp/download.deb https://github.com/arkane-systems/genie/releases/download/$(GENIE_VERSION)/systemd-genie_$(GENIE_VERSION)_amd64.deb
 	sudo dpkg -i /tmp/download.deb || true
@@ -25,4 +30,5 @@ install:
 
 .PHONY: clean
 clean:
+	sudo apt-get purge -y $(PACKAGES)
 	sudo dpkg -P systemd-genie

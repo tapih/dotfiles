@@ -36,12 +36,15 @@ $(NVIM):
 
 .PHONY: virtualenv
 virtualenv: $(PYENV_VIRTUALENV_DIR)
-$(PYENV_VIRTUALENV_DIR):
-	git clone https://github.com/pyenv/pyenv-virtualenv.git $@
+$(PYENV_VIRTUALENV_DIR): $(PYENV_DIR)
+	# The timestamp of pyenv is updated newer than virtualenv
+	if [ ! -d $(PYENV_VIRTUALENV_DIR) ]; then \
+		git clone https://github.com/pyenv/pyenv-virtualenv.git $@; \
+	fi
 
 .PHONY: neovim2
 neovim2: $(NVIM2_DIR)
-$(NVIM2_DIR): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR) $(PYTHON2_DIR)
+$(NVIM2_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON2_DIR)
 	$(PYENV) virtualenv $(PYTHON2_VERSION) neovim2
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim2 && \
@@ -50,7 +53,7 @@ $(NVIM2_DIR): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR) $(PYTHON2_DIR)
 
 .PHONY: neovim3
 neovim3: $(NVIM3_DIR)
-$(NVIM3_DIR): $(PYENV_DIR) $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
+$(NVIM3_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
 	$(PYENV) virtualenv $(PYTHON3_VERSION) neovim3
 	CURRENT=$($(PYENV) global) && \
 			$(PYENV) global neovim3 && \
