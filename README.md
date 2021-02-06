@@ -27,5 +27,6 @@ git clone ssh://github.com/tapih/dotfiles
 cd dotfiles
 
 sudo apt-get install make
+make -f install/links.mk clean
 make
 ```
