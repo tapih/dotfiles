@@ -1,10 +1,5 @@
 {
     "languageserver": {
-        "clangd": {
-            "command": "clangd",
-            "args": ["--background-index"],
-            "filetypes": ["c", "cpp", "objc", "objcpp"]
-        },
         "golang": {
             "command": "gopls",
             "rootPatterns": ["go.mod"],

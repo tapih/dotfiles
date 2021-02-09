@@ -14,6 +14,7 @@ install:
 		$(MAKE) -f go.mk && \
 		$(MAKE) -f dart.mk && \
 		$(MAKE) -f python.mk && \
+		$(MAKE) -f cpp.mk && \
 		$(MAKE) -f nvim.mk && \
 		$(MAKE) -f docker.mk && \
 		$(MAKE) -f kubernetes.mk
@@ -43,6 +44,7 @@ clean:
 		$(MAKE) -f go.mk clean && \
 		$(MAKE) -f dart.mk clean && \
 		$(MAKE) -f python.mk clean && \
+		$(MAKE) -f cpp.mk clean && \
 		$(MAKE) -f nvim.mk clean && \
 		$(MAKE) -f docker.mk clean && \
 		$(MAKE) -f kubernetes.mk clean
