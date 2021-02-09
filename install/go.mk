@@ -28,7 +28,9 @@ go: $(GO)
 $(GO):
 	sudo mkdir -p $(GOROOT)
 	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C $(GOROOT) --strip-components=1"
-	mkdir -p $(GOPATH)/{src,bin,pkg}
+	mkdir -p $(GOPATH)/src
+	mkdir -p $(GOPATH)/bin
+	mkdir -p $(GOPATH)/pkg
 
 .PHONY: goimports
 goimports: $(GOIMPORTS)
