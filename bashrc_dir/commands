@@ -50,11 +50,11 @@ alias ..='cd ..'
 alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
+alias g='git'
 exists nvim && alias v='nvim'
 exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists tmux && alias tmux="tmux -2"
-exists git && alias g='git'
 exists docker && alias d='docker'
 exists docker-compose && alias z='docker-compose'
 # tcpdump -nn -p -i eth0 tcp dst port 80 -tttt -vvv
