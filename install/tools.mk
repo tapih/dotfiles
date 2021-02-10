@@ -41,8 +41,7 @@ install: \
 	completion
 
 .PHONY: apt
-tree: $(JQ)
-$(JQ):
+apt:
 	sudo apt-get install -y --no-install-recommends $(PACKAGES)
 
 .PHONY: tmuxplugins
