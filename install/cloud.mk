@@ -6,6 +6,11 @@ HOME_BIN_DIR := $(HOME)/bin
 GCLOUD := /usr/bin/gcloud
 TERRAFORM := $(HOME_BIN_DIR)/terraform
 
+.PHONY: install
+install: \
+	gcloud \
+	terraform
+
 .PHONY: gcloud
 gcloud: $(GCLOUD)
 $(GCLOUD):
