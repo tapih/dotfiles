@@ -9,16 +9,19 @@ Ubuntu 20.04
 ## Install
 
 ```bash
+sudo visudo
+# tapih ALL=NOPASSWD: ALL
+
 mkdir -m 700 ~/.ssh
 cd ~/.ssh
 ssh-keygen -t rsa -b 4096 -f github_rsa
 register the generated public key to GitHub
 
 cat << EOF > config
-HostName github.com
 Host github.com
-User git
-IdentityFile ~/.ssh/github_rsa
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/github_rsa
 EOF
 
 mkdir ~/src
