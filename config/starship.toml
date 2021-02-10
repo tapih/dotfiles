@@ -31,7 +31,11 @@ style = "bold black"
 format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "bold red"
+style = "bold black"
+
+[git_commit]
+style = "bold black"
+disabled = true
 
 [character]
 success_symbol = "[❯❯❯](bold green)"
