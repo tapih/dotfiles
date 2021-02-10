@@ -4,11 +4,13 @@ TERRAFORM_VERSION := 0.13.3
 
 HOME_BIN_DIR := $(HOME)/bin
 GCLOUD := /usr/bin/gcloud
+AWS := /usr/bin/aws
 TERRAFORM := $(HOME_BIN_DIR)/terraform
 
 .PHONY: install
 install: \
 	gcloud \
+	aws \
 	terraform
 
 .PHONY: gcloud
@@ -18,6 +20,11 @@ $(GCLOUD):
 	$(CURL) https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 	sudo apt-get update && \
 		sudo apt-get install -y --no-install-recommends google-cloud-sdk
+
+.PHONY: aws
+aws: $(AWS)
+$(AWS):
+	sudo apt-get install -y --no-install-recommends awscli
 
 .PHONY: terraform
 terraform: $(TERRAFORM)
@@ -29,5 +36,5 @@ $(TERRAFORM):
 
 .PHONY: clean
 clean:
-	sudo apt-get purge -y google-cloud-sdk
+	sudo apt-get purge -y google-cloud-sdk awscli
 	rm -f $(TERRAFORM)

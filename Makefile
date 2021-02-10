@@ -46,7 +46,7 @@ clean:
 		$(MAKE) -f dart.mk clean && \
 		$(MAKE) -f python.mk clean && \
 		$(MAKE) -f cpp.mk clean && \
-		$(MAKE) -f nvim.mk clean && \
+		$(MAKE) -f nvim.mk nvim-clean && \
 		$(MAKE) -f docker.mk clean && \
 		$(MAKE) -f cloud.mk clean
 		$(MAKE) -f kubernetes.mk clean
