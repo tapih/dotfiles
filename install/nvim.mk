@@ -12,6 +12,7 @@ NVIM2_DIR := $(PYENV_DIR)/versions/neovim2
 NVIM3_DIR := $(PYENV_DIR)/versions/neovim3
 
 NODE := /usr/local/bin/node
+YARN := /usr/bin/yarn
 
 .PHONY: nvim-install
 nvim-install: \
@@ -59,12 +60,18 @@ $(NODE):
 	sudo apt-get update
 	sudo apt-get -y --no-install-recommends install npm
 	sudo npm i -g n
-	sudo npm i -g yarn
 	sudo n $(NODE_VERSION)
+
+.PHONY: yarn
+yarn: $(YARN)
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+	sudo apt update
+	sudo apt install -y --no-install-recommends yarn
 
 .PHONY: nvim-clean
 nvim-clean:
-	sudo apt-get purge -y neovim vim
+	sudo apt-get purge -y neovim vim yarn
 	rm -rf $(PYENV_VIRTUALENV_DIR)
 	rm -rf $(NVIM2_DIR)
 	rm -rf $(NVIM3_DIR)
