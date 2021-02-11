@@ -4,12 +4,14 @@ KUBERNETES_VERSION := 1.16.4
 KIND_VERSION := 0.7.0
 HELM_VERSION := 3.5.1
 KUSTOMIZE_VERSION := 3.5.4
+STERN_VERSION := 1.11.0
 
 HOME_BIN_DIR := $(HOME)/bin
 KUBECTL := $(HOME_BIN_DIR)/kubectl
 KIND := $(HOME_BIN_DIR)/kind
 KUSTOMIZE := $(HOME_BIN_DIR)/kustomize
 HELM := $(HOME_BIN_DIR)/helm
+STERN := $(HOME_BIN_DIR)/stern
 
 .PHONY: install
 install: \
@@ -46,6 +48,11 @@ $(HELM):
 	mkdir -p $(HOME_BIN_DIR)
 	sudo sh -c "$(CURL) https://get.helm.sh/helm-v$(HELM_VERSION)-linux-amd64.tar.gz | tar xz -C $(HOME_BIN_DIR) --strip-components=1"
 	sudo chmod 755 $@
+
+.PHONY: stern
+stern: $(STERN)
+$(STERN):
+	$(CURL) https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 -o $@
 
 .PHONY: clean
 clean:
