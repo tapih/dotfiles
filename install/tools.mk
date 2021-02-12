@@ -99,6 +99,7 @@ $(NAVI):
 	$(CURL) https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install -o /tmp/navi.sh
 	chmod +x /tmp/navi.sh
 	BIN_DIR=$(HOME_BIN_DIR) bash /tmp/navi.sh
+	$(NAVI) repo add https://github.com/denisidoro/cheats
 
 .PHONY: completion
 completion: $(BASH_COMPLETION_PATH)
