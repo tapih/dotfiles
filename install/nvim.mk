@@ -50,7 +50,6 @@ $(NVIM3_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
 			$(PYENV) global neovim3 && \
 			$(NVIM3_DIR)/bin/pip install -U pip && \
 			$(NVIM3_DIR)/bin/pip install pynvim && \
-			$(NVIM3_DIR)/bin/pip install keyring browser-cookie3 && \
 			$(PYENV) global $${CURRENT}
 
 .PHONY: nvim-clean
