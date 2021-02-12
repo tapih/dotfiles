@@ -4,6 +4,7 @@ TMUX_VERSION := 2.9
 HUB_VERSION := 2.12.8
 FD_VERSION := 8.1.0
 DELTA_VERSION := 0.6.0
+RG_VERSION := 12.1.1
 
 PACKAGES := \
 	tmux \
@@ -28,6 +29,7 @@ HUB := $(HOME_BIN_DIR)/hub
 GH := /usr/bin/gh
 FD := /usr/bin/fd
 DELTA := /usr/bin/delta
+RG := /usr/bin/rg
 NAVI := $(HOME_BIN_DIR)/navi
 FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
@@ -44,6 +46,7 @@ install: \
 	gh \
 	fzf \
 	delta \
+	rg \
 	navi \
 	starship \
 	node \
@@ -93,6 +96,12 @@ $(DELTA):
 	$(CURL) -o /tmp/delta.deb https://github.com/dandavison/delta/releases/download/$(DELTA_VERSION)/git-delta_$(DELTA_VERSION)_amd64.deb
 	sudo dpkg -i /tmp/delta.deb
 
+.PHONY: rg
+rg: $(RG)
+$(RG):
+	$(CURL) -o /tmp/rg.deb https://github.com/BurntSushi/ripgrep/releases/download/$(RG_VERSION)/ripgrep_$(RG_VERSION)_amd64.deb
+	sudo dpkg -i /tmp/rg.deb
+
 .PHONY: navi
 navi: $(NAVI)
 $(NAVI):
@@ -125,6 +134,7 @@ $(YARN): $(NODE)
 clean:
 	sudo apt-get purge -y $(PACKAGES) gh
 	sudo dpkg -P delta
+	sudo dpkg -P rg
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -f $(HUB)
 	rm -rf $(FZF_DIR)

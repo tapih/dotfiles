@@ -558,7 +558,7 @@ if has('nvim')
     nnoremap <silent> to :<C-u>GFiles<CR>
     nnoremap <silent> tt :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
-    nnoremap <silent> tg :<C-u>GGrep<CR>
+    nnoremap <silent> tg :<C-u>Rg<CR>
     nnoremap <silent> tm :<C-u>Maps<CR>
 
     " easymotion
