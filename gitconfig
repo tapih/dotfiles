@@ -69,8 +69,18 @@
     theirs = checkout --theirs
 
 [core]
-    editor=nvim
+    editor = nvim
     autocrlf= false
+    pager = delta
+
+[delta]
+    plus-color = "#012800"
+    minus-color = "#340001"
+    syntax-theme = Monokai Extended
+    side-by-side = true
+
+[interactive]
+    diffFilter = delta --color-only
 
 [pull]
     rebase = true
@@ -84,11 +94,11 @@
 [diff]
     tool = vimdiff
 
-[merge]
-    ff = false
-
 [difftool]
     prompt = false
+
+[merge]
+    ff = false
 
 [ghq]
     root=~/.ghq

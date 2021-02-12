@@ -3,6 +3,7 @@ CURL := curl -sSfL
 TMUX_VERSION := 2.9
 HUB_VERSION := 2.12.8
 FD_VERSION := 8.1.0
+DELTA_VERSION := 0.6.0
 
 PACKAGES := \
 	tmux \
@@ -25,6 +26,7 @@ TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
 HUB := $(HOME_BIN_DIR)/hub
 GH := /usr/bin/gh
 FD := /usr/bin/fd
+DELTA := /usr/bin/delta
 FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
@@ -77,6 +79,12 @@ $(STARSHIP):
 	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
 	bash /tmp/starship_install.sh -y -b $(HOME_BIN_DIR)
 
+.PHONY: delta
+delta: $(DELTA)
+$(DELTA):
+	$(CURL) -o /tmp/delta.deb https://github.com/dandavison/delta/releases/download/$(DELTA_VERSION)/git-delta_$(DELTA_VERSION)_amd64.deb
+	sudo dpkg -i /tmp/delta.deb
+
 .PHONY: completion
 completion: $(BASH_COMPLETION_PATH)
 $(BASH_COMPLETION_PATH):
@@ -85,6 +93,7 @@ $(BASH_COMPLETION_PATH):
 .PHONY: clean
 clean:
 	sudo apt-get purge -y $(PACKAGES) gh
+	sudo dpkg -P delta
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -f $(HUB)
 	rm -rf $(FZF_DIR)
