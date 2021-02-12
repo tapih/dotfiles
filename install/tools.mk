@@ -8,6 +8,7 @@ DELTA_VERSION := 0.6.0
 PACKAGES := \
 	tmux \
 	fd-find \
+	bat \
 	jq \
 	tree \
 	htop \
