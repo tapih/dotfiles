@@ -57,18 +57,26 @@ exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists tmux && alias tmux="tmux -2"
 exists docker && alias d='docker'
-exists docker-compose && alias z='docker-compose'
+exists docker-compose && alias dc='docker-compose'
 # tcpdump -nn -p -i eth0 tcp dst port 80 -tttt -vvv
 # tcpdump -i eth0 '(tcp[tcpflags] & tcp-syn)' != 0 and '(tcp[tcpflags] & tcp-ack) ==0'
 # ss -ntulp --unix
 
 if exists kubectl ; then
     alias k='kubectl'
-    alias kx='kubectl exec -it'
-    alias ka='kubectl apply -f'
+    # Pod
+    alias kgp='kubectl get po'
+    alias kdp='kubectl describe po'
     alias kl='kubectl logs'
-    alias kg='kubectl get'
-    alias kd='kubectl describe'
+    alias kx='kubectl exec -it'
+    alias kxx='kubectl exec'
+    # Service
+    alias kgs='kubectl get svc'
+    alias kds='kubectl describe svc'
+    # Deployment
+    alias kgd='kubectl get deploy'
+    alias kdd='kubectl describe deployment'
+
     complete -F __start_kubectl k
     source <(kubectl completion bash)
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

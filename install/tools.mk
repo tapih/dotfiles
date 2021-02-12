@@ -28,6 +28,7 @@ HUB := $(HOME_BIN_DIR)/hub
 GH := /usr/bin/gh
 FD := /usr/bin/fd
 DELTA := /usr/bin/delta
+NAVI := $(HOME_BIN_DIR)/navi
 FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
@@ -40,6 +41,8 @@ install: \
 	hub \
 	gh \
 	fzf \
+	delta \
+	navi \
 	starship \
 	completion
 
@@ -85,6 +88,13 @@ delta: $(DELTA)
 $(DELTA):
 	$(CURL) -o /tmp/delta.deb https://github.com/dandavison/delta/releases/download/$(DELTA_VERSION)/git-delta_$(DELTA_VERSION)_amd64.deb
 	sudo dpkg -i /tmp/delta.deb
+
+.PHONY: navi
+navi: $(NAVI)
+$(NAVI):
+	$(CURL) https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install -o /tmp/navi.sh
+	chmod +x /tmp/navi.sh
+	BIN_DIR=$(HOME_BIN_DIR) bash /tmp/navi.sh
 
 .PHONY: completion
 completion: $(BASH_COMPLETION_PATH)
