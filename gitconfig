@@ -18,7 +18,7 @@
     e = !nvim ~/.gitconfig
     f = fetch
     fo = fetch origin
-    fd = !fd
+    fd = !fdfind
     g = !git grep
     go = !git grep "$@" -- "./*" ":!vendor/**"
     gp = grep

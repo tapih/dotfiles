@@ -52,6 +52,7 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
 exists batcat && alias bat='batcat'
+exists fdfind && alias fd='fdfind'
 exists nvim && alias v='nvim'
 exists nvim && alias agit='nvim +Agit'
 exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
@@ -123,7 +124,7 @@ __fzf_git_cd__() {
     fi
 
     # git fd is defined in .gitconfig
-    selected=$(git fd --type d | fzf -m --preview 'tree -C {} | head -200')
+    selected=$(git fd --type d | fzf -m --preview 'tree -C '${toplevel}'/{} | head -200')
     if [ ! -z "${selected}" ]; then
         history -s "cd ${toplevel}/${selected}"
         cd ${toplevel}/${selected}
@@ -141,8 +142,7 @@ __fzf_git_file__() {
         return 1
     fi
 
-    # git ls is defined in .gitconfig
-    selected=$(git ls| fzf -m --preview 'head -200 {}')
+    selected=$(git fd --type f | fzf -m --preview 'head -200 '${toplevel}'/{}')
     if [ ! -z "${selected}" ]; then
         history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
