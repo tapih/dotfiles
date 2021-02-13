@@ -18,6 +18,9 @@ exists dart && export PATH=$PATH:/usr/lib/dart/bin:${HOME}/.pub-cache/bin
 exists dart && export PATH=${PATH}:${HOME}/dart/flutter/bin
 # exists flutter && export ANDROID_HOME=~/Android/Sdk
 
+# rust
+[ -d $HOME/.cargo ] && export PATH=$PATH:$HOME/.cargo/bin
+
 # node
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

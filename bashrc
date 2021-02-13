@@ -46,3 +46,4 @@ fi
 [ -f ~/.bash_aliases ] && . ~/.bash_aliases
 [ -f ~/.bashrc.local ] && . ~/.bashrc.local
 
+source "$HOME/.cargo/env"
