@@ -15,6 +15,7 @@ export LC_CTYPE=en_US.UTF-8
 stty werase undef
 bind '"\C-w": unix-filename-rubout'
 
+set -o noclobber
 shopt -s histappend
 shopt -s cmdhist
 shopt -s globstar
