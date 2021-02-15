@@ -7,6 +7,7 @@ DELTA_VERSION := 0.6.0
 RG_VERSION := 12.1.1
 
 PACKAGES := \
+	unzip \
 	tmux \
 	fd-find \
 	bat \
