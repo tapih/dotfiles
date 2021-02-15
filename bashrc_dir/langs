@@ -20,6 +20,7 @@ exists dart && export PATH=${PATH}:${HOME}/dart/flutter/bin
 
 # rust
 [ -d $HOME/.cargo ] && export PATH=$PATH:$HOME/.cargo/bin
+[ -f ~/.cargo/env ] && . ~/.cargo/env
 
 # node
 export NVM_DIR="$HOME/.nvm"
