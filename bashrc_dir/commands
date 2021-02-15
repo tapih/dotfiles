@@ -143,7 +143,7 @@ __fzf_git_file__() {
         return 1
     fi
 
-    selected=$(git fd --type f | fzf -m --preview 'head -200 '${toplevel}'/{}')
+    selected=$(git fd --type f -H | grep -v "^\.git/"| fzf -m --preview 'head -200 '${toplevel}'/{}')
     if [ ! -z "${selected}" ]; then
         history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
