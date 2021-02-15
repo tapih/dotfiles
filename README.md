@@ -15,7 +15,7 @@ sudo visudo
 mkdir -m 700 ~/.ssh
 cd ~/.ssh
 ssh-keygen -t rsa -b 4096 -f github_rsa
-register the generated public key to GitHub
+# register the generated public key to GitHub
 
 cat << EOF > config
 Host github.com
