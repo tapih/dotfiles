@@ -14,6 +14,7 @@ install:
 		$(MAKE) -f go.mk && \
 		$(MAKE) -f dart.mk && \
 		$(MAKE) -f python.mk && \
+		$(MAKE) -f rust.mk && \
 		$(MAKE) -f cpp.mk && \
 		$(MAKE) -f nvim.mk && \
 		$(MAKE) -f docker.mk && \
@@ -45,6 +46,7 @@ clean:
 		$(MAKE) -f go.mk clean && \
 		$(MAKE) -f dart.mk clean && \
 		$(MAKE) -f python.mk clean && \
+		$(MAKE) -f rust.mk clean && \
 		$(MAKE) -f cpp.mk clean && \
 		$(MAKE) -f nvim.mk nvim-clean && \
 		$(MAKE) -f docker.mk clean && \
