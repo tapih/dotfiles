@@ -1,3 +1,5 @@
+#! /bin/bash
+
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     base_session='auto'
     # Create a new session if it doesn't exist

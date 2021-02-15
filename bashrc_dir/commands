@@ -1,3 +1,5 @@
+#! /bin/bash
+
 # cd+ls
 cd() {
   if ! builtin cd 2>/dev/null $@; then
