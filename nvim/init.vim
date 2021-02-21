@@ -116,6 +116,7 @@ if has('nvim')
     "-----------------------
     " コード入力補助
     "-----------------------
+    Plug 'morhetz/gruvbox'
     Plug 'tomtom/tcomment_vim' " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
     Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
@@ -129,7 +130,6 @@ if has('nvim')
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
-    Plug 'tomasr/molokai'
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
@@ -303,10 +303,11 @@ if has('nvim')
     " ウィジェット関連
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
+    Plug 'shinchu/lightline-gruvbox.vim'
     Plug 'ap/vim-buftabline' " バッファ表示(画面
 
     let g:lightline = {
-        \ 'colorscheme': 'molokai',
+        \ 'colorscheme': 'gruvbox',
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
@@ -475,7 +476,7 @@ if has('nvim')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-    colorscheme molokai
+    colorscheme gruvbox
     hi Visual term=reverse cterm=reverse guibg=Grey
 
     if filereadable(expand('~/.nvimrc.local'))
