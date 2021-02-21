@@ -91,6 +91,12 @@ function! AutoCloseBuf()
     endif
 endfunction
 
+" replace in all opened buffers http://vim.wikia.com/wiki/VimTip382
+function! Replace()
+    let s:word = input("Replace " . expand('<cword>') . " with:")
+    :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/gce'
+    :unlet! s:word
+endfunction
 
 
 "=========================================================================
@@ -130,7 +136,47 @@ if has('nvim')
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
     Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
-    Plug 'cocopon/vaffle.vim'
+    Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
+    Plug 'airblade/vim-rooter' " open nvim at the root of the project
+    Plug 'mhinz/vim-startify' " fancy start screen
+    Plug 'ruanyl/vim-gh-line', {'on': ['GH', 'GB', 'GHInteracitve', 'GBInteracitve']} " jump to the current line on GitHub
+
+    " far
+    Plug 'brooth/far.vim' " search and replace
+    let g:far#collapse_result=1
+    let g:far#preview_window_height=25
+    let g:far#mapping = {
+        \ "toggle_expand_all" : "zA",
+        \ "stoggle_expand_all" : "zS",
+        \ "expand_all" : "O",
+        \ "collapse_all" : "C",
+        \
+        \ "toggle_expand" : "za",
+        \ "stoggle_expand" : "zs",
+        \ "expand" : "o",
+        \ "collapse" : "c",
+        \
+        \ "exclude" : "x",
+        \ "include" : "i",
+        \ "toggle_exclude" : "d",
+        \ "stoggle_exclude" : "f",
+        \
+        \ "exclude_all" : "X",
+        \ "include_all" : "I",
+        \ "toggle_exclude_all" : "D",
+        \ "stoggle_exclude_all" : "F",
+        \
+        \ "jump_to_source" : "<cr>",
+        \ "open_preview" : "p",
+        \ "close_preview" : "P",
+        \ "preview_scroll_up" : "<c-k>",
+        \ "preview_scroll_down" : "<c-j>",
+        \
+        \ "replace_do" : 's',
+        \ "replace_undo" : 'u',
+        \ "replace_undo_all" : 'U',
+        \ "quit" : 'q',
+        \ }
 
     " ranger
     Plug 'francoiscabrol/ranger.vim'
@@ -201,7 +247,6 @@ if has('nvim')
     "-------------
     " その他言語別
     "-------------
-    " Plug 'sheerun/vim-polyglot'
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
@@ -407,7 +452,6 @@ if has('nvim')
     " lazy load
     " ---------
     "
-    " after first insert
     augroup load_us_insert
         autocmd!
         autocmd InsertEnter * call plug#load(
@@ -416,8 +460,6 @@ if has('nvim')
         \ 'lexima.vim',
         \ ) | autocmd! load_us_insert
     augroup END
-
-
 
     function! s:load_plug(timer)
         call plug#load(
@@ -537,6 +579,10 @@ nnoremap t[ :<C-u>noh<CR>
 if has('nvim')
     " vaffle
     nnoremap <silent> tj :<C-u>Vaffle<CR>
+
+    " gh line
+    let g:gh_line_map = 't/'
+    let g:gh_line_blame_map = 't?'
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
