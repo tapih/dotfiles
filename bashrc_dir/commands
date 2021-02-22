@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # cd+ls
-cd() {
+cdls() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
     return
@@ -54,6 +54,7 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
 alias t='mkdir -p ~/t && cd ~/t'
+alias cd='cdls'
 exists batcat && alias bat='batcat'
 exists fdfind && alias fd='fdfind'
 exists nvim && alias v='nvim'
@@ -115,7 +116,7 @@ __fzf_ghq__() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
         history -s "cd $name"
-        cd $name
+        \cd $name
     fi
 }
 
