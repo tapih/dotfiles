@@ -257,7 +257,9 @@ if has('nvim')
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
     Plug 'cespare/vim-toml', {'for': 'toml'}
+    Plug 'uarun/vim-protobuf' " protobuf
 
+    Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
