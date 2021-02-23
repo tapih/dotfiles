@@ -255,6 +255,7 @@ if has('nvim')
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
+    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
     Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'uarun/vim-protobuf' " protobuf
