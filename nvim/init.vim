@@ -252,14 +252,23 @@ if has('nvim')
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
+
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
-    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-    Plug 'iamcco/markdown-preview.nvim', {'for': 'markdown'}
     Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'uarun/vim-protobuf' " protobuf
+
+    Plug 'godlygeek/tabular', {'for': 'markdown'}
+    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+    let g:vim_markdown_folding_disabled = 1
+
+    function! OpenBrowser(url)
+        exe '!xdg-open ' . a:url
+    endfunction
+    let g:mkdp_browserfunc = 'OpenBrowser'
 
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}

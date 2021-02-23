@@ -1,7 +1,9 @@
 CURL := curl -sSfL
 
-GENIE := /usr/bin/genie
 GENIE_VERSION := 1.34
+
+GENIE := /usr/bin/genie
+WSL_OPEN := /usr/local/bin/xdg-open
 
 PACKAGES := \
 	apt-transport-https \
@@ -27,6 +29,12 @@ $(GENIE):
 	sudo dpkg -i /tmp/download.deb || true
 	sudo apt-get --fix-broken install
 	sudo dpkg -i /tmp/download.deb
+
+.PHONY: wsl-open
+wsl-open: $(WSL_OPEN)
+$(WSL_OPEN):
+	sudo npm -g i wsl-open
+	sudo ln -s $(wsl-open) $@
 
 .PHONY: clean
 clean:
