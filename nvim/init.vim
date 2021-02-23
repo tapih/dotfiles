@@ -44,6 +44,7 @@ set conceallevel=0 " 特殊文字を隠さない
 set autoindent " 自動インデント
 set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
+set updatetime=250 " for git-gutter
 " set clipboard=unnamedplus
 
 if has('nvim')
@@ -139,7 +140,7 @@ if has('nvim')
     Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
     Plug 'airblade/vim-rooter' " open nvim at the root of the project
     Plug 'mhinz/vim-startify' " fancy start screen
-    Plug 'ruanyl/vim-gh-line', {'on': ['GH', 'GB', 'GHInteracitve', 'GBInteracitve']} " jump to the current line on GitHub
+    Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
 
     " far
     Plug 'brooth/far.vim' " search and replace
@@ -273,7 +274,7 @@ if has('nvim')
     "=========================================================================
     " git
     "=========================================================================
-    Plug 'tpope/vim-fugitive', {'on': []}
+    Plug 'tpope/vim-fugitive'
     Plug 'airblade/vim-gitgutter' " 差分のある行にマークをつける
     Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
     Plug 'rhysd/committia.vim' " commitの画面をリッチに
@@ -578,13 +579,15 @@ vnoremap v <Plug>(expand_region_expand)
 "-----------------------
 nnoremap <silent> tp :<C-u>bprev<CR>
 nnoremap <silent> tn :<C-u>bnext<CR>
+nnoremap <silent> tz :<C-u>noh<CR>
 
-nnoremap t[ :<C-u>noh<CR>
-
-" for plugins
 if has('nvim')
     " vaffle
     nnoremap <silent> tj :<C-u>Vaffle<CR>
+
+    " easymotion
+    nmap tt <Plug>(easymotion-s)
+    nmap , <Plug>(easymotion-s)
 
     " gh line
     let g:gh_line_map = 't/'
@@ -592,35 +595,30 @@ if has('nvim')
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
-    nmap <silent> <C-g> <Plug>(coc-diagnostic-prev)
-    nmap <silent> <C-G> <Plug>(coc-diagnostic-next)
+    nmap <silent> th <Plug>(coc-diagnostic-prev)
+    nmap <silent> tl  <Plug>(coc-diagnostic-next)
     nmap <silent> t] <Plug>(coc-definition)
     nmap <silent> t} <Plug>(coc-type-definition)
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
     nmap <silent> tr <Plug>(coc-rename)
+    nmap <silent> tk <Plug>(coc-format-selected)
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
-    augroup SetGoFmtNMap
-        autocmd!
-        autocmd FileType tg nnoremap <silent> <C-j> :<C-u>GoFmt<CR>
-    augroup END
 
     " fzf
     nnoremap <silent> to :<C-u>GFiles<CR>
-    nnoremap <silent> tt :<C-u>Buffers<CR>
+    nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tg :<C-u>Rg<CR>
     nnoremap <silent> tm :<C-u>Maps<CR>
-
-    " easymotion
-    nmap , <Plug>(easymotion-s)
 endif
 
-" cheatseat
+" cheatsheet
 " C-o go back to the original line
 " daw delete outer
 " ds" delete surronding "
+" GoFmt GoTests
 
 "=========================================================================
 " finalize
