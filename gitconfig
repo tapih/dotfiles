@@ -42,17 +42,20 @@
     lt = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
     ls = !git ls-files
     m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    mp = !git pull orogin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    mo = !git pull orogin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
     merge = merge --no-ff
     fmerge = merge --ff
     po = push
     pi = pull --rebase
     pm = pull --merge
     pop = stash pop
+    o = open
     r = remote
     rs = remote show
     s = status -s
     st = status
+    ss = !fdfind --type f | xargs misspell -locale US -error
+    spell = !fdfind --type f | xargs misspell -locale US -error
     sw = switch -
     t = tag
 

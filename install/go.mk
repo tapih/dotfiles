@@ -9,9 +9,11 @@ GO := $(GOROOT)/bin/go
 GOIMPORTS := $(GOPATH)/bin/goimports
 GOPLS := $(GOPATH)/bin/gopls
 GOTESTS := $(GOPATH)/bin/gotests
+GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
 COBRA := $(GOPATH)/bin/cobra
 STATICCHECK := $(GOPATH)/bin/staticcheck
+MISSPELL := $(GOPATH)/bin/misspell
 DLV := $(GOPATH)/bin/dlv
 
 .PHONY: install
@@ -51,22 +53,32 @@ $(STATICCHECK):
 .PHONY: gotest
 gotests: $(GOTESTS)
 $(GOTESTS):
-	GO111MODULE=off $(GO) get -u github.com/cweill/gotests/...
+	GO111MODULE=off $(GO) get github.com/cweill/gotests/...
 
 .PHONY: cobra
 cobra: $(COBRA)
 $(COBRA):
-	GO111MODULE=off $(GO) get -u github.com/spf13/cobra/cobra
+	GO111MODULE=off $(GO) get github.com/spf13/cobra/cobra
+
+.PHONY: gomodifytags
+gomodifytags: $(GOMODIFYTAGS)
+$(GOMODIFYTAGS):
+	GO111MODULE=off $(GO) get github.com/fatih/gomodifytags
 
 .PHONY: dlv
 dlv: $(DLV)
 $(DLV):
-	GO111MODULE=off $(GO) get -u github.com/go-delve/delve/cmd/dlv
+	GO111MODULE=off $(GO) get github.com/go-delve/delve/cmd/dlv
+
+.PHONY: misspell
+misspell: $(MISSPELL)
+$(MISSPELL):
+	GO111MODULE=off $(GO) get github.com/client9/misspell/cmd/misspell
 
 .PHONY: ghq
 ghq: $(GHQ)
 $(GHQ):
-	GO111MODULE=off $(GO) get -u github.com/x-motemen/ghq
+	GO111MODULE=off $(GO) get github.com/x-motemen/ghq
 
 .PHONY: clean
 clean:
