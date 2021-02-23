@@ -2,12 +2,12 @@
 all: setup purge install
 
 .PHONY: setup
-setup:
+setup: ## setup
 	sudo apt-get update
 	sudo apt-get -y --no-install-recommends install curl
 
 .PHONY: install
-install:
+install: ## install
 	cd install && \
 		$(MAKE) -f links.mk && \
 		$(MAKE) -f tools.mk && \
@@ -25,7 +25,7 @@ install:
 	fi
 
 .PHONY: purge
-purge:
+purge: ## purge
 	sudo apt-get -y purge \
 		nano \
 		ghostscript \
@@ -39,7 +39,7 @@ purge:
 		update-manager-core
 
 .PHONY: clean
-clean:
+clean: ## clean
 	cd install && \
 		$(MAKE) -f links.mk clean && \
 		$(MAKE) -f tools.mk clean && \
@@ -56,3 +56,7 @@ clean:
 		cd install && $(MAKE) -f wsl.mk clean; \
 	fi
 
+help: ## Self-documented Makefile
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
+		| sort \
+		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
