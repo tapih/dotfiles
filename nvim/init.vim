@@ -305,6 +305,7 @@ if has('nvim')
     " ウィジェット関連
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
+    Plug 'itchyny/vim-gitbranch'
     Plug 'shinchu/lightline-gruvbox.vim'
     Plug 'ap/vim-buftabline' " バッファ表示(画面
 
@@ -313,7 +314,7 @@ if has('nvim')
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
-        \     ['filename'], ['fugitive', 'gitgutter', 'cocstatus', 'currentfunction'],
+        \     ['filename'], ['gitbranch', 'fugitive', 'gitgutter', 'cocstatus', 'currentfunction'],
         \   ],
         \   'right': [
         \     ['lineinfo'], ['percent'],
@@ -330,6 +331,7 @@ if has('nvim')
         \   'fileencoding': 'MyFileEncoding',
         \   'filetype': 'MyFileType',
         \   'charcode': 'MyCharCode',
+        \   'gitbranch': 'gitbranch#name',
         \ },
         \ 'separator': {'left': '>>', 'right': '|'},
         \ 'subseparator': {'left': '|', 'right': '|'}
