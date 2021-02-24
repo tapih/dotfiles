@@ -33,6 +33,7 @@ $(GENIE):
 .PHONY: wsl-open
 wsl-open: $(WSL_OPEN)
 $(WSL_OPEN):
+	sudo rm -f /usr/bin/xdg-open
 	sudo npm -g i wsl-open
 	sudo ln -s $(wsl-open) $@
 
