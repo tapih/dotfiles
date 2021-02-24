@@ -240,7 +240,6 @@ if has('nvim')
 
 
 
-
     "-------------
     " その他言語別
     "-------------
@@ -486,7 +485,8 @@ if has('nvim')
         \ 'vim-surround',
         \ 'vim-fugitive',
         \ 'vim-gitgutter',
-        \ 'vim-easymotion')
+        \ 'vim-easymotion',
+        \ )
     endfunction
 
     call timer_start(100, function("s:load_plug"))
