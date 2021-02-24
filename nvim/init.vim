@@ -283,6 +283,8 @@ if has('nvim')
     Plug 'mattn/emmet-vim', {'for': 'html'}
     let g:user_emmet_leader_key='<C-q>'
 
+    Plug 'tpope/vim-dadbod', { 'on': 'DB' }
+    Plug 'kristijanhusak/vim-dadbod-ui', { 'on': 'DBUIAddConnection' }
 
 
     "=========================================================================
