@@ -177,5 +177,3 @@ bind -x '"\C-g": __fzf_ghq__'
 bind -x '"\C-o": __fzf_git_file__'
 bind -x '"\C-j": __fzf_git_branch__'
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
