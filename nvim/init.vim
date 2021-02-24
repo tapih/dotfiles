@@ -208,6 +208,11 @@ if has('nvim')
         \ call fzf#vim#grep(
         \   'git grep --line-number '.shellescape(<q-args>), 0,
         \   { 'dir': systemlist('git rev-parse --show-toplevel')[0]  }, <bang>0)
+    command! -bang -nargs=* Rg
+                \ call fzf#vim#grep(
+      \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
+      \   fzf#vim#with_preview('down', 'ctrl-/'), <bang>0)
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.95 } }
 
 
 
