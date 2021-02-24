@@ -144,7 +144,7 @@ if has('nvim')
     " ultisnips
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpForwardTrigger="<tab>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
     " far
