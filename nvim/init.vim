@@ -118,7 +118,7 @@ if has('nvim')
     " コード入力補助
     "-----------------------
     Plug 'morhetz/gruvbox'
-    Plug 'tomtom/tcomment_vim' " 一括コメントアウト追加/削除
+    Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
     Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
     Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
@@ -127,7 +127,7 @@ if has('nvim')
     Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
     Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
-    Plug 'terryma/vim-expand-region' " 範囲選択をショートカットで
+    Plug 'terryma/vim-expand-region', {'on': []} " 範囲選択をショートカットで
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
@@ -143,7 +143,7 @@ if has('nvim')
     Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
 
     " far
-    Plug 'brooth/far.vim' " search and replace
+    Plug 'brooth/far.vim', {'on': ['Far', 'Farr']}  " search and replace
     let g:far#collapse_result=1
     let g:far#preview_window_height=25
     let g:far#mapping = {
@@ -178,10 +178,6 @@ if has('nvim')
         \ "replace_undo_all" : 'U',
         \ "quit" : 'q',
         \ }
-
-    " ranger
-    Plug 'francoiscabrol/ranger.vim'
-    Plug 'rbgrouleff/bclose.vim'
 
     " インデントを見やすく
     Plug 'nathanaelkane/vim-indent-guides'
@@ -258,7 +254,7 @@ if has('nvim')
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
     Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'uarun/vim-protobuf' " protobuf
+    Plug 'uarun/vim-protobuf', {'for': 'proto'} " protobuf
 
     Plug 'godlygeek/tabular', {'for': 'markdown'}
     Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
@@ -287,6 +283,7 @@ if has('nvim')
     Plug 'airblade/vim-gitgutter' " 差分のある行にマークをつける
     Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
     Plug 'rhysd/committia.vim' " commitの画面をリッチに
+    Plug 'itchyny/vim-gitbranch'
     let g:gitgutter_sign_added = '✚'
     let g:gitgutter_sign_modified = '✹'
     let g:gitgutter_sign_removed = '✖'
@@ -316,7 +313,6 @@ if has('nvim')
     " ウィジェット関連
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
-    Plug 'itchyny/vim-gitbranch'
     Plug 'shinchu/lightline-gruvbox.vim'
     Plug 'ap/vim-buftabline' " バッファ表示(画面
 
@@ -479,6 +475,9 @@ if has('nvim')
 
     function! s:load_plug(timer)
         call plug#load(
+        \ 'tcomment_vim',
+        \ 'vim-expand-region',
+        \ 'vim-move',
         \ 'textobj-word-column.vim',
         \ 'vim-trailing-whitespace',
         \ 'vim-bracketed-paste',
