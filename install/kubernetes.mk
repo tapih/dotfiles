@@ -64,7 +64,8 @@ $(KREW):
 .PHONY: stern
 stern: $(STERN)
 $(STERN):
-	$(CURL) https://github.com/wercker/stern/releases/download/1.11.0/stern_linux_amd64 -o $@
+	$(CURL) https://github.com/wercker/stern/releases/download/$(STERN_VERSION)/stern_linux_amd64 -o $@
+	chmod +x $@
 
 .PHONY: clean
 clean:

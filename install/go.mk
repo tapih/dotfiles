@@ -1,6 +1,7 @@
 CURL := curl -sSfL
 
 GO_VERSION := 1.15.7
+HUGO_VERSION := 0.81.0
 
 GOROOT := /usr/local/go
 GOPATH := $(HOME)/go
@@ -11,6 +12,7 @@ GOPLS := $(GOPATH)/bin/gopls
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
+HUGO := $(GOPATH)/bin/hugo
 COBRA := $(GOPATH)/bin/cobra
 STATICCHECK := $(GOPATH)/bin/staticcheck
 MISSPELL := $(GOPATH)/bin/misspell
@@ -21,9 +23,13 @@ install: \
 	go \
 	goimports \
 	gopls \
+	gotests \
+	gomodifytags \
 	staticcheck \
 	cobra \
 	dlv \
+	hugo \
+	misspell \
 	ghq
 
 .PHONY: go
@@ -45,25 +51,25 @@ gopls: $(GOPLS)
 $(GOPLS):
 	cd /tmp && GO111MODULE=on $(GO) get golang.org/x/tools/gopls@latest
 
+.PHONY: gotests
+gotests: $(GOTESTS)
+$(GOTESTS):
+	GO111MODULE=off $(GO) get github.com/cweill/gotests/...
+
 .PHONY: staticcheck
 staticcheck: $(STATICCHECK)
 $(STATICCHECK):
 	cd /tmp; env GO111MODULE=on $(GO) get honnef.co/go/tools/cmd/staticcheck
 
-.PHONY: gotest
-gotests: $(GOTESTS)
-$(GOTESTS):
-	GO111MODULE=off $(GO) get github.com/cweill/gotests/...
+.PHONY: gomodifytags
+gomodifytags: $(GOMODIFYTAGS)
+$(GOMODIFYTAGS):
+	GO111MODULE=off $(GO) get github.com/fatih/gomodifytags
 
 .PHONY: cobra
 cobra: $(COBRA)
 $(COBRA):
 	GO111MODULE=off $(GO) get github.com/spf13/cobra/cobra
-
-.PHONY: gomodifytags
-gomodifytags: $(GOMODIFYTAGS)
-$(GOMODIFYTAGS):
-	GO111MODULE=off $(GO) get github.com/fatih/gomodifytags
 
 .PHONY: dlv
 dlv: $(DLV)
@@ -75,6 +81,11 @@ misspell: $(MISSPELL)
 $(MISSPELL):
 	GO111MODULE=off $(GO) get github.com/client9/misspell/cmd/misspell
 
+.PHONY: hugo
+hugo: $(HUGO)
+$(HUGO):
+	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xvzf - -C ~/bin/ --strip-components=1
+
 .PHONY: ghq
 ghq: $(GHQ)
 $(GHQ):
@@ -84,9 +95,13 @@ $(GHQ):
 clean:
 	sudo rm -rf $(GOROOT)
 	rm -f $(GOIMPORTS)
-	rm -f $(GOPLSS)
-	rm -f $(GHQ)
-	rm -f $(COBRA)
+	rm -f $(GOPLS)
+	rm -f $(GOTESTS)
+	rm -f $(GOMODIFYTAGS)
 	rm -f $(STATICCHECK)
+	rm -f $(COBRA)
 	rm -f $(DLV)
+	rm -f $(HUGO)
+	rm -f $(MISSPELL)
+	rm -f $(GHQ)
 
