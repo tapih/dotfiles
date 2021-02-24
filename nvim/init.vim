@@ -129,7 +129,6 @@ if has('nvim')
     Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
     Plug 'terryma/vim-expand-region', {'on': []} " 範囲選択をショートカットで
     Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
-    Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     Plug 'honza/vim-snippets', {'on': []} " snippets
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
@@ -141,6 +140,12 @@ if has('nvim')
     Plug 'airblade/vim-rooter' " open nvim at the root of the project
     Plug 'mhinz/vim-startify' " fancy start screen
     Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
+
+    " ultisnips
+    Plug 'SirVer/ultisnips', {'on': []} " snippet engine
+    let g:UltiSnipsExpandTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-b>"
+    let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
     " far
     Plug 'brooth/far.vim', {'on': ['Far', 'Farr']}  " search and replace
