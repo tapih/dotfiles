@@ -142,6 +142,7 @@ if has('nvim')
     Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
     Plug 'kana/vim-operator-replace' " replace current word with yanked text
     Plug 'kana/vim-operator-user' " dependency for operator-replace
+    Plug 'tyru/open-browser.vim'
 
     " ultisnips
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
@@ -608,6 +609,9 @@ nnoremap <silent> tz :<C-u>noh<CR>
 nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>']'
 
 if has('nvim')
+    " open browser
+    nmap <silent> ts <Plug>(openbrowser-smart-search)
+
     " replace
     map <silent> tr <Plug>(operator-replace)
 
