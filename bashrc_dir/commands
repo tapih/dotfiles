@@ -164,7 +164,7 @@ __fzf_git_grep__() {
 
     grep_cmd="git g -g '!.git/**' --hidden --no-ignore --line-number --no-heading --invert-match '^\s*$' 2>/dev/null"
     preview_cmd="echo {} | eval \$(awk -F: '{print \"batcat --style=numbers --color=always -H=\" (\$2) \" --line-range=\" (\$2-15>0?\$2-15:0) \":\" (\$2+50) \" ${toplevel}/\" \$1}')"
-    selected=$(eval $grep_cmd | fzf -m -d ':' --nth '3..' --preview-window 'down:80%:wrap' --preview "$preview_cmd")
+    selected=$(eval $grep_cmd | fzf -m -d ':' --nth '3..' --preview-window 'down:80%:wrap' --preview "$preview_cmd" | awk -F: '{print $1}')
     if [ ! -z "${selected}" ]; then
         history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
@@ -180,7 +180,7 @@ __fzf_git_branch__() {
     fi
 
     branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
-    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | batcat --color=always --line-range :200'")
+    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | awk '{print $2}') | batcat --color=always --line-range :200'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
         history -s "git checkout ${branch}"
