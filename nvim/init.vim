@@ -117,7 +117,7 @@ if has('nvim')
     "-----------------------
     " コード入力補助
     "-----------------------
-    Plug 'morhetz/gruvbox'
+    Plug 'sickill/vim-monokai'
     Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
     Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
@@ -332,11 +332,10 @@ if has('nvim')
     " ウィジェット関連
     "=========================================================================
     Plug 'itchyny/lightline.vim' " ステータスライン(画面下
-    Plug 'shinchu/lightline-gruvbox.vim'
     Plug 'ap/vim-buftabline' " バッファ表示(画面
 
     let g:lightline = {
-        \ 'colorscheme': 'gruvbox',
+        \ 'colorscheme': 'molokai',
         \ 'active': {
         \   'left': [
         \     ['mode', 'paste'],
@@ -510,7 +509,7 @@ if has('nvim')
     endfunction
 
     call timer_start(100, function("s:load_plug"))
-    colorscheme gruvbox
+    colorscheme monokai
     hi Visual term=reverse cterm=reverse guibg=Grey
 
     if filereadable(expand('~/.nvimrc.local'))
