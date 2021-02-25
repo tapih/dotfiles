@@ -1,11 +1,12 @@
 CURL := curl -sSfL
 
-KUBERNETES_VERSION := 1.17.15
+KUBERNETES_VERSION := 1.19.7
 KIND_VERSION := 0.10.0
 HELM_VERSION := 3.5.1
 KUSTOMIZE_VERSION := 3.9.4
 KREW_VERSION := 0.4.1
 STERN_VERSION := 1.11.0
+SKAFFOLD_VERSION := 1.19.0
 
 HOME_BIN_DIR := $(HOME)/bin
 KUBECTL := $(HOME_BIN_DIR)/kubectl
@@ -14,6 +15,7 @@ KUSTOMIZE := $(HOME_BIN_DIR)/kustomize
 HELM := $(HOME_BIN_DIR)/helm
 KREW := $(HOME_BIN_DIR)/krew
 STERN := $(HOME_BIN_DIR)/stern
+SKAFFOLD := $(HOME_BIN_DIR)/skaffold
 
 .PHONY: install
 install: \
@@ -61,6 +63,12 @@ $(KREW):
 		$(KERW) install krew && \
 		kubectl krew update
 
+.PHONY: skaffold
+skaffold: $(SKAFFOLD)
+$(SKAFFOLD):
+	$(CURL) -o $@ https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+	chmod +x $@
+
 .PHONY: stern
 stern: $(STERN)
 $(STERN):
@@ -69,4 +77,4 @@ $(STERN):
 
 .PHONY: clean
 clean:
-	rm -f $(KUBECTL) $(KIND) $(KUSTOMIZE) $(HELM)
+	rm -f $(KUBECTL) $(KIND) $(KUSTOMIZE) $(HELM) $(KREW) $(STERN) $(SKAFFOLD)
