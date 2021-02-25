@@ -1,6 +1,6 @@
 # dotfiles
 
-⚡
+⚡⚡⚡
 
 ## OS
 
