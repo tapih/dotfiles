@@ -140,11 +140,13 @@ if has('nvim')
     Plug 'airblade/vim-rooter' " open nvim at the root of the project
     Plug 'mhinz/vim-startify' " fancy start screen
     Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
+    Plug 'kana/vim-operator-replace' " replace current word with yanked text
+    Plug 'kana/vim-operator-user' " dependency for operator-replace
 
     " ultisnips
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
     let g:UltiSnipsExpandTrigger="<tab>"
-    let g:UltiSnipsJumpForwardTrigger="<tab>"
+    let g:UltiSnipsJumpForwardTrigger="<c-g>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
     " far
@@ -602,7 +604,13 @@ nnoremap <silent> tp :<C-u>bprev<CR>
 nnoremap <silent> tn :<C-u>bnext<CR>
 nnoremap <silent> tz :<C-u>noh<CR>
 
+" add newline at ,
+nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>']'
+
 if has('nvim')
+    " replace
+    map <silent> tr <Plug>(operator-replace)
+
     " vaffle
     nnoremap <silent> tj :<C-u>Vaffle<CR>
 
@@ -617,12 +625,12 @@ if has('nvim')
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
     nmap <silent> th <Plug>(coc-diagnostic-prev)
-    nmap <silent> tl  <Plug>(coc-diagnostic-next)
+    nmap <silent> tl <Plug>(coc-diagnostic-next)
     nmap <silent> t] <Plug>(coc-definition)
     nmap <silent> t} <Plug>(coc-type-definition)
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
-    nmap <silent> tr <Plug>(coc-rename)
+    nmap <silent> tm <Plug>(coc-rename)
     nmap <silent> tk <Plug>(coc-format-selected)
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
@@ -632,7 +640,6 @@ if has('nvim')
     nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tg :<C-u>Rg<CR>
-    nnoremap <silent> tm :<C-u>Maps<CR>
 endif
 
 " cheatsheet
@@ -640,6 +647,7 @@ endif
 " daw delete outer
 " ds" delete surronding "
 " GoFmt GoTests
+" _
 
 "=========================================================================
 " finalize
