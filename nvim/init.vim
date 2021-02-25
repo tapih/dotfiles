@@ -291,8 +291,10 @@ if has('nvim')
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
     let g:go_highlight_structs = 1
-    autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-    autocmd FileType go :match goErr /\<err\>/
+    augroup GoHighlight
+        autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+        autocmd FileType go :match goErr /\<err\>/
+    augroup END
 
     Plug 'mattn/emmet-vim', {'for': 'html'}
     let g:user_emmet_leader_key='<C-q>'
@@ -653,6 +655,9 @@ if has('nvim')
     nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tj :<C-u>Rg<CR>
+
+    " go jump to symbol
+    nnoremap <silent> tg /^func<CR>
 endif
 
 " cheatsheet
