@@ -8,6 +8,7 @@ RG_VERSION := 12.1.1
 
 PACKAGES := \
 	unzip \
+	tig \
 	tmux \
 	fd-find \
 	bat \

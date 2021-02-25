@@ -19,8 +19,8 @@
     f = fetch
     fo = fetch origin
     fd = !fdfind
-    g = !git grep
-    go = !git grep "$@" -- "./*" ":!vendor/**"
+    g = !rg
+    go = !rg -g '!vendor/**'
     gp = grep
     h = show
     hn = show --name-only
@@ -55,7 +55,6 @@
     s = status -s
     st = status
     ss = !fdfind --type f | xargs misspell -locale US -error
-    spell = !fdfind --type f | xargs misspell -locale US -error
     sw = switch -
     t = tag
 
