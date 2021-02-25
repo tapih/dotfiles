@@ -26,7 +26,7 @@ EOF
 
 mkdir ~/src
 cd ~/src
-git clone ssh://github.com/tapih/dotfiles
+git clone git@github.com:tapih/dotfiles
 cd dotfiles
 
 sudo apt-get install make
