@@ -220,6 +220,7 @@ if has('nvim')
     " lsp 関連
     " --------
     Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+    Plug 'antoinemadec/coc-fzf'
     inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
     function! s:show_documentation()

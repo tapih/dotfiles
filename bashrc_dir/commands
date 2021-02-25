@@ -128,7 +128,7 @@ __fzf_git_cd__() {
     fi
 
     # git fd is defined in .gitconfig
-    selected=$(git fd --type d | fzf -m --preview 'tree -C '${toplevel}'/{} | head -200')
+    selected=$(git fd --type d | fzf -m --preview 'tree -C '${toplevel}'/{} | head -400')
     if [ ! -z "${selected}" ]; then
         history -s "cd ${toplevel}/${selected}"
         cd ${toplevel}/${selected}
@@ -146,7 +146,7 @@ __fzf_git_file__() {
         return 1
     fi
 
-    selected=$(git fd --type f -H | grep -v "^\.git/"| fzf -m --preview 'head -200 '${toplevel}'/{}')
+    selected=$(git fd --type f -H | grep -v "^\.git/"| fzf -m --preview 'batcat --style=numbers --color=always --line-range :400 '${toplevel}'/{}')
     if [ ! -z "${selected}" ]; then
         history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
@@ -162,7 +162,7 @@ __fzf_git_branch__() {
 
     branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
     # git l is defined in .gitconfig
-    selected=$(echo "$branches" | fzf -m --preview "eval 'git l \$(echo '{}' | cut -d\" \" -f2) | head -200'")
+    selected=$(echo "$branches" | fzf -m --preview "eval 'git l \$(echo '{}' | cut -d\" \" -f2) | git show | batcat --color=always --line-range :400'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
         history -s "git checkout ${branch}"
