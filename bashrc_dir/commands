@@ -128,7 +128,7 @@ __fzf_git_cd__() {
     fi
 
     # git fd is defined in .gitconfig
-    selected=$(git fd --type d | fzf -m --preview 'tree -C '${toplevel}'/{} | head -400')
+    selected=$(git fd --type d | fzf -m --preview 'tree -C '${toplevel}'/{} | head -200')
     if [ ! -z "${selected}" ]; then
         history -s "cd ${toplevel}/${selected}"
         cd ${toplevel}/${selected}
@@ -146,12 +146,31 @@ __fzf_git_file__() {
         return 1
     fi
 
-    selected=$(git fd --type f -H | grep -v "^\.git/"| fzf -m --preview 'batcat --style=numbers --color=always --line-range :400 '${toplevel}'/{}')
+    grep_cmd="git fd --type f -H --exclude '.git' --exclude 'vendor'"
+    preview_cmd="batcat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
+    selected=$(eval $grep_cmd | fzf -m --preview "$preview_cmd")
     if [ ! -z "${selected}" ]; then
         history -s "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
     fi
 }
+
+__fzf_git_grep__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    grep_cmd="git g -g '!.git/**' --hidden --no-ignore --line-number --no-heading --invert-match '^\s*$' 2>/dev/null"
+    preview_cmd="echo {} | eval \$(awk -F: '{print \"batcat --style=numbers --color=always -H=\" (\$2) \" --line-range=\" (\$2-15>0?\$2-15:0) \":\" (\$2+50) \" ${toplevel}/\" \$1}')"
+    selected=$(eval $grep_cmd | fzf -m -d ':' --nth '3..' --preview-window 'down:80%:wrap' --preview "$preview_cmd")
+    if [ ! -z "${selected}" ]; then
+        history -s "${EDITOR} ${toplevel}/${selected}"
+        ${EDITOR} ${toplevel}/${selected}
+    fi
+}
+
 
 __fzf_git_branch__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -161,7 +180,7 @@ __fzf_git_branch__() {
     fi
 
     branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
-    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | batcat --color=always --line-range :400'")
+    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | batcat --color=always --line-range :200'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
         history -s "git checkout ${branch}"
@@ -174,8 +193,8 @@ _fzf_comprun() {
     shift
 
     case "$command" in
-        cd)           fzf "$@" --preview 'tree -C {} | head -400' ;;
-        less)         fzf "$@" --preview 'batcat --style=numbers --color=always --line-range :400 {}' ;;
+        cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+        less)         fzf "$@" --preview 'batcat --style=numbers --color=always --line-range :200 {}' ;;
         ssh)          fzf "$@" --preview 'dig {}' ;;
         *)            fzf "$@" ;;
     esac
@@ -186,5 +205,5 @@ bind -r "\C-j"
 bind -r "\C-o"
 bind -x '"\C-g": __fzf_ghq__'
 bind -x '"\C-o": __fzf_git_file__'
-bind -x '"\C-j": __fzf_git_branch__'
+bind -x '"\C-j": __fzf_git_grep__'
 

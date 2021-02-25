@@ -215,7 +215,7 @@ if has('nvim')
     command! -bang -nargs=* Rg
                 \ call fzf#vim#grep(
       \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview('down', 'ctrl-/'), <bang>0)
+      \   fzf#vim#with_preview('down:70%:wrap', 'ctrl-/'), <bang>0)
     let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.95 } }
 
 
