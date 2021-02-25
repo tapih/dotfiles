@@ -215,8 +215,8 @@ if has('nvim')
     command! -bang -nargs=* Rg
                 \ call fzf#vim#grep(
       \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview('down:70%:wrap', 'ctrl-/'), <bang>0)
-    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.95 } }
+      \   fzf#vim#with_preview('down:80%:wrap', 'ctrl-/'), <bang>0)
+    let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
 
 
 
@@ -620,7 +620,7 @@ if has('nvim')
     map <silent> tr <Plug>(operator-replace)
 
     " vaffle
-    nnoremap <silent> tj :<C-u>Vaffle<CR>
+    nnoremap <silent> tb :<C-u>Vaffle<CR>
 
     " easymotion
     nmap tt <Plug>(easymotion-s)
@@ -647,7 +647,7 @@ if has('nvim')
     nnoremap <silent> to :<C-u>GFiles<CR>
     nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
-    nnoremap <silent> tg :<C-u>Rg<CR>
+    nnoremap <silent> tj :<C-u>Rg<CR>
 endif
 
 " cheatsheet
