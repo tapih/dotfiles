@@ -161,13 +161,24 @@ __fzf_git_branch__() {
     fi
 
     branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
-    # git l is defined in .gitconfig
     selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | batcat --color=always --line-range :400'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
         history -s "git checkout ${branch}"
         git checkout ${branch}
     fi
+}
+
+_fzf_comprun() {
+    local command=$1
+    shift
+
+    case "$command" in
+        cd)           fzf "$@" --preview 'tree -C {} | head -400' ;;
+        less)         fzf "$@" --preview 'batcat --style=numbers --color=always --line-range :400 {}' ;;
+        ssh)          fzf "$@" --preview 'dig {}' ;;
+        *)            fzf "$@" ;;
+    esac
 }
 
 bind -r "\C-g"
