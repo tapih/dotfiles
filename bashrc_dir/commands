@@ -184,6 +184,8 @@ __fzf_git_branch__() {
     fi
 }
 
+alias b='__fzf_git_branch__'
+
 _fzf_comprun() {
     local command=$1
     shift
