@@ -263,6 +263,7 @@ if has('nvim')
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
 
     Plug 'chr4/nginx.vim'
+    Plug 'tmux-plugins/vim-tmux'
 
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
