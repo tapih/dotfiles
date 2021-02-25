@@ -89,7 +89,7 @@ fi
 
 # fzf
 [ -f ~/.fzf.bash ] && . ~/.fzf.bash
-export FZF_DEFAULT_OPTS='--height 80% --reverse --border'
+export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
 
 _fzf_compgen_path() {
