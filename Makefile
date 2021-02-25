@@ -18,7 +18,7 @@ install: ## install
 		$(MAKE) -f cpp.mk && \
 		$(MAKE) -f nvim.mk && \
 		$(MAKE) -f docker.mk && \
-		$(MAKE) -f cloud.mk
+		$(MAKE) -f cloud.mk && \
 		$(MAKE) -f kubernetes.mk
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk; \
@@ -50,7 +50,7 @@ clean: ## clean
 		$(MAKE) -f cpp.mk clean && \
 		$(MAKE) -f nvim.mk nvim-clean && \
 		$(MAKE) -f docker.mk clean && \
-		$(MAKE) -f cloud.mk clean
+		$(MAKE) -f cloud.mk clean && \
 		$(MAKE) -f kubernetes.mk clean
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk clean; \
