@@ -162,7 +162,7 @@ __fzf_git_branch__() {
 
     branches=$(env IFS='\n' git branch -a --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
     # git l is defined in .gitconfig
-    selected=$(echo "$branches" | fzf -m --preview "eval 'git l \$(echo '{}' | cut -d\" \" -f2) | git show | batcat --color=always --line-range :400'")
+    selected=$(echo "$branches" | fzf -m --preview "eval 'git show \$(echo '{}' | cut -d\" \" -f2) | batcat --color=always --line-range :400'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
         history -s "git checkout ${branch}"

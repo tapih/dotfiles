@@ -31,7 +31,7 @@
     isw = diff --staged --word-diff
     isn = diff --staged --name-only
     hasdiff=diff --exit-code
-    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %s %C(yellow)%d%an%C(reset)'
+    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(yellow)%h%C(reset) %s %C(red)%d%an%C(reset)'
     lo = log
     ln = log --name-only
     lp = log -p
