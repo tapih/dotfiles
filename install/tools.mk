@@ -83,7 +83,7 @@ $(GH):
 fzf: $(FZF_DIR)
 $(FZF_DIR):
 	git clone https://github.com/junegunn/fzf.git $(FZF_DIR) && \
-		$(FZF_DIR)/install --no-key-bindings --no-completion --no-update-rc
+		$(FZF_DIR)/install --no-update-rc --completion --key-bindings
 
 .PHONY: starship
 starship: $(STARSHIP)
