@@ -262,6 +262,8 @@ if has('nvim')
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
 
+    Plug 'chr4/nginx.vim'
+
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
