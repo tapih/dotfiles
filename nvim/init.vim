@@ -118,6 +118,7 @@ if has('nvim')
     " コード入力補助
     "-----------------------
     Plug 'sickill/vim-monokai'
+    Plug 'sheerun/vim-polyglot'
     Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
     Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
@@ -287,6 +288,11 @@ if has('nvim')
     Plug 'fatih/vim-go', {'for': 'go'}
     let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+    autocmd FileType go :match goErr /\<err\>/
 
     Plug 'mattn/emmet-vim', {'for': 'html'}
     let g:user_emmet_leader_key='<C-q>'
