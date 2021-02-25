@@ -71,6 +71,14 @@ $(HUB):
 	sudo sh -c "$(CURL) https://github.com/github/hub/releases/download/v$(HUB_VERSION)/hub-linux-amd64-$(HUB_VERSION).tgz | \
 		tar xz -C $(HOME_BIN_DIR) --strip-component=2"
 
+.PHONY: git
+git:
+	if [ $$(git --version | cut -d' ' -f3 | awk -F. '{printf "%2d%02d%02d", $$1,$$2,$$3}') -lt 22800 ]; then \
+		sudo add-apt-repository -y ppa:git-core/ppa; \
+		sudo apt-get update; \
+		sudo apt-get install -y --no-install-recommends git; \
+	fi
+
 .PHONY: gh
 gh: $(GH)
 $(GH):

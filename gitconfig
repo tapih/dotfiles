@@ -72,6 +72,9 @@
     ours = checkout --ours
     theirs = checkout --theirs
 
+[init]
+    defaultBranch = main
+
 [core]
     editor = nvim
     autocrlf= false
