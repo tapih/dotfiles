@@ -6,13 +6,14 @@ HUGO_VERSION := 0.81.0
 GOROOT := /usr/local/go
 GOPATH := $(HOME)/go
 
+HOME_BIN_DIR := $(HOME)/bin
 GO := $(GOROOT)/bin/go
 GOIMPORTS := $(GOPATH)/bin/goimports
 GOPLS := $(GOPATH)/bin/gopls
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
-HUGO := $(GOPATH)/bin/hugo
+HUGO := $(HOME_BIN_DIR)/hugo
 COBRA := $(GOPATH)/bin/cobra
 STATICCHECK := $(GOPATH)/bin/staticcheck
 MISSPELL := $(GOPATH)/bin/misspell
@@ -84,7 +85,7 @@ $(MISSPELL):
 .PHONY: hugo
 hugo: $(HUGO)
 $(HUGO):
-	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xvzf - -C ~/bin/ --strip-components=1
+	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xzf - -C $(HOME_BIN_DIR) hugo
 
 .PHONY: ghq
 ghq: $(GHQ)

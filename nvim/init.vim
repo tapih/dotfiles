@@ -118,6 +118,7 @@ if has('nvim')
     " コード入力補助
     "-----------------------
     Plug 'morhetz/gruvbox'
+    Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
     Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
     Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
