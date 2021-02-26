@@ -19,8 +19,8 @@
     f = fetch
     fo = fetch origin
     fd = !fdfind
-    g = !rg -g '!vendor/**'
-    rg = !rg
+    g = !rg -g '!vendor/**' -g '!.git/**' --hidden
+    rg = !rg -g '!.git/**' --hidden
     gp = grep
     h = show
     hn = show --name-only
