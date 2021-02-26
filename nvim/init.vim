@@ -207,17 +207,19 @@ if has('nvim')
     " ---
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
     Plug 'junegunn/fzf.vim'
-    let g:fzf_preview_window = 'right:60%'
-    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-    command! -bang -nargs=* GGrep
-        \ call fzf#vim#grep(
-        \   'git grep --line-number '.shellescape(<q-args>), 0,
-        \   { 'dir': systemlist('git rev-parse --show-toplevel')[0]  }, <bang>0)
-    command! -bang -nargs=* Rg
-                \ call fzf#vim#grep(
-      \   "rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(<q-args>), 1,
-      \   fzf#vim#with_preview('down:80%:wrap', 'ctrl-/'), <bang>0)
     let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+    function! RipgrepFzf(query, fullscreen)
+        let command_fmt = 'git g --column --hidden --line-number --no-heading --smart-case -- %s || true'
+        let initial_command = printf(command_fmt, shellescape(a:query))
+        let reload_command = printf(command_fmt, '{q}')
+        let spec = {'options': ['-d=:', '--nth=3..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+        let g:fzf_preview_window = 'down:80%:wrap'
+        call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+        unlet g:fzf_preview_window
+    endfunction
+    command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
 
 
 
@@ -241,6 +243,9 @@ if has('nvim')
 
     " Use `:Format` to format current buffer
     command! -nargs=0 Format :call CocAction('format')
+
+    let g:coc_fzf_preview = "down:80%:wrap"
+    let g:coc_fzf_opts = []
 
     Plug 'w0rp/ale', {'for': ['typescript', 'javascript', 'html', 'css', 'json']}
     let g:ale_fixers = {
@@ -276,9 +281,9 @@ if has('nvim')
 
     Plug 'godlygeek/tabular', {'for': 'markdown'}
     Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug'] }
+    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
     let g:vim_markdown_folding_disabled = 1
-
+e
     function! OpenBrowser(url)
         exe '!xdg-open ' . a:url
     endfunction
@@ -621,7 +626,7 @@ nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal =
 
 if has('nvim')
     " open browser
-    nmap <silent> ts <Plug>(openbrowser-smart-search)
+    nmap <silent> tw <Plug>(openbrowser-smart-search)
 
     " replace
     map <silent> tr <Plug>(operator-replace)
@@ -654,7 +659,9 @@ if has('nvim')
     nnoremap <silent> to :<C-u>GFiles<CR>
     nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
+    nnoremap <silent> tc :<C-u>BCommits<CR>
     nnoremap <silent> tj :<C-u>Rg<CR>
+    nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
 
     " go jump to symbol
     nnoremap <silent> tg /^func<CR>
