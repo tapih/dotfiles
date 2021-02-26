@@ -285,7 +285,6 @@ if has('nvim')
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
 
     let g:vim_markdown_folding_disabled = 1
-e
     function! OpenBrowser(url)
         exe '!xdg-open ' . a:url
     endfunction
