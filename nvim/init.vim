@@ -280,8 +280,10 @@ if has('nvim')
     Plug 'uarun/vim-protobuf', {'for': 'proto'} " protobuf
 
     Plug 'godlygeek/tabular', {'for': 'markdown'}
-    Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-    Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
+
     let g:vim_markdown_folding_disabled = 1
 e
     function! OpenBrowser(url)
