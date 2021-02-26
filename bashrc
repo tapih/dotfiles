@@ -11,6 +11,7 @@ export PATH=$HOME/bin:$PATH
 export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
+[ -n "$(which batcat)" ] && export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 
 stty werase undef
 bind '"\C-w": unix-filename-rubout'
