@@ -657,7 +657,7 @@ if has('nvim')
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
 
     " fzf
-    nnoremap <silent> to :<C-u>GFiles<CR>
+    nnoremap <silent> to :<C-u>Files<CR>
     nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tc :<C-u>BCommits<CR>
