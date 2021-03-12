@@ -145,6 +145,7 @@ if has('nvim')
     Plug 'kana/vim-operator-replace' " replace current word with yanked text
     Plug 'kana/vim-operator-user' " dependency for operator-replace
     Plug 'tyru/open-browser.vim'
+    Plug 'moll/vim-bbye' " close buffer but do not close split window
 
     " ultisnips
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
@@ -559,7 +560,7 @@ if has('nvim')
         if OpenBufferNumber() <= 1
             q
         else
-            bd
+            Bdelete
         endif
     endfunction
 
@@ -568,6 +569,7 @@ if has('nvim')
 else
     nnoremap <silent> q :q<CR>
 endif
+nmap tq :b#<bar>bd#<CR>
 
 " タグは使わない
 noremap [Tag] <Nop>
