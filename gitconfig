@@ -54,7 +54,7 @@
     rs = remote show
     s = status -s
     st = status
-    ss = !fdfind --type f | xargs misspell -locale US -error
+    sc = !fdfind --type f | xargs misspell -locale US -error
     sw = switch -
     t = tag
 
