@@ -18,6 +18,7 @@ COBRA := $(GOPATH)/bin/cobra
 STATICCHECK := $(GOPATH)/bin/staticcheck
 MISSPELL := $(GOPATH)/bin/misspell
 DLV := $(GOPATH)/bin/dlv
+IMPL := $(GOPATH)/bin/impl
 
 .PHONY: install
 install: \
@@ -91,6 +92,11 @@ $(HUGO):
 ghq: $(GHQ)
 $(GHQ):
 	$(GO) install github.com/x-motemen/ghq@latest
+
+.PHONY: impl
+impl: $(IMPL)
+$(IMPL):
+	$(GO) install github.com/josharian/impl@latest
 
 .PHONY: uninstall
 uninstall:

@@ -138,14 +138,30 @@ if has('nvim')
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
     Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
-    Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
     Plug 'airblade/vim-rooter' " open nvim at the root of the project
     Plug 'mhinz/vim-startify' " fancy start screen
     Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
     Plug 'kana/vim-operator-replace' " replace current word with yanked text
     Plug 'kana/vim-operator-user' " dependency for operator-replace
-    Plug 'tyru/open-browser.vim'
+    Plug 'tyru/open-browser.vim' " open browser and search the word under cursor
     Plug 'moll/vim-bbye' " close buffer but do not close split window
+
+    " vaffle
+    Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
+    Plug 'ryanoasis/vim-devicons', {'on': 'Vaffle'} " icons
+
+    function! VaffleRenderCustomIcon(item)
+        return WebDevIconsGetFileTypeSymbol(a:item.basename, a:item.is_dir)
+    endfunction
+    let g:vaffle_render_custom_icon = 'VaffleRenderCustomIcon'
+
+    " echodoc
+    Plug 'Shougo/echodoc.vim' " show doc above the function
+    let g:echodoc#enable_at_startup = 1
+    let g:echodoc#type = 'floating'
+    " To use a custom highlight for the float window,
+    " " change Pmenu to your highlight group
+    highlight link EchoDocFloat Pmenu"
 
     " ultisnips
     Plug 'SirVer/ultisnips', {'on': []} " snippet engine
@@ -265,6 +281,20 @@ if has('nvim')
     "-------------
     " その他言語別
     "-------------
+    " Go
+    Plug 'buoto/gotests-vim', {'for': 'go'}
+    Plug 'fatih/vim-go', {'for': 'go'}
+    let g:go_fmt_command = 'goimports'
+    let g:go_bin_path = $GOPATH . '/bin'
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_structs = 1
+    augroup GoHighlight
+        autocmd FileType go :highlight goErr cterm=bold ctermfg=214
+        autocmd FileType go :match goErr /\<err\>/
+    augroup END
+
+    " dart
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
@@ -272,7 +302,6 @@ if has('nvim')
 
     Plug 'chr4/nginx.vim'
     Plug 'tmux-plugins/vim-tmux'
-
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
@@ -290,18 +319,6 @@ if has('nvim')
         exe '!xdg-open ' . a:url
     endfunction
     let g:mkdp_browserfunc = 'OpenBrowser'
-
-    Plug 'buoto/gotests-vim', {'for': 'go'}
-    Plug 'fatih/vim-go', {'for': 'go'}
-    let g:go_fmt_command = 'goimports'
-    let g:go_bin_path = $GOPATH . '/bin'
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_structs = 1
-    augroup GoHighlight
-        autocmd FileType go :highlight goErr cterm=bold ctermfg=214
-        autocmd FileType go :match goErr /\<err\>/
-    augroup END
 
     Plug 'mattn/emmet-vim', {'for': 'html'}
     let g:user_emmet_leader_key='<C-q>'
@@ -638,7 +655,6 @@ if has('nvim')
     nnoremap <silent> tb :<C-u>Vaffle<CR>
 
     " easymotion
-    nmap tt <Plug>(easymotion-s)
     nmap , <Plug>(easymotion-s)
 
     " gh line
@@ -667,7 +683,12 @@ if has('nvim')
     nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
 
     " go jump to symbol
-    nnoremap <silent> tg /^func<CR>
+    augroup SetGoShortcuts
+        autocmd!
+        autocmd FileType go nnoremap <silent> tg /^\(func\\|type\)<CR>
+        autocmd FileType go nnoremap <silent> tt :<C-u>GoTestFunc<CR>
+        autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
+    augroup END
 endif
 
 " cheatsheet
