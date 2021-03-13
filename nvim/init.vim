@@ -169,7 +169,7 @@ if has('nvim')
     highlight link EchoDocFloat Pmenu"
 
     " ultisnips
-    Plug 'SirVer/ultisnips', {'on': []} " snippet engine
+    Plug 'SirVer/ultisnips' " snippet engine
     let g:UltiSnipsExpandTrigger="<tab>"
     let g:UltiSnipsJumpForwardTrigger="<c-g>"
     let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -268,28 +268,32 @@ if has('nvim')
 
     let g:coc_fzf_preview = "down:80%:wrap"
     let g:coc_fzf_opts = []
-
-    Plug 'w0rp/ale', {'for': ['typescript', 'javascript', 'html', 'css', 'json']}
-    let g:ale_fixers = {
-                \   'typescript': ['prettier'],
-                \   'javascript': ['prettier'],
-                \   'html': ['prettier'],
-                \   'css': ['prettier'],
-                \   'json': ['prettier'],
-                \}
-
-    let g:ale_linters_explicit = 1
-    let g:ale_fix_on_save = 1
-
+    let g:coc_global_extensions = [
+                \ 'coc-ultisnips',
+                \ 'coc-snippets',
+                \ 'coc-git',
+                \ 'coc-json',
+                \ 'coc-yaml',
+                \ 'coc-html',
+                \ 'coc-css',
+                \ 'coc-sh',
+                \ 'coc-rls',
+                \ 'coc-flutter',
+                \ 'coc-highlight',
+                \ 'coc-diagnostic',
+                \ ]
 
 
     "-------------
     " その他言語別
     "-------------
     " Go
+    set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
+    Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
     let g:go_fmt_command = 'goreturns'
+    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
     let g:go_bin_path = $GOPATH . '/bin'
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
@@ -660,7 +664,7 @@ if has('nvim')
     map <silent> tr <Plug>(operator-replace)
 
     " vaffle
-    nnoremap <silent> tb :<C-u>Vaffle<CR>
+    nnoremap <silent> tv :<C-u>Vaffle<CR>
 
     " easymotion
     nmap , <Plug>(easymotion-s)
@@ -678,23 +682,25 @@ if has('nvim')
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
     nmap <silent> tm <Plug>(coc-rename)
-    nmap <silent> tk <Plug>(coc-format-selected)
+    nmap <silent> tk :<C-u>Format<CR>
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
 
     " fzf
     nnoremap <silent> to :<C-u>Files<CR>
-    nnoremap <silent> te :<C-u>Buffers<CR>
+    nnoremap <silent> tb :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
     nnoremap <silent> tc :<C-u>BCommits<CR>
     nnoremap <silent> tj :<C-u>Rg<CR>
+    nnoremap <silent> ti :<C-u>CocFzfList issues<CR>
     nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
+    nnoremap <silent> tS :<C-u>CocFzfList snippets<CR>
 
     " go jump to symbol
     augroup SetGoShortcuts
         autocmd!
         autocmd FileType go nnoremap <silent> tg /^\(func\\|type\)<CR>
-        autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
+        autocmd FileType go nnoremap <silent> te :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
     augroup END
 endif
