@@ -147,7 +147,6 @@ if has('nvim')
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
     Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
-    Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
     Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
     Plug 'airblade/vim-rooter' " open nvim at the root of the project
@@ -296,7 +295,7 @@ if has('nvim')
     " Go
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
-    let g:go_fmt_command = 'goimports'
+    " let g:go_fmt_command = 'goimports'
     let g:go_bin_path = $GOPATH . '/bin'
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
@@ -308,6 +307,7 @@ if has('nvim')
 
     " k8s
     Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
+    Plug 'hashivim/vim-terraform', {'for': 'tf'}
 
     " dart
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
@@ -531,11 +531,7 @@ if has('nvim')
     "
     augroup load_us_insert
         autocmd!
-        autocmd InsertEnter * call plug#load(
-        \ 'ultisnips',
-        \ 'vim-snippets',
-        \ 'lexima.vim',
-        \ ) | autocmd! load_us_insert
+        autocmd InsertEnter * call plug#load('lexima.vim') | autocmd! load_us_insert
     augroup END
 
     function! s:load_plug(timer)
@@ -601,7 +597,8 @@ if has('nvim')
 else
     nnoremap <silent> q :q<CR>
 endif
-nmap tq :b#<bar>bd#<CR>
+
+nnoremap <C-s> wa
 
 " タグは使わない
 noremap [Tag] <Nop>

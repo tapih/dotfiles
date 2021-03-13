@@ -2,9 +2,14 @@
     "languageserver": {
         "golang": {
             "command": "gopls",
-            "rootPatterns": ["go.mod"],
+            "rootPatterns": ["go.mod", ".git/"],
             "disableWorkspaceFolders": true,
-            "filetypes": ["go"]
+            "filetypes": ["go"],
+            "initializationOptions": {
+                "completeUnimported": true,
+                "completionDocumentation": true,
+                "usePlaceholders": true
+            }
         },
         "dart": {
             "command": "dart_language_server",
