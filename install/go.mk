@@ -9,6 +9,7 @@ GOPATH := $(HOME)/go
 HOME_BIN_DIR := $(HOME)/bin
 GO := $(GOROOT)/bin/go
 GOIMPORTS := $(GOPATH)/bin/goimports
+GORETURNS := $(GOPATH)/bin/goreturns
 GOPLS := $(GOPATH)/bin/gopls
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
@@ -24,6 +25,7 @@ IMPL := $(GOPATH)/bin/impl
 install: \
 	go \
 	goimports \
+	goreturns \
 	gopls \
 	gotests \
 	gomodifytags \
@@ -47,6 +49,11 @@ $(GO):
 goimports: $(GOIMPORTS)
 $(GOIMPORTS):
 	$(GO) install golang.org/x/tools/cmd/goimports@latest
+
+.PHONY: goreturns
+goreturns: $(GORETURNS)
+$(GORETURNS):
+	$(GO) install github.com/sqs/goreturns
 
 .PHONY: gopls
 gopls: $(GOPLS)

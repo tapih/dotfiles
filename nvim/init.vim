@@ -295,7 +295,7 @@ if has('nvim')
     " Go
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
-    " let g:go_fmt_command = 'goimports'
+    let g:go_fmt_command = 'goreturns'
     let g:go_bin_path = $GOPATH . '/bin'
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
