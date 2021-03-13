@@ -9,7 +9,7 @@ all: setup purge install
 .PHONY: setup
 setup: ## setup
 	sudo apt-get update
-	sudo apt-get -y --no-install-recommends install curl
+	sudo apt-get -y --no-install-recommends install curl software-properties-common
 
 .PHONY: install
 install: ## install

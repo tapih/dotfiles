@@ -1,6 +1,6 @@
 CURL := curl -sSfL
 
-GO_VERSION := 1.15.7
+GO_VERSION := 1.16.1
 HUGO_VERSION := 0.81.0
 
 GOROOT := /usr/local/go
@@ -45,42 +45,42 @@ $(GO):
 .PHONY: goimports
 goimports: $(GOIMPORTS)
 $(GOIMPORTS):
-	cd /tmp; env GO111MODULE=on $(GO) get golang.org/x/tools/cmd/goimports
+	$(GO) install golang.org/x/tools/cmd/goimports@latest
 
 .PHONY: gopls
 gopls: $(GOPLS)
 $(GOPLS):
-	cd /tmp && GO111MODULE=on $(GO) get golang.org/x/tools/gopls@latest
+	$(GO) install golang.org/x/tools/gopls@latest
 
 .PHONY: gotests
 gotests: $(GOTESTS)
 $(GOTESTS):
-	GO111MODULE=off $(GO) get github.com/cweill/gotests/...
+	$(GO) install github.com/cweill/gotests/gotests@latest
 
 .PHONY: staticcheck
 staticcheck: $(STATICCHECK)
 $(STATICCHECK):
-	cd /tmp; env GO111MODULE=on $(GO) get honnef.co/go/tools/cmd/staticcheck
+	$(GO) install honnef.co/go/tools/cmd/staticcheck@latest
 
 .PHONY: gomodifytags
 gomodifytags: $(GOMODIFYTAGS)
 $(GOMODIFYTAGS):
-	GO111MODULE=off $(GO) get github.com/fatih/gomodifytags
+	$(GO) install github.com/fatih/gomodifytags@latest
 
 .PHONY: cobra
 cobra: $(COBRA)
 $(COBRA):
-	GO111MODULE=off $(GO) get github.com/spf13/cobra/cobra
+	$(GO) install github.com/spf13/cobra/cobra@latest
 
 .PHONY: dlv
 dlv: $(DLV)
 $(DLV):
-	GO111MODULE=off $(GO) get github.com/go-delve/delve/cmd/dlv
+	$(GO) install github.com/go-delve/delve/cmd/dlv@latest
 
 .PHONY: misspell
 misspell: $(MISSPELL)
 $(MISSPELL):
-	GO111MODULE=off $(GO) get github.com/client9/misspell/cmd/misspell
+	$(GO) install github.com/client9/misspell/cmd/misspell@latest
 
 .PHONY: hugo
 hugo: $(HUGO)
@@ -90,11 +90,14 @@ $(HUGO):
 .PHONY: ghq
 ghq: $(GHQ)
 $(GHQ):
-	GO111MODULE=off $(GO) get github.com/x-motemen/ghq
+	$(GO) install github.com/x-motemen/ghq@latest
+
+.PHONY: uninstall
+uninstall:
+	sudo rm -rf $(GOROOT)
 
 .PHONY: clean
-clean:
-	sudo rm -rf $(GOROOT)
+clean: uninstall
 	rm -f $(GOIMPORTS)
 	rm -f $(GOPLS)
 	rm -f $(GOTESTS)

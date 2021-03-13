@@ -16,7 +16,6 @@ PACKAGES := \
 	tree \
 	htop \
 	colordiff \
-	firefox \
 	xsel \
 	openssl \
 	gnupg \
