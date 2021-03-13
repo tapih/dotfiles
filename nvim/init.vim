@@ -294,6 +294,9 @@ if has('nvim')
         autocmd FileType go :match goErr /\<err\>/
     augroup END
 
+    " k8s
+    Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
+
     " dart
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
