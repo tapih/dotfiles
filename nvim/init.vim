@@ -72,6 +72,12 @@ augroup PlugAutoCmd
     autocmd InsertLeave * silent! pclose!
 augroup END
 
+" set nopaste when exiting insert mode
+augroup AutoNoPasteExitInsert
+    autocmd!
+    autocmd InsertLeave * set nopaste
+augroup END
+
 " 最後にファイルを閉じた場所で開く
 augroup OpenAtLastClosed
     autocmd!
@@ -647,6 +653,8 @@ nnoremap <silent> tz :<C-u>noh<CR>
 " add newline at ,
 nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>']'
 
+set pastetoggle=t;
+
 if has('nvim')
     " open browser
     nmap <silent> tw <Plug>(openbrowser-smart-search)
@@ -689,7 +697,7 @@ if has('nvim')
     augroup SetGoShortcuts
         autocmd!
         autocmd FileType go nnoremap <silent> tg /^\(func\\|type\)<CR>
-        autocmd FileType go nnoremap <silent> tt :<C-u>GoTestFunc<CR>
+        autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
     augroup END
 endif
