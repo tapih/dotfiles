@@ -233,10 +233,10 @@ if has('nvim')
     let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
     function! RipgrepFzf(query, fullscreen)
-        let command_fmt = 'git g --column --hidden --line-number --no-heading --smart-case -- %s || true'
+        let command_fmt = 'git g --hidden --line-number --no-heading --smart-case -- %s || true'
         let initial_command = printf(command_fmt, shellescape(a:query))
         let reload_command = printf(command_fmt, '{q}')
-        let spec = {'options': ['-d=:', '--nth=3..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+        let spec = {'options': ['-d=:', '--nth=2..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
         let g:fzf_preview_window = 'down:80%:wrap'
         call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
         unlet g:fzf_preview_window
