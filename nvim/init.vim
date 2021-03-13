@@ -72,12 +72,6 @@ augroup PlugAutoCmd
     autocmd InsertLeave * silent! pclose!
 augroup END
 
-" set nopaste when entering insert mode
-augroup AutoPasteEnterInsert
-    autocmd!
-    autocmd InsertEnter * set paste
-augroup END
-
 " set nopaste when leaving insert mode
 augroup AutoNoPasteLeaveInsert
     autocmd!
