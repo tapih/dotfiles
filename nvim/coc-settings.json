@@ -2,36 +2,84 @@
     "languageserver": {
         "clangd": {
             "command": "clangd",
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp"]
+            "rootPatterns": [
+                "compile_flags.txt",
+                "compile_commands.json"
+            ],
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp"
+            ]
         },
         "dockerfile": {
             "command": "docker-langserver",
-            "filetypes": ["dockerfile"],
-            "args": ["--stdio"]
-
+            "filetypes": [
+                "dockerfile"
+            ],
+            "args": [
+                "--stdio"
+            ]
         },
         "golang": {
             "command": "gopls",
-            "rootPatterns": ["go.mod", ".git/"],
+            "rootPatterns": [
+                "go.mod",
+                ".git/"
+            ],
             "disableWorkspaceFolders": true,
-            "filetypes": ["go"],
+            "filetypes": [
+                "go"
+            ],
             "initializationOptions": {
                 "completeUnimported": true,
                 "completionDocumentation": true,
                 "usePlaceholders": true
             }
         },
+        "golangci-lint-langserver": {
+            "command": "golangci-lint-langserver",
+            "rootPatterns": [
+                "go.mod",
+                ".git/"
+            ],
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "command": [
+                    "golangci-lint",
+                    "run",
+                    "--exclude-use-default=false",
+                    "-E=golint",
+                    "--out-format=json"
+                ]
+            }
+        },
         "sql": {
             "command": "sql-language-server",
-            "args" : ["up", "--method", "stdio"],
-            "filetypes": ["sql", "mysql"]
-
+            "args": [
+                "up",
+                "--method",
+                "stdio"
+            ],
+            "filetypes": [
+                "sql",
+                "mysql"
+            ]
         },
         "terraform": {
             "command": "terraform-ls",
-            "args": ["serve"],
-            "filetypes": ["terraform", "tf"],
+            "args": [
+                "serve"
+            ],
+            "filetypes": [
+                "terraform",
+                "tf"
+            ],
             "initializationOptions": {}
         }
     },

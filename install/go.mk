@@ -11,6 +11,8 @@ GO := $(GOROOT)/bin/go
 GOIMPORTS := $(GOPATH)/bin/goimports
 GORETURNS := $(GOPATH)/bin/goreturns
 GOPLS := $(GOPATH)/bin/gopls
+GOLANG_LINT := $(GOPATH)/bin/golangci-lint
+GOLANG_LINT_LS := $(GOPATH)/bin/golangci-lint-langserver
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
@@ -59,6 +61,16 @@ $(GORETURNS):
 gopls: $(GOPLS)
 $(GOPLS):
 	$(GO) install golang.org/x/tools/gopls@latest
+
+.PHONY: golangci-lint
+golangci-lint: $(GOLANGCI_LINT)
+$(GOLANGCI_LINT):
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+
+.PHONY: golangci-lint-langserver
+golangci-lint-langserver: $(GOLANGCI_LINT_LS)
+$(GOLANGCI_LINT_LS):
+	$(GO) install github.com/nametake/golangci-lint-langserver@latest
 
 .PHONY: gotests
 gotests: $(GOTESTS)

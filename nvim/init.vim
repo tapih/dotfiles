@@ -274,11 +274,13 @@ if has('nvim')
                 \ 'coc-git',
                 \ 'coc-json',
                 \ 'coc-yaml',
+                \ 'coc-toml',
                 \ 'coc-html',
                 \ 'coc-css',
                 \ 'coc-sh',
-                \ 'coc-rls',
                 \ 'coc-flutter',
+                \ 'coc-rls',
+                \ 'coc-pyright',
                 \ 'coc-highlight',
                 \ 'coc-diagnostic',
                 \ ]
@@ -292,8 +294,6 @@ if has('nvim')
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
-    let g:go_fmt_command = 'goreturns'
-    let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
     let g:go_bin_path = $GOPATH . '/bin'
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
@@ -306,6 +306,7 @@ if has('nvim')
     " k8s
     Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
+    Plug 'ekalinin/Dockerfile.vim'
 
     " dart
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
