@@ -5,8 +5,9 @@ KIND_VERSION := 0.10.0
 HELM_VERSION := 3.5.1
 KUSTOMIZE_VERSION := 3.9.4
 KREW_VERSION := 0.4.1
-STERN_VERSION := 1.11.0
 SKAFFOLD_VERSION := 1.19.0
+STERN_VERSION := 1.11.0
+K9S_VERSION := 0.24.2
 
 HOME_BIN_DIR := $(HOME)/bin
 KUBECTL := $(HOME_BIN_DIR)/kubectl
@@ -14,8 +15,8 @@ KIND := $(HOME_BIN_DIR)/kind
 KUSTOMIZE := $(HOME_BIN_DIR)/kustomize
 HELM := $(HOME_BIN_DIR)/helm
 KREW := $(HOME_BIN_DIR)/krew
-STERN := $(HOME_BIN_DIR)/stern
 SKAFFOLD := $(HOME_BIN_DIR)/skaffold
+K9S := $(HOME_BIN_DIR)/k9s
 
 .PHONY: install
 install: \
@@ -74,6 +75,13 @@ stern: $(STERN)
 $(STERN):
 	$(CURL) https://github.com/wercker/stern/releases/download/$(STERN_VERSION)/stern_linux_amd64 -o $@
 	chmod +x $@
+
+.PHONY: k9s
+k9s: $(K9S)
+$(K9S):
+	$(CURL) https://github.com/derailed/k9s/releases/download/v$(K9S_VERSION)/k9s_Linux_x86_64.tar.gz -o $@
+	chmod +x $@
+
 
 .PHONY: clean
 clean:
