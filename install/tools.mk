@@ -45,6 +45,7 @@ install: \
 	apt \
 	tmuxplugins \
 	hub \
+	git \
 	gh \
 	fzf \
 	delta \

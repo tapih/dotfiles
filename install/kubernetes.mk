@@ -85,4 +85,4 @@ $(K9S):
 
 .PHONY: clean
 clean:
-	rm -f $(KUBECTL) $(KIND) $(KUSTOMIZE) $(HELM) $(KREW) $(STERN) $(SKAFFOLD)
+	rm -f $(KUBECTL) $(KIND) $(KUSTOMIZE) $(HELM) $(KREW) $(STERN) $(SKAFFOLD) $(K9S)

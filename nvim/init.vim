@@ -658,17 +658,17 @@ nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal =
 set pastetoggle=t;
 
 if has('nvim')
-    " open browser
-    nmap <silent> tw <Plug>(openbrowser-smart-search)
-
     " replace
-    map <silent> tr <Plug>(operator-replace)
+    map <silent> <Space> <Plug>(operator-replace)
+
+    " easymotion
+    nmap , <Plug>(easymotion-s)
 
     " vaffle
     nnoremap <silent> tv :<C-u>Vaffle<CR>
 
-    " easymotion
-    nmap , <Plug>(easymotion-s)
+    " open browser
+    nmap <silent> tw <Plug>(openbrowser-smart-search)
 
     " gh line
     let g:gh_line_map = 't/'
@@ -683,16 +683,19 @@ if has('nvim')
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
     nmap <silent> tm <Plug>(coc-rename)
-    nmap <silent> tk :<C-u>Format<CR>
+    nmap <silent> tt :<C-u>Format<CR>
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
 
+    " git
+    nmap tj <Plug>(GitGutterPrevHunk)
+    nmap tk <Plug>(GitGutterNextHunk)
+
     " fzf
     nnoremap <silent> to :<C-u>Files<CR>
-    nnoremap <silent> tb :<C-u>Buffers<CR>
+    nnoremap <silent> te :<C-u>Buffers<CR>
     nnoremap <silent> tf :<C-u>BLines<CR>
-    nnoremap <silent> tc :<C-u>BCommits<CR>
-    nnoremap <silent> tj :<C-u>Rg<CR>
+    nnoremap <silent> tF :<C-u>Rg<CR>
     nnoremap <silent> ti :<C-u>CocFzfList issues<CR>
     nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
     nnoremap <silent> tS :<C-u>CocFzfList snippets<CR>
@@ -701,7 +704,7 @@ if has('nvim')
     augroup SetGoShortcuts
         autocmd!
         autocmd FileType go nnoremap <silent> tg /^\(func\\|type\)<CR>
-        autocmd FileType go nnoremap <silent> te :<C-u>GoTestFunc<CR>
+        autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
     augroup END
 endif
