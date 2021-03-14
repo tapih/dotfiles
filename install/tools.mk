@@ -59,6 +59,8 @@ install: \
 .PHONY: apt
 apt:
 	sudo apt-get install -y --no-install-recommends $(PACKAGES)
+	ln -s $(which fdfind) $(HOME_BIN_DIR)/fd
+	ln -s $(which batcat) $(HOME_BIN_DIR)/bat
 
 .PHONY: tmuxplugins
 tmuxplugins: $(TMUX_PLUGINS_DIR)

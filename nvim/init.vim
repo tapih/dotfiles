@@ -231,37 +231,26 @@ if has('nvim')
     " ---
     " fzf
     " ---
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary', 'on': 'Clap' }
+    let g:clap_enable_icon = 1
+    let g:clap_background_shadow_blend = 80
+    let g:clap_default_external_filter = "fzf"
+
+    let g:clap_layout = { 'width': '45%', 'height': '80%', 'col': '5%', 'row': '10%' }
+    let g:clap_preview_size = 2
+    let g:clap_preview_direction = "LR"
+    "
+    autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
+    autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
+
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
     Plug 'junegunn/fzf.vim'
-    let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
-    let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-    " commented out because highlight is shown on a wrong line
-    " function! RipgrepFzf(query, fullscreen)
-    "     let command_fmt = 'git g --hidden --line-number --no-heading --smart-case -- %s || true'
-    "     let initial_command = printf(command_fmt, shellescape(a:query))
-    "     let reload_command = printf(command_fmt, '{q}')
-    "     let spec = {'options': ['-d=:', '--nth=2..', '--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    "     let g:fzf_preview_window = 'down:80%:wrap'
-    "     call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
-    "     unlet g:fzf_preview_window
-    " endfunction
-    " command! -nargs=* -bang Rg call RipgrepFzf(<q-args>, <bang>0)
-
-    function! RgVertical(query, fullscreen)
-        let g:fzf_preview_window = 'down:80%:wrap'
-        call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case -- ".shellescape(a:query), 1, fzf#vim#with_preview(), a:fullscreen)
-        unlet g:fzf_preview_window
-    endfunction
-    command! -nargs=* -bang Rg call RgVertical(<q-args>, <bang>0)
-
 
     " --------
     " lsp 関連
     " --------
     Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
-    Plug 'antoinemadec/coc-fzf'
+    Plug 'vn-ki/coc-clap', {'on': 'Clap'}
     inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
     function! s:show_documentation()
@@ -278,8 +267,6 @@ if has('nvim')
     " Use `:Format` to format current buffer
     command! -nargs=0 CocFormat :call CocAction('format')
 
-    let g:coc_fzf_preview = "down:80%:wrap"
-    let g:coc_fzf_opts = []
     let g:coc_global_extensions = [
                 \ 'coc-ultisnips',
                 \ 'coc-snippets',
@@ -702,14 +689,13 @@ if has('nvim')
     nmap tj <Plug>(GitGutterPrevHunk)
     nmap tk <Plug>(GitGutterNextHunk)
 
-    " fzf
-    nnoremap <silent> to :<C-u>Files<CR>
-    nnoremap <silent> te :<C-u>Buffers<CR>
-    nnoremap <silent> tf :<C-u>BLines<CR>
-    nnoremap <silent> tF :<C-u>Rg<CR>
-    nnoremap <silent> ti :<C-u>CocFzfList issues<CR>
-    nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
-    nnoremap <silent> tS :<C-u>CocFzfList snippets<CR>
+    " clap
+    nnoremap <silent> to :<C-u>Clap files<CR>
+    nnoremap <silent> te :<C-u>Clap buffers<CR>
+    nnoremap <silent> tf :<C-u>Clap blines<CR>
+    nnoremap <silent> tF :<C-u>Clap grep<CR>
+    nnoremap <silent> ts :<C-u>Clap coc_symbols<CR>
+    nnoremap <silent> tS :<C-u>Snippets<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
 
