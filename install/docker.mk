@@ -9,6 +9,7 @@ CONTAINERD := /usr/bin/containerd
 DOCKER := /usr/bin/docker
 DOCKERD := /usr/bin/dockerd
 DOCKER_COMPOSE := $(HOME_BIN_DIR)/docker-compose
+LAZYDOCKER := $(HOME_BIN_DIR)/lazydocker
 
 DOCKER_PACKAGES := \
 	curl \
@@ -52,6 +53,11 @@ docker-compose: $(DOCKER_COMPOSE)
 $(DOCKER_COMPOSE):
 	sudo $(CURL) https://github.com/docker/compose/releases/download/$(DOCKER_COMPOSE_VERSION)/docker-compose-$$(uname -s)-$$(uname -m) -o $@
 	sudo chmod +x $@
+
+.PHONY: lazydocker
+lazydocker: $(LAZYDOCKER)
+$(LAZYDOCKER):
+	$(CURL) https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | env DIR=$(HOME_BIN_DIR) bash
 
 .PHONY: clean
 clean:
