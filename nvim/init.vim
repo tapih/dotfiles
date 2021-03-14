@@ -699,6 +699,8 @@ if has('nvim')
     nnoremap <silent> ti :<C-u>CocFzfList issues<CR>
     nnoremap <silent> ts :<C-u>CocFzfList symbols<CR>
     nnoremap <silent> tS :<C-u>CocFzfList snippets<CR>
+    imap <c-f> <plug>(fzf-complete-path)
+    imap <c-l> <plug>(fzf-complete-line)
 
     " go jump to symbol
     augroup SetGoShortcuts
