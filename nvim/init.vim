@@ -231,6 +231,7 @@ if has('nvim')
     " ---
     " fzf
     " ---
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'}
     Plug 'junegunn/fzf.vim'
     let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
@@ -679,11 +680,10 @@ if has('nvim')
     nnoremap <silent> tv :<C-u>Vaffle<CR>
 
     " open browser
-    nmap <silent> tw <Plug>(openbrowser-smart-search)
+    nmap <silent> tb <Plug>(openbrowser-smart-search)
 
     " gh line
-    let g:gh_line_map = 't/'
-    let g:gh_line_blame_map = 't?'
+    let g:gh_line_map = 'tw'
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
@@ -716,7 +716,7 @@ if has('nvim')
     " go jump to symbol
     augroup SetGoShortcuts
         autocmd!
-        autocmd FileType go nnoremap <silent> tg /^\(func\\|type\)<CR>
+        autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
     augroup END
