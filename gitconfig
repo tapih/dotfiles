@@ -80,9 +80,8 @@
     pager = delta
 
 [delta]
-    plus-color = "#012800"
-    minus-color = "#340001"
     syntax-theme = Monokai Extended
+    features = line-numbers decorations
 
 [interactive]
     diffFilter = delta --color-only
