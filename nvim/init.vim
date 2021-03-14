@@ -245,6 +245,7 @@ if has('nvim')
 
     Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
     Plug 'junegunn/fzf.vim'
+    let g:fzf_command_prefix = 'Fzf'
 
     " --------
     " lsp 関連
@@ -289,7 +290,6 @@ if has('nvim')
     " その他言語別
     "-------------
     " Go
-    set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
     Plug 'buoto/gotests-vim', {'for': 'go'}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
@@ -667,10 +667,10 @@ if has('nvim')
     nnoremap <silent> tv :<C-u>Vaffle<CR>
 
     " open browser
-    nmap <silent> tb <Plug>(openbrowser-smart-search)
+    nmap <silent> tww <Plug>(openbrowser-smart-search)
 
     " gh line
-    let g:gh_line_map = 'tw'
+    let g:gh_line_map = 'twg'
 
     " coc
     inoremap <silent><expr> <C-Space> coc#refresh()
@@ -689,22 +689,25 @@ if has('nvim')
     nmap tj <Plug>(GitGutterPrevHunk)
     nmap tk <Plug>(GitGutterNextHunk)
 
-    " clap
+    " fzf
     nnoremap <silent> to :<C-u>Clap files<CR>
     nnoremap <silent> te :<C-u>Clap buffers<CR>
     nnoremap <silent> tf :<C-u>Clap blines<CR>
     nnoremap <silent> tF :<C-u>Clap grep<CR>
     nnoremap <silent> ts :<C-u>Clap coc_symbols<CR>
-    nnoremap <silent> tS :<C-u>Snippets<CR>
+    nnoremap <silent> tS :<C-u>FzfSnippets<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
+
+    nnoremap gi :<C-u>Gdiff<CR>
+    nnoremap gs :<C-u>Gstatus<CR>
 
     " go jump to symbol
     augroup SetGoShortcuts
         autocmd!
-        autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
-        autocmd FileType go nnoremap <silent> tW :<C-u>GoDocBrowser<CR>
+        autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
+        autocmd FileType go nnoremap <silent> twd :<C-u>GoDocBrowser<CR>
     augroup END
 endif
 
