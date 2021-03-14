@@ -22,6 +22,7 @@ STATICCHECK := $(GOPATH)/bin/staticcheck
 MISSPELL := $(GOPATH)/bin/misspell
 DLV := $(GOPATH)/bin/dlv
 IMPL := $(GOPATH)/bin/impl
+INTERFACER := $(GOPATH)/bin/interfacer
 
 .PHONY: install
 install: \
@@ -36,7 +37,9 @@ install: \
 	dlv \
 	hugo \
 	misspell \
-	ghq
+	ghq \
+	impl \
+	interfacer
 
 .PHONY: go
 go: $(GO)
@@ -116,6 +119,11 @@ $(GHQ):
 impl: $(IMPL)
 $(IMPL):
 	$(GO) install github.com/josharian/impl@latest
+
+.PHONY: interfacer
+interfacer: $(INTERFACER)
+$(INTERFACER):
+	$(GO) install github.com/rjeczalik/interfaces/cmd/interfacer@latest
 
 .PHONY: uninstall
 uninstall:
