@@ -27,6 +27,7 @@ JQ := /usr/bin/jq
 TMUX := $(HOME_BIN_DIR)/tmux
 TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
 HUB := $(HOME_BIN_DIR)/hub
+LAZYGIT := /usr/bin/lazygit
 GH := /usr/bin/gh
 FD := /usr/bin/fd
 DELTA := /usr/bin/delta
@@ -46,6 +47,7 @@ install: \
 	tmuxplugins \
 	hub \
 	git \
+	lazygit \
 	gh \
 	fzf \
 	delta \
@@ -81,6 +83,16 @@ git:
 		sudo apt-get update; \
 		sudo apt-get install -y --no-install-recommends git; \
 	fi
+
+.PHONY: lazygit
+lazygit: $(LAZYGIT)
+$(LAZYGIT):
+	sudo add-apt-repository ppa:lazygit-team/release
+	sudo apt-get update
+	sudo apt-get install lazygit
+
+gitui:
+	curl -sSLf https://github.com/extrawurst/gitui/releases/download/v0.12.0/gitui-linux-musl.tar.gz | tar xzf - -C /tmp
 
 .PHONY: gh
 gh: $(GH)
@@ -150,7 +162,7 @@ $(GIT_OPEN): $(NODE)
 
 .PHONY: clean
 clean:
-	sudo apt-get purge -y $(PACKAGES) gh
+	sudo apt-get purge -y $(PACKAGES) gh lazygit
 	sudo dpkg -P delta
 	sudo dpkg -P rg
 	rm -rf $(TMUX_PLUGIN_DIR)
