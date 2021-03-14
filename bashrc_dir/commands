@@ -57,12 +57,16 @@ alias g='git'
 alias t='if [ ${HOME}/t == $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 exists batcat && alias bat='batcat'
 exists fdfind && alias fd='fdfind'
-exists nvim && alias v='nvim'
-exists nvim && alias agit='nvim +Agit'
-exists w3m && alias w3m='w3m -O ja_JP.UTF-8'
 exists tmux && alias tmux="tmux -2"
 exists docker && alias d='docker'
 exists docker-compose && alias dc='docker-compose'
+
+exists nvim && alias v='nvim'
+exists nvim && alias agit='nvim +Agit'
+if [ -n "$NVIM_LISTEN_ADDRESS"  ]; then
+  alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
+fi
+
 # tcpdump -nn -p -i eth0 tcp dst port 80 -tttt -vvv
 # tcpdump -i eth0 '(tcp[tcpflags] & tcp-syn)' != 0 and '(tcp[tcpflags] & tcp-ack) ==0'
 # ss -ntulp --unix

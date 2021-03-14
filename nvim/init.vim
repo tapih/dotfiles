@@ -46,9 +46,13 @@ set shiftwidth=4 " インデントは半角スペース4つ分
 set tabstop=4  " タブは半角スペース4つ分で表示
 set updatetime=250 " for git-gutter
 " set clipboard=unnamedplus
-
+"
 if has('nvim')
     set inccommand=split
+endif
+
+if has('nvim') && executable('nvr')
+  let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
@@ -264,7 +268,7 @@ if has('nvim')
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
     " Use `:Format` to format current buffer
-    command! -nargs=0 Format :call CocAction('format')
+    command! -nargs=0 CocFormat :call CocAction('format')
 
     let g:coc_fzf_preview = "down:80%:wrap"
     let g:coc_fzf_opts = []
@@ -683,7 +687,7 @@ if has('nvim')
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
     nmap <silent> tm <Plug>(coc-rename)
-    nmap <silent> tt :<C-u>Format<CR>
+    nmap <silent> tt :<C-u>CocFormat<CR>
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
 

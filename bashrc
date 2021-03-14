@@ -8,10 +8,16 @@ exists() { type $1 >/dev/null 2>&1; return $?; }
 
 export SHELL=`which bash`
 export PATH=$HOME/bin:$PATH
-export EDITOR=nvim
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 [ -n "$(which batcat)" ] && export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+else
+    export VISUAL="nvim"
+    export EDITOR="nvim"
+fi
 
 stty werase undef
 bind '"\C-w": unix-filename-rubout'
