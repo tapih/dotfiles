@@ -33,3 +33,5 @@ sudo apt-get install make
 make -f install/links.mk clean
 make
 ```
+
+Windows Terminal requires to disable `<C-v>` to work with `nvim`.
