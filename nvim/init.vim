@@ -129,31 +129,41 @@ if has('nvim')
     "-----------------------
     Plug 'sickill/vim-monokai'
     Plug 'sheerun/vim-polyglot'
-    Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
-    Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
-    Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
-    Plug 'coderifous/textobj-word-column.vim', {'on': []} " 矩形選択を拡張
-    Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
-    Plug 'ConradIrwin/vim-bracketed-paste', {'on': []} " ペーストでインデントが崩れない
-    Plug 'kana/vim-textobj-user', {'on': []} " textobj設定
-    Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
-    Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
-    Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
-    Plug 'terryma/vim-expand-region', {'on': []} " 範囲選択をショートカットで
-    Plug 'jiangmiao/auto-pairs' " automatically delete paired blacket
-    Plug 'honza/vim-snippets', {'on': []} " snippets
-    Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
-    Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-    Plug 'junegunn/goyo.vim', {'on': 'Goyo'}
-    Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
-    Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
-    Plug 'airblade/vim-rooter' " open nvim at the root of the project
-    Plug 'mhinz/vim-startify' " fancy start screen
-    Plug 'ruanyl/vim-gh-line' " jump to the current line on GitHub
     Plug 'kana/vim-operator-replace' " replace current word with yanked text
     Plug 'kana/vim-operator-user' " dependency for operator-replace
-    Plug 'tyru/open-browser.vim' " open browser and search the word under cursor
-    Plug 'moll/vim-bbye' " close buffer but do not close split window
+    Plug 'kana/vim-textobj-user' " textobj設定
+    Plug 'coderifous/textobj-word-column.vim' " 矩形選択を拡張
+    Plug 'airblade/vim-rooter' " open nvim at the root of the project
+    Plug 'mhinz/vim-startify' " fancy start screen
+    Plug 'tmux-plugins/vim-tmux-focus-events' " tmux clipboard
+    Plug 'roxma/vim-tmux-clipboard' " tmux clipboard
+
+    Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
+    Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
+    Plug 'moll/vim-bbye', {'on': 'Bdelete'} " close buffer but do not close split window
+
+    Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
+    Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
+    Plug 'bronson/vim-trailing-whitespace', {'on': []}  " 全角スペースをハイライト
+    Plug 'tpope/vim-repeat', {'on': []} " 独自ショートカットも'.u'できる
+    Plug 'tpope/vim-surround', {'on': []}  " 括弧などのブロック文字を簡単に変更
+    Plug 'terryma/vim-expand-region', {'on': []} " 範囲選択をショートカットで
+    Plug 'jiangmiao/auto-pairs', {'on': []} " automatically delete paired blacket
+    Plug 'honza/vim-snippets', {'on': []} " snippets
+    Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
+    Plug 'ruanyl/vim-gh-line', {'on': []} " jump to the current line on GitHub
+
+    Plug 'tyru/open-browser.vim', {'on': [
+                \ 'OpenBrowser',
+                \ 'OpenBrowserSearch',
+                \ 'OpenBrowserSmartSearch',
+                \ ]} " open browser and search the word under cursor
+    Plug 'tyru/open-browser-github.vim', {'on': [
+                \ 'OpenGithubFile',
+                \ 'OpenGithubIssue',
+                \ 'OpenGithubPullReq',
+                \ 'OpenGithubProject',
+                \ ]}
 
     " vaffle
     Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
@@ -216,7 +226,7 @@ if has('nvim')
         \ }
 
     " インデントを見やすく
-    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'nathanaelkane/vim-indent-guides', { 'on': [] }
     let g:indent_guides_enable_on_vim_startup = 1
     let g:indent_guides_start_level = 2
     let g:indent_guides_guide_size = 1
@@ -235,7 +245,6 @@ if has('nvim')
     let g:clap_enable_icon = 1
     let g:clap_background_shadow_blend = 80
     let g:clap_default_external_filter = "fzf"
-
     let g:clap_layout = { 'width': '45%', 'height': '80%', 'col': '5%', 'row': '10%' }
     let g:clap_preview_size = 2
     let g:clap_preview_direction = "LR"
@@ -243,14 +252,14 @@ if has('nvim')
     autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
     autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
 
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install()  }  }
-    Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() }, 'on': [] }
+    Plug 'junegunn/fzf.vim', { 'on': [] }
     let g:fzf_command_prefix = 'Fzf'
 
     " --------
     " lsp 関連
     " --------
-    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() }}
+    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() } }
     Plug 'vn-ki/coc-clap', {'on': 'Clap'}
     inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
@@ -290,7 +299,7 @@ if has('nvim')
     " その他言語別
     "-------------
     " Go
-    Plug 'buoto/gotests-vim', {'for': 'go'}
+    Plug 'buoto/gotests-vim', {'for': 'go', 'on': ['GoTests', 'GoTestsAll']}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
     let g:go_bin_path = $GOPATH . '/bin'
@@ -302,29 +311,23 @@ if has('nvim')
         autocmd FileType go :match goErr /\<err\>/
     augroup END
 
-    " k8s
     Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
-    Plug 'ekalinin/Dockerfile.vim'
-
-    " dart
+    Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
-
-    Plug 'chr4/nginx.vim'
-    Plug 'tmux-plugins/vim-tmux'
+    Plug 'chr4/nginx.vim', {'for': 'nginx'}
+    Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
     Plug 'vim-scripts/a.vim', {'for': 'c++'}
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}  " pep8に準拠したインデント
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
     Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'uarun/vim-protobuf', {'for': 'proto'} " protobuf
-
+    Plug 'uarun/vim-protobuf', {'for': 'proto'}
     Plug 'godlygeek/tabular', {'for': 'markdown'}
     Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-
     Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
 
     let g:vim_markdown_folding_disabled = 1
@@ -343,10 +346,9 @@ if has('nvim')
     "=========================================================================
     " git
     "=========================================================================
+    Plug 'airblade/vim-gitgutter', {'on': []} " 差分のある行にマークをつける
     Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter' " 差分のある行にマークをつける
-    Plug 'cohama/agit.vim', {'on': 'Agit'} " improved gitv
-    Plug 'rhysd/committia.vim' " commitの画面をリッチに
+    Plug 'rhysd/committia.vim'
     Plug 'itchyny/vim-gitbranch'
     let g:gitgutter_sign_added = '✚'
     let g:gitgutter_sign_modified = '✹'
@@ -535,17 +537,19 @@ if has('nvim')
     function! s:load_plug(timer)
         call plug#load(
         \ 'tcomment_vim',
-        \ 'vim-expand-region',
-        \ 'vim-move',
-        \ 'textobj-word-column.vim',
         \ 'vim-trailing-whitespace',
-        \ 'vim-bracketed-paste',
-        \ 'vim-textobj-user',
         \ 'vim-repeat',
         \ 'vim-surround',
-        \ 'vim-fugitive',
-        \ 'vim-gitgutter',
+        \ 'vim-expand-region',
+        \ 'auto-pairs',
+        \ 'vim-snippets',
+        \ 'vim-move',
+        \ 'vim-gh-line',
+        \ 'vim-indent-guides',
         \ 'vim-easymotion',
+        \ 'fzf',
+        \ 'fzf.vim',
+        \ 'vim-gitgutter',
         \ )
     endfunction
 
