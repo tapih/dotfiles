@@ -40,25 +40,26 @@
                 "usePlaceholders": true
             }
         },
-        /* "golangci-lint-langserver": { */
-        /*     "command": "golangci-lint-langserver", */
-        /*     "rootPatterns": [ */
-        /*         "go.mod", */
-        /*         ".git/" */
-        /*     ], */
-        /*     "filetypes": [ */
-        /*         "go" */
-        /*     ], */
-        /*     "initializationOptions": { */
-        /*         "command": [ */
-        /*             "golangci-lint", */
-        /*             "run", */
-        /*             "--exclude-use-default=false", */
-        /*             "-E=golint", */
-        /*             "--out-format=json" */
-        /*         ] */
-        /*     } */
-        /* }, */
+        "golangci-lint-langserver": {
+            "command": "golangci-lint-langserver",
+            "rootPatterns": [
+                "go.mod",
+                ".git/"
+            ],
+            "filetypes": [
+                "go"
+            ],
+            "initializationOptions": {
+                "command": [
+                    "golangci-lint",
+                    "run",
+                    "--disable-all",
+                    "--exclude-use-default=false",
+                    "-E=golint",
+                    "--out-format=json"
+                ]
+            }
+        },
         "sql": {
             "command": "sql-language-server",
             "args": [
