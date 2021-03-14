@@ -23,6 +23,7 @@ MISSPELL := $(GOPATH)/bin/misspell
 DLV := $(GOPATH)/bin/dlv
 IMPL := $(GOPATH)/bin/impl
 INTERFACER := $(GOPATH)/bin/interfacer
+GO_EXPR_COMPLETION := $(GOPATH)/bin/go-expr-completion
 
 .PHONY: install
 install: \
@@ -124,6 +125,11 @@ $(IMPL):
 interfacer: $(INTERFACER)
 $(INTERFACER):
 	$(GO) install github.com/rjeczalik/interfaces/cmd/interfacer@latest
+
+.PHONY: go-expr-completion
+go-expr-completion: $(GO_EXPR_COMPLETION)
+$(GO_EXPR_COMPLETION):
+	$(GO) install github.com/110y/go-expr-completion@latest
 
 .PHONY: uninstall
 uninstall:

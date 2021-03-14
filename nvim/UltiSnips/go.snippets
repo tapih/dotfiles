@@ -1,0 +1,28 @@
+snippet ctx
+ctx := context.Context()
+endsnippet
+
+snippet ctxc
+ctx, cancel := context.WithCancel(context.Background())
+endsnippet
+
+snippet fff
+fmt.Printf("=======%#v\n", $1)
+endsnippet
+
+snippet f
+fmt.Printf("$1", $2)
+endsnippet
+
+snippet ln
+fmt.Println("$1")
+endsnippet
+
+snippet fe
+fmt.Errorf("$1", $2)
+endsnippet
+
+snippet ern
+errors.New("$1")
+endsnippet
+

@@ -45,6 +45,14 @@ purge: ## purge
 
 .PHONY: clean
 clean: ## clean
+	while true; do \
+		read -p "Do you wish to install this program? (y/n)" yn; \
+		case $${yn} in \
+			[Yy]* ) break;; \
+			[Nn]* ) exit 1;; \
+			* ) echo "Please answer yes or no.";; \
+		esac; \
+	done || exit 1
 	cd install && \
 		$(MAKE) -f links.mk clean && \
 		$(MAKE) -f tools.mk clean && \

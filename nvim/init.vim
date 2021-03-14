@@ -252,15 +252,20 @@ if has('nvim')
     autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
     autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
 
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() }, 'on': [] }
-    Plug 'junegunn/fzf.vim', { 'on': [] }
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
     let g:fzf_command_prefix = 'Fzf'
+    let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+    let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 
     " --------
     " lsp 関連
     " --------
     Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() } }
+    Plug 'antoinemadec/coc-fzf'
     Plug 'vn-ki/coc-clap', {'on': 'Clap'}
+    let g:coc_fzf_preview = "down:80%:wrap"
+    let g:coc_fzf_opts = []
     inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
 
     function! s:show_documentation()
@@ -302,6 +307,7 @@ if has('nvim')
     Plug 'buoto/gotests-vim', {'for': 'go', 'on': ['GoTests', 'GoTestsAll']}
     Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
+    Plug '110y/vim-go-expr-completion', {'branch': 'master'}
     let g:go_bin_path = $GOPATH . '/bin'
     let g:go_highlight_functions = 1
     let g:go_highlight_methods = 1
@@ -547,8 +553,6 @@ if has('nvim')
         \ 'vim-gh-line',
         \ 'vim-indent-guides',
         \ 'vim-easymotion',
-        \ 'fzf',
-        \ 'fzf.vim',
         \ 'vim-gitgutter',
         \ )
     endfunction
@@ -699,7 +703,6 @@ if has('nvim')
     nnoremap <silent> tf :<C-u>Clap blines<CR>
     nnoremap <silent> tF :<C-u>Clap grep<CR>
     nnoremap <silent> ts :<C-u>Clap coc_symbols<CR>
-    nnoremap <silent> tS :<C-u>FzfSnippets<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
 
@@ -712,6 +715,7 @@ if has('nvim')
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> twd :<C-u>GoDocBrowser<CR>
+        autocmd FileType go nnoremap <silent> tx :<C-u>silent call go#expr#complete()<CR>
     augroup END
 endif
 
