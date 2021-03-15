@@ -31,6 +31,7 @@ set showcmd    "ステータスラインにコマンドを表示
 set hlsearch   " 検索文字列をハイライト
 set nowrapscan " 検索で文頭にループしない
 set ignorecase smartcase " 基本ignorecaseだが大文字小文字が混在しているときは普通に検索
+set isk+=-
 set fileformats=unix,dos,mac  " 改行コードの自動判別。左が優先
 set ambiwidth=double " □といった文字が崩れる問題の解決
 set nobackup nowritebackup " backup file作らない
