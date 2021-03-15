@@ -11,8 +11,8 @@ GO := $(GOROOT)/bin/go
 GOIMPORTS := $(GOPATH)/bin/goimports
 GORETURNS := $(GOPATH)/bin/goreturns
 GOPLS := $(GOPATH)/bin/gopls
-GOLANG_LINT := $(GOPATH)/bin/golangci-lint
-GOLANG_LINT_LS := $(GOPATH)/bin/golangci-lint-langserver
+GOLANGCI_LINT := $(GOPATH)/bin/golangci-lint
+GOLANGCI_LINT_LS := $(GOPATH)/bin/golangci-lint-langserver
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
@@ -31,6 +31,8 @@ install: \
 	goimports \
 	goreturns \
 	gopls \
+	golangci-lint \
+	golangci-lint-langserver \
 	gotests \
 	gomodifytags \
 	staticcheck \
@@ -40,7 +42,8 @@ install: \
 	misspell \
 	ghq \
 	impl \
-	interfacer
+	interfacer \
+	go-expr-completion
 
 .PHONY: go
 go: $(GO)
@@ -59,7 +62,7 @@ $(GOIMPORTS):
 .PHONY: goreturns
 goreturns: $(GORETURNS)
 $(GORETURNS):
-	$(GO) install github.com/sqs/goreturns
+	$(GO) install github.com/sqs/goreturns@latest
 
 .PHONY: gopls
 gopls: $(GOPLS)
@@ -69,7 +72,7 @@ $(GOPLS):
 .PHONY: golangci-lint
 golangci-lint: $(GOLANGCI_LINT)
 $(GOLANGCI_LINT):
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 .PHONY: golangci-lint-langserver
 golangci-lint-langserver: $(GOLANGCI_LINT_LS)
@@ -139,6 +142,8 @@ uninstall:
 clean: uninstall
 	rm -f $(GOIMPORTS)
 	rm -f $(GOPLS)
+	rm -f $(GOLANGCI_LINT)
+	rm -f $(GOLANGCI_LINT_LS)
 	rm -f $(GOTESTS)
 	rm -f $(GOMODIFYTAGS)
 	rm -f $(STATICCHECK)

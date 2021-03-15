@@ -10,8 +10,6 @@ PACKAGES := \
 	unzip \
 	tig \
 	tmux \
-	fd-find \
-	bat \
 	jq \
 	tree \
 	htop \
@@ -28,8 +26,9 @@ TMUX := $(HOME_BIN_DIR)/tmux
 TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
 HUB := $(HOME_BIN_DIR)/hub
 LAZYGIT := /usr/bin/lazygit
-GH := /usr/bin/gh
-FD := /usr/bin/fd
+GH := $(HOME_BIN_DIR)/gh
+FD := $(HOME_BIN_DIR)/fd
+BAT := $(HOME_BIN_DIR)/bat
 DELTA := /usr/bin/delta
 RG := /usr/bin/rg
 NAVI := $(HOME_BIN_DIR)/navi
@@ -44,6 +43,8 @@ BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash
 .PHONY: install
 install: \
 	apt \
+	fd \
+	bat \
 	tmuxplugins \
 	hub \
 	git \
@@ -61,8 +62,18 @@ install: \
 .PHONY: apt
 apt:
 	sudo apt-get install -y --no-install-recommends $(PACKAGES)
-	ln -s $(which fdfind) $(HOME_BIN_DIR)/fd
-	ln -s $(which batcat) $(HOME_BIN_DIR)/bat
+
+.PHONY: fd
+fd: $(FD)
+$(FD):
+	sudo apt-get install -y --no-install-recommends fd-find
+	ln -s $$(which fdfind) $(HOME_BIN_DIR)/fd
+
+.PHONY: bat
+bat: $(BAT)
+$(BAT):
+	sudo apt-get install -y --no-install-recommends bat
+	ln -s $$(which batcat) $(HOME_BIN_DIR)/bat
 
 .PHONY: tmuxplugins
 tmuxplugins: $(TMUX_PLUGINS_DIR)
@@ -87,7 +98,7 @@ git:
 .PHONY: lazygit
 lazygit: $(LAZYGIT)
 $(LAZYGIT):
-	sudo add-apt-repository ppa:lazygit-team/release
+	sudo add-apt-repository -y ppa:lazygit-team/release
 	sudo apt-get update
 	sudo apt-get install lazygit
 
