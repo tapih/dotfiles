@@ -18,7 +18,7 @@
     e = !nvim ~/.gitconfig
     f = fetch
     fo = fetch origin
-    fd = !fdfind
+    fd = !fd
     g = !rg --hidden -g "!{.git,node_modules,vendor}/*"
     rg = !rg -g '!.git/**' --hidden
     gp = grep
@@ -54,7 +54,7 @@
     rs = remote show
     s = status -s
     st = status
-    sc = !fdfind --type f | xargs misspell -locale US -error
+    sc = !fd --type f | xargs misspell -locale US -error
     sw = switch -
     t = tag
 

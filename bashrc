@@ -10,7 +10,7 @@ export SHELL=`which bash`
 export PATH=$HOME/bin:$PATH
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
-[ -n "$(which batcat)" ] && export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+[ -n "$(which bat)" ] && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
     export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
     export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
