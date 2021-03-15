@@ -713,6 +713,7 @@ if has('nvim')
     " go jump to symbol
     augroup SetGoShortcuts
         autocmd!
+        autocmd FileType go nnoremap <silent> <CR> :<C-u>GoImports<CR>w<CR>
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> twd :<C-u>GoDocBrowser<CR>
