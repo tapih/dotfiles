@@ -24,9 +24,8 @@ HOME_BIN_DIR := $(HOME)/bin
 JQ := /usr/bin/jq
 TMUX := $(HOME_BIN_DIR)/tmux
 TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
-HUB := $(HOME_BIN_DIR)/hub
 LAZYGIT := /usr/bin/lazygit
-GH := $(HOME_BIN_DIR)/gh
+GH := /usr/bin/gh
 FD := $(HOME_BIN_DIR)/fd
 BAT := $(HOME_BIN_DIR)/bat
 DELTA := /usr/bin/delta
@@ -46,7 +45,6 @@ install: \
 	fd \
 	bat \
 	tmuxplugins \
-	hub \
 	git \
 	lazygit \
 	gh \
@@ -80,13 +78,6 @@ tmuxplugins: $(TMUX_PLUGINS_DIR)
 $(TMUX_PLUGINS_DIR):
 	git clone https://github.com/tmux-plugins/tpm $@
 
-.PHONY: hub
-hub: $(HUB)
-$(HUB):
-	mkdir -p $(HOME_BIN_DIR)
-	sudo sh -c "$(CURL) https://github.com/github/hub/releases/download/v$(HUB_VERSION)/hub-linux-amd64-$(HUB_VERSION).tgz | \
-		tar xz -C $(HOME_BIN_DIR) --strip-component=2"
-
 .PHONY: git
 git:
 	if [ $$(git --version | cut -d' ' -f3 | awk -F. '{printf "%2d%02d%02d", $$1,$$2,$$3}') -lt 22800 ]; then \
@@ -101,9 +92,6 @@ $(LAZYGIT):
 	sudo add-apt-repository -y ppa:lazygit-team/release
 	sudo apt-get update
 	sudo apt-get install lazygit
-
-gitui:
-	curl -sSLf https://github.com/extrawurst/gitui/releases/download/v0.12.0/gitui-linux-musl.tar.gz | tar xzf - -C /tmp
 
 .PHONY: gh
 gh: $(GH)
@@ -177,7 +165,6 @@ clean:
 	sudo dpkg -P delta
 	sudo dpkg -P rg
 	rm -rf $(TMUX_PLUGIN_DIR)
-	rm -f $(HUB)
 	rm -rf $(FZF_DIR)
 	rm -f $(STARSHIP)
 	rm -f $(BASH_COMPLETION_PATH)

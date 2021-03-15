@@ -37,7 +37,7 @@ neovim2: $(NVIM2_DIR)
 $(NVIM2_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON2_DIR)
 	$(PYENV) virtualenv $(PYTHON2_VERSION) neovim2
 	CURRENT=$($(PYENV) global) && \
-			$(PYENV) global neovim2 && \
+			$(PYENV) global pynvim && \
 			$(NVIM2_DIR)/bin/pip install -U pip && \
 			$(NVIM2_DIR)/bin/pip install pynvim && \
 			$(PYENV) global $${CURRENT}
@@ -47,7 +47,7 @@ neovim3: $(NVIM3_DIR)
 $(NVIM3_DIR): $(PYENV_VIRTUALENV_DIR) $(PYTHON3_DIR)
 	$(PYENV) virtualenv $(PYTHON3_VERSION) neovim3
 	CURRENT=$($(PYENV) global) && \
-			$(PYENV) global neovim3 && \
+			$(PYENV) global pynvim && \
 			$(NVIM3_DIR)/bin/pip install -U pip && \
 			$(NVIM3_DIR)/bin/pip install pynvim && \
 			$(NVIM3_DIR)/bin/pip install neovim-remote && \
