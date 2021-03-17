@@ -306,13 +306,8 @@ if has('nvim')
     "-------------
     " Go
     Plug 'buoto/gotests-vim', {'for': 'go', 'on': ['GoTests', 'GoTestsAll']}
-    Plug 'fatih/vim-go', {'for': 'go'}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
     Plug '110y/vim-go-expr-completion', {'branch': 'master'}
-    let g:go_bin_path = $GOPATH . '/bin'
-    let g:go_highlight_functions = 1
-    let g:go_highlight_methods = 1
-    let g:go_highlight_structs = 1
     augroup GoHighlight
         autocmd FileType go :highlight goErr cterm=bold ctermfg=214
         autocmd FileType go :match goErr /\<err\>/
@@ -713,7 +708,6 @@ if has('nvim')
     " go jump to symbol
     augroup SetGoShortcuts
         autocmd!
-        autocmd FileType go nnoremap <silent> <CR> :<C-u>GoImports<CR>w<CR>
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> twd :<C-u>GoDocBrowser<CR>
