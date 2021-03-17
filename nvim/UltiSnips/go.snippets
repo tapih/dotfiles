@@ -26,3 +26,54 @@ snippet ern
 errors.New("$1")
 endsnippet
 
+snippet appsv1
+	appsv1 "k8s.io/api/apps/v1"
+endsnippet
+
+snippet corev1
+	corev1 "k8s.io/api/core/v1"
+endsnippet
+
+snippet metav1
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+endsnippet
+
+snippet exerr
+Expect(err).ShouldNot(HaveOccurred())
+endsnippet
+
+snippet exstderr
+Expect(err).ShouldNot(HaveOccurred(), fmt.Errorf("stdout: %s, stderr: %s, err: %v", stdout, stderr, err))
+endsnippet
+
+snippet eventually
+Eventually(func() error {
+	$1
+	return nil
+}).ShouldNot(HaveOccurred())
+endsnippet
+
+snippet iferr
+if err != nil {
+	return err
+}
+endsnippet
+
+snippet ifng
+if _, ok := $1[$2]; !ok {
+	$3
+}
+endsnippet
+
+snippet ifok
+if v, ok := $1[$2]; ok {
+	$3
+}
+endsnippet
+
+snippet sc2map
+m := make(map[string]struct{})
+for _, v := range $1 {
+	m[v] = struct{}{}
+}
+endsnippet
