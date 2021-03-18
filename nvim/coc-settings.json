@@ -60,11 +60,11 @@
                 ]
             }
         },
-        /* "efm": { */
-        /*     "command": "efm-langserver", */
-        /*     "args": ["-c", "${HOME}/.config/eft.yaml"], */
-        /*     "filetypes": ["vim", "markdown"] */
-        /* }, */
+        "efm": {
+            "command": "efm-langserver",
+            "args": ["-c", "${HOME}/.config/eft.yaml"],
+            "filetypes": ["vim", "markdown"]
+        },
         "sql": {
             "command": "sql-language-server",
             "args": [
