@@ -699,19 +699,24 @@ if has('nvim')
     nnoremap <silent> tf :<C-u>Clap blines<CR>
     nnoremap <silent> tF :<C-u>Clap grep<CR>
     nnoremap <silent> ts :<C-u>Clap coc_symbols<CR>
+    nnoremap <silent> td :<C-u>Gdiff<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
 
-    nnoremap gi :<C-u>Gdiff<CR>
-    nnoremap gs :<C-u>Gstatus<CR>
-
-    " go jump to symbol
+    " go
     augroup SetGoShortcuts
         autocmd!
         autocmd FileType go nnoremap <silent> tr :<C-u>GoTestFunc<CR>
         autocmd FileType go nnoremap <silent> t/ /^\(func\\|type\)<CR>
         autocmd FileType go nnoremap <silent> twd :<C-u>GoDocBrowser<CR>
         autocmd FileType go nnoremap <silent> tx :<C-u>silent call go#expr#complete()<CR>
+    augroup END
+
+    " markdown
+    augroup SetMdShortcuts
+        autocmd!
+        autocmd FileType markdown nnoremap <silent> twd :<C-u>MarkdownPreview<CR><CR>
+        autocmd FileType markdown nnoremap <silent> tx :<C-u>TableFormat<CR>
     augroup END
 endif
 
