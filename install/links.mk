@@ -11,6 +11,7 @@ NVIMRC_DIR := $(HOME)/.config/nvim
 VIMRC := $(HOME)/.vimrc
 IDEAVIMRC := $(HOME)/.ideavimrc
 STARSHIPRC := $(HOME)/.config/starship.toml
+EFM_CONF := $(HOME)/.config/efm.yaml
 
 .PHONY: install
 install: \
@@ -22,7 +23,8 @@ install: \
 	nvimrc \
 	vimrc \
 	ideavimrc \
-	starshiprc
+	starshiprc \
+	efmrc
 
 .PHONY: bashrc
 bashrc: $(BASHRC)
@@ -70,6 +72,11 @@ starshiprc: $(STARSHIPRC)
 $(STARSHIPRC):
 	ln -s $(ROOT_DIR)/config/starship.toml $@
 
+.PHONY: efmrc
+efmrc: $(EFM_CONF)
+$(EFM_CONF):
+	ln -s $(ROOT_DIR)/config/efm.yaml $@
+
 .PHONY: clean
 clean:
 	rm -f $(BASHRC)
@@ -81,4 +88,5 @@ clean:
 	rm -f $(VIMRC)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
+	rm -f $(EFM_CONF)
 

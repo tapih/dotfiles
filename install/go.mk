@@ -24,6 +24,7 @@ DLV := $(GOPATH)/bin/dlv
 IMPL := $(GOPATH)/bin/impl
 INTERFACER := $(GOPATH)/bin/interfacer
 GO_EXPR_COMPLETION := $(GOPATH)/bin/go-expr-completion
+EFM_LS := $(GOPATH)/bin/efm-langserver
 
 .PHONY: install
 install: \
@@ -134,6 +135,11 @@ go-expr-completion: $(GO_EXPR_COMPLETION)
 $(GO_EXPR_COMPLETION):
 	$(GO) install github.com/110y/go-expr-completion@latest
 
+.PHONY: efm-langserver
+efm-langserver: $(EFM_LS)
+$(EFM_LS):
+	$(GO) install github.com/mattn/efm-langserver@latest
+
 .PHONY: uninstall
 uninstall:
 	sudo rm -rf $(GOROOT)
@@ -152,4 +158,7 @@ clean: uninstall
 	rm -f $(HUGO)
 	rm -f $(MISSPELL)
 	rm -f $(GHQ)
+	rm -f $(IMPL)
+	rm -f $(INTERFACER)
+	rm -f $(EFM_LS)
 

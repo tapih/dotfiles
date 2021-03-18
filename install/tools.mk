@@ -35,6 +35,7 @@ FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 NODE := /usr/local/bin/node
 YARN := /usr/bin/yarn
+MARKDOWNLINT := /usr/local/bin/markdownlint
 GIT_OPEN := /usr/local/bin/git-open
 BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
 BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash
@@ -145,6 +146,7 @@ $(NODE):
 	sudo apt-get -y --no-install-recommends install npm
 	sudo npm i -g n
 	sudo n $(NODE_VERSION)
+	sudo npm i -g npm
 
 .PHONY: yarn
 yarn: $(YARN)
@@ -153,6 +155,11 @@ $(YARN): $(NODE)
 	echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 	sudo apt update
 	sudo apt install -y --no-install-recommends yarn
+
+.PHONY: markdownlint
+markdownlint: $(MARKDOWNLINT)
+$(MARKDOWNLINT): $(NODE)
+	sudo npm -g i markdownlint-cli
 
 .PHONY: git-open
 git-open: $(GIT_OPEN)
