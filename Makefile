@@ -8,6 +8,7 @@ all: setup purge install
 
 .PHONY: setup
 setup: ## setup
+	mkdir -p ${HOME}/bin
 	sudo apt-get update
 	sudo apt-get -y --no-install-recommends install curl software-properties-common
 

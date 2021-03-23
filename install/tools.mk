@@ -5,6 +5,7 @@ HUB_VERSION := 2.12.8
 FD_VERSION := 8.1.0
 DELTA_VERSION := 0.6.0
 RG_VERSION := 12.1.1
+NODE_VERSION := 14.16.0
 
 PACKAGES := \
 	unzip \
@@ -30,7 +31,6 @@ FD := $(HOME_BIN_DIR)/fd
 BAT := $(HOME_BIN_DIR)/bat
 DELTA := /usr/bin/delta
 RG := /usr/bin/rg
-NAVI := $(HOME_BIN_DIR)/navi
 FZF_DIR := $(HOME)/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 NODE := /usr/local/bin/node
@@ -51,7 +51,6 @@ install: \
 	fzf \
 	delta \
 	rg \
-	navi \
 	starship \
 	node \
 	yarn \
@@ -125,14 +124,6 @@ rg: $(RG)
 $(RG):
 	$(CURL) -o /tmp/rg.deb https://github.com/BurntSushi/ripgrep/releases/download/$(RG_VERSION)/ripgrep_$(RG_VERSION)_amd64.deb
 	sudo dpkg -i /tmp/rg.deb
-
-.PHONY: navi
-navi: $(NAVI)
-$(NAVI):
-	$(CURL) https://raw.githubusercontent.com/denisidoro/navi/master/scripts/install -o /tmp/navi.sh
-	chmod +x /tmp/navi.sh
-	BIN_DIR=$(HOME_BIN_DIR) bash /tmp/navi.sh
-	$(NAVI) repo add https://github.com/denisidoro/cheats
 
 .PHONY: completion
 completion: $(BASH_COMPLETION_PATH)
