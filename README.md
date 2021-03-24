@@ -4,7 +4,7 @@
 
 ## OS
 
-Ubuntu 20.04
+Ubuntu 20.04 on WSL2
 
 ## Install
 
