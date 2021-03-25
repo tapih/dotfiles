@@ -31,7 +31,7 @@ cd dotfiles
 
 sudo apt-get install make
 make -f install/links.mk clean
-make
+make setup install
 ```
 
 Windows Terminal requires to disable `<C-v>` to work with `nvim`.
