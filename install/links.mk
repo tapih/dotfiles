@@ -12,6 +12,8 @@ VIMRC := $(HOME)/.vimrc
 IDEAVIMRC := $(HOME)/.ideavimrc
 STARSHIPRC := $(HOME)/.config/starship.toml
 
+SKIP_TMUX ?=
+
 .PHONY: install
 install: \
 	bashrc \
@@ -47,7 +49,9 @@ $(GITCONFIG):
 .PHONY: tmuxrc
 tmuxrc: $(TMUX_CONF)
 $(TMUX_CONF):
-	ln -s $(ROOT_DIR)/tmux.conf $@
+	if [ -z "${SKIP_TMUX}" ]; then
+		ln -s $(ROOT_DIR)/tmux.conf $@
+	fi
 
 .PHONY: nvimrc
 nvimrc: $(NVIMRC_DIR)
