@@ -22,7 +22,6 @@ PACKAGES := \
 	build-essential
 
 HOME_BIN_DIR := $(HOME)/bin
-JQ := /usr/bin/jq
 TMUX := $(HOME_BIN_DIR)/tmux
 TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
 LAZYGIT := /usr/bin/lazygit

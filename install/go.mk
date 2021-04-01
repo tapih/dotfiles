@@ -16,6 +16,7 @@ GOLANGCI_LINT_LS := $(GOPATH)/bin/golangci-lint-langserver
 GOTESTS := $(GOPATH)/bin/gotests
 GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
 GHQ := $(GOPATH)/bin/ghq
+YQ := $(GOPATH)/bin/yq
 HUGO := $(HOME_BIN_DIR)/hugo
 COBRA := $(GOPATH)/bin/cobra
 STATICCHECK := $(GOPATH)/bin/staticcheck
@@ -118,6 +119,11 @@ $(HUGO):
 ghq: $(GHQ)
 $(GHQ):
 	$(GO) install github.com/x-motemen/ghq@latest
+
+.PHONY: yq
+yq: $(YQ)
+$(YQ):
+	$(GO) install github.com/mikefarah/yq@latest
 
 .PHONY: impl
 impl: $(IMPL)
