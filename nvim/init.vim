@@ -327,6 +327,7 @@ if has('nvim')
     Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'uarun/vim-protobuf', {'for': 'proto'}
+    Plug 'xavierchow/vim-swagger-preview', {'for': 'yaml'}
     Plug 'google/vim-jsonnet', {'for': 'jsonnet'}
     Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
     Plug 'cespare/vim-toml', {'for': 'toml'}
@@ -705,6 +706,11 @@ if has('nvim')
     nnoremap <silent> td :<C-u>Gdiff<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
+
+    augroup SetYAMLShortcuts
+        autocmd!
+        autocmd FileType yaml nmap <unique> twd <Plug>GenerateDiagram
+    augroup END
 
     " go
     augroup SetGoShortcuts
