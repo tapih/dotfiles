@@ -300,10 +300,6 @@ if has('nvim')
                 \ 'coc-diagnostic',
                 \ ]
 
-
-    "-------------
-    " その他言語別
-    "-------------
     " Go
     Plug 'buoto/gotests-vim', {'for': 'go', 'on': ['GoTests', 'GoTestsAll']}
     Plug 'mattn/vim-goimports', {'for': 'go'} " light weight goimports runner
@@ -313,24 +309,31 @@ if has('nvim')
         autocmd FileType go :match goErr /\<err\>/
     augroup END
 
-    Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
-    Plug 'hashivim/vim-terraform', {'for': 'tf'}
-    Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
+    " Dart
     Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
+
+    " Python
+    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
+
+    " Markddown
+    Plug 'godlygeek/tabular', {'for': 'markdown'}
+    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
+
+    " Others
+    Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
+    Plug 'hashivim/vim-terraform', {'for': 'tf'}
+    Plug 'uarun/vim-protobuf', {'for': 'proto'}
+    Plug 'google/vim-jsonnet', {'for': 'jsonnet'}
+    Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
+    Plug 'cespare/vim-toml', {'for': 'toml'}
     Plug 'chr4/nginx.vim', {'for': 'nginx'}
     Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
-    Plug 'vim-scripts/a.vim', {'for': 'c++'}
-    Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-    Plug 'cespare/vim-toml', {'for': 'toml'}
-    Plug 'uarun/vim-protobuf', {'for': 'proto'}
-    Plug 'godlygeek/tabular', {'for': 'markdown'}
-    Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
 
     let g:vim_markdown_folding_disabled = 1
     function! OpenBrowser(url)
