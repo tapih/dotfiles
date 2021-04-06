@@ -662,7 +662,7 @@ nnoremap <silent> tz :<C-u>noh<CR>
 " add newline at ,
 nnoremap <silent> t, :<C-u>s/\((\zs\\|,\ *\zs\\|)\)/\r&/g<CR><Bar>:'[,']normal ==<CR>']'
 
-set pastetoggle=t;
+nnoremap t; :set paste<CR>i
 
 if has('nvim')
     " replace
