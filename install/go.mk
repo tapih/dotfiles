@@ -2,29 +2,35 @@ CURL := curl -sSfL
 
 GO_VERSION := 1.16.1
 HUGO_VERSION := 0.81.0
+PROTOC_VERSION := 3.15.0
 
 GOROOT := /usr/local/go
-GOPATH := $(HOME)/go
+GOPATH := ${HOME}/go
 
-HOME_BIN_DIR := $(HOME)/bin
-GO := $(GOROOT)/bin/go
-GOIMPORTS := $(GOPATH)/bin/goimports
-GORETURNS := $(GOPATH)/bin/goreturns
-GOPLS := $(GOPATH)/bin/gopls
-GOLANGCI_LINT := $(GOPATH)/bin/golangci-lint
-GOLANGCI_LINT_LS := $(GOPATH)/bin/golangci-lint-langserver
-GOTESTS := $(GOPATH)/bin/gotests
-GOMODIFYTAGS := $(GOPATH)/bin/gomodifytags
-GHQ := $(GOPATH)/bin/ghq
-YQ := $(GOPATH)/bin/yq
+HOME_BIN_DIR := ${HOME}/bin
+GO := ${GOROOT}/bin/go
+GOIMPORTS := ${GOPATH}/bin/goimports
+GORETURNS := ${GOPATH}/bin/goreturns
+GOPLS := ${GOPATH}/bin/gopls
+GOLANGCI_LINT := ${GOPATH}/bin/golangci-lint
+GOLANGCI_LINT_LS := ${GOPATH}/bin/golangci-lint-langserver
+GOTESTS := ${GOPATH}/bin/gotests
+GOMODIFYTAGS := ${GOPATH}/bin/gomodifytags
+GHQ := ${GOPATH}/bin/ghq
+YQ := ${GOPATH}/bin/yq
 HUGO := $(HOME_BIN_DIR)/hugo
-COBRA := $(GOPATH)/bin/cobra
-STATICCHECK := $(GOPATH)/bin/staticcheck
-MISSPELL := $(GOPATH)/bin/misspell
-DLV := $(GOPATH)/bin/dlv
-IMPL := $(GOPATH)/bin/impl
-INTERFACER := $(GOPATH)/bin/interfacer
-GO_EXPR_COMPLETION := $(GOPATH)/bin/go-expr-completion
+COBRA := ${GOPATH}/bin/cobra
+STATICCHECK := ${GOPATH}/bin/staticcheck
+MISSPELL := ${GOPATH}/bin/misspell
+DLV := ${GOPATH}/bin/dlv
+IMPL := ${GOPATH}/bin/impl
+INTERFACER := ${GOPATH}/bin/interfacer
+GO_EXPR_COMPLETION := ${GOPATH}/bin/go-expr-completion
+GQLGEN := ${GOPATH}/bin/gqlgen
+OAPI_CODEGEN := ${GOPATH}/bin/oapi-codegen
+PROTO_GEN_GO := ${GOPATH}/bin/proto-gen-go
+PROTO_GEN_GO_GRPC := ${GOPATH}/bin/proto-gen-go-grpc
+PROTO_GEN_DOC := ${GOPATH}/bin/proto-gen-doc
 
 .PHONY: install
 install: \
@@ -44,16 +50,19 @@ install: \
 	ghq \
 	impl \
 	interfacer \
-	go-expr-completion
+	go-expr-completion \
+	gqlgen \
+	oapi-codegen \
+	proto-gen
 
 .PHONY: go
 go: $(GO)
 $(GO):
-	sudo mkdir -p $(GOROOT)
-	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C $(GOROOT) --strip-components=1"
-	mkdir -p $(GOPATH)/src
-	mkdir -p $(GOPATH)/bin
-	mkdir -p $(GOPATH)/pkg
+	sudo mkdir -p ${GOROOT}
+	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C ${GOROOT} --strip-components=1"
+	mkdir -p ${GOPATH}/src
+	mkdir -p ${GOPATH}/bin
+	mkdir -p ${GOPATH}/pkg
 
 .PHONY: goimports
 goimports: $(GOIMPORTS)
@@ -140,9 +149,37 @@ go-expr-completion: $(GO_EXPR_COMPLETION)
 $(GO_EXPR_COMPLETION):
 	$(GO) install github.com/110y/go-expr-completion@latest
 
+.PHONY: gqlgen
+gqlgen: $(GQLGEN)
+$(GQLGEN):
+	$(GO) install github.com/99designs/gqlgen@latest
+
+.PHONY: oapi-codegen
+oapi-codegen: $(OAPI_CODEGEN)
+$(OAPI_CODEGEN):
+	$(GO) install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+
+.PHONY: proto-gen
+proto-gen: proto-gen-go proto-gen-go-grpc proto-gen-doc
+
+.PHONY: proto-gen-go
+proto-gen-go: $(PROTO_GEN_GO)
+$(PROTO_GEN_GO):
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+
+.PHONY: proto-gen-go-grpc
+proto-gen-go-grpc: $(PROTO_GEN_GO_GRPC)
+$(PROTO_GEN_GO_GRPC):
+	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+
+.PHONY: proto-gen-doc
+proto-gen-doc: $(PROTO_GEN_DOC)
+$(PROTO_GEN_DOC):
+	$(GO) install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+
 .PHONY: uninstall
 uninstall:
-	sudo rm -rf $(GOROOT)
+	sudo rm -rf ${GOROOT}
 
 .PHONY: clean
 clean: uninstall
@@ -158,4 +195,7 @@ clean: uninstall
 	rm -f $(HUGO)
 	rm -f $(MISSPELL)
 	rm -f $(GHQ)
+	rm -f $(IMPL)
+	rm -f $(INTERFACER)
+	rm -f $(GO_EXPR_COMPLETION)
 
