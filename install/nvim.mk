@@ -7,7 +7,7 @@ CURL := curl -sSfL
 NODE_VERSION := 12.16.2
 
 NVIM := /usr/bin/nvim
-PYENV_VIRTUALENV_DIR=$(PYENV_DIR)/plugins/pyenv-virtualenv
+PYENV_VIRTUALENV_DIR := $(PYENV_DIR)/plugins/pyenv-virtualenv
 NVIM2_DIR := $(PYENV_DIR)/versions/neovim2
 NVIM3_DIR := $(PYENV_DIR)/versions/neovim3
 

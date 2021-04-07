@@ -2,7 +2,7 @@ CURL := curl -sSfL
 
 TERRAFORM_VERSION := 0.13.3
 
-HOME_BIN_DIR := $(HOME)/bin
+HOME_BIN_DIR := ${HOME}/bin
 GCLOUD := /usr/bin/gcloud
 AWS := /usr/bin/aws
 TERRAFORM := $(HOME_BIN_DIR)/terraform

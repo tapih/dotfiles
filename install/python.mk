@@ -3,7 +3,7 @@ CURL := curl -sSfL
 PYTHON2_VERSION := 2.7.16
 PYTHON3_VERSION := 3.7.3
 
-PYENV_DIR=$(HOME)/.pyenv
+PYENV_DIR := ${HOME}/.pyenv
 PYENV := $(PYENV_DIR)/bin/pyenv
 PYTHON2_DIR := $(PYENV_DIR)/versions/$(PYTHON2_VERSION)
 PYTHON3_DIR := $(PYENV_DIR)/versions/$(PYTHON3_VERSION)

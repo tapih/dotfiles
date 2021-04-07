@@ -4,7 +4,7 @@ DOCKER_VERSION := 20.10.3~3-0
 DOCKER_COMPOSE_VERSION := 1.28.2
 CONTAINERD_VERSION := 1.4.3-1
 
-HOME_BIN_DIR := $(HOME)/bin
+HOME_BIN_DIR := ${HOME}/bin
 CONTAINERD := /usr/bin/containerd
 DOCKER := /usr/bin/docker
 DOCKERD := /usr/bin/dockerd
@@ -61,5 +61,5 @@ $(LAZYDOCKER):
 
 .PHONY: clean
 clean:
-	echo "docker related executables are not cleaned"
+	echo "executables related to docker are not cleaned"
 	rm -f $(DOCKER_COMPOSE)

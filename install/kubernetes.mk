@@ -9,7 +9,7 @@ SKAFFOLD_VERSION := 1.19.0
 STERN_VERSION := 1.11.0
 K9S_VERSION := 0.24.2
 
-HOME_BIN_DIR := $(HOME)/bin
+HOME_BIN_DIR := ${HOME}/bin
 KUBECTL := $(HOME_BIN_DIR)/kubectl
 KIND := $(HOME_BIN_DIR)/kind
 KUSTOMIZE := $(HOME_BIN_DIR)/kustomize
@@ -85,4 +85,11 @@ $(K9S):
 
 .PHONY: clean
 clean:
-	rm -f $(KUBECTL) $(KIND) $(KUSTOMIZE) $(HELM) $(KREW) $(STERN) $(SKAFFOLD) $(K9S)
+	rm -f $(KUBECTL)
+	rm -f $(KIND)
+	rm -f $(KUSTOMIZE)
+	rm -f $(HELM)
+	rm -f $(KREW)
+	rm -f $(SKAFFOLD)
+	rm -f $(STERN)
+	rm -f $(K9S)

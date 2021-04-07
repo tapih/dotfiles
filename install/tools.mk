@@ -21,22 +21,22 @@ PACKAGES := \
 	ca-certificates \
 	build-essential
 
-HOME_BIN_DIR := $(HOME)/bin
+HOME_BIN_DIR := ${HOME}/bin
 TMUX := $(HOME_BIN_DIR)/tmux
-TMUX_PLUGINS_DIR := $(HOME)/.tmux/plugins/tpm
+TMUX_PLUGINS_DIR := ${HOME}/.tmux/plugins/tpm
 LAZYGIT := /usr/bin/lazygit
 GH := /usr/bin/gh
 FD := $(HOME_BIN_DIR)/fd
 BAT := $(HOME_BIN_DIR)/bat
 DELTA := /usr/bin/delta
 RG := /usr/bin/rg
-FZF_DIR := $(HOME)/.fzf
+FZF_DIR := ${HOME}/.fzf
 STARSHIP := $(HOME_BIN_DIR)/starship
 NODE := /usr/local/bin/node
 YARN := /usr/bin/yarn
 GIT_OPEN := /usr/local/bin/git-open
-BASH_GIT_PROMPT_DIR := $(HOME)/.bash-git-prompt
-BASH_COMPLETION_PATH := $(HOME)/.git-completion.bash
+BASH_GIT_PROMPT_DIR := ${HOME}/.bash-git-prompt
+BASH_COMPLETION_PATH := ${HOME}/.git-completion.bash
 
 .PHONY: install
 install: \

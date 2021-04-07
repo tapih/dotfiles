@@ -4,7 +4,7 @@ DART_VERSION := 2.10.5
 FLUTTER_VERSION := 1.22.6
 
 DART := /usr/bin/dart
-FLUTTER_DIR := $(HOME)/dart/flutter
+FLUTTER_DIR := ${HOME}/dart/flutter
 
 .PHONY: install
 install: dart flutter

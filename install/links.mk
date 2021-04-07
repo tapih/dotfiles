@@ -2,15 +2,15 @@ CURL := curl -sSfL
 
 ROOT_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/..
 
-BASHRC := $(HOME)/.bashrc
-BASHRC_DIR := $(HOME)/.bashrc_dir
-INPUTRC := $(HOME)/.inputrc
-GITCONFIG := $(HOME)/.gitconfig
-TMUX_CONF := $(HOME)/.tmux.conf
-NVIMRC_DIR := $(HOME)/.config/nvim
-VIMRC := $(HOME)/.vimrc
-IDEAVIMRC := $(HOME)/.ideavimrc
-STARSHIPRC := $(HOME)/.config/starship.toml
+BASHRC := ${HOME}/.bashrc
+BASHRC_DIR := ${HOME}/.bashrc_dir
+INPUTRC := ${HOME}/.inputrc
+GITCONFIG := ${HOME}/.gitconfig
+TMUX_CONF := ${HOME}/.tmux.conf
+NVIMRC_DIR := ${HOME}/.config/nvim
+VIMRC := ${HOME}/.vimrc
+IDEAVIMRC := ${HOME}/.ideavimrc
+STARSHIPRC := ${HOME}/.config/starship.toml
 
 SKIP_TMUX ?=
 
@@ -56,7 +56,7 @@ $(TMUX_CONF):
 .PHONY: nvimrc
 nvimrc: $(NVIMRC_DIR)
 $(NVIMRC_DIR):
-	mkdir -p $(HOME)/.config
+	mkdir -p ${HOME}/.config
 	ln -s $(ROOT_DIR)/nvim $@
 
 .PHONY: vimrc
