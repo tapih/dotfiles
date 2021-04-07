@@ -699,7 +699,7 @@ if has('nvim')
     nmap tk <Plug>(GitGutterNextHunk)
 
     " fzf
-    nnoremap <silent> to :<C-u>Clap files --hidden -g '!.git/*'<CR>
+    nnoremap <silent> to :<C-u>Clap files<CR>
     nnoremap <silent> te :<C-u>Clap buffers<CR>
     nnoremap <silent> tf :<C-u>Clap blines<CR>
     nnoremap <silent> tF :<C-u>Clap grep<CR>
