@@ -327,6 +327,7 @@ if has('nvim')
     Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
     Plug 'hashivim/vim-terraform', {'for': 'tf'}
     Plug 'uarun/vim-protobuf', {'for': 'proto'}
+    Plug 'yasuhiroki/github-actions-yaml.vim', {'for': 'yaml'}
     Plug 'xavierchow/vim-swagger-preview', {'for': 'yaml'}
     Plug 'google/vim-jsonnet', {'for': 'jsonnet'}
     Plug 'andrewstuart/vim-kubernetes', {'for': 'yaml'}
