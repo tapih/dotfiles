@@ -141,7 +141,7 @@ if has('nvim')
 
     Plug 'vim-scripts/loremipsum', {'on': 'Loremipsum'}
     Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'} " テキスト整形
-    Plug 'moll/vim-bbye', {'on': 'Bdelete'} " close buffer but do not close split window
+    " Plug 'moll/vim-bbye', {'on': 'Bdelete'} " close buffer but do not close split window
 
     Plug 'cohama/lexima.vim', {'on': []}  " 自動でカッコなどを閉じる
     Plug 'tomtom/tcomment_vim', {'on': []}  " 一括コメントアウト追加/削除
@@ -595,7 +595,8 @@ if has('nvim')
         if OpenBufferNumber() <= 1
             q
         else
-            Bdelete
+            " Bdelete
+            bd
         endif
     endfunction
 

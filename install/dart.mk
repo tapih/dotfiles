@@ -1,10 +1,11 @@
 CURL := curl -sSfL
 
-DART_VERSION := 2.10.5
-FLUTTER_VERSION := 1.22.6
+DART_VERSION := 2.12.2
+FLUTTER_VERSION := 2.0.4
 
 DART := /usr/bin/dart
 FLUTTER_DIR := ${HOME}/dart/flutter
+DEVTOOLS := ${HOME}/bin
 
 .PHONY: install
 install: dart flutter
@@ -20,6 +21,11 @@ flutter: $(FLUTTER_DIR)
 $(FLUTTER_DIR):
 	mkdir -p $@
 	git clone https://github.com/flutter/flutter.git $@ -b $(FLUTTER_VERSION)
+
+.PHONY: devtools
+devtools: $(DEVTOOLS)
+$(DEVTOOLS):
+	$(FLUTER_DIR)/bin/flutter pub global activate devtools
 
 .PHONY: clean
 clean:
