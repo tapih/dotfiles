@@ -293,7 +293,7 @@ if has('nvim')
                 \ 'coc-html',
                 \ 'coc-css',
                 \ 'coc-sh',
-                \ 'coc-flutter',
+                \ 'coc-flutter-tools',
                 \ 'coc-rls',
                 \ 'coc-pyright',
                 \ 'coc-highlight',

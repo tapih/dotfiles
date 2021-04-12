@@ -14,8 +14,8 @@ setup:
 .PHONY: flutter
 flutter: $(FLUTTER_DIR)
 $(FLUTTER_DIR):
-	git clone https://github.com/flutter/flutter.git $@ -b $(FLUTTER_VERSION)
-	$(FLUTER_DIR)/bin/flutter pub global activate devtools
+	mkdir -p $@
+	$(CURL) https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_$(FLUTTER_VERSION)-stable.tar.xz | tar Jxf - -C $@ --strip-components=1
 
 .PHONY: clean
 clean:
