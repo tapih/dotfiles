@@ -35,3 +35,18 @@ make setup install WINDOWS_USER=<your name>
 ```
 
 Windows Terminal requires to disable `<C-v>` to work with `nvim`.
+
+On Windows side, these tools should be installed manually.
+
+- Chrome
+- Mozc(+Swap Ctrl and Caps)
+- Enpass
+- Windows Terminal
+- VcXsrv
+- Powershell
+- Android Studio
+- Slack
+- Notion
+- Kindle
+- Adobe XD
+- Zoom
