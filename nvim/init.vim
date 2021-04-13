@@ -151,6 +151,7 @@ if has('nvim')
     Plug 'terryma/vim-expand-region', {'on': []} " 範囲選択をショートカットで
     Plug 'jiangmiao/auto-pairs', {'on': []} " automatically delete paired blacket
     Plug 'honza/vim-snippets', {'on': []} " snippets
+    Plug 'mattn/vim-sonictemplate', {'on': 'Template'} " light weight template generator
     Plug 'matze/vim-move', {'on': []} " 独自ショートカットも'.u'できる
     Plug 'ruanyl/vim-gh-line', {'on': []} " jump to the current line on GitHub
 
@@ -310,7 +311,7 @@ if has('nvim')
     augroup END
 
     " Dart
-    Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
+    Plug 'dart-lang/dart-vim-plugin'
     Plug 'natebosch/vim-lsc', {'for': 'dart'}
     Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
