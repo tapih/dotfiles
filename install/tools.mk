@@ -19,7 +19,8 @@ PACKAGES := \
 	openssl \
 	gnupg \
 	ca-certificates \
-	build-essential
+	build-essential \
+	default-jre
 
 HOME_BIN_DIR := ${HOME}/bin
 TMUX := $(HOME_BIN_DIR)/tmux
