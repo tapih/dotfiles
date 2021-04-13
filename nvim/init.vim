@@ -312,9 +312,8 @@ if has('nvim')
 
     " Dart
     Plug 'dart-lang/dart-vim-plugin'
-    Plug 'natebosch/vim-lsc', {'for': 'dart'}
-    Plug 'natebosch/vim-lsc-dart', {'for': 'dart'}
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
+    let g:lsc_auto_map = v:false
 
     " Python
     Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
