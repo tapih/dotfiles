@@ -16,7 +16,7 @@ if [ -x $GOROOT/bin/go ]; then
 fi
 
 # dart
-export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/flutter/bin
+export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/src/flutter/bin:${HOME}/src/cmdline-tools/bin
 
 # rust
 [ -d $HOME/.cargo ] && export PATH=$PATH:$HOME/.cargo/bin

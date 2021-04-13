@@ -2,7 +2,7 @@ CURL := curl -sSfL
 
 FLUTTER_VERSION := 2.0.4
 
-FLUTTER_DIR := ${HOME}/flutter
+FLUTTER_DIR := ${HOME}/src/flutter
 
 .PHONY: install
 install: setup flutter
