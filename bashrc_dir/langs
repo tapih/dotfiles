@@ -18,6 +18,9 @@ fi
 # dart
 export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/src/flutter/bin:${HOME}/src/cmdline-tools/bin
 
+# android sdk
+export PATH=${PATH}:${HOME}/Android/Sdk/emulator:${HOME}/Android/Sdk/tools/bin
+
 # rust
 [ -d $HOME/.cargo ] && export PATH=$PATH:$HOME/.cargo/bin
 [ -f ~/.cargo/env ] && . ~/.cargo/env
