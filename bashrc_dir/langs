@@ -16,7 +16,7 @@ if [ -x $GOROOT/bin/go ]; then
 fi
 
 # dart
-export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/src/flutter/bin:${HOME}/src/cmdline-tools/bin
+export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/src/flutter/bin
 
 # android sdk
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
