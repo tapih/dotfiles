@@ -111,6 +111,7 @@ _fzf_comprun() {
     case "$command" in
         cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
         export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+        less)         fzf "$@" --preview 'bat --style=numbers --color=always --line-range :200 {}' ;;
         ssh)          fzf "$@" --preview 'dig {}' ;;
         *)            fzf "$@" ;;
     esac
@@ -191,18 +192,6 @@ __fzf_git_branch__() {
 }
 
 alias b='__fzf_git_branch__'
-
-_fzf_comprun() {
-    local command=$1
-    shift
-
-    case "$command" in
-        cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
-        less)         fzf "$@" --preview 'bat --style=numbers --color=always --line-range :200 {}' ;;
-        ssh)          fzf "$@" --preview 'dig {}' ;;
-        *)            fzf "$@" ;;
-    esac
-}
 
 bind -r "\C-g"
 bind -r "\C-j"
