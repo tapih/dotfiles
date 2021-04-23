@@ -49,8 +49,8 @@ $(GITCONFIG):
 .PHONY: tmuxrc
 tmuxrc: $(TMUX_CONF)
 $(TMUX_CONF):
-	if [ -z "${SKIP_TMUX}" ]; then
-		ln -s $(ROOT_DIR)/tmux.conf $@
+	if [ -z "${SKIP_TMUX}" ]; then \
+		ln -s $(ROOT_DIR)/tmux.conf $@; \
 	fi
 
 .PHONY: nvimrc

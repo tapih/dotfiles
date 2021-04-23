@@ -108,8 +108,7 @@ $(FZF_DIR):
 starship: $(STARSHIP)
 $(STARSHIP):
 	mkdir -p $(HOME_BIN_DIR)
-	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
-	zsh /tmp/starship_install.sh -y -b $(HOME_BIN_DIR)
+	sh -c "$(curl -fsSL https://starship.rs/install.sh) -y -b $(HOME_BIN_DIR)"
 
 .PHONY: delta
 delta: $(DELTA)

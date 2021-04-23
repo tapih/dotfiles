@@ -43,7 +43,7 @@ wsl-open: $(WSL_OPEN)
 $(WSL_OPEN):
 	sudo mv /usr/bin/xdg-open /usr/bin/xdg-open-bkup
 	sudo npm -g i wsl-open
-	sudo ln -s $(wsl-open) $@
+	sudo ln -s /usr/local/bin/wsl-open $@
 
 .PHONY: clean
 clean:

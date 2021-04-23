@@ -1,11 +1,9 @@
 #! /usr/bin/zsh
 
-if ! shopt -oq posix; then
-  if [ -f /usr/share/zsh-completion/zsh_completion ]; then
-    . /usr/share/zsh-completion/zsh_completion
-  elif [ -f /etc/zsh_completion ]; then
-    . /etc/zsh_completion
-  fi
+if [ -f /usr/share/zsh-completion/zsh_completion ]; then
+  . /usr/share/zsh-completion/zsh_completion
+elif [ -f /etc/zsh_completion ]; then
+  . /etc/zsh_completion
 fi
 
 if [ -f ~/.git-completion.zsh ]; then
