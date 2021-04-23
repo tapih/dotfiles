@@ -2,6 +2,8 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
+bindkey -e
+
 export SHELL=`which zsh`
 export PATH=$HOME/bin:$PATH
 export LANG=en_US.UTF-8
@@ -28,9 +30,11 @@ setopt hist_ignore_dups
 
 stty -ixon
 
-bindkey -e
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^p' history-beginning-search-backward-end
+bindkey '^n' history-beginning-search-forward-end
 
 # NOTE: .zshrc.wsl should be read before .zshrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
