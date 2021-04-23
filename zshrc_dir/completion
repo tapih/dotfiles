@@ -13,3 +13,8 @@ fi
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
+
+if exists kubectl; then
+    compdef k=kubectl
+    source <(kubectl completion zsh)
+fi

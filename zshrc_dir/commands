@@ -84,8 +84,6 @@ if exists kubectl ; then
     alias kgd='kubectl get deploy'
     alias kdd='kubectl describe deployment'
 
-    complete -F __start_kubectl k
-    source <(kubectl completion zsh)
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
