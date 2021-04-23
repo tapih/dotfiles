@@ -35,10 +35,6 @@ export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 bind '"\C-p": history-search-backward'
 bind '"\C-n": history-search-forward'
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # NOTE: .bashrc.wsl should be read before .bashrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
     [ -f ~/.bashrc_dir/wsl ] && .  ~/.bashrc_dir/wsl
