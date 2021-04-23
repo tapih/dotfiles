@@ -2,12 +2,14 @@
 
 if [ -f /usr/share/zsh-completion/zsh_completion ]; then
   . /usr/share/zsh-completion/zsh_completion
-elif [ -f /etc/zsh_completion ]; then
-  . /etc/zsh_completion
 fi
 
-if [ -f ~/.git-completion.zsh ]; then
-    . ~/.git-completion.zsh
-    __git_complete g __git_main
+if [ -f ~/.zsh/git-completion.bash ]; then
+  fpath=(~/.zsh $fpath)
+  zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
+  autoload -Uz compinit && compinit
 fi
 
+if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi

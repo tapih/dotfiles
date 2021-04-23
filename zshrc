@@ -11,12 +11,12 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 [ -n "$(which bat)" ] && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-else
+if [ -z "$NVIM_LISTEN_ADDRESS" ]; then
     export VISUAL="nvim"
     export EDITOR="nvim"
+else
+    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
+    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
 fi
 
 setopt no_beep

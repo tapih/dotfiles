@@ -35,7 +35,9 @@ STARSHIP := $(HOME_BIN_DIR)/starship
 NODE := /usr/local/bin/node
 YARN := /usr/bin/yarn
 GIT_OPEN := /usr/local/bin/git-open
-ZSH_COMPLETION_PATH := ${HOME}/.git-completion.zsh
+GIT_COMPLETION_BASH := ${HOME}/.zsh/.git-completion.bash
+GIT_COMPLETION_ZSH := ${HOME}/.zsh/_git
+ZSH_AUTO_SUGGESTIONS_DIR := ${HOME}/.zsh/zsh-autosuggestions
 
 .PHONY: install
 install: \
@@ -108,7 +110,8 @@ $(FZF_DIR):
 starship: $(STARSHIP)
 $(STARSHIP):
 	mkdir -p $(HOME_BIN_DIR)
-	sh -c "$(curl -fsSL https://starship.rs/install.sh) -y -b $(HOME_BIN_DIR)"
+	curl -fsSL https://starship.rs/install.sh -o /tmp/install.sh
+	sh /tmp/install.sh -y -b $(HOME_BIN_DIR)
 
 .PHONY: delta
 delta: $(DELTA)
@@ -123,9 +126,17 @@ $(RG):
 	sudo dpkg -i /tmp/rg.deb
 
 .PHONY: completion
-completion: $(ZSH_COMPLETION_PATH)
-$(ZSH_COMPLETION_PATH):
-	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o $@
+completion: git-completion-bash git-completion-zsh git-prompt
+
+.PHONY: git-completion-bash
+git-completion-bash: $(GIT_COMPLETION_BASH)
+$(GIT_COMPLETION_BASH):
+	$(CURL) -o $@ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+
+.PHONY: git-completion-zsh
+git-completion-zsh: $(GIT_COMPLETION_ZSH)
+$(GIT_COMPLETION_ZSH):
+	$(CURL) -o $@ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh
 
 .PHONY: node
 node: $(NODE)
@@ -147,6 +158,12 @@ git-open: $(GIT_OPEN)
 $(GIT_OPEN): $(NODE)
 	sudo npm -g i git-open
 
+.PHONY: auto-suggestion
+auto-suggestion: $(ZSH_AUTO_SUGGESTIONS_DIR)
+$(ZSH_AUTO_SUGGESTIONS_DIR):
+	mkdir ${HOME}/.zsh
+	git clone https://github.com/zsh-users/zsh-autosuggestions $@
+
 .PHONY: clean
 clean:
 	sudo apt-get purge -y $(PACKAGES) gh lazygit
@@ -155,5 +172,6 @@ clean:
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -rf $(FZF_DIR)
 	rm -f $(STARSHIP)
-	rm -f $(ZSH_COMPLETION_PATH)
+	rm -f $(GIT_COMPLETION_ZSH)
+	rm -f $(GIT_COMPLETION_BASH)
 	sudo rm -rf $(NODE)
