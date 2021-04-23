@@ -29,7 +29,10 @@ cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
 
-sudo apt-get install make
+sudo apt-get install make zsh
+chsh -s /usr/bin/zsh
+# logout & login
+
 make -f install/links.mk clean
 make setup install WINDOWS_USER=<your name>
 ```

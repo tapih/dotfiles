@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/zsh
 
 case "$TERM" in
   xterm*)
@@ -20,6 +20,6 @@ if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-eval "$(starship init bash)"
+eval "$(starship init zsh)"
 export VTE_CJK_WIDTH=1
 

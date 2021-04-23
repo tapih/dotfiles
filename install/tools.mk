@@ -35,8 +35,7 @@ STARSHIP := $(HOME_BIN_DIR)/starship
 NODE := /usr/local/bin/node
 YARN := /usr/bin/yarn
 GIT_OPEN := /usr/local/bin/git-open
-BASH_GIT_PROMPT_DIR := ${HOME}/.bash-git-prompt
-BASH_COMPLETION_PATH := ${HOME}/.git-completion.bash
+ZSH_COMPLETION_PATH := ${HOME}/.git-completion.zsh
 
 .PHONY: install
 install: \
@@ -110,7 +109,7 @@ starship: $(STARSHIP)
 $(STARSHIP):
 	mkdir -p $(HOME_BIN_DIR)
 	$(CURL) https://starship.rs/install.sh -o /tmp/starship_install.sh
-	bash /tmp/starship_install.sh -y -b $(HOME_BIN_DIR)
+	zsh /tmp/starship_install.sh -y -b $(HOME_BIN_DIR)
 
 .PHONY: delta
 delta: $(DELTA)
@@ -125,9 +124,9 @@ $(RG):
 	sudo dpkg -i /tmp/rg.deb
 
 .PHONY: completion
-completion: $(BASH_COMPLETION_PATH)
-$(BASH_COMPLETION_PATH):
-	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o $@
+completion: $(ZSH_COMPLETION_PATH)
+$(ZSH_COMPLETION_PATH):
+	${CURL} https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.zsh -o $@
 
 .PHONY: node
 node: $(NODE)
@@ -157,5 +156,5 @@ clean:
 	rm -rf $(TMUX_PLUGIN_DIR)
 	rm -rf $(FZF_DIR)
 	rm -f $(STARSHIP)
-	rm -f $(BASH_COMPLETION_PATH)
+	rm -f $(ZSH_COMPLETION_PATH)
 	sudo rm -rf $(NODE)

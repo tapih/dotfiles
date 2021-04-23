@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/zsh
 
 # cd+ls
 cdls() {
@@ -29,7 +29,6 @@ exists /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 
 # aliases
 alias a='alias'
-alias mmm='man bash | grep "^\s*\${.*}$" | tr -d " "'
 alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
@@ -43,9 +42,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias q='exit'
 alias quit='exit'
-alias e='nvim ~/.bashrc'
+alias e='nvim ~/.zshrc'
 alias E='nvim ~/.vimrc'
-alias u='. ~/.bashrc'
+alias u='. ~/.zshrc'
 alias j='cd -'
 alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
 alias H='cd ~'
@@ -55,7 +54,7 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
-alias t='if [ ${HOME}/t == $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
+alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 exists tmux && alias tmux="tmux -2"
 exists docker && alias d='docker'
 exists docker-compose && alias dc='docker-compose'
@@ -86,12 +85,12 @@ if exists kubectl ; then
     alias kdd='kubectl describe deployment'
 
     complete -F __start_kubectl k
-    source <(kubectl completion bash)
+    source <(kubectl completion zsh)
     export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 fi
 
 # fzf
-[ -f ~/.fzf.bash ] && . ~/.fzf.bash
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
@@ -193,10 +192,11 @@ __fzf_git_branch__() {
 
 alias b='__fzf_git_branch__'
 
-bind -r "\C-g"
-bind -r "\C-j"
-bind -r "\C-o"
-bind -x '"\C-g": __fzf_ghq__'
-bind -x '"\C-o": __fzf_git_file__'
-bind -x '"\C-j": __fzf_git_grep__'
+zle -N __fzf_ghq__
+zle -N __fzf_git_file__
+zle -N __fzf_git_grep__
+
+bindkey '^g' __fzf_ghq__
+bindkey '^o' __fzf_git_file__
+bindkey '^j' __fzf_git_grep__
 

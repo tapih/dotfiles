@@ -2,8 +2,8 @@ CURL := curl -sSfL
 
 ROOT_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/..
 
-BASHRC := ${HOME}/.bashrc
-BASHRC_DIR := ${HOME}/.bashrc_dir
+ZSHRC := ${HOME}/.zshrc
+ZSHRC_DIR := ${HOME}/.zshrc_dir
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
@@ -16,8 +16,8 @@ SKIP_TMUX ?=
 
 .PHONY: install
 install: \
-	bashrc \
-	bashrcdir \
+	zshrc \
+	zshrcdir \
 	inputrc \
 	gitconfig \
 	tmuxrc \
@@ -26,15 +26,15 @@ install: \
 	ideavimrc \
 	starshiprc
 
-.PHONY: bashrc
-bashrc: $(BASHRC)
-$(BASHRC):
-	ln -s $(ROOT_DIR)/bashrc $@
+.PHONY: zshrc
+zshrc: $(ZSHRC)
+$(ZSHRC):
+	ln -s $(ROOT_DIR)/zshrc $@
 
-.PHONY: bashrcdir
-bashrcdir: $(BASHRC_DIR)
-$(BASHRC_DIR):
-	ln -s $(ROOT_DIR)/bashrc_dir $@
+.PHONY: zshrcdir
+zshrcdir: $(ZSHRC_DIR)
+$(ZSHRC_DIR):
+	ln -s $(ROOT_DIR)/zshrc_dir $@
 
 .PHONY: inputrc
 inputrc: $(INPUTRC)
@@ -76,8 +76,8 @@ $(STARSHIPRC):
 
 .PHONY: clean
 clean:
-	rm -f $(BASHRC)
-	rm -rf $(BASHRC_DIR)
+	rm -f $(ZSHRC)
+	rm -rf $(ZSHRC_DIR)
 	rm -f $(INPUTRC)
 	rm -f $(GITCONFIG)
 	rm -f $(TMUX_CONF)

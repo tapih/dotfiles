@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/zsh
 
 if [ $UID -ne 0 ] && [ -z "$TMUX" ]; then
     base_session='auto'
