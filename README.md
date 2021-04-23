@@ -29,7 +29,7 @@ cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
 
-sudo apt-get install make zsh
+sudo apt-get install -y make zsh
 chsh -s /usr/bin/zsh
 # logout & login
 
