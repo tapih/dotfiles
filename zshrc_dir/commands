@@ -117,7 +117,7 @@ _fzf_comprun() {
 __fzf_ghq__() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
-        history -s "cd $name"
+        print -S "cd $name"
         \cd $name
     fi
 }
@@ -132,7 +132,7 @@ __fzf_git_cd__() {
     # git fd is defined in .gitconfig
     selected=$(git fd --type d | fzf --preview 'tree -C '${toplevel}'/{} | head -200')
     if [ ! -z "${selected}" ]; then
-        history -s "cd ${toplevel}/${selected}"
+        print -S "cd ${toplevel}/${selected}"
         cd ${toplevel}/${selected}
     fi
 }
@@ -148,7 +148,7 @@ __fzf_git_file__() {
     preview_cmd="bat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
     if [ ! -z "${selected}" ]; then
-        history -s "${EDITOR} ${toplevel}/${selected}"
+        print -S "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
     fi
 }
@@ -166,7 +166,7 @@ __fzf_git_grep__() {
     preview_cmd="echo {} | eval \$(awk -F: '{print \"bat --style=numbers --color=always -H=\" (\$2) \" --line-range=\" (\$2-15>0?\$2-15:0) \":\" (\$2+50) \" ${toplevel}/\" \$1}')"
     selected=$(eval "$initial_cmd" | fzf -d : --nth 3.. --preview-window down:80%:wrap --preview "$preview_cmd" --bind change:reload:"$reload_cmd" | awk -F: '{print $1}')
     if [ ! -z "${selected}" ]; then
-        history -s "${EDITOR} ${toplevel}/${selected}"
+        print -S "${EDITOR} ${toplevel}/${selected}"
         ${EDITOR} ${toplevel}/${selected}
     fi
 }
