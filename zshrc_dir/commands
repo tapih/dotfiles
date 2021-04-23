@@ -57,7 +57,7 @@ alias g='git'
 alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 exists tmux && alias tmux="tmux -2"
 exists docker && alias d='docker'
-exists docker-compose && alias dc='docker-compose'
+exists docker-compose && alias fig='docker-compose'
 
 exists nvim && alias v='nvim'
 exists nvim && alias agit='nvim +Agit'
