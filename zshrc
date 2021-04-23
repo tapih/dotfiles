@@ -42,12 +42,9 @@ if uname -r | grep -i 'microsoft' > /dev/null; then
 fi
 [ -f ~/.zshrc_dir/tmux ] && .  ~/.zshrc_dir/tmux
 [ -f ~/.zshrc_dir/langs ] && . ~/.zshrc_dir/langs
-[ -f ~/.zshrc_dir/completion ] && . ~/.zshrc_dir/completion
-
-# NOTE: .zshrc.commands should be read after .zshrc.completion
 [ -f ~/.zshrc_dir/commands ] && . ~/.zshrc_dir/commands
+[ -f ~/.zshrc_dir/completion ] && . ~/.zshrc_dir/completion
 [ -f ~/.zshrc_dir/prompt ] && . ~/.zshrc_dir/prompt
-
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 

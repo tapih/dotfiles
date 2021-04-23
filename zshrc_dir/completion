@@ -1,4 +1,6 @@
 #! /usr/bin/zsh
+#
+autoload -Uz compinit && compinit
 
 if [ -f /usr/share/zsh-completion/zsh_completion ]; then
   . /usr/share/zsh-completion/zsh_completion
@@ -7,7 +9,6 @@ fi
 if [ -f ~/.zsh/git-completion.bash ]; then
   fpath=(~/.zsh $fpath)
   zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
-  autoload -Uz compinit && compinit
 fi
 
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -15,6 +16,6 @@ if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
 fi
 
 if exists kubectl; then
+    . <(kubectl completion zsh)
     compdef k=kubectl
-    source <(kubectl completion zsh)
 fi
