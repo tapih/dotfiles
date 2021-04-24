@@ -17,6 +17,7 @@ fi
 
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
   . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+  export ZSH_AUTOSUGGEST_STRATEGY=completion
 fi
 
 if exists kubectl; then
