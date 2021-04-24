@@ -1,13 +1,17 @@
 CURL := curl -sSfL
 
-BREW_PREFIX := /home/linuxbrew/.linuxbrew
-BREW := $(BREW_PREFIX)/bin/brew
-ZSH := $(BREW_PREFIX)/bin/zsh
+ifeq ($(IS_UBUNTU), true)
+BREW := /home/linuxbrew/.linuxbrew/bin/brew
+else
+BREW := /usr/local/bin/brew
+endif
 TPM := ${HOME}/.tmux/plugins/tpm
 
 PACKAGES := \
 	cask \
-	antigen \
+	zsh \
+	antigen
+	asdf \
 	ghq \
 	gh \
 	fd \
@@ -44,29 +48,18 @@ PACKAGES := \
 
 .PHONY: install
 install: \
-	brew \
-	packages \
-	zsh \
+	setup \
+	install \
 	tpm
 
-.PHONY: brew
-brew: $(BREW)
-$(BREW):
+.PHONY: setup
+setup:
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-.PHONY: packages
-packages: $(BREW)
+.PHONY: install
+install:
 	$(BREW) update
 	$(BREW) install $(PACKAGES)
-
-.PHONY: zsh
-zsh: $(ZSH)
-$(ZSH): $(BREW)
-	$(BREW) install zsh
-	if ! grep -q $(ZSH) > /dev/null; then \
-		echo "$(ZSH)" | sudo tee -a /etc/shells; \
-	if
-	chsh -s $(ZSH)
 
 .PHONY: tpm
 tpm: $(TPM)
@@ -77,6 +70,5 @@ $(TPM):
 .PHONY: clean
 clean:
 	brew uninstall $(PACKAGES)
-	brew uninstall zsh
-	rm -rf $(TMUX_PLUGIN_DIR)
+	rm -rf $(TPM)
 
