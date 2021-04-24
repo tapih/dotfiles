@@ -47,7 +47,7 @@ install:
 	brew install zsh
 	echo "/home/linuxbrew/.linuxbrew/bin/zsh" | sudo tee -a /etc/shells
 	$(MAKE) -f install/links.mk
-	$(MAKE) -f install/tools.mk
+	$(MAKE) -f install/brew.mk
 	$(MAKE) -f install/go.mk
 	$(MAKE) -f install/python.mk
 	$(MAKE) -f install/dart.mk
@@ -59,7 +59,7 @@ install:
 .PHONY: clean
 clean:
 	$(MAKE) -f install/links.mk clean
-	$(MAKE) -f install/tools.mk clean
+	$(MAKE) -f install/brew.mk clean
 	$(MAKE) -f install/go.mk clean
 	$(MAKE) -f install/python.mk clean
 	$(MAKE) -f install/dart.mk clean
