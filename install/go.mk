@@ -16,8 +16,6 @@ GOLANGCI_LINT := ${GOPATH}/bin/golangci-lint
 GOLANGCI_LINT_LS := ${GOPATH}/bin/golangci-lint-langserver
 GOTESTS := ${GOPATH}/bin/gotests
 GOMODIFYTAGS := ${GOPATH}/bin/gomodifytags
-GHQ := ${GOPATH}/bin/ghq
-YQ := ${GOPATH}/bin/yq
 HUGO := $(HOME_BIN_DIR)/hugo
 COBRA := ${GOPATH}/bin/cobra
 STATICCHECK := ${GOPATH}/bin/staticcheck
@@ -47,7 +45,6 @@ install: \
 	dlv \
 	hugo \
 	misspell \
-	ghq \
 	impl \
 	interfacer \
 	go-expr-completion \
@@ -124,11 +121,6 @@ hugo: $(HUGO)
 $(HUGO):
 	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xzf - -C $(HOME_BIN_DIR) hugo
 
-.PHONY: yq
-yq: $(YQ)
-$(YQ):
-	$(GO) install github.com/mikefarah/yq@latest
-
 .PHONY: impl
 impl: $(IMPL)
 $(IMPL):
@@ -189,7 +181,6 @@ clean: uninstall
 	rm -f $(DLV)
 	rm -f $(HUGO)
 	rm -f $(MISSPELL)
-	rm -f $(GHQ)
 	rm -f $(IMPL)
 	rm -f $(INTERFACER)
 	rm -f $(GO_EXPR_COMPLETION)

@@ -2,7 +2,13 @@ CURL := curl -sSfL
 
 NODE_VERSION := 14.16.0
 
+HOME_BIN_DIR := ${HOME}/bin
+ZSH := /home/linuxbrew/.linuxbrew/bin/zsh
+BREW := /home/linuxbrew/.linuxbrew/bin/brew
+TMUX_PLUGINS_DIR := ${HOME}/.tmux/plugins/tpm
+
 PACKAGES := \
+	zsh \
 	ghq \
 	gh \
 	fd \
@@ -36,29 +42,34 @@ PACKAGES := \
 	openssl \
 	gnupg
 
-HOME_BIN_DIR := ${HOME}/bin
-ANTIGEN := ${HOME}/.antigen.zsh
-TMUX_PLUGINS_DIR := ${HOME}/.tmux/plugins/tpm
-
 .PHONY: install
 install: \
+	setup \
 	packages \
 	tmuxplugins \
 	node
 
-.PHONY: packages
-packages:
-	brew install $(PACKAGES)
+.PHONY: brew
+brew: $(BREW)
+$(BREW):
+	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	$@ update
+	$@ install cask
 
-.PHONY: antigen
-antigen: $(ANTIGEN)
-$(ANTIGEN):
-	curl -L git.io/antigen > $@
+.PHONY: packages
+packages: $(BREW)
+	$(BREW) install $(PACKAGES)
+
+.PHONY: zsh
+zsh: $(BREW) $(ZSH)
+$(ZSH):
+	$(BREW) install zsh antigen
+	echo "$@" | sudo tee -a /etc/shells
+	chsh -s $@
 
 .PHONY: node
 node: $(NODE)
 $(NODE):
-	brew install n
 	sudo n $(NODE_VERSION)
 
 .PHONY: gcloud
@@ -79,4 +90,3 @@ $(TMUX_PLUGINS_DIR):
 clean:
 	brew uninstall $(PACKAGES)
 	rm -rf $(TMUX_PLUGIN_DIR)
-	sudo rm -rf $(NODE)

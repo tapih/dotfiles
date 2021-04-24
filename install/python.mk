@@ -10,43 +10,10 @@ NVIM_DIR := $(PYENV_DIR)/versions/neovim
 
 .PHONY: install
 install: \
-	setup \
 	pyenv \
 	python \
 	virtualenv \
 	pynvim
-
-.PHONY: setup
-setup:
-	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
-		$(MAKE) ubuntu; \
-	else \
-		$(MAKE) osx; \
-	fi
-
-.PHONY: ubuntu
-ubuntu:
-	sudo apt-get install -y --no-install-recommends \
-		build-essential \
-		libssl-dev \
-		zlib1g-dev \
-		libbz2-dev \
-		libreadline-dev \
-		libsqlite3-dev \
-		wget \
-		curl \
-		llvm \
-		libncurses5-dev \
-		xz-utils \
-		tk-dev \
-		libxml2-dev \
-		libxmlsec1-dev \
-		libffi-dev \
-		liblzma-dev
-
-.PHONY: osx
-osx:
-	brew install openssl readline sqlite3 xz zlib
 
 .PHONY: pyenv
 pyenv: $(PYENV_DIR)
