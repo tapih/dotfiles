@@ -3,21 +3,9 @@ CURL := curl -sSfL
 DOCKER_VERSION := 20.10.3~3-0
 CONTAINERD_VERSION := 1.4.3-1
 
-HOME_BIN_DIR := ${HOME}/bin
 CONTAINERD := /usr/bin/containerd
 DOCKER := /usr/bin/docker
 DOCKERD := /usr/bin/dockerd
-
-DOCKER_PACKAGES := \
-	curl \
-	software-properties-common \
-	ca-certificates \
-	gnupg-agent \
-	apt-transport-https
-
-.PHONY: install
-install: \
-	docker
 
 .PHONY: containerd
 containerd: $(CONTAINERD)
@@ -37,6 +25,12 @@ $(DOCKER):
 docker: $(DOCKERD)
 $(DOCKERD): $(CONTAINERD) $(DOCKER)
 	sudo apt-get purge -y docker-engine
+	sudo apt-get install -y --no-install-recommends \
+		curl \
+		software-properties-common \
+		ca-certificates \
+		gnupg-agent \
+		apt-transport-https
 	$(CURL) -o /tmp/docker-ce.deb https://download.docker.com/linux/ubuntu/dists/focal/pool/stable/amd64/docker-ce_$(DOCKER_VERSION)~ubuntu-focal_amd64.deb
 	sudo dpkg -i /tmp/docker-ce.deb
 	if ! grep -q docker /etc/group; then \
