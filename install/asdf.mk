@@ -17,6 +17,7 @@ setup:
 
 .PHONY: plugins
 plugins:
+	(asdf plugin list | grep -q gcloud) || asdf plugin add gcloudl
 	(asdf plugin list | grep -q python) || asdf plugin add python
 	(asdf plugin list | grep -q golang) || asdf plugin add golang
 	(asdf plugin list | grep -q nodejs) || asdf plugin add nodejs
@@ -24,6 +25,7 @@ plugins:
 
 .PHONY: install
 install: plugins
+	asdf install gcloud latest
 	asdf install golang $(GO_VERSION)
 	asdf install flutter $(FLUTTER_VERSION)-stable
 	asdf install nodejs $(NODE_VERSION)

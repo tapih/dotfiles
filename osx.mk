@@ -15,8 +15,7 @@ setup:
 		slack \
 		google-chrome \
 		android-studio \
-		notion \
-		google-cloud-sdk
+		notion
 
 .PHONY: install
 install:
