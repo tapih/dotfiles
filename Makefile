@@ -46,8 +46,10 @@ install: ## install
 		$(MAKE) -f dart.mk && \
 		$(MAKE) -f rust.mk && \
 		$(MAKE) -f nvim.mk && \
-		$(MAKE) -f docker.mk && \
 		$(MAKE) -f kubernetes.mk
+	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
+		$(MAKE) -f docker.mk; \
+	fi
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk; \
 	fi
@@ -69,8 +71,10 @@ clean: ## clean
 		$(MAKE) -f dart.mk clean && \
 		$(MAKE) -f rust.mk clean && \
 		$(MAKE) -f nvim.mk nvim-clean && \
-		$(MAKE) -f docker.mk clean && \
 		$(MAKE) -f kubernetes.mk clean
+	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
+		$(MAKE) -f docker.mk clean; \
+	fi
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk clean; \
 	fi

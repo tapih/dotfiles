@@ -1,15 +1,12 @@
 CURL := curl -sSfL
 
 DOCKER_VERSION := 20.10.3~3-0
-DOCKER_COMPOSE_VERSION := 1.28.2
 CONTAINERD_VERSION := 1.4.3-1
 
 HOME_BIN_DIR := ${HOME}/bin
 CONTAINERD := /usr/bin/containerd
 DOCKER := /usr/bin/docker
 DOCKERD := /usr/bin/dockerd
-DOCKER_COMPOSE := $(HOME_BIN_DIR)/docker-compose
-LAZYDOCKER := $(HOME_BIN_DIR)/lazydocker
 
 DOCKER_PACKAGES := \
 	curl \
@@ -20,8 +17,7 @@ DOCKER_PACKAGES := \
 
 .PHONY: install
 install: \
-	docker \
-	docker-compose
+	docker
 
 .PHONY: containerd
 containerd: $(CONTAINERD)
@@ -48,18 +44,3 @@ $(DOCKERD): $(CONTAINERD) $(DOCKER)
 	fi
 	sudo usermod -aG docker $${USER}; \
 
-.PHONY: docker-compose
-docker-compose: $(DOCKER_COMPOSE)
-$(DOCKER_COMPOSE):
-	sudo $(CURL) https://github.com/docker/compose/releases/download/$(DOCKER_COMPOSE_VERSION)/docker-compose-$$(uname -s)-$$(uname -m) -o $@
-	sudo chmod +x $@
-
-.PHONY: lazydocker
-lazydocker: $(LAZYDOCKER)
-$(LAZYDOCKER):
-	$(CURL) https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | env DIR=$(HOME_BIN_DIR) bash
-
-.PHONY: clean
-clean:
-	echo "executables related to docker are not cleaned"
-	rm -f $(DOCKER_COMPOSE)

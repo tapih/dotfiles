@@ -14,6 +14,7 @@ PACKAGES := \
 	git \
 	tig \
 	lazygit \
+	lazydocker \
 	unzip \
 	tmux \
 	jq \
