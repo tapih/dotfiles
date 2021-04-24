@@ -1,14 +1,8 @@
 CURL := curl -sSfL
 
-GO_VERSION := 1.16.1
-HUGO_VERSION := 0.81.0
-PROTOC_VERSION := 3.15.0
-
 GOROOT := /usr/local/go
-GOPATH := ${HOME}/go
-
-HOME_BIN_DIR := ${HOME}/bin
 GO := ${GOROOT}/bin/go
+GOPATH := ${HOME}/go
 GOIMPORTS := ${GOPATH}/bin/goimports
 GORETURNS := ${GOPATH}/bin/goreturns
 GOPLS := ${GOPATH}/bin/gopls
@@ -16,7 +10,6 @@ GOLANGCI_LINT := ${GOPATH}/bin/golangci-lint
 GOLANGCI_LINT_LS := ${GOPATH}/bin/golangci-lint-langserver
 GOTESTS := ${GOPATH}/bin/gotests
 GOMODIFYTAGS := ${GOPATH}/bin/gomodifytags
-HUGO := $(HOME_BIN_DIR)/hugo
 COBRA := ${GOPATH}/bin/cobra
 STATICCHECK := ${GOPATH}/bin/staticcheck
 MISSPELL := ${GOPATH}/bin/misspell
@@ -30,9 +23,8 @@ PROTO_GEN_GO := ${GOPATH}/bin/proto-gen-go
 PROTO_GEN_GO_GRPC := ${GOPATH}/bin/proto-gen-go-grpc
 PROTO_GEN_DOC := ${GOPATH}/bin/proto-gen-doc
 
-.PHONY: install
-install: \
-	go \
+.PHONY: gotools
+gotools: \
 	goimports \
 	goreturns \
 	gopls \
@@ -43,7 +35,6 @@ install: \
 	staticcheck \
 	cobra \
 	dlv \
-	hugo \
 	misspell \
 	impl \
 	interfacer \
@@ -51,15 +42,6 @@ install: \
 	gqlgen \
 	oapi-codegen \
 	proto-gen
-
-.PHONY: go
-go: $(GO)
-$(GO):
-	sudo mkdir -p ${GOROOT}
-	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C ${GOROOT} --strip-components=1"
-	mkdir -p ${GOPATH}/src
-	mkdir -p ${GOPATH}/bin
-	mkdir -p ${GOPATH}/pkg
 
 .PHONY: goimports
 goimports: $(GOIMPORTS)
@@ -115,11 +97,6 @@ $(DLV):
 misspell: $(MISSPELL)
 $(MISSPELL):
 	$(GO) install github.com/client9/misspell/cmd/misspell@latest
-
-.PHONY: hugo
-hugo: $(HUGO)
-$(HUGO):
-	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xzf - -C $(HOME_BIN_DIR) hugo
 
 .PHONY: impl
 impl: $(IMPL)
@@ -179,7 +156,6 @@ clean: uninstall
 	rm -f $(STATICCHECK)
 	rm -f $(COBRA)
 	rm -f $(DLV)
-	rm -f $(HUGO)
 	rm -f $(MISSPELL)
 	rm -f $(IMPL)
 	rm -f $(INTERFACER)

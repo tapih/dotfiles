@@ -38,6 +38,7 @@ PACKAGES := \
 	k9s \
 	krew \
 	terraform \
+	hugo \
 	colordiff \
 	openssl \
 	gnupg
