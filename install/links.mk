@@ -1,6 +1,7 @@
 CURL := curl -sSfL
 
 ROOT_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/..
+LINKS_DIR := ${ROOT_DIR}/links
 
 ZSHRC := ${HOME}/.zshrc
 ZSHRC_DIR := ${HOME}/.zshrc_dir
@@ -29,60 +30,60 @@ install: \
 .PHONY: zshrc
 zshrc: $(ZSHRC)
 $(ZSHRC):
-	ln -s $(ROOT_DIR)/zshrc $@
+	ln -s $(LINKS_DIR)/zshrc $@
 
 .PHONY: zshrcdir
 zshrcdir: $(ZSHRC_DIR)
 $(ZSHRC_DIR):
-	ln -s $(ROOT_DIR)/zshrc_dir $@
+	ln -s $(LINKS_DIR)/zshrc_dir $@
 
 .PHONY: inputrc
 inputrc: $(INPUTRC)
 $(INPUTRC):
-	ln -s $(ROOT_DIR)/inputrc $@
+	ln -s $(LINKS_DIR)/inputrc $@
 
 .PHONY: gitconfig
 gitconfig: $(GITCONFIG)
 $(GITCONFIG):
-	ln -s $(ROOT_DIR)/gitconfig $@
+	ln -s $(LINKS_DIR)/gitconfig $@
 
 .PHONY: tmuxrc
 tmuxrc: $(TMUX_CONF)
 $(TMUX_CONF):
 	if [ -z "${SKIP_TMUX}" ]; then \
-		ln -s $(ROOT_DIR)/tmux.conf $@; \
+	  ln -s $(LINKS_DIR)/tmux.conf $@; \
 	fi
 
 .PHONY: nvimrc
 nvimrc: $(NVIMRC_DIR)
 $(NVIMRC_DIR):
 	mkdir -p ${HOME}/.config
-	ln -s $(ROOT_DIR)/nvim $@
+	ln -s $(LINKS_DIR)/config/nvim $@
 
 .PHONY: vimrc
 vimrc: $(VIMRC)
 $(VIMRC):
-	ln -s $(ROOT_DIR)/nvim/init.vim $@
+	ln -s $(LINKS_DIR)/config/nvim/init.vim $@
 
 .PHONY: ideavimrc
 ideavimrc: $(IDEAVIMRC)
 $(IDEAVIMRC):
-	ln -s $(ROOT_DIR)/ideavimrc $@
+	ln -s $(LINKS_DIR)/ideavimrc $@
 
 .PHONY: starshiprc
 starshiprc: $(STARSHIPRC)
 $(STARSHIPRC):
-	ln -s $(ROOT_DIR)/config/starship.toml $@
+	ln -s $(LINKS_DIR)/config/starship.toml $@
 
 .PHONY: clean
 clean:
 	rm -f $(ZSHRC)
-	rm -rf $(ZSHRC_DIR)
 	rm -f $(INPUTRC)
 	rm -f $(GITCONFIG)
 	rm -f $(TMUX_CONF)
-	rm -rf $(NVIMRC_DIR)
 	rm -f $(VIMRC)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
+	rm -rf $(ZSHRC_DIR)
+	rm -rf $(NVIMRC_DIR)
 
