@@ -14,6 +14,7 @@ setup: ## setup
 	fi
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	brew update
+	brew install cask
 
 .PHONY: ubuntu
 ubuntu:
@@ -44,7 +45,6 @@ install: ## install
 		$(MAKE) -f tools.mk && \
 		$(MAKE) -f go.mk && \
 		$(MAKE) -f dart.mk && \
-		$(MAKE) -f kubernetes.mk
 	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
 		$(MAKE) -f docker.mk; \
 	fi
@@ -67,7 +67,6 @@ clean: ## clean
 		$(MAKE) -f tools.mk clean && \
 		$(MAKE) -f go.mk clean && \
 		$(MAKE) -f dart.mk clean && \
-		$(MAKE) -f kubernetes.mk clean
 	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
 		$(MAKE) -f docker.mk clean; \
 	fi

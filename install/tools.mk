@@ -11,16 +11,24 @@ PACKAGES := \
 	delta \
 	starship \
 	neovim \
+	tmux \
 	git \
 	tig \
 	lazygit \
 	lazydocker \
 	unzip \
-	tmux \
 	jq \
 	tree \
 	htop \
 	yarn \
+	kubectl \
+	kind \
+	kustomize \
+	helm \
+	skaffold \
+	stern \
+	k9s \
+	krew \
 	terraform \
 	colordiff \
 	openssl \
