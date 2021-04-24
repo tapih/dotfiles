@@ -3,9 +3,9 @@
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
 bindkey -e
-
 export SHELL=`which zsh`
-export PATH=$HOME/bin:$PATH
+
+export PATH=$PATH:$HOME/bin:/home/linuxbrew/.linuxbrew/bin
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export HISTFILE=${HOME}/.zsh_history
