@@ -1,14 +1,13 @@
 CURL := curl -sSfL
 
-NODE_VERSION := 14.16.0
-
 HOME_BIN_DIR := ${HOME}/bin
 ZSH := /home/linuxbrew/.linuxbrew/bin/zsh
-BREW := /home/linuxbrew/.linuxbrew/bin/brew
-TMUX_PLUGINS_DIR := ${HOME}/.tmux/plugins/tpm
+TPM := ${HOME}/.tmux/plugins/tpm
 
 PACKAGES := \
+	cask \
 	zsh \
+	antigen \
 	ghq \
 	gh \
 	fd \
@@ -47,31 +46,21 @@ PACKAGES := \
 install: \
 	setup \
 	packages \
-	tmuxplugins \
+	tpm \
 	node
 
-.PHONY: brew
-brew: $(BREW)
-$(BREW):
+.PHONY: setup
+setup:
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	$@ update
-	$@ install cask
+	if ! grep -q $(ZSH) > /dev/null; then \
+		echo "$(ZSH)" | sudo tee -a /etc/shells; \
+	if
+	chsh -s $(ZSH)
 
 .PHONY: packages
-packages: $(BREW)
+packages:
+	$(BREW) update
 	$(BREW) install $(PACKAGES)
-
-.PHONY: zsh
-zsh: $(BREW) $(ZSH)
-$(ZSH):
-	$(BREW) install zsh antigen
-	echo "$@" | sudo tee -a /etc/shells
-	chsh -s $@
-
-.PHONY: node
-node: $(NODE)
-$(NODE):
-	sudo n $(NODE_VERSION)
 
 .PHONY: gcloud
 gcloud: $(GCLOUD)
@@ -81,13 +70,15 @@ $(GCLOUD):
 	sudo apt-get update && \
 		sudo apt-get install -y --no-install-recommends google-cloud-sdk
 
-.PHONY: tmuxplugins
-tmuxplugins: $(TMUX_PLUGINS_DIR)
-$(TMUX_PLUGINS_DIR):
+.PHONY: tpm
+tpm: $(TPM)
+$(TPM):
 	mkdir -p $(HOME)/.tmux
 	git clone https://github.com/tmux-plugins/tpm $@
 
 .PHONY: clean
 clean:
 	brew uninstall $(PACKAGES)
+	brew uninstall zsh
 	rm -rf $(TMUX_PLUGIN_DIR)
+

@@ -3,6 +3,7 @@ CURL := curl -sSfL
 GO_VERSION := 1.16.1
 FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
+NODE_VERSION := 14.16.0
 
 GOROOT := /usr/local/go
 GO := ${GOROOT}/bin/go
@@ -18,7 +19,8 @@ NVIM_DIR := $(PYENV_DIR)/versions/neovim
 install: \
 	go \
 	flutter \
-	python
+	python \
+	node
 
 .PHONY: go
 go: $(GO)
@@ -71,6 +73,12 @@ $(NVIM_DIR): $(PYENV_VIRTUALENV_DIR) $(python_DIR)
 			$(NVIM_DIR)/bin/pip install pynvim && \
 			$(NVIM_DIR)/bin/pip install neovim-remote && \
 			$(PYENV) global $${CURRENT}
+
+.PHONY: node
+node: $(NODE)
+$(NODE):
+	brew install n
+	sudo n $(NODE_VERSION)
 
 .PHONY: clean
 clean:

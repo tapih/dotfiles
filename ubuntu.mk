@@ -1,5 +1,7 @@
+DOCKERD := /usr/bin/docker
+
 .PHONY: all
-all: setup purge install
+all: setup purge docker install
 
 .PHONY: setup
 setup:
@@ -41,16 +43,22 @@ purge:
 		popularity-contest \
 		update-manager-core
 
+.PHONY: docker
+docker: $(DOCKER)
+$(DOCKER):
+	$(CURL) https://get.docker.com -o /tmp/get-docker.sh
+	sudo sh /tmp/get-docker.sh
+	if ! grep -q docker /etc/group; then \
+		sudo groupadd docker; \
+	fi
+	sudo usermod -aG docker $${USER}
+
 .PHONY: install
 install:
-	# install with brew because it contains git completion out of the box
-	brew install zsh
-	echo "/home/linuxbrew/.linuxbrew/bin/zsh" | sudo tee -a /etc/shells
 	$(MAKE) -f install/links.mk
 	$(MAKE) -f install/brew.mk
-	$(MAKE) -f install/go.mk
-	$(MAKE) -f install/python.mk
-	$(MAKE) -f install/dart.mk
+	$(MAKE) -f install/langs.mk
+	$(MAKE) -f install/gotools.mk
 	$(MAKE) -f install/docker.mk
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk; \
@@ -60,9 +68,8 @@ install:
 clean:
 	$(MAKE) -f install/links.mk clean
 	$(MAKE) -f install/brew.mk clean
-	$(MAKE) -f install/go.mk clean
-	$(MAKE) -f install/python.mk clean
-	$(MAKE) -f install/dart.mk clean
+	$(MAKE) -f install/langs.mk
+	$(MAKE) -f install/gotools.mk
 	if uname -r | grep -i microsoft > /dev/null; then \
 		$(MAKE) -f install/wsl.mk clean; \
 	fi
