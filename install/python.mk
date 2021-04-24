@@ -1,59 +1,86 @@
 CURL := curl -sSfL
 
-PYTHON2_VERSION := 2.7.16
-PYTHON3_VERSION := 3.7.3
+PYTHON_VERSION := 3.7.3
 
-PYENV_DIR := ${HOME}/.pyenv
 PYENV := $(PYENV_DIR)/bin/pyenv
-PYTHON2_DIR := $(PYENV_DIR)/versions/$(PYTHON2_VERSION)
-PYTHON3_DIR := $(PYENV_DIR)/versions/$(PYTHON3_VERSION)
-PYENV_DEPENDENCY := \
-	make \
-	build-essential\
-	libssl-dev\
-	zlib1g-dev\
-	libbz2-dev\
-	libreadline-dev\
-	libsqlite3-dev\
-	wget\
-	curl\
-	llvm\
-	libncurses5-dev\
-	xz-utils\
-	tk-dev\
-	libxml2-dev\
-	libxmlsec1-dev\
-	libffi-dev\
-	liblzma-dev
+PYENV_DIR := ${HOME}/.pyenv
+PYENV_VIRTUALENV_DIR := $(PYENV_DIR)/plugins/pyenv-virtualenv
+python_DIR := $(PYENV_DIR)/versions/$(PYTHON_VERSION)
+NVIM_DIR := $(PYENV_DIR)/versions/neovim
 
 .PHONY: install
 install: \
+	setup \
 	pyenv \
-	python2 \
-	python3
+	python \
+	virtualenv \
+	pynvim
+
+.PHONY: setup
+setup:
+	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
+		$(MAKE) ubuntu; \
+	else \
+		$(MAKE) osx; \
+	fi
+
+.PHONY: ubuntu
+ubuntu:
+	sudo apt-get install -y --no-install-recommends \
+		build-essential \
+		libssl-dev \
+		zlib1g-dev \
+		libbz2-dev \
+		libreadline-dev \
+		libsqlite3-dev \
+		wget \
+		curl \
+		llvm \
+		libncurses5-dev \
+		xz-utils \
+		tk-dev \
+		libxml2-dev \
+		libxmlsec1-dev \
+		libffi-dev \
+		liblzma-dev
+
+.PHONY: osx
+osx:
+	brew install openssl readline sqlite3 xz zlib
 
 .PHONY: pyenv
 pyenv: $(PYENV_DIR)
 $(PYENV_DIR):
-	sudo apt-get install -y --no-install-recommends $(PYENV_DEPENDENCY)
-	git clone https://github.com/pyenv/pyenv.git $@
-	eval "$$($(PYENV) init -)"
+	brew install pyenv
 
-.PHONY: python2
-python2: $(PYTHON2_DIR)
-$(PYTHON2_DIR): $(PYENV_DIR)
-	$(PYENV) install -s $(PYTHON2_VERSION)
+.PHONY: python
+python: $(python_DIR)
+$(python_DIR): $(PYENV_DIR)
+	$(PYENV) install -s $(PYTHON_VERSION)
 	$(PYENV) rehash
 
-.PHONY: python3
-python3: $(PYTHON3_DIR)
-$(PYTHON3_DIR): $(PYENV_DIR)
-	$(PYENV) install -s $(PYTHON3_VERSION)
-	$(PYENV) rehash
+.PHONY: virtualenv
+virtualenv: $(PYENV_VIRTUALENV_DIR)
+$(PYENV_VIRTUALENV_DIR): $(PYENV_DIR)
+	# The timestamp of pyenv is updated newer than virtualenv
+	if [ ! -d $(PYENV_VIRTUALENV_DIR) ]; then \
+		git clone https://github.com/pyenv/pyenv-virtualenv.git $@; \
+	fi
+
+.PHONY: pynvim
+pynvim: $(NVIM_DIR)
+$(NVIM_DIR): $(PYENV_VIRTUALENV_DIR) $(python_DIR)
+	$(PYENV) virtualenv $(PYTHON_VERSION) neovim
+	CURRENT=$($(PYENV) global) && \
+			$(PYENV) global neovim && \
+			$(NVIM_DIR)/bin/pip install -U pip && \
+			$(NVIM_DIR)/bin/pip install pynvim && \
+			$(NVIM_DIR)/bin/pip install neovim-remote && \
+			$(PYENV) global $${CURRENT}
 
 .PHONY: clean
 clean:
-	sudo apt-get purge -y $(PYENV_DEPENDENCY)
-	# make will be removed by the command above
-	sudo apt-get install -y --no-install-recommends make
 	rm -rf $(PYENV_DIR)
+	rm -rf $(PYENV_VIRTUALENV_DIR)
+	rm -rf $(NVIM_DIR)
+	brew uninstall pyenv

@@ -10,10 +10,10 @@ all: setup purge install
 setup: ## setup
 	mkdir -p ${HOME}/bin
 	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
-		$(MAKE) ubuntu
+		$(MAKE) ubuntu; \
 	fi
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
+	brew update
 
 .PHONY: ubuntu
 ubuntu:
@@ -44,7 +44,6 @@ install: ## install
 		$(MAKE) -f tools.mk && \
 		$(MAKE) -f go.mk && \
 		$(MAKE) -f dart.mk && \
-		$(MAKE) -f python.mk && \
 		$(MAKE) -f rust.mk && \
 		$(MAKE) -f cpp.mk && \
 		$(MAKE) -f nvim.mk && \
@@ -70,7 +69,6 @@ clean: ## clean
 		$(MAKE) -f tools.mk clean && \
 		$(MAKE) -f go.mk clean && \
 		$(MAKE) -f dart.mk clean && \
-		$(MAKE) -f python.mk clean && \
 		$(MAKE) -f rust.mk clean && \
 		$(MAKE) -f cpp.mk clean && \
 		$(MAKE) -f nvim.mk nvim-clean && \

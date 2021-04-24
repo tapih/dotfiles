@@ -57,7 +57,6 @@ if has('nvim') && executable('nvr')
 endif
 
 let g:python_pyenv_global = $PYENV_ROOT.'/shims/python'
-let g:python_host_prog = $PYENV_ROOT.'/versions/neovim2/bin/python'
 let g:python3_host_prog = $PYENV_ROOT.'/versions/neovim3/bin/python'
 
 augroup SetYAMLIndent

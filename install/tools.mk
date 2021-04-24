@@ -10,6 +10,7 @@ PACKAGES := \
 	fzf \
 	delta \
 	starship \
+	neovim \
 	git \
 	tig \
 	lazygit \
