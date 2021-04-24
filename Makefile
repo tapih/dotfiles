@@ -44,8 +44,6 @@ install: ## install
 		$(MAKE) -f tools.mk && \
 		$(MAKE) -f go.mk && \
 		$(MAKE) -f dart.mk && \
-		$(MAKE) -f rust.mk && \
-		$(MAKE) -f nvim.mk && \
 		$(MAKE) -f kubernetes.mk
 	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
 		$(MAKE) -f docker.mk; \
@@ -69,8 +67,6 @@ clean: ## clean
 		$(MAKE) -f tools.mk clean && \
 		$(MAKE) -f go.mk clean && \
 		$(MAKE) -f dart.mk clean && \
-		$(MAKE) -f rust.mk clean && \
-		$(MAKE) -f nvim.mk nvim-clean && \
 		$(MAKE) -f kubernetes.mk clean
 	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
 		$(MAKE) -f docker.mk clean; \
