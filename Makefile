@@ -19,6 +19,7 @@ setup: ## setup
 ubuntu:
 	sudo apt-get update --fix-missing
 	sudo apt-get -y --no-install-recommends install \
+		zsh \
 		curl \
 		ca-certificates \
 		software-properties-common \

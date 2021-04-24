@@ -8,7 +8,9 @@ Ubuntu 20.04 on WSL2
 
 ## Install
 
-```bash
+### Ubuntu 20.04
+
+```sh
 sudo visudo
 # tapih ALL=NOPASSWD: ALL
 
@@ -29,7 +31,7 @@ cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
 
-sudo apt-get install -y make zsh
+sudo apt-get install -y make
 chsh -s /usr/bin/zsh
 # logout & login
 
@@ -54,3 +56,4 @@ On Windows side, these tools should be installed manually.
 - Kindle
 - Adobe XD
 - Zoom
+
