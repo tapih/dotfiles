@@ -16,8 +16,8 @@ if [ -f ~/.zsh/git-completion.bash ]; then
 fi
 
 if [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  export ZSH_AUTOSUGGEST_STRATEGY='completion'
   . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  export ZSH_AUTOSUGGEST_STRATEGY=completion
 fi
 
 if exists kubectl; then
