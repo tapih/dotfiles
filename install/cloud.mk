@@ -5,7 +5,6 @@ TERRAFORM_VERSION := 0.13.3
 HOME_BIN_DIR := ${HOME}/bin
 GCLOUD := /usr/bin/gcloud
 AWS := /usr/bin/aws
-TERRAFORM := $(HOME_BIN_DIR)/terraform
 
 .PHONY: install
 install: \
@@ -26,15 +25,6 @@ aws: $(AWS)
 $(AWS):
 	sudo apt-get install -y --no-install-recommends awscli
 
-.PHONY: terraform
-terraform: $(TERRAFORM)
-$(TERRAFORM):
-	mkdir -p $(HOME_BIN_DIR)
-	$(CURL) https://releases.hashicorp.com/terraform/$(TERRAFORM_VERSION)/terraform_$(TERRAFORM_VERSION)_linux_amd64.zip -o /tmp/terraform.zip
-	sudo unzip /tmp/terraform.zip -d $(HOME_BIN_DIR)
-	sudo chmod 755 $@
-
 .PHONY: clean
 clean:
 	sudo apt-get purge -y google-cloud-sdk awscli
-	rm -f $(TERRAFORM)

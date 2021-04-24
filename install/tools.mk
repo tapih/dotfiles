@@ -19,6 +19,7 @@ PACKAGES := \
 	tree \
 	htop \
 	yarn \
+	terraform \
 	colordiff \
 	openssl \
 	gnupg
