@@ -1,17 +1,5 @@
 #! /usr/bin/zsh
 
-if [ -d ${HOME}/.pyenv ]; then
-  export PYENV_ROOT=$HOME/.pyenv
-  export PATH=$PATH:$PYENV_ROOT/shims:$PYENV_ROOT/bin
-  eval "$(pyenv init -)";
-fi
-
-if [ -x ${GOROOT}/bin/go ]; then
-    export GOPATH="$HOME/go"
-    export GOROOT="/usr/local/go"
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-fi
-
-if [ -d ${HOME}/dart/src/flutter ]; then
-  export PATH=${PATH}:${HOME}/.pub-cache/bin:${HOME}/src/flutter/bin
-fi
+export ASDF_ROOT=$HOME/.asdf
+export GOPATH="$HOME/go"
+export PATH=$PATH:$GOPATH/bin:${HOME}/.pub-cache/bin

@@ -5,84 +5,74 @@ FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
 NODE_VERSION := 14.16.0
 
-GOROOT := /usr/local/go
-GO := ${GOROOT}/bin/go
-FLUTTER_DIR := ${HOME}/dart/src/flutter
-PYENV_DIR := ${HOME}/.pyenv
-PYENV := $(PYENV_DIR)/bin/pyenv
-PYENV_VIRTUALENV_DIR := $(PYENV_DIR)/plugins/pyenv-virtualenv
-python_DIR := $(PYENV_DIR)/versions/$(PYTHON_VERSION)
-NVIM_DIR := $(PYENV_DIR)/versions/neovim
+.PHONY: all
+all: setup install pynvim gotools
 
-
-.PHONY: install
-install: \
-	go \
-	flutter \
-	python \
-	node
-
-.PHONY: go
-go: $(GO)
-$(GO):
-	sudo mkdir -p ${GOROOT}
-	sudo sh -c "$(CURL) https://dl.google.com/go/go$(GO_VERSION).linux-amd64.tar.gz | tar xz -C ${GOROOT} --strip-components=1"
+.PHONY: setup
+setup:
 	mkdir -p ${GOPATH}/src
 	mkdir -p ${GOPATH}/bin
 	mkdir -p ${GOPATH}/pkg
+	mkdir -p $(FLUTTER_DIR)
 
-.PHONY: flutter
-flutter: $(FLUTTER_DIR)
-$(FLUTTER_DIR):
-	mkdir -p $@
-	$(CURL) https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_$(FLUTTER_VERSION)-stable.tar.xz | tar Jxf - -C $@ --strip-components=1
+.PHONY: plugins
+plugins:
+	(asdf plugin list | grep -q python) || asdf plugin add python
+	(asdf plugin list | grep -q golang) || asdf plugin add golang
+	(asdf plugin list | grep -q nodejs) || asdf plugin add nodejs
+	(asdf plugin list | grep -q flutter) || asdf plugin add flutter
 
-.PHONY: python
-python: \
-	pyenv \
-	virtualenv \
-	_python \
-	pynvim
-
-.PHONY: pyenv
-pyenv: $(PYENV_DIR)
-$(PYENV_DIR):
-	git clone https://github.com/pyenv/pyenv.git $@
-
-.PHONY: virtualenv
-virtualenv: $(PYENV_VIRTUALENV_DIR)
-$(PYENV_VIRTUALENV_DIR): $(PYENV_DIR)
-	# The timestamp of pyenv is updated with a timestamp newer than virtualenv
-	if [ ! -d $(PYENV_VIRTUALENV_DIR) ]; then \
-		git clone https://github.com/pyenv/pyenv-virtualenv.git $@; \
-	fi
-
-.PHONY: _python
-_python: $(PYTHON_DIR)
-$(PYTHON_DIR): $(PYENV_DIR)
-	$(PYENV) install -s $(PYTHON_VERSION)
-	$(PYENV) rehash
+.PHONY: install
+install: plugins
+	asdf install golang $(GO_VERSION)
+	asdf install flutter $(FLUTTER_VERSION)-stable
+	asdf install nodejs $(NODE_VERSION)
+	asdf install python $(PYTHON_VERSION)
 
 .PHONY: pynvim
-pynvim: $(NVIM_DIR)
-$(NVIM_DIR): $(PYENV_VIRTUALENV_DIR) $(python_DIR)
-	$(PYENV) virtualenv $(PYTHON_VERSION) neovim
-	CURRENT=$($(PYENV) global) && \
-			$(PYENV) global neovim && \
-			$(NVIM_DIR)/bin/pip install -U pip && \
-			$(NVIM_DIR)/bin/pip install pynvim && \
-			$(NVIM_DIR)/bin/pip install neovim-remote && \
-			$(PYENV) global $${CURRENT}
+pynvim:
+	asdf global python $(PYTHON_VERSION)
+	pip install pynvim neovim-remote
 
-.PHONY: node
-node: $(NODE)
-$(NODE):
-	brew install n
-	sudo n $(NODE_VERSION)
+.PHONY: gotools
+gotools:
+	go install golang.org/x/tools/cmd/goimports@latest
+	go install github.com/sqs/goreturns@latest
+	go install golang.org/x/tools/gopls@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	go install github.com/nametake/golangci-lint-langserver@latest
+	go install github.com/cweill/gotests/gotests@latest
+	go install honnef.co/go/tools/cmd/staticcheck@latest
+	go install github.com/fatih/gomodifytags@latest
+	go install github.com/spf13/cobra/cobra@latest
+	go install github.com/go-delve/delve/cmd/dlv@latest
+	go install github.com/client9/misspell/cmd/misspell@latest
+	go install github.com/josharian/impl@latest
+	go install github.com/rjeczalik/interfaces/cmd/interfacer@latest
+	go install github.com/110y/go-expr-completion@latest
+	go install github.com/99designs/gqlgen@latest
+	go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+	go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 
 .PHONY: clean
 clean:
-	rm -rf $(GOROOT)
-	rm -rf $(FLUTTER_DIR)
-	rm -rf $(PYENV_DIR)
-	brew uninstall pyenv
+	asdf uninstall golang $(GO_VERSION)
+	asdf uninstall flutter $(FLUTTER_VERSION)-stable
+	asdf uninstall nodejs $(NODE_VERSION)
+	asdf uninstall python $(PYTHON_VERSION)
+	rm -f $(GOPATH)/bin/goimports
+	rm -f $(GOPATH)/bin/gopls
+	rm -f $(GOPATH)/bin/golangci_lint
+	rm -f $(GOPATH)/bin/golangci_lint_ls
+	rm -f $(GOPATH)/bin/gotests
+	rm -f $(GOPATH)/bin/gomodifytags
+	rm -f $(GOPATH)/bin/staticcheck
+	rm -f $(GOPATH)/bin/cobra
+	rm -f $(GOPATH)/bin/dlv
+	rm -f $(GOPATH)/bin/misspell
+	rm -f $(GOPATH)/bin/impl
+	rm -f $(GOPATH)/bin/interfacer
+	rm -f $(GOPATH)/bin/go_expr_completion
+

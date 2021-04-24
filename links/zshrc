@@ -39,11 +39,11 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
-if [ -f ~/.antigen.zsh ]; then
-    touch ~/.antigen/debug.log
-    rm -f ~/.antigen/.lock
-    .  ~/.antigen.zsh
-fi
+# to suppress warnings
+[ -d ~/.antigen ] && touch ~/.antigen/debug.log && rm -f ~/.antigen/.lock
+[ -f ~/.antigen.zsh ] && .  ~/.antigen.zsh
+[ -f $(brew --prefix asdf)/asdf.sh ] && . $(brew --prefix asdf)/asdf.sh
+
 # NOTE: .zshrc.wsl should be read before .zshrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
     [ -f ~/.zshrc_dir/wsl ] && .  ~/.zshrc_dir/wsl

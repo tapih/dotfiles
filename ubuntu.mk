@@ -66,8 +66,6 @@ install:
 	$(MAKE) -f install/links.mk
 	$(MAKE) -f install/brew.mk
 	$(MAKE) -f install/langs.mk
-	$(MAKE) -f install/gotools.mk
-	$(MAKE) -f install/docker.mk
 	if uname -r | grep -i microsoft > /dev/null; then \
 		cd install && $(MAKE) -f wsl.mk; \
 	fi
@@ -76,8 +74,7 @@ install:
 clean:
 	$(MAKE) -f install/links.mk clean
 	$(MAKE) -f install/brew.mk clean
-	$(MAKE) -f install/langs.mk
-	$(MAKE) -f install/gotools.mk
+	$(MAKE) -f install/langs.mk clean
 	if uname -r | grep -i microsoft > /dev/null; then \
 		$(MAKE) -f install/wsl.mk clean; \
 	fi
