@@ -9,8 +9,31 @@ all: setup purge install
 .PHONY: setup
 setup: ## setup
 	mkdir -p ${HOME}/bin
+	if [ $$(lsb_release -d -s | cut -d' ' -f1) = "Ubuntu" ]; then \
+		$(MAKE) ubuntu
+	fi
+	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+
+.PHONY: ubuntu
+ubuntu:
 	sudo apt-get update --fix-missing
-	sudo apt-get -y --no-install-recommends install curl software-properties-common
+	sudo apt-get -y --no-install-recommends install \
+		curl \
+		software-properties-common \
+		build-essential \
+		procps
+	sudo apt-get -y purge \
+		nano \
+		ghostscript \
+		unattended-upgrades \
+		apport \
+		apport-symptoms \
+		fwupd \
+		nano \
+		netplan.io \
+		popularity-contest \
+		update-manager-core
 
 .PHONY: install
 install: ## install
@@ -30,24 +53,10 @@ install: ## install
 		cd install && $(MAKE) -f wsl.mk; \
 	fi
 
-.PHONY: purge
-purge: ## purge
-	sudo apt-get -y purge \
-		nano \
-		ghostscript \
-		unattended-upgrades \
-		apport \
-		apport-symptoms \
-		fwupd \
-		nano \
-		netplan.io \
-		popularity-contest \
-		update-manager-core
-
 .PHONY: clean
 clean: ## clean
 	while true; do \
-		read -p "Do you wish to install this program? (y/n)" yn; \
+		read -p "Do you wish to uninstall these program? (y/n)" yn; \
 		case $${yn} in \
 			[Yy]* ) break;; \
 			[Nn]* ) exit 1;; \

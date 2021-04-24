@@ -34,7 +34,8 @@ chsh -s /usr/bin/zsh
 # logout & login
 
 make -f install/links.mk clean
-make setup install WINDOWS_USER=<your name>
+make setup
+make install WINDOWS_USER=<your name>
 ```
 
 Windows Terminal requires to disable `<C-v>` to work with `nvim`.
