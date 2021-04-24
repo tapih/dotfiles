@@ -198,3 +198,4 @@ bindkey '^g' __fzf_ghq__
 bindkey '^o' __fzf_git_file__
 bindkey '^j' __fzf_git_grep__
 
+antigen bundle paulirish/git-open

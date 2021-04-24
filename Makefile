@@ -20,7 +20,6 @@ setup: ## setup
 ubuntu:
 	sudo apt-get update --fix-missing
 	sudo apt-get -y --no-install-recommends install \
-		zsh \
 		curl \
 		ca-certificates \
 		software-properties-common \
@@ -37,6 +36,9 @@ ubuntu:
 		netplan.io \
 		popularity-contest \
 		update-manager-core
+	# install with brew because it contains git completion out of the box
+	brew install zsh
+	echo "/home/linuxbrew/.linuxbrew/bin/zsh" | sudo tee -a /etc/shells
 
 .PHONY: install
 install: ## install

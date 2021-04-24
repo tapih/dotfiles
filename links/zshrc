@@ -3,8 +3,6 @@
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
 bindkey -e
-export SHELL=`which zsh`
-
 export PATH=$PATH:$HOME/bin:/home/linuxbrew/.linuxbrew/bin
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -41,6 +39,11 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
+if [ -f ~/.antigen.zsh ]; then
+    touch ~/.antigen/debug.log
+    rm -f ~/.antigen/.lock
+    .  ~/.antigen.zsh
+fi
 # NOTE: .zshrc.wsl should be read before .zshrc.tmux
 if uname -r | grep -i 'microsoft' > /dev/null; then
     [ -f ~/.zshrc_dir/wsl ] && .  ~/.zshrc_dir/wsl
