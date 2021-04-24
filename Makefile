@@ -20,6 +20,7 @@ ubuntu:
 	sudo apt-get update --fix-missing
 	sudo apt-get -y --no-install-recommends install \
 		curl \
+		ca-certificates \
 		software-properties-common \
 		build-essential \
 		procps
