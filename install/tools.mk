@@ -3,6 +3,7 @@ CURL := curl -sSfL
 NODE_VERSION := 14.16.0
 
 PACKAGES := \
+	ghq \
 	gh \
 	fd \
 	rg \

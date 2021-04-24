@@ -124,11 +124,6 @@ hugo: $(HUGO)
 $(HUGO):
 	$(CURL) https://github.com/gohugoio/hugo/releases/download/v$(HUGO_VERSION)/hugo_extended_$(HUGO_VERSION)_Linux-64bit.tar.gz | tar xzf - -C $(HOME_BIN_DIR) hugo
 
-.PHONY: ghq
-ghq: $(GHQ)
-$(GHQ):
-	$(GO) install github.com/x-motemen/ghq@latest
-
 .PHONY: yq
 yq: $(YQ)
 $(YQ):
