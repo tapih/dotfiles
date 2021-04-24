@@ -3,6 +3,7 @@ all: setup install
 
 .PHONY: setup
 setup:
+	xcode-select --install
 	brew install \
 		# python dependencies
 		openssl \
@@ -10,6 +11,12 @@ setup:
 		sqlite3 \
 		xz \
 		zlib
+	brew install --cask \
+		slack \
+		google-chrome \
+		android-studio \
+		notion \
+		google-cloud-sdk
 
 .PHONY: install
 install:

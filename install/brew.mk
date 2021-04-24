@@ -1,12 +1,12 @@
 CURL := curl -sSfL
 
-HOME_BIN_DIR := ${HOME}/bin
-ZSH := /home/linuxbrew/.linuxbrew/bin/zsh
+BREW_PREFIX := /home/linuxbrew/.linuxbrew
+BREW := $(BREW_PREFIX)/bin/brew
+ZSH := $(BREW_PREFIX)/bin/zsh
 TPM := ${HOME}/.tmux/plugins/tpm
 
 PACKAGES := \
 	cask \
-	zsh \
 	antigen \
 	ghq \
 	gh \
@@ -44,31 +44,29 @@ PACKAGES := \
 
 .PHONY: install
 install: \
-	setup \
+	brew \
 	packages \
-	tpm \
-	node
+	zsh \
+	tpm
 
-.PHONY: setup
-setup:
+.PHONY: brew
+brew: $(BREW)
+$(BREW):
 	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+.PHONY: packages
+packages: $(BREW)
+	$(BREW) update
+	$(BREW) install $(PACKAGES)
+
+.PHONY: zsh
+zsh: $(ZSH)
+$(ZSH): $(BREW)
+	$(BREW) install zsh
 	if ! grep -q $(ZSH) > /dev/null; then \
 		echo "$(ZSH)" | sudo tee -a /etc/shells; \
 	if
 	chsh -s $(ZSH)
-
-.PHONY: packages
-packages:
-	$(BREW) update
-	$(BREW) install $(PACKAGES)
-
-.PHONY: gcloud
-gcloud: $(GCLOUD)
-$(GCLOUD):
-	echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-	$(CURL) https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
-	sudo apt-get update && \
-		sudo apt-get install -y --no-install-recommends google-cloud-sdk
 
 .PHONY: tpm
 tpm: $(TPM)
