@@ -32,7 +32,6 @@ PACKAGES := \
 	tree \
 	htop \
 	yarn \
-	kubectl \
 	kind \
 	kustomize \
 	helm \

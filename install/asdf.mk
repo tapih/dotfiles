@@ -1,12 +1,14 @@
 CURL := curl -sSfL
 
+KUBECTL_VERSION := 1.19.2
+GCLOUD_VERSION := 337.0.0
 GO_VERSION := 1.16.1
 FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
 NODE_VERSION := 14.16.0
 
 .PHONY: all
-all: setup install pynvim gotools
+all: setup global pynvim gotools
 
 .PHONY: setup
 setup:
@@ -17,7 +19,8 @@ setup:
 
 .PHONY: plugins
 plugins:
-	(asdf plugin list | grep -q gcloud) || asdf plugin add gcloudl
+	(asdf plugin list | grep -q kubectl) || asdf plugin add kubectl
+	(asdf plugin list | grep -q gcloud) || asdf plugin add gcloud
 	(asdf plugin list | grep -q python) || asdf plugin add python
 	(asdf plugin list | grep -q golang) || asdf plugin add golang
 	(asdf plugin list | grep -q nodejs) || asdf plugin add nodejs
@@ -25,11 +28,21 @@ plugins:
 
 .PHONY: install
 install: plugins
-	asdf install gcloud latest
+	asdf install kubectl $(KUBECTL_VERSION)
+	asdf install gcloud $(GCLOUD_VERSION)
 	asdf install golang $(GO_VERSION)
 	asdf install flutter $(FLUTTER_VERSION)-stable
 	asdf install nodejs $(NODE_VERSION)
 	asdf install python $(PYTHON_VERSION)
+
+.PHONY: global
+global: install
+	asdf global kubectl $(KUBECTL_VERSION)
+	asdf global gcloud $(GO_VERSION)
+	asdf global golang $(GO_VERSION)
+	asdf global flutter $(FLUTTER_VERSION)-stable
+	asdf global nodejs $(NODE_VERSION)
+	asdf global python $(PYTHON_VERSION)
 
 .PHONY: pynvim
 pynvim:
@@ -60,6 +73,8 @@ gotools:
 
 .PHONY: clean
 clean:
+	asdf uninstall kubectl $(KUBECTL_VERSION)
+	asdf uninstall gcloud $(GCLOUD_VERSION)
 	asdf uninstall golang $(GO_VERSION)
 	asdf uninstall flutter $(FLUTTER_VERSION)-stable
 	asdf uninstall nodejs $(NODE_VERSION)
