@@ -675,7 +675,7 @@ if has('nvim')
     nnoremap <silent> tv :<C-u>Vaffle<CR>
 
     " open browser
-    nmap <silent> tww <Plug>(openbrowser-smart-search)
+    nmap <silent> tb <Plug>(openbrowser-smart-search)
 
     " gh line
     let g:gh_line_map = 'twg'
