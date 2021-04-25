@@ -40,8 +40,8 @@ $(GENIE):
 .PHONY: wsl-open
 wsl-open: $(WSL_OPEN)
 $(WSL_OPEN):
-	sudo npm -g i wsl-open
-	sudo ln -s /usr/local/bin/wsl-open $@
+	sudo curl -o $@ https://raw.githubusercontent.com/4U6U57/wsl-open/master/wsl-open.sh
+	chmod 755 $@
 
 .PHONY: clean
 clean:
