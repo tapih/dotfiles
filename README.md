@@ -29,7 +29,8 @@ git clone git@github.com:tapih/dotfiles
 cd dotfiles
 sudo apt-get install -y make
 make postinst OS=ubuntu
-# exit shell once
+# exit shell once, select "q"
+. ~/.zshrc
 
 make install OS=ubuntu
 

@@ -41,7 +41,7 @@ $(GENIE):
 wsl-open: $(WSL_OPEN)
 $(WSL_OPEN):
 	sudo curl -o $@ https://raw.githubusercontent.com/4U6U57/wsl-open/master/wsl-open.sh
-	chmod 755 $@
+	sudo chmod 755 $@
 
 .PHONY: clean
 clean:
