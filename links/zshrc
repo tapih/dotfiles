@@ -75,7 +75,11 @@ eval "$(starship init zsh)"
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
 if uname -r | grep -q -i 'microsoft'; then
-    [ -f ~/.zshrc_dir/wsl ] && .  ~/.zshrc_dir/wsl
+  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
+        genie -s
+  fi
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+  export VTE_CJK_WIDTH=1
 fi
 
 fpath=(${ASDF_DIR}/completions $fpath)
@@ -95,7 +99,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle paulirish/git-open
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
-[ -f ~/.zshrc_dir/commands ] && . ~/.zshrc_dir/commands
+[ -f ~/.zshrc.ommands ] && . ~/.zshrc.ommands
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 

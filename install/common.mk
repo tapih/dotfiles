@@ -14,7 +14,7 @@ ASDF := ${HOME}/.asdf/asdf.sh
 
 LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 ZSHRC := ${HOME}/.zshrc
-ZSHRC_DIR := ${HOME}/.zshrc_dir
+ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
@@ -62,15 +62,15 @@ all: links brew asdf gotools
 .PHONY: links
 links:
 	mkdir -p ${HOME}/.config
-	[ -f $(ZSHRC) ]      || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
-	[ -f $(INPUTRC) ]    || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
-	[ -f $(GITCONFIG) ]  || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
-	[ -f $(TMUX_CONF) ]  || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
-	[ -f $(VIMRC)  ]     || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
-	[ -f $(IDEAVIMRC) ]  || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
-	[ -f $(STARSHIPRC) ] || ln -s $(LINKS_DIR)/config/starship.toml $(STARSHIPRC)
-	[ -d $(ZSHRC_DIR) ]  || ln -s $(LINKS_DIR)/zshrc_dir $(ZSHRC_DIR)
-	[ -d $(NVIMRC_DIR) ] || ln -s $(LINKS_DIR)/config/nvim $(NVIMRC_DIR)
+	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
+	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
+	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
+	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
+	[ -f $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
+	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
+	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
+	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/config/starship.toml $(STARSHIPRC)
+	[ -d $(NVIMRC_DIR) ]     || ln -s $(LINKS_DIR)/config/nvim $(NVIMRC_DIR)
 
 .PHONY: clean-links
 clean-links:
