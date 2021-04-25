@@ -99,7 +99,7 @@ antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle paulirish/git-open
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
-[ -f ~/.zshrc.ommands ] && . ~/.zshrc.ommands
+[ -f ~/.zshrc.commands ] && . ~/.zshrc.commands
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 

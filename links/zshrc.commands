@@ -1,0 +1,163 @@
+#! /usr/bin/zsh
+
+cdls() {
+  if ! builtin cd 2>/dev/null $@; then
+    echo "cannot cd: $@$reset_color"
+    return
+  fi
+  if [ "$?" -eq 0 ]; then
+    lscdmax=40
+    nfiles=$(/bin/ls|wc -l)
+    if [ $nfiles -eq 0 ]; then
+      if [ "$(/bin/ls -A|wc -l)" -eq 0 ]; then
+        echo "no files in: $(pwd)$reset_color"
+      else
+        echo "only hidden files in: $(pwd)$reset_color"
+        ls -A --color=auto
+      fi
+    elif [ $lscdmax -ge $nfiles ]; then
+      ls -F --color=auto
+    else
+      echo "$nfiles files in: $(pwd)$reset_color"
+    fi
+  fi
+}
+
+_fzf_compgen_path() {
+      fd --hidden --follow --exclude ".git" . "$1"
+}
+
+_fzf_compgen_dir() {
+      fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+_fzf_comprun() {
+    local command=$1
+    shift
+
+    case "$command" in
+        cd)           fzf "$@" --preview 'tree -C {} | head -200' ;;
+        export|unset) fzf "$@" --preview "eval 'echo \$'{}" ;;
+        less)         fzf "$@" --preview 'bat --style=numbers --color=always --line-range :200 {}' ;;
+        ssh)          fzf "$@" --preview 'dig {}' ;;
+        *)            fzf "$@" ;;
+    esac
+}
+
+__fzf_ghq__() {
+    name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    if [ ! -z "${name}" ]; then
+        print -S "cd $name"
+        \cd $name
+    fi
+}
+
+__fzf_git_cd__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    # git fd is defined in .gitconfig
+    selected=$(git fd --type d | fzf --preview 'tree -C '${toplevel}'/{} | head -200')
+    if [ ! -z "${selected}" ]; then
+        print -S "cd ${toplevel}/${selected}"
+        cd ${toplevel}/${selected}
+    fi
+}
+
+__fzf_git_file__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    grep_cmd="git fd --type f -H --exclude '.git' --exclude 'vendor'"
+    preview_cmd="bat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
+    selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
+    if [ ! -z "${selected}" ]; then
+        print -S "${EDITOR} ${toplevel}/${selected}"
+        ${EDITOR} ${toplevel}/${selected}
+    fi
+}
+
+__fzf_git_grep__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    grep_cmd="git g --hidden --line-number --no-heading --smart-case -- '%s' || true"
+    initial_cmd=$(printf "$grep_cmd" "")
+    reload_cmd=$(printf "$grep_cmd" "{q}")
+    preview_cmd="echo {} | eval \$(awk -F: '{print \"bat --style=numbers --color=always -H=\" (\$2) \" --line-range=\" (\$2-15>0?\$2-15:0) \":\" (\$2+50) \" ${toplevel}/\" \$1}')"
+    selected=$(eval "$initial_cmd" | fzf -d : --nth 3.. --preview-window down:80%:wrap --preview "$preview_cmd" --bind change:reload:"$reload_cmd" | awk -F: '{print $1}')
+    if [ ! -z "${selected}" ]; then
+        print -S "${EDITOR} ${toplevel}/${selected}"
+        ${EDITOR} ${toplevel}/${selected}
+    fi
+}
+
+
+__fzf_git_branch__() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    branches=$(env IFS='\n' git branch --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
+    selected=$(echo "$branches" | fzf --preview "eval 'git show \$(echo '{}' | awk '{print $2}') | bat --color=always --line-range :200'")
+    if [ ! -z "${selected}" ]; then
+        branch=$(echo ${selected} | cut -d" " -f2)
+        history -s "git checkout ${branch}"
+        git checkout ${branch}
+    fi
+}
+
+alias cd='cdls'
+alias ls='ls -F --color=auto'
+alias ll='ls -Flh --color=auto'
+alias la='ls -Flha --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='colordiff'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+alias a='alias'
+alias b='__fzf_git_branch__'
+alias q='exit'
+alias e='nvim ~/.zshrc'
+alias E='nvim ~/.vimrc'
+alias u='. ~/.zshrc'
+alias j='cd -'
+alias k='kubectl'
+alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
+alias H='cd ~'
+alias z='lazygit'
+alias ..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias g='git'
+alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
+alias tmux="tmux -2"
+alias d='docker'
+alias fig='docker-compose'
+alias v='nvim'
+alias agit='nvim +Agit'
+[ -n "$NVIM_LISTEN_ADDRESS" ] && alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
+[ -n "$KREW_ROOT" ] && export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
+
+zle -N __fzf_ghq__
+zle -N __fzf_git_file__
+zle -N __fzf_git_grep__
+
+bindkey '^g' __fzf_ghq__
+bindkey '^o' __fzf_git_file__
+bindkey '^j' __fzf_git_grep__
