@@ -1,10 +1,11 @@
-DCKER := /usr/bin/docker
+CURL := curl -sSfL
+DOCKER := /usr/bin/docker
 
 .PHONY: all
-all: setup purge docker gcloud install 
+all: purge-defaults docker apt
 
-.PHONY: setup
-setup:
+.PHONY: apt
+apt:
 	sudo apt-get update --fix-missing
 	sudo apt-get -y --no-install-recommends install \
 		curl \
@@ -33,8 +34,8 @@ setup:
 		libffi-dev \
 		liblzma-dev
 
-.PHONY: purge
-purge:
+.PHONY: purge-defaults
+purge-defaults:
 	sudo apt-get -y purge \
 		nano \
 		ghostscript \
@@ -56,22 +57,4 @@ $(DOCKER):
 		sudo groupadd docker; \
 	fi
 	sudo usermod -aG docker $${USER}
-
-.PHONY: install
-install:
-	$(MAKE) -f install/links.mk
-	$(MAKE) -f install/brew.mk
-	$(MAKE) -f install/asdf.mk
-	if uname -r | grep -i microsoft > /dev/null; then \
-		cd install && $(MAKE) -f wsl.mk; \
-	fi
-
-.PHONY: clean
-clean:
-	$(MAKE) -f install/links.mk clean
-	$(MAKE) -f install/brew.mk clean
-	$(MAKE) -f install/asdf.mk clean
-	if uname -r | grep -i microsoft > /dev/null; then \
-		$(MAKE) -f install/wsl.mk clean; \
-	fi
 
