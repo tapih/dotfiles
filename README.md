@@ -33,7 +33,7 @@ cd dotfiles
 
 sudo apt-get install -y make
 make -f install/links.mk clean
-make setup install WINDOWS_USER=<your name>
+make -f ubuntu.mk setup install WINDOWS_USER=<your name>
 
 ZSH=/home/linuxbrew/.linuxbrew/bin/zsh
 echo "$(ZSH)" | sudo tee -a /etc/shells
