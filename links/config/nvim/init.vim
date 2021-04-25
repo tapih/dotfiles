@@ -56,7 +56,7 @@ if has('nvim') && executable('nvr')
   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
 
-let g:python3_host_prog = $ASDF_ROOT.'/shims//python3'
+let g:python3_host_prog = $ASDF_DIR.'/shims/python3'
 
 augroup SetYAMLIndent
     autocmd!

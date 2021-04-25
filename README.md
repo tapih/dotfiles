@@ -36,8 +36,8 @@ make -f install/links.mk clean
 make -f ubuntu.mk setup install WINDOWS_USER=<your name>
 
 ZSH=/home/linuxbrew/.linuxbrew/bin/zsh
-echo "$(ZSH)" | sudo tee -a /etc/shells
-chsh -s $(ZSH)
+echo "${ZSH}" | sudo tee -a /etc/shells
+chsh -s ${ZSH}
 ```
 
 Windows Terminal requires to disable `<C-v>` to work with `nvim`.

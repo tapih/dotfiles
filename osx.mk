@@ -1,3 +1,5 @@
+BREW := /usr/local/bin/brew
+
 .PHONY: all
 all: setup install
 
@@ -20,7 +22,7 @@ setup:
 .PHONY: install
 install:
 	$(MAKE) -f install/links.mk
-	$(MAKE) -f install/brew.mk
+	$(MAKE) -f install/brew.mk BREW=$(BREW)
 	$(MAKE) -f install/asdf.mk
 
 .PHONY: clean

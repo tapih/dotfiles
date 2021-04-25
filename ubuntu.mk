@@ -1,19 +1,23 @@
-DOCKER := /usr/bin/docker
-GCLOUD := /usr/bin/gcloud
+DCKER := /usr/bin/docker
 
 .PHONY: all
 all: setup purge docker gcloud install 
+
 .PHONY: setup
 setup:
 	sudo apt-get update --fix-missing
 	sudo apt-get -y --no-install-recommends install \
 		curl \
+		openssl \
+		gnupg \
+		apt-transport-https \
 		ca-certificates \
 		software-properties-common \
-		build-essential \
-		# brew dependencies
-		procps
-		# python dependencies
+		build-essential
+	# brew dependency
+	sudo apt-get -y --no-install-recommends install procps
+	# python dependencies from
+	sudo apt-get -y --no-install-recommends install \
 		libssl-dev \
 		zlib1g-dev \
 		libbz2-dev \

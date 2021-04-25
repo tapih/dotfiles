@@ -1,17 +1,13 @@
 CURL := curl -sSfL
 
-ifeq ($(IS_UBUNTU), true)
-BREW := /home/linuxbrew/.linuxbrew/bin/brew
-else
-BREW := /usr/local/bin/brew
-endif
+BREW ?= /home/linuxbrew/.linuxbrew/bin/brew
 TPM := ${HOME}/.tmux/plugins/tpm
+ANTIGEN := ${HOME}/.antigen.zsh
 
 PACKAGES := \
 	cask \
 	zsh \
-	antigen
-	asdf \
+	antigen \
 	ghq \
 	gh \
 	fd \
@@ -41,19 +37,17 @@ PACKAGES := \
 	krew \
 	terraform \
 	hugo \
-	colordiff \
-	openssl \
-	gnupg
+	colordiff
 
-.PHONY: install
-install: \
+.PHONY: all
+all: \
 	setup \
 	install \
 	tpm
 
 .PHONY: setup
 setup:
-	bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 .PHONY: install
 install:
@@ -66,8 +60,13 @@ $(TPM):
 	mkdir -p $(HOME)/.tmux
 	git clone https://github.com/tmux-plugins/tpm $@
 
+.PHONY: antigen
+antigen: $(ANTIGEN)
+$(ANTIGEN):
+	$(CURL) git.io/antigen > $@
+
 .PHONY: clean
 clean:
-	brew uninstall $(PACKAGES)
+	$(BREW) uninstall $(PACKAGES)
 	rm -rf $(TPM)
 

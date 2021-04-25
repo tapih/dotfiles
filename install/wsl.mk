@@ -4,9 +4,8 @@ GENIE_VERSION := 1.34
 
 GENIE := /usr/bin/genie
 WSL_OPEN := /usr/local/bin/xdg-open
-WINDOWS_DIR := ${HOME}/windows
-
 WINDOWS_USER ?= tapih
+WINDOWS_DIR := ${HOME}/windows
 
 PACKAGES := \
 	apt-transport-https \
@@ -24,7 +23,7 @@ install: link genie wsl-open
 .PHONY: link
 link: ${WINDOWS_DIR}
 ${WINDOWS_DIR}:
-	ln -s /mnt/c/Users/$(WINDOWS_USER) ${HOME}/windows
+	[ -L $@ ] || ln -s /mnt/c/Users/$(WINDOWS_USER) $@
 
 .PHONY: genie
 genie: $(GENIE)
@@ -41,7 +40,6 @@ $(GENIE):
 .PHONY: wsl-open
 wsl-open: $(WSL_OPEN)
 $(WSL_OPEN):
-	sudo mv /usr/bin/xdg-open /usr/bin/xdg-open-bkup
 	sudo npm -g i wsl-open
 	sudo ln -s /usr/local/bin/wsl-open $@
 

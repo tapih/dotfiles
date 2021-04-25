@@ -1,5 +1,6 @@
 CURL := curl -sSfL
 
+ASDF_VERSION := 0.8.0
 KUBECTL_VERSION := 1.19.2
 GCLOUD_VERSION := 337.0.0
 GO_VERSION := 1.16.1
@@ -7,74 +8,102 @@ FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
 NODE_VERSION := 14.16.0
 
+SHELL := /bin/bash
+ASDF_MK := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))/asdf.mk
+ASDF_DIR := ${HOME}/.asdf
+ASDF := $(ASDF_DIR)/asdf.sh
+GOPATH := ${HOME}/go
+GO := $(ASDF_DIR)/shims/go
+PIP := $(ASDF_DIR)/shims/pip
+
 .PHONY: all
-all: kubectl gcloud golang python flutter nodejs
+all: setup kubectl golang python gcloud flutter nodejs gotools
+
+.PHONY: setup
+setup: $(ASDF)
+$(ASDF):
+	git clone https://github.com/asdf-vm/asdf.git $(ASDF_DIR) --branch v$(ASDF_VERSION)
 
 .PHONY: _install
-_install:
-	(asdf plugin list | grep -q $(TARGET_NAME)) || asdf plugin add $(TARGET_NAME)
-	asdf install $(TARGET_NAME) $(TARGET_VERSION)
-	asdf global $(TARGET_NAME) $(TARGET_VERSION)
+_install: setup
+	{ \
+		. $(ASDF); \
+		(asdf plugin list | grep -q $(TARGET_NAME)) || asdf plugin add $(TARGET_NAME); \
+		asdf install $(TARGET_NAME) $(TARGET_VERSION); \
+		asdf global $(TARGET_NAME) $(TARGET_VERSION); \
+	}
 
 .PHONY: kubectl
-kubectl:
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=kubectl TARGET_VERSION=$(KUBECTL_VERSION)
+kubectl: setup
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=kubectl TARGET_VERSION=$(KUBECTL_VERSION); \
+	}
 
 .PHONY: gcloud
-gcloud:
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION)
+gcloud: setup python
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION); \
+	}
 
 .PHONY: golang
-golang:
+golang: setup
 	mkdir -p ${GOPATH}/src
 	mkdir -p ${GOPATH}/bin
 	mkdir -p ${GOPATH}/pkg
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=golang TARGET_VERSION=$(GO_VERSION)
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=golang TARGET_VERSION=$(GO_VERSION); \
+	}
 
 .PHONY: nodejs
-nodejs:
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=nodejs TARGET_VERSION=$(NODE_VERSION)
+nodejs: setup
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=nodejs TARGET_VERSION=$(NODE_VERSION); \
+	}
 
 .PHONY: flutter
-flutter:
-	mkdir -p $(FLUTTER_DIR)
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=flutter TARGET_VERSION=$(FLUTTER_VERSION)
+flutter: setup
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=flutter TARGET_VERSION=$(FLUTTER_VERSION); \
+	}
 
 .PHONY: python
-python:
-	$(MAKE) -f ./asdf.mk _install TARGET_NAME=python TARGET_VERSION=$(PYTHON_VERSION)
-	pip install pynvim neovim-remote
+python: setup
+	{ \
+		. $(ASDF); \
+		$(MAKE) -f $(ASDF_MK) _install TARGET_NAME=python TARGET_VERSION=$(PYTHON_VERSION); \
+	}
+	$(PIP) install pynvim neovim-remote
 
 .PHONY: gotools
 gotools:
-	go install golang.org/x/tools/cmd/goimports@latest
-	go install github.com/sqs/goreturns@latest
-	go install golang.org/x/tools/gopls@latest
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	go install github.com/nametake/golangci-lint-langserver@latest
-	go install github.com/cweill/gotests/gotests@latest
-	go install honnef.co/go/tools/cmd/staticcheck@latest
-	go install github.com/fatih/gomodifytags@latest
-	go install github.com/spf13/cobra/cobra@latest
-	go install github.com/go-delve/delve/cmd/dlv@latest
-	go install github.com/client9/misspell/cmd/misspell@latest
-	go install github.com/josharian/impl@latest
-	go install github.com/rjeczalik/interfaces/cmd/interfacer@latest
-	go install github.com/110y/go-expr-completion@latest
-	go install github.com/99designs/gqlgen@latest
-	go install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
-	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
-	go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
+	$(GO) install golang.org/x/tools/cmd/goimports@latest
+	$(GO) install github.com/sqs/goreturns@latest
+	$(GO) install golang.org/x/tools/gopls@latest
+	$(GO) install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	$(GO) install github.com/nametake/golangci-lint-langserver@latest
+	$(GO) install github.com/cweill/gotests/gotests@latest
+	$(GO) install honnef.co/go/tools/cmd/staticcheck@latest
+	$(GO) install github.com/fatih/gomodifytags@latest
+	$(GO) install github.com/spf13/cobra/cobra@latest
+	$(GO) install github.com/go-delve/delve/cmd/dlv@latest
+	$(GO) install github.com/client9/misspell/cmd/misspell@latest
+	$(GO) install github.com/josharian/impl@latest
+	$(GO) install github.com/rjeczalik/interfaces/cmd/interfacer@latest
+	$(GO) install github.com/110y/go-expr-completion@latest
+	$(GO) install github.com/99designs/gqlgen@latest
+	$(GO) install github.com/deepmap/oapi-codegen/cmd/oapi-codegen@latest
+	$(GO) install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+	$(GO) install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 
 .PHONY: clean
 clean:
-	asdf uninstall kubectl $(KUBECTL_VERSION)
-	asdf uninstall gcloud $(GCLOUD_VERSION)
-	asdf uninstall golang $(GO_VERSION)
-	asdf uninstall flutter $(FLUTTER_VERSION)-stable
-	asdf uninstall nodejs $(NODE_VERSION)
-	asdf uninstall python $(PYTHON_VERSION)
+	rm -rf $(ASDF_DIR)
 	rm -f $(GOPATH)/bin/goimports
 	rm -f $(GOPATH)/bin/gopls
 	rm -f $(GOPATH)/bin/golangci_lint
