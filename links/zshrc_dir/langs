@@ -1,5 +1,0 @@
-#! /usr/bin/zsh
-
-export ASDF_ROOT=$HOME/.asdf
-export GOPATH="$HOME/go"
-export PATH=$PATH:$GOPATH/bin:${HOME}/.pub-cache/bin

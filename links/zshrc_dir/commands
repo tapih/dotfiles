@@ -1,6 +1,5 @@
 #! /usr/bin/zsh
 
-# cd+ls
 cdls() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
@@ -23,75 +22,6 @@ cdls() {
     fi
   fi
 }
-
-# colorize less
-exists /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-
-# aliases
-alias a='alias'
-alias cd='cdls'
-alias ls='ls -F --color=auto'
-alias ll='ls -Flh --color=auto'
-alias la='ls -Flha --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias diff='colordiff'
-alias mv='mv -i'
-alias rm='rm -i'
-alias cp='cp -i'
-alias q='exit'
-alias quit='exit'
-alias e='nvim ~/.zshrc'
-alias E='nvim ~/.vimrc'
-alias u='. ~/.zshrc'
-alias j='cd -'
-alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
-alias H='cd ~'
-alias z='lazygit'
-alias ..='cd ..'
-alias .2='cd ../..'
-alias .3='cd ../../..'
-alias .4='cd ../../../..'
-alias g='git'
-alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
-exists tmux && alias tmux="tmux -2"
-exists docker && alias d='docker'
-exists docker-compose && alias fig='docker-compose'
-
-exists nvim && alias v='nvim'
-exists nvim && alias agit='nvim +Agit'
-if [ -n "$NVIM_LISTEN_ADDRESS"  ]; then
-  alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
-fi
-
-# tcpdump -nn -p -i eth0 tcp dst port 80 -tttt -vvv
-# tcpdump -i eth0 '(tcp[tcpflags] & tcp-syn)' != 0 and '(tcp[tcpflags] & tcp-ack) ==0'
-# ss -ntulp --unix
-
-if exists kubectl ; then
-    alias k='kubectl'
-    # Pod
-    alias kgp='kubectl get po'
-    alias kdp='kubectl describe po'
-    alias kl='kubectl logs'
-    alias kx='kubectl exec -it'
-    alias kxx='kubectl exec'
-    # Service
-    alias kgs='kubectl get svc'
-    alias kds='kubectl describe svc'
-    # Deployment
-    alias kgd='kubectl get deploy'
-    alias kdd='kubectl describe deployment'
-
-    export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
-fi
-
-# fzf
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-export FZF_COMPLETION_TRIGGER='jj'
 
 _fzf_compgen_path() {
       fd --hidden --follow --exclude ".git" . "$1"
@@ -188,7 +118,41 @@ __fzf_git_branch__() {
     fi
 }
 
+alias cd='cdls'
+alias ls='ls -F --color=auto'
+alias ll='ls -Flh --color=auto'
+alias la='ls -Flha --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias diff='colordiff'
+alias mv='mv -i'
+alias rm='rm -i'
+alias cp='cp -i'
+alias a='alias'
 alias b='__fzf_git_branch__'
+alias q='exit'
+alias e='nvim ~/.zshrc'
+alias E='nvim ~/.vimrc'
+alias u='. ~/.zshrc'
+alias j='cd -'
+alias k='kubectl'
+alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
+alias H='cd ~'
+alias z='lazygit'
+alias ..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias g='git'
+alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
+alias tmux="tmux -2"
+alias d='docker'
+alias fig='docker-compose'
+alias v='nvim'
+alias agit='nvim +Agit'
+[ -n "$NVIM_LISTEN_ADDRESS" ] && alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
+[ -n "$KREW_ROOT" ] && export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 
 zle -N __fzf_ghq__
 zle -N __fzf_git_file__
@@ -197,5 +161,3 @@ zle -N __fzf_git_grep__
 bindkey '^g' __fzf_ghq__
 bindkey '^o' __fzf_git_file__
 bindkey '^j' __fzf_git_grep__
-
-antigen bundle paulirish/git-open

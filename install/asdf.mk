@@ -8,45 +8,41 @@ PYTHON_VERSION := 3.7.3
 NODE_VERSION := 14.16.0
 
 .PHONY: all
-all: setup global pynvim gotools
+all: kubectl gcloud golang python flutter nodejs
 
-.PHONY: setup
-setup:
+.PHONY: _install
+_install:
+	(asdf plugin list | grep -q $(TARGET_NAME)) || asdf plugin add $(TARGET_NAME)
+	asdf install $(TARGET_NAME) $(TARGET_VERSION)
+	asdf global $(TARGET_NAME) $(TARGET_VERSION)
+
+.PHONY: kubectl
+kubectl:
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=kubectl TARGET_VERSION=$(KUBECTL_VERSION)
+
+.PHONY: gcloud
+gcloud:
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION)
+
+.PHONY: golang
+golang:
 	mkdir -p ${GOPATH}/src
 	mkdir -p ${GOPATH}/bin
 	mkdir -p ${GOPATH}/pkg
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=golang TARGET_VERSION=$(GO_VERSION)
+
+.PHONY: nodejs
+nodejs:
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=nodejs TARGET_VERSION=$(NODE_VERSION)
+
+.PHONY: flutter
+flutter:
 	mkdir -p $(FLUTTER_DIR)
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=flutter TARGET_VERSION=$(FLUTTER_VERSION)
 
-.PHONY: plugins
-plugins:
-	(asdf plugin list | grep -q kubectl) || asdf plugin add kubectl
-	(asdf plugin list | grep -q gcloud) || asdf plugin add gcloud
-	(asdf plugin list | grep -q python) || asdf plugin add python
-	(asdf plugin list | grep -q golang) || asdf plugin add golang
-	(asdf plugin list | grep -q nodejs) || asdf plugin add nodejs
-	(asdf plugin list | grep -q flutter) || asdf plugin add flutter
-
-.PHONY: install
-install: plugins
-	asdf install kubectl $(KUBECTL_VERSION)
-	asdf install gcloud $(GCLOUD_VERSION)
-	asdf install golang $(GO_VERSION)
-	asdf install flutter $(FLUTTER_VERSION)-stable
-	asdf install nodejs $(NODE_VERSION)
-	asdf install python $(PYTHON_VERSION)
-
-.PHONY: global
-global: install
-	asdf global kubectl $(KUBECTL_VERSION)
-	asdf global gcloud $(GO_VERSION)
-	asdf global golang $(GO_VERSION)
-	asdf global flutter $(FLUTTER_VERSION)-stable
-	asdf global nodejs $(NODE_VERSION)
-	asdf global python $(PYTHON_VERSION)
-
-.PHONY: pynvim
-pynvim:
-	asdf global python $(PYTHON_VERSION)
+.PHONY: python
+python:
+	$(MAKE) -f ./asdf.mk _install TARGET_NAME=python TARGET_VERSION=$(PYTHON_VERSION)
 	pip install pynvim neovim-remote
 
 .PHONY: gotools

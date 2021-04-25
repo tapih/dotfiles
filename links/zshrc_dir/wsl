@@ -4,3 +4,4 @@ if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 
       genie -s
 fi
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+export VTE_CJK_WIDTH=1
