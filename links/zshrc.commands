@@ -93,7 +93,7 @@ __fzf_git_grep__() {
     grep_cmd="git g --hidden --line-number --no-heading --smart-case -- '%s' || true"
     initial_cmd=$(printf "$grep_cmd" "")
     reload_cmd=$(printf "$grep_cmd" "{q}")
-    preview_cmd="echo {} | eval \$(awk -F: '{print \"bat --style=numbers --color=always -H=\" (\$2) \" --line-range=\" (\$2-15>0?\$2-15:0) \":\" (\$2+50) \" ${toplevel}/\" \$1}')"
+    preview_cmd='echo {} | awk -F: '\''{print "bat --style=numbers --color=always -H=" ($2) " --line-range=" ($2-15>0?$2-15:0) ":" ($2+50) " '${toplevel}'/" $1}'\'' | xargs -L 1 -I VAR sh -c "VAR"'
     selected=$(eval "$initial_cmd" | fzf -d : --nth 3.. --preview-window down:80%:wrap --preview "$preview_cmd" --bind change:reload:"$reload_cmd" | awk -F: '{print $1}')
     if [ ! -z "${selected}" ]; then
         print -S "${EDITOR} ${toplevel}/${selected}"
