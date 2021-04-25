@@ -241,29 +241,27 @@ if has('nvim')
     " ---
     " fzf
     " ---
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary', 'on': 'Clap' }
-    let g:clap_enable_icon = 1
-    let g:clap_background_shadow_blend = 80
-    let g:clap_default_external_filter = "fzf"
-    let g:clap_layout = { 'width': '45%', 'height': '80%', 'col': '5%', 'row': '10%' }
-    let g:clap_preview_size = 2
-    let g:clap_preview_direction = "LR"
-    "
-    autocmd FileType clap_input inoremap <silent> <buffer> <C-n> <C-R>=clap#navigation#linewise('down')<CR>
-    autocmd FileType clap_input inoremap <silent> <buffer> <C-p> <C-R>=clap#navigation#linewise('up')<CR>
-
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim'
     let g:fzf_command_prefix = 'Fzf'
     let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
     let g:fzf_preview_window = ['right:60%', 'ctrl-/']
 
+    function! MyFzfRgFunc(query, fullscreen)
+        let command_fmt = 'git g --column --hidden --line-number --no-heading --smart-case -- %s || true'
+        let initial_command = printf(command_fmt, shellescape(a:query))
+        let reload_command = printf(command_fmt, '{q}')
+        let g:fzf_preview_window = ['down:80%', 'ctrl-/']
+        call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(), a:fullscreen)
+        let g:fzf_preview_window = ['right:60%', 'ctrl-/']
+    endfunction
+    command! -nargs=* -bang MyFzfRg call MyFzfRgFunc(<q-args>, <bang>0)
+
     " --------
     " lsp 関連
     " --------
     Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install() } }
     Plug 'antoinemadec/coc-fzf'
-    Plug 'vn-ki/coc-clap', {'on': 'Clap'}
     let g:coc_fzf_preview = "down:80%:wrap"
     let g:coc_fzf_opts = []
     inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>""
@@ -696,14 +694,14 @@ if has('nvim')
     " git
     nmap tj <Plug>(GitGutterPrevHunk)
     nmap tk <Plug>(GitGutterNextHunk)
+    nnoremap <silent> td :<C-u>Gdiff<CR>
 
     " fzf
-    nnoremap <silent> to :<C-u>Clap files<CR>
-    nnoremap <silent> te :<C-u>Clap buffers<CR>
-    nnoremap <silent> tf :<C-u>Clap blines<CR>
-    nnoremap <silent> tF :<C-u>Clap grep<CR>
-    nnoremap <silent> ts :<C-u>Clap coc_symbols<CR>
-    nnoremap <silent> td :<C-u>Gdiff<CR>
+    nnoremap <silent> to :<C-u>FzfFiles<CR>
+    nnoremap <silent> te :<C-u>FzfBuffers<CR>
+    nnoremap <silent> tf :<C-u>FzfBLines<CR>
+    nnoremap <silent> tF :<C-u>MyFzfRg<CR>
+    nnoremap <silent> ts :<C-u>CocList symbols<CR>
     imap <c-f> <plug>(fzf-complete-path)
     imap <c-l> <plug>(fzf-complete-line)
 
