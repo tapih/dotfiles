@@ -12,17 +12,6 @@ GO := $(ASDF_DIR)/shims/go
 PIP := $(ASDF_DIR)/shims/pip
 ASDF := ${HOME}/.asdf/asdf.sh
 
-LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
-ZSHRC := ${HOME}/.zshrc
-ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
-INPUTRC := ${HOME}/.inputrc
-GITCONFIG := ${HOME}/.gitconfig
-TMUX_CONF := ${HOME}/.tmux.conf
-NVIMRC_DIR := ${HOME}/.config/nvim
-VIMRC := ${HOME}/.vimrc
-IDEAVIMRC := ${HOME}/.ideavimrc
-STARSHIPRC := ${HOME}/.config/starship.toml
-
 PACKAGES := \
 	cask \
 	ghq \

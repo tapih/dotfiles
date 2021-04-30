@@ -11,7 +11,6 @@ endif
 .PHONY: postinst
 postinst:
 	$(MAKE) -f install/postinst.mk BREW_DIR=$(BREW_DIR)
-	$(MAKE) -f install/common.mk clean-links
 
 .PHONY: install
 install:

@@ -10,6 +10,17 @@ ASDF := $(ASDF_DIR)/asdf.sh
 ANTIGEN := ${HOME}/.antigen.zsh
 TPM := ${HOME}/.tmux/plugins/tpm
 
+LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
+ZSHRC := ${HOME}/.zshrc
+ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
+INPUTRC := ${HOME}/.inputrc
+GITCONFIG := ${HOME}/.gitconfig
+TMUX_CONF := ${HOME}/.tmux.conf
+NVIMRC_DIR := ${HOME}/.config/nvim
+VIMRC := ${HOME}/.vimrc
+IDEAVIMRC := ${HOME}/.ideavimrc
+STARSHIPRC := ${HOME}/.config/starship.toml
+
 .PHONY: install
 install: brew zsh asdf antigen tpm clean-links links
 
@@ -23,8 +34,6 @@ $(BREW):
 zsh: $(ZSH)
 $(ZSH): $(BREW)
 	$(BREW) install zsh
-	echo "$(ZSH)" | sudo tee -a /etc/shells
-	chsh -s $(ZSH)
 
 .PHONY: asdf
 asdf: $(ASDF)
