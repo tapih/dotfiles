@@ -21,17 +21,23 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github_rsa
 EOF
-ssh-keygen -t rsa -b 4096 -f github_rsa
 # register the generated public key to GitHub
+ssh-keygen -t rsa -b 4096 -f github_rsa
+
+# from Japan
+sudo sed -i.org -e "s/\/\/archive\.ubuntu\.com/\/\/jp\.archive\.ubuntu\.com/g" /etc/apt/sources.list
 
 mkdir ~/src && cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
+
 sudo apt-get install -y make
 make postinst OS=ubuntu
+sudo echo "/home/linuxbrew/.linuxbrew/bin/zsh" >> /etc/shells
+chsh -s /home/linuxbrew/.linuxbrew/bin/zsh
+
 # exit shell once, select "q"
 . ~/.zshrc
-
 make install OS=ubuntu
 
 # (optional)
