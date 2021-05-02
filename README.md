@@ -24,20 +24,18 @@ EOF
 # register the generated public key to GitHub
 ssh-keygen -t rsa -b 4096 -f github_rsa
 
-# from Japan
+# Use mirror in Japan if you are in Japan
 sudo sed -i.org -e "s/\/\/archive\.ubuntu\.com/\/\/jp\.archive\.ubuntu\.com/g" /etc/apt/sources.list
 
 mkdir ~/src && cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
-
 sudo apt-get install -y make
 make postinst OS=ubuntu
-sudo echo "/home/linuxbrew/.linuxbrew/bin/zsh" >> /etc/shells
+sudo sh -c "echo /home/linuxbrew/.linuxbrew/bin/zsh >> /etc/shells"
 chsh -s /home/linuxbrew/.linuxbrew/bin/zsh
 
-# exit shell once, select "q"
-. ~/.zshrc
+# exit shell once
 make install OS=ubuntu
 
 # (optional)
