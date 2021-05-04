@@ -29,6 +29,7 @@ link:
 update-rc: link
 	cp -f $(LINKS_DIR)/bashrc $(WINDOWS_DIR)/.bashrc
 	cp -f $(LINKS_DIR)/gitconfig $(WINDOWS_DIR)/.gitconfig
+	cp -f $(LINKS_DIR)/wslconfig $(WINDOWS_DIR)/.wslconfig
 
 .PHONY: genie
 genie: $(GENIE)
