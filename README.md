@@ -58,4 +58,6 @@ On Windows side, these tools should be installed manually.
 - Kindle
 - Adobe XD
 - Zoom
+- Git
+- Rapid Environment Editor
 
