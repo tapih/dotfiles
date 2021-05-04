@@ -1,8 +1,8 @@
 CURL := curl -sSfL
 DOCKER := /usr/bin/docker
 
-.PHONY: all
-all: purge-defaults docker apt
+.PHONY: install
+install: purge-defaults docker apt
 
 .PHONY: apt
 apt:

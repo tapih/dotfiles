@@ -1,3 +1,7 @@
+CURL := curl -sSfL
+SHELL := /bin/bash
+
+ASDF_VERSION := 0.8.0
 KUBECTL_VERSION := 1.19.2
 GCLOUD_VERSION := 337.0.0
 GO_VERSION := 1.16.1
@@ -5,14 +9,32 @@ FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
 NODE_VERSION := 14.16.0
 
-SHELL := /bin/bash
+BREW_DIR ?=
+BREW := $(BREW_DIR)/bin/brew
+ZSH := $(BREW_DIR)/bin/zsh
+ASDF_DIR := ${HOME}/.asdf
+ASDF := $(ASDF_DIR)/asdf.sh
+ANTIGEN := ${HOME}/.antigen.zsh
+TPM := ${HOME}/.tmux/plugins/tpm
+
+LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
+ZSHRC := ${HOME}/.zshrc
+ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
+INPUTRC := ${HOME}/.inputrc
+GITCONFIG := ${HOME}/.gitconfig
+TMUX_CONF := ${HOME}/.tmux.conf
+NVIMRC_DIR := ${HOME}/.config/nvim
+VIMRC := ${HOME}/.vimrc
+IDEAVIMRC := ${HOME}/.ideavimrc
+STARSHIPRC := ${HOME}/.config/starship.toml
+
 COMMON_MK := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))/common.mk
 GOPATH := ${HOME}/go
 GO := $(ASDF_DIR)/shims/go
 PIP := $(ASDF_DIR)/shims/pip
 ASDF := ${HOME}/.asdf/asdf.sh
 
-PACKAGES := \
+BREW_PACKAGES := \
 	cask \
 	ghq \
 	gh \
@@ -45,16 +67,71 @@ PACKAGES := \
 	hugo \
 	colordiff
 
-.PHONY: all
-all: brew asdf gotools
+.PHONY: postinst
+postinst: brew zsh asdf antigen tpm remove-links links
 
 .PHONY: brew
-brew:
-	brew update
-	brew install $(PACKAGES)
+brew: $(BREW)
+$(BREW):
+	bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	$@ update
+
+.PHONY: zsh
+zsh: $(ZSH)
+$(ZSH): $(BREW)
+	$(BREW) install zsh
 
 .PHONY: asdf
-asdf: kubectl golang python flutter nodejs gcloud
+asdf: $(ASDF)
+$(ASDF):
+	git clone https://github.com/asdf-vm/asdf.git $(ASDF_DIR) --branch v$(ASDF_VERSION)
+
+.PHONY: antigen
+antigen: $(ANTIGEN)
+$(ANTIGEN):
+	$(CURL) git.io/antigen > $@
+
+.PHONY: tpm
+tpm: $(TPM)
+$(TPM):
+	mkdir -p $(HOME)/.tmux
+	git clone https://github.com/tmux-plugins/tpm $@
+
+.PHONY: links
+links:
+	mkdir -p ${HOME}/.config
+	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
+	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
+	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
+	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
+	[ -f $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
+	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
+	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
+	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/config/starship.toml $(STARSHIPRC)
+	[ -d $(NVIMRC_DIR) ]     || ln -s $(LINKS_DIR)/config/nvim $(NVIMRC_DIR)
+
+.PHONY: remove-links
+remove-links:
+	rm -f $(ZSHRC)
+	rm -f $(ZSHRC_COMMANDS)
+	rm -f $(INPUTRC)
+	rm -f $(GITCONFIG)
+	rm -f $(TMUX_CONF)
+	rm -f $(VIMRC)
+	rm -f $(IDEAVIMRC)
+	rm -f $(STARSHIPRC)
+	rm -rf $(NVIMRC_DIR)
+
+.PHONY: install
+install: brew-packages asdf-packages gotools
+
+.PHONY: brew-packages
+brew-packages:
+	brew update
+	brew install $(BREW_PACKAGES)
+
+.PHONY: asdf-packages
+asdf-packages: kubectl golang python flutter nodejs gcloud
 
 .PHONY: _asdf_install
 _asdf_install:

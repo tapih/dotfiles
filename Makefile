@@ -10,13 +10,13 @@ endif
 
 .PHONY: postinst
 postinst:
-	$(MAKE) -f install/postinst.mk BREW_DIR=$(BREW_DIR)
+	$(MAKE) -f install/common.mk postinst BREW_DIR=$(BREW_DIR)
 
 .PHONY: install
 install:
-	$(MAKE) -f install/$(TARGET)
-	$(MAKE) -f install/common.mk
+	$(MAKE) -f install/$(TARGET) install
+	$(MAKE) -f install/common.mk install
 
 .PHONY: wsl
 wsl:
-	$(MAKE) -f install/wsl.mk WINDOWS_USER=$(WINDOWS_USER)
+	$(MAKE) -f install/wsl.mk install WINDOWS_USER=$(WINDOWS_USER)
