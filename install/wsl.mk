@@ -6,6 +6,7 @@ GENIE := /usr/bin/genie
 WSL_OPEN := /usr/local/bin/xdg-open
 WINDOWS_USER ?= tapih
 WINDOWS_DIR := ${HOME}/windows
+LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 
 PACKAGES := \
 	apt-transport-https \
@@ -21,9 +22,13 @@ PACKAGES := \
 install: link genie wsl-open
 
 .PHONY: link
-link: ${WINDOWS_DIR}
-${WINDOWS_DIR}:
-	[ -L $@ ] || ln -s /mnt/c/Users/$(WINDOWS_USER) $@
+link:
+	[ -L $(WINDOWS_DIR) ] || ln -s /mnt/c/Users/$(WINDOWS_USER) $(WINDOWS_DIR)
+
+.PHONY: update-rc
+update-rc: link
+	cp -f $(LINKS_DIR)/bashrc $(WINDOWS_DIR)/.bashrc
+	cp -f $(LINKS_DIR)/gitconfig $(WINDOWS_DIR)/.gitconfig
 
 .PHONY: genie
 genie: $(GENIE)
