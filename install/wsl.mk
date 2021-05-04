@@ -19,7 +19,7 @@ PACKAGES := \
 	dbus-x11
 
 .PHONY: install
-install: link genie wsl-open
+install: link update-rc genie wsl-open
 
 .PHONY: link
 link:
