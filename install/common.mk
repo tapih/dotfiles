@@ -53,19 +53,21 @@ BREW_PACKAGES := \
 	unzip \
 	jq \
 	yq \
+	colordiff \
 	tree \
 	htop \
 	yarn \
+	buildkit \
 	kind \
 	kustomize \
+	jsonnet \
 	helm \
 	skaffold \
 	stern \
 	k9s \
 	krew \
 	terraform \
-	hugo \
-	colordiff
+	hugo
 
 .PHONY: postinst
 postinst: brew zsh asdf antigen tpm remove-links links
