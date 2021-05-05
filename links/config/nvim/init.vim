@@ -332,6 +332,7 @@ if has('nvim')
     Plug 'tmux-plugins/vim-tmux', {'for': 'tmux'}
     Plug 'alvan/vim-closetag', {'for': 'html'}
     Plug 'hail2u/vim-css3-syntax', {'for': 'css'}
+    Plug 'weirongxu/plantuml-previewer.vim'
 
     let g:vim_markdown_folding_disabled = 1
     function! OpenBrowser(url)
