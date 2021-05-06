@@ -48,6 +48,8 @@ set tabstop=4  " タブは半角スペース4つ分で表示
 set updatetime=250 " for git-gutter
 " set clipboard=unnamedplus
 "
+let g:python3_host_prog = $ASDF_DIR.'/shims/python3'
+
 if has('nvim')
     set inccommand=split
 endif
@@ -55,8 +57,6 @@ endif
 if has('nvim') && executable('nvr')
   let $GIT_EDITOR = "nvr -cc split --remote-wait +'set bufhidden=wipe'"
 endif
-
-let g:python3_host_prog = $ASDF_DIR.'/shims/python3'
 
 augroup SetYAMLIndent
     autocmd!
