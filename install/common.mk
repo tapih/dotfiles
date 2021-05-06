@@ -41,7 +41,6 @@ BREW_PACKAGES := \
 	fd \
 	rg \
 	bat \
-	fzf \
 	git-delta \
 	starship \
 	neovim \
@@ -131,6 +130,12 @@ install: brew-packages asdf-packages gotools
 brew-packages:
 	brew update
 	brew install $(BREW_PACKAGES)
+	$(MAKE) -f $(COMMON_MK) fzf
+
+.PHONY: fzf
+fzf:
+	brew install fzf
+	$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 
 .PHONY: asdf-packages
 asdf-packages: kubectl golang python flutter nodejs gcloud
