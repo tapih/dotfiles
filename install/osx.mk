@@ -1,5 +1,7 @@
 .PHONY: install
 install:
+	# flutter dependencies
+	sudo gem install cocoapods
 	# python dependencies
 	brew update
 	brew install \
