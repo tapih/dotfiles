@@ -2,12 +2,12 @@ CURL := curl -sSfL
 SHELL := /bin/bash
 
 ASDF_VERSION := 0.8.0
-KUBECTL_VERSION := 1.19.2
+KUBECTL_VERSION := 1.21.0
 GCLOUD_VERSION := 337.0.0
 GO_VERSION := 1.16.1
 FLUTTER_VERSION := 2.0.4
 PYTHON_VERSION := 3.7.3
-NODE_VERSION := 14.16.0
+NODE_VERSION := 16.1.0
 
 BREW_DIR ?=
 BREW := $(BREW_DIR)/bin/brew
@@ -169,7 +169,7 @@ python:
 	$(PIP) install pynvim neovim-remote
 
 .PHONY: gcloud
-gcloud: python
+gcloud:
 	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION)
 
 .PHONY: gotools

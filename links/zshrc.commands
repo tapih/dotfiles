@@ -13,10 +13,18 @@ cdls() {
         echo "no files in: $(pwd)$reset_color"
       else
         echo "only hidden files in: $(pwd)$reset_color"
-        ls -A --color=auto
+        if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+            ls -A
+        else
+            ls -A --color=auto
+        fi
       fi
     elif [ $lscdmax -ge $nfiles ]; then
-      ls -F --color=auto
+      if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+          ls -F
+      else
+          ls -F --color=auto
+      fi
     else
       echo "$nfiles files in: $(pwd)$reset_color"
     fi
@@ -119,9 +127,15 @@ __fzf_git_branch__() {
 }
 
 alias cd='cdls'
-alias ls='ls -F --color=auto'
-alias ll='ls -Flh --color=auto'
-alias la='ls -Flha --color=auto'
+if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
+    alias ls='ls -F'
+    alias ll='ls -Flh'
+    alias la='ls -Flha'
+else
+    alias ls='ls -F --color=auto'
+    alias ll='ls -Flh --color=auto'
+    alias la='ls -Flha --color=auto'
+fi
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'

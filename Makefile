@@ -4,7 +4,7 @@ ifeq ($(OS),ubuntu)
 BREW_DIR := /home/linuxbrew/.linuxbrew
 TARGET := ubuntu.mk
 else
-BREW_DIR := /usr/local
+BREW_DIR := /opt/homebrew
 TARGET := osx.mk
 endif
 
