@@ -82,6 +82,14 @@ make postinst OS=darwin
 # exit shell once
 
 make install OS=darwin
+
+# after installing Xcode
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -runFirstLaunch
+sudo xcodebuild -license
+arch -x86_64 sudo gem install ffi
+sudo gem install cocoapods
+arch -x86_64 open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
 ```
 
 Install the following applications manually. These may be installed with cask, but
