@@ -55,6 +55,7 @@ BREW_PACKAGES := \
 	colordiff \
 	tree \
 	htop \
+	watch \
 	yarn \
 	buildkit \
 	kind \

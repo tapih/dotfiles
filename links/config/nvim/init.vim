@@ -309,6 +309,7 @@ if has('nvim')
     " Dart
     Plug 'dart-lang/dart-vim-plugin'
     Plug 'thosakwe/vim-flutter', {'for': 'dart'}
+    Plug 'reisub0/hot-reload.vim', {'for': 'dart'}
     let g:lsc_auto_map = v:false
 
     " Python
@@ -688,6 +689,8 @@ if has('nvim')
     nmap <silent> t" <Plug>(coc-implementation)
     nmap <silent> t' <Plug>(coc-references)
     nmap <silent> tm <Plug>(coc-rename)
+    xmap <silent> ta  <Plug>(coc-codeaction-selected)
+    nmap <silent> ta  <Plug>(coc-codeaction-selected)
     nmap <silent> tt :<C-u>CocFormat<CR>
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
