@@ -19,7 +19,7 @@
     f = fetch
     fo = fetch origin
     fd = !fd
-    g = !rg --hidden -g "!{.git,node_modules,vendor}/*"
+    g = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
     rg = !rg -g '!.git/**' --hidden
     gp = grep
     h = show
