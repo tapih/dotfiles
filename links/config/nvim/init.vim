@@ -691,7 +691,7 @@ if has('nvim')
     nmap <silent> tm <Plug>(coc-rename)
     xmap <silent> ta  <Plug>(coc-codeaction-selected)
     nmap <silent> ta  <Plug>(coc-codeaction-selected)
-    nmap <silent> tt :<C-u>CocFormat<CR>
+    nnoremap <silent> ti :<C-u>CocFormat<CR>
     nnoremap <silent> <C-d> :call <SID>show_documentation()<CR>
     inoremap <silent> <C-d> <ESC>:call <SID>show_documentation()<CR>
 
