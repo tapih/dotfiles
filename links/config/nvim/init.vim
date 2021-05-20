@@ -685,7 +685,7 @@ if has('nvim')
     let g:gh_line_map = 'twg'
 
     " coc
-    inoremap <silent><expr> <C-Space> coc#refresh()
+    inoremap <silent><expr> <C-k> coc#refresh()
     nmap <silent> th <Plug>(coc-diagnostic-prev)
     nmap <silent> tl <Plug>(coc-diagnostic-next)
     nmap <silent> t] <Plug>(coc-definition)
