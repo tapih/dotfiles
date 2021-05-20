@@ -337,7 +337,11 @@ if has('nvim')
 
     let g:vim_markdown_folding_disabled = 1
     function! OpenBrowser(url)
-        exe '!xdg-open ' . a:url
+        if has('unix')
+            exe '!open ' . a:url
+        else
+            exe '!xdg-open ' . a:url
+        endif
     endfunction
     let g:mkdp_browserfunc = 'OpenBrowser'
 
