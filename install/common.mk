@@ -136,7 +136,7 @@ brew-packages:
 .PHONY: fzf
 fzf:
 	brew install fzf
-	$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
+	$$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 
 .PHONY: asdf-packages
 asdf-packages: kubectl golang python flutter nodejs gcloud
