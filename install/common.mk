@@ -8,6 +8,7 @@ GO_VERSION := 1.16.1
 FLUTTER_VERSION := 2.2.0
 PYTHON_VERSION := 3.9.4
 NODE_VERSION := 16.1.0
+FIREBASE_VERSION := 9.12.0
 
 BREW_DIR ?=
 BREW := $(BREW_DIR)/bin/brew
@@ -139,7 +140,7 @@ fzf:
 	$$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 
 .PHONY: asdf-packages
-asdf-packages: kubectl golang python flutter nodejs gcloud
+asdf-packages: kubectl golang python flutter nodejs gcloud firebase
 
 .PHONY: _asdf_install
 _asdf_install:
@@ -177,6 +178,10 @@ python:
 .PHONY: gcloud
 gcloud:
 	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION)
+
+.PHONY: firebase
+firebase:
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=firebase TARGET_VERSION=$(FIREBASE_VERSION)
 
 .PHONY: gotools
 gotools:
