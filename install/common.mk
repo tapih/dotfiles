@@ -3,12 +3,16 @@ SHELL := /bin/bash
 
 ASDF_VERSION := 0.8.0
 KUBECTL_VERSION := 1.21.0
+HELM_VERSION := 3.5.3
+KUSTOMIZE_VERSION := 4.1.3
 GCLOUD_VERSION := 337.0.0
 GO_VERSION := 1.16.1
 FLUTTER_VERSION := 2.2.0
+DART_VERSION := 2.12.4
 PYTHON_VERSION := 3.9.4
 NODE_VERSION := 16.1.0
 FIREBASE_VERSION := 9.12.0
+TERRAFORM_VERSION := 1.0.0
 
 BREW_DIR ?=
 BREW := $(BREW_DIR)/bin/brew
@@ -39,6 +43,8 @@ BREW_PACKAGES := \
 	cask \
 	ghq \
 	gh \
+	hub \
+	fzf \
 	fd \
 	rg \
 	bat \
@@ -59,16 +65,12 @@ BREW_PACKAGES := \
 	watch \
 	yarn \
 	buildkit \
+	grpcurl \
 	kind \
-	kustomize \
-	jsonnet \
-	helm \
 	skaffold \
 	stern \
 	k9s \
-	krew \
-	terraform \
-	hugo
+	krew
 
 .PHONY: postinst
 postinst: brew zsh asdf antigen tpm remove-links links
@@ -132,15 +134,21 @@ install: brew-packages asdf-packages gotools
 brew-packages:
 	brew update
 	brew install $(BREW_PACKAGES)
-	$(MAKE) -f $(COMMON_MK) fzf
-
-.PHONY: fzf
-fzf:
-	brew install fzf
+	brew tap fishtown-analytics/dbt
+	brew install dbt
 	$$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 
 .PHONY: asdf-packages
-asdf-packages: kubectl golang python flutter nodejs gcloud firebase
+asdf-packages: \
+	kubectl \
+	kustomize \
+	golang \
+	python \
+	flutter \
+	nodejs \
+	gcloud \
+	firebase \
+	terraform
 
 .PHONY: _asdf_install
 _asdf_install:
@@ -153,35 +161,52 @@ _asdf_install:
 
 .PHONY: kubectl
 kubectl:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=kubectl TARGET_VERSION=$(KUBECTL_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(KUBECTL_VERSION)
+
+# NOT working currently on Apple Sillicon
+.PHONY: helm
+helm:
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(HELM_VERSION)
+
+.PHONY: kustomize
+kustomize:
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(KUSTOMIZE_VERSION)
 
 .PHONY: golang
 golang:
 	mkdir -p ${GOPATH}/src
 	mkdir -p ${GOPATH}/bin
 	mkdir -p ${GOPATH}/pkg
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=golang TARGET_VERSION=$(GO_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(GO_VERSION)
 
 .PHONY: nodejs
 nodejs:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=nodejs TARGET_VERSION=$(NODE_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(NODE_VERSION)
 
 .PHONY: flutter
 flutter:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=flutter TARGET_VERSION=$(FLUTTER_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(FLUTTER_VERSION)
+
+.PHONY: dart
+dart:
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(DART_VERSION)
 
 .PHONY: python
 python:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=python TARGET_VERSION=$(PYTHON_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(PYTHON_VERSION)
 	$(PIP) install pynvim neovim-remote
 
 .PHONY: gcloud
 gcloud:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=gcloud TARGET_VERSION=$(GCLOUD_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(GCLOUD_VERSION)
 
 .PHONY: firebase
 firebase:
-	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=firebase TARGET_VERSION=$(FIREBASE_VERSION)
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(FIREBASE_VERSION)
+
+.PHONY: terraform
+terraform:
+	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(TERRAFORM_VERSION)
 
 .PHONY: gotools
 gotools:

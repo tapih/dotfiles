@@ -57,6 +57,7 @@
     sc = !fd --type f | xargs misspell -locale US -error
     sw = switch -
     t = tag
+    vacuum = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d };f"
 
     alias = !git config --get-regexp alias
     pwd = rev-parse --show-prefix

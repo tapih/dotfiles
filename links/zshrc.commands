@@ -159,6 +159,7 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
+alias G='gh'
 alias t='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 alias tmux="tmux -2"
 alias d='docker'
