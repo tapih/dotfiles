@@ -62,7 +62,7 @@ __fzf_ghq__() {
 }
 
 __fzf_gh_pr__() {
-    number=$(gh pr list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh pr view -p")
+    number=$(gh pr list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh pr view")
     if [ ! -z "${number}" ]; then
         BUFFER="gh pr view ${number}"
         zle accept-line
@@ -71,7 +71,7 @@ __fzf_gh_pr__() {
 }
 
 __fzf_gh_issue__() {
-    number=$(gh issue list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh issue view -p")
+    number=$(gh issue list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh issue view")
     if [ ! -z "${number}" ]; then
         BUFFER="gh issue view ${number}"
         zle accept-line

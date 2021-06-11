@@ -67,18 +67,14 @@
     mix = reset
     soft = reset --soft
 
-    pr = !gh pr create --web
-    pc = !gh pr checkout
-    pv = !gh pr view
-    pvw = !gh pr view --web
-    pl = !gh pr list
-    plw = !gh pr list --web
+    rc = !gh pr create --web
+    ro = !gh pr checkout
+    r = !gh pr view --web
+    rr = !gh pr list --web
 
     ic = !gh issue create --web
-    iv = !gh issue view
-    ivw = !gh issue view --web
-    il = !gh issue list
-    ilw = !gh issue list --web
+    i = !gh issue view --web
+    ii = !gh issue list --web
 
     me = !git config --get-regexp user
     us = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
