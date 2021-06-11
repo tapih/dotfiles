@@ -46,7 +46,6 @@
     merge = merge --no-ff
     fmerge = merge --ff
     po = push
-    puo = !git push -u origin $(git symbolic-ref --short HEAD)
     pi = pull --rebase
     pm = pull --merge
     sts = stash
@@ -93,7 +92,7 @@
     rebase = true
 
 [push]
-    default = simple
+    default = current
 
 [include]
     path = ~/.gitconfig.local
