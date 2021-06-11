@@ -50,7 +50,6 @@ BREW_PACKAGES := \
 	bat \
 	git-delta \
 	starship \
-	neovim \
 	tmux \
 	git \
 	tig \
@@ -132,9 +131,10 @@ install: brew-packages asdf-packages gotools
 
 .PHONY: brew-packages
 brew-packages:
+	brew tap fishtown-analytics/dbt
 	brew update
 	brew install $(BREW_PACKAGES)
-	brew tap fishtown-analytics/dbt
+	brew install --HEAD neovim
 	brew install dbt
 	$$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 

@@ -167,12 +167,12 @@ if has('nvim')
 
     " vaffle
     Plug 'cocopon/vaffle.vim', {'on': 'Vaffle'} " simple filer
-    Plug 'ryanoasis/vim-devicons', {'on': 'Vaffle'} " icons
+    Plug 'kyazdani42/nvim-web-devicons'
 
-    function! VaffleRenderCustomIcon(item)
-        return WebDevIconsGetFileTypeSymbol(a:item.basename, a:item.is_dir)
-    endfunction
-    let g:vaffle_render_custom_icon = 'VaffleRenderCustomIcon'
+    " function! VaffleRenderCustomIcon(item)
+    "     return WebDevIconsGetFileTypeSymbol(a:item.basename, a:item.is_dir)
+    " endfunction
+    " let g:vaffle_render_custom_icon = 'VaffleRenderCustomIcon'
 
     " echodoc
     Plug 'Shougo/echodoc.vim' " show doc above the function
@@ -241,21 +241,9 @@ if has('nvim')
     " ---
     " fzf
     " ---
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-    let g:fzf_command_prefix = 'Fzf'
-    let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
-    let g:fzf_preview_window = ['right:60%', 'ctrl-/']
-
-    function! MyFzfRgFunc(query, fullscreen)
-        let command_fmt = 'git g --column --hidden --line-number --no-heading --smart-case -- %s || true'
-        let initial_command = printf(command_fmt, shellescape(a:query))
-        let reload_command = printf(command_fmt, '{q}')
-        let g:fzf_preview_window = ['down:80%', 'ctrl-/']
-        call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(), a:fullscreen)
-        let g:fzf_preview_window = ['right:60%', 'ctrl-/']
-    endfunction
-    command! -nargs=* -bang MyFzfRg call MyFzfRgFunc(<q-args>, <bang>0)
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
     " --------
     " lsp 関連
@@ -704,14 +692,11 @@ if has('nvim')
     nmap tk <Plug>(GitGutterNextHunk)
     nnoremap <silent> td :<C-u>Gdiff<CR>
 
-    " fzf
-    nnoremap <silent> to :<C-u>FzfFiles<CR>
-    nnoremap <silent> te :<C-u>FzfBuffers<CR>
-    nnoremap <silent> tf :<C-u>FzfBLines<CR>
-    nnoremap <silent> tF :<C-u>MyFzfRg<CR>
-    nnoremap <silent> ts :<C-u>CocList symbols<CR>
-    imap <c-f> <plug>(fzf-complete-path)
-    imap <c-l> <plug>(fzf-complete-line)
+    " telescope
+    nnoremap <silent>to :<C-u>Telescope find_files<cr>
+    nnoremap <silent>te :<C-u>Telescope buffers<cr>
+    nnoremap <silent>tf :<C-u>Telescope live_grep<cr>
+    nnoremap <silent>ts :<C-u>CocList symbols<CR>
 
     augroup SetYAMLShortcuts
         autocmd!
