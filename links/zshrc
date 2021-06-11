@@ -58,12 +58,20 @@ if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
     tmux -2 attach-session -t $base_session
 fi
 
+# seup tools
+[ -d ~/.antigen ] && touch ~/.antigen/debug.log && rm -f ~/.antigen/.lock
+[ -f ~/.antigen.zsh ] && .  ~/.antigen.zsh
+antigen bundle paulirish/git-open
+
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 exists /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+[ -f ~/.zshrc.commands ] && . ~/.zshrc.commands
+
 eval "$(starship init zsh)"
 
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+# completion
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
 if uname -r | grep -q -i 'microsoft'; then
@@ -92,13 +100,10 @@ tcsh-backward-delete-word() {
 zle -N tcsh-backward-delete-word
 bindkey "^w" tcsh-backward-delete-word
 
-[ -d ~/.antigen ] && touch ~/.antigen/debug.log && rm -f ~/.antigen/.lock
-[ -f ~/.antigen.zsh ] && .  ~/.antigen.zsh
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle paulirish/git-open
+# antigen bundle zsh-users/zsh-autosuggestions
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
-[ -f ~/.zshrc.commands ] && . ~/.zshrc.commands
+# load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 

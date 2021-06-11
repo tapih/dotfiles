@@ -55,9 +55,10 @@ _fzf_comprun() {
 __fzf_ghq__() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
-        print -S "cd $name"
-        \cd $name
+        BUFFER="cd $name"
+        zle accept-line
     fi
+    zle -R -c
 }
 
 __fzf_git_cd__() {
@@ -70,9 +71,10 @@ __fzf_git_cd__() {
     # git fd is defined in .gitconfig
     selected=$(git fd --type d | fzf --preview 'tree -C '${toplevel}'/{} | head -200')
     if [ ! -z "${selected}" ]; then
-        print -S "cd ${toplevel}/${selected}"
-        cd ${toplevel}/${selected}
+        BUFFER="cd ${toplevel}/${selected}"
+        zle accept-line
     fi
+    zle -R -c
 }
 
 __fzf_git_file__() {
@@ -86,9 +88,10 @@ __fzf_git_file__() {
     preview_cmd="bat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
     if [ ! -z "${selected}" ]; then
-        print -S "${EDITOR} ${toplevel}/${selected}"
-        ${EDITOR} ${toplevel}/${selected}
+        BUFFER="${EDITOR} ${toplevel}/${selected}"
+        zle accept-line
     fi
+    zle -R -c
 }
 
 __fzf_git_grep__() {
@@ -104,9 +107,10 @@ __fzf_git_grep__() {
     preview_cmd='echo {} | awk -F: '\''{print "bat --style=numbers --color=always -H=" ($2) " --line-range=" ($2-15>0?$2-15:0) ":" ($2+50) " '${toplevel}'/" $1}'\'' | xargs -L 1 -I VAR sh -c "VAR"'
     selected=$(eval "$initial_cmd" | fzf -d : --nth 3.. --preview-window down:80%:wrap --preview "$preview_cmd" --bind change:reload:"$reload_cmd" | awk -F: '{print $1}')
     if [ ! -z "${selected}" ]; then
-        print -S "${EDITOR} ${toplevel}/${selected}"
-        ${EDITOR} ${toplevel}/${selected}
+        BUFFER="${EDITOR} ${toplevel}/${selected}"
+        zle accept-line
     fi
+    zle -R -c
 }
 
 
@@ -121,9 +125,10 @@ __fzf_git_branch__() {
     selected=$(echo "$branches" | fzf --preview "eval 'git show \$(echo '{}' | awk '{print $2}') | bat --color=always --line-range :200'")
     if [ ! -z "${selected}" ]; then
         branch=$(echo ${selected} | cut -d" " -f2)
-        history -s "git checkout ${branch}"
-        git checkout ${branch}
+        BUFFER="git checkout ${branch}"
+        zle accept-line
     fi
+    zle -R -c
 }
 
 alias cd='cdls'
