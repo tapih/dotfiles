@@ -5,73 +5,97 @@
 [alias]
     a = add
     u = add -u
+
     b = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
     br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+
     bl = blame
+
     co = checkout
     cb = checkout -b
+    m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    sw = switch -
+
     ci = commit
     cm = commit -m
     cs = commit -sm
-    pick = cherry-pick
     amend = commit --amend
-    e = !nvim ~/.gitconfig
+
     f = fetch
     fo = fetch origin
-    fd = !fd
-    g = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
-    rg = !rg -g '!.git/**' --hidden
-    gp = grep
+
     h = show
     hn = show --name-only
-    i = diff
-    iw = diff --word-diff
-    in = diff --name-only
-    is = diff --staged
-    isw = diff --staged --word-diff
-    isn = diff --staged --name-only
+
+    d = diff
+    dw = diff --word-diff
+    dn = diff --name-only
+    ds = diff --staged
+    dsw = diff --staged --word-diff
+    dsn = diff --staged --name-only
     hasdiff=diff --exit-code
-    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %C(yellow)%d%an%C(reset) %s'
+
     lo = log
-    ln = log --name-only
-    lp = log -p
-    ld = log -S
     lm = log --no-merges
     la = log --author
     lg = log --grep
     lt = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    ls = !git ls-files
-    m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    mo = !git pull orogin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %C(yellow)%d%an%C(reset) %s'
+
+    pick = cherry-pick
+    mo = !git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
     merge = merge --no-ff
     fmerge = merge --ff
+
     po = push
     pi = pull --rebase
     pm = pull --merge
+
     sts = stash
     pop = stash pop
-    o = open
+
     r = remote
     rs = remote show
+
     s = status -s
     st = status
-    sc = !fd --type f | xargs misspell -locale US -error
-    sw = switch -
-    t = tag
-    vacuum = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d };f"
 
-    alias = !git config --get-regexp alias
-    pwd = rev-parse --show-prefix
-    root = rev-parse --show-toplevel
+    t = tag
+    o = open
 
     hard = reset --hard
     mix = reset
     soft = reset --soft
 
+    pr = !gh pr create --web
+    pc = !gh pr checkout
+    pv = !gh pr view
+    pvw = !gh pr view --web
+    pl = !gh pr list
+    plw = !gh pr list --web
+
+    ic = !gh issue create --web
+    iv = !gh issue view
+    ivw = !gh issue view --web
+    il = !gh issue list
+    ilw = !gh issue list --web
+
     me = !git config --get-regexp user
     us = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
     ours = checkout --ours
     theirs = checkout --theirs
+
+    alias = !git config --get-regexp alias
+    e = !nvim ~/.gitconfig
+    fd = !fd
+    sc = !fd --type f | xargs misspell -locale US -error
+    g = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
+    rg = !rg -g '!.git/**' --hidden
+    ls = !git ls-files
+    gc = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; };f"
+    pwd = rev-parse --show-prefix
+    root = rev-parse --show-toplevel
+
 
 [init]
     defaultBranch = main
