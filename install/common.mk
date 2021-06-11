@@ -131,7 +131,7 @@ install: brew-packages asdf-packages gotools
 
 .PHONY: brew-packages
 brew-packages:
-	brew tap fishtown-analytics/dbt
+	brew tap homebrew/cask-fonts
 	brew update
 	brew install $(BREW_PACKAGES)
 	brew install --HEAD neovim
