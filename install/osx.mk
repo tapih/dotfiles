@@ -10,7 +10,8 @@ install:
 		readline \
 		sqlite3 \
 		xz \
-		zlib
+		zlib \
+		reattach-to-user-namespace
 	brew install --cask font-fira-code
 	# nodejs dependencies
 	brew install gnupg
