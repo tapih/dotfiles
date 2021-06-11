@@ -46,8 +46,10 @@
     merge = merge --no-ff
     fmerge = merge --ff
     po = push
+    puo = !git push -u origin $(git symbolic-ref --short HEAD)
     pi = pull --rebase
     pm = pull --merge
+    sts = stash
     pop = stash pop
     o = open
     r = remote
