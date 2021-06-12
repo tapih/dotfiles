@@ -108,3 +108,5 @@ not tried yet.
 - ShiftIt
 - Contexts
 
+Set Nerd Hack Font to be used on the iTerm2.
+
