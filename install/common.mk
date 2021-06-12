@@ -45,6 +45,7 @@ BREW_PACKAGES := \
 	gh \
 	hub \
 	fzf \
+	fzy \
 	fd \
 	rg \
 	bat \
