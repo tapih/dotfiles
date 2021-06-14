@@ -28,7 +28,7 @@ ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
-NVIMRC_DIR := ${HOME}/.config/nvim
+ULTISNIPS_DIR := ${HOME}/.config/nvim/UltiSnips
 VIMRC := ${HOME}/.vimrc
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
@@ -104,7 +104,7 @@ $(TPM):
 
 .PHONY: links
 links:
-	mkdir -p ${HOME}/.config
+	mkdir -p ${HOME}/.config/nvim
 	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
 	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
@@ -112,8 +112,8 @@ links:
 	[ -f $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
 	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
 	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
-	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/config/starship.toml $(STARSHIPRC)
-	[ -d $(NVIMRC_DIR) ]     || ln -s $(LINKS_DIR)/config/nvim $(NVIMRC_DIR)
+	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
+	[ -d $(ULTISNIPS_DIR) ]  || ln -s $(LINKS_DIR)/snippets $(ULTISNIPS_DIR)
 
 .PHONY: remove-links
 remove-links:
