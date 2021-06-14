@@ -104,16 +104,6 @@ function! OpenBrowser(url)
     endif
 endfunction
 
-function! GlobalChangedLines(ex_cmd)
-  for hunk in GitGutterGetHunks()
-    for lnum in range(hunk[2], hunk[2]+hunk[3]-1)
-      let cursor = getcurpos()
-      silent! execute lnum.a:ex_cmd
-      call setpos('.', cursor)
-    endfor
-  endfor
-endfunction
-
 " plug
 let g:plug_dir = expand('~/.cache/plug')
 let g:plug_window = 'new'
@@ -125,85 +115,21 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 call plug#begin(g:plug_dir)
 
-Plug 'airblade/vim-rooter'
-Plug 'mhinz/vim-startify'
-Plug 'sainnhe/sonokai'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'karb94/neoscroll.nvim'
-Plug 'ryanoasis/vim-devicons'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'romgrk/barbar.nvim'
-Plug 'ap/vim-buftabline'
-Plug 'famiu/feline.nvim'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'sindrets/diffview.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
-
-Plug 'neovim/nvim-lspconfig'
-Plug 'onsails/lspkind-nvim'
-Plug 'hrsh7th/nvim-compe'
-
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-telescope/telescope-fzy-native.nvim'
-Plug 'fhill2/telescope-ultisnips.nvim'
-Plug 'pwntester/octo.nvim'
-Plug 'windwp/nvim-spectre'
-Plug 'dyng/ctrlsf.vim'
-Plug 'kevinhwang91/nvim-hlslens'
-
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'rhysd/committia.vim'
 Plug 'itchyny/vim-gitbranch'
-Plug 'sindrets/diffview.nvim'
-
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-
 Plug 'kana/vim-operator-replace'
 Plug 'kana/vim-operator-user'
 Plug 'kana/vim-textobj-user'
 Plug 'coderifous/textobj-word-column.vim'
-Plug 'haoren/vim-wordmotion'
-
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'roxma/vim-tmux-clipboard'
-
-Plug 'windwp/nvim-autopairs'
-Plug 'junegunn/vim-easy-align', {'on': 'EasyAlign'}
-Plug 'cohama/lexima.vim'
-Plug 'JoosepAlviste/nvim-ts-context-commentstring'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'mattn/vim-sonictemplate', {'on': 'Template'}
-Plug 'matze/vim-move'
 Plug 'easymotion/vim-easymotion'
-Plug 'andymass/vim-matchup'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'tpope/vim-commentary'
-Plug 'folke/todo-comments.nvim'
-
 Plug 'ruanyl/vim-gh-line'
 Plug 'tyru/open-browser.vim', {'on': [ 'OpenBrowser', 'OpenBrowserSearch', 'OpenBrowserSmartSearch' ]}
 Plug 'tyru/open-browser-github.vim', {'on': [ 'OpenGithubFile', 'OpenGithubIssue', 'OpenGithubPullReq', 'OpenGithubProject' ]}
 
-Plug 'sheerun/vim-polyglot'
-Plug 'buoto/gotests-vim', {'for': 'go', 'on': ['GoTests', 'GoTestsAll']}
-Plug '110y/vim-go-expr-completion', {'branch': 'master'}
-Plug 'mattn/vim-goimports', {'for': 'go'}
-Plug 'dart-lang/dart-vim-plugin', {'for': 'dart'}
-Plug 'thosakwe/vim-flutter', {'for': 'dart'}
-Plug 'akinsho/flutter-tools.nvim'
-Plug 'reisub0/hot-reload.vim', {'for': 'dart'}
-Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-Plug 'godlygeek/tabular', {'for': 'markdown'}
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' , 'for': 'markdown' }
 Plug 'ekalinin/Dockerfile.vim', {'for': 'Dockerfile'}
 Plug 'hashivim/vim-terraform', {'for': 'tf'}
 Plug 'uarun/vim-protobuf', {'for': 'proto'}
@@ -250,6 +176,17 @@ let g:gitgutter_sign_modified = '✹'
 let g:gitgutter_sign_removed = '✖'
 let g:gitgutter_sign_removed_first_line = '✖'
 let g:gitgutter_sign_modified_removed = '✖'
+
+function! GlobalChangedLines(ex_cmd)
+  for hunk in GitGutterGetHunks()
+    for lnum in range(hunk[2], hunk[2]+hunk[3]-1)
+      let cursor = getcurpos()
+      silent! execute lnum.a:ex_cmd
+      call setpos('.', cursor)
+    endfor
+  endfor
+endfunction
+
 command -nargs=1 Glines call GlobalChangedLines(<q-args>)
 
 " shortcuts
