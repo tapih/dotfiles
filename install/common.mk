@@ -28,7 +28,9 @@ ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
-ULTISNIPS_DIR := ${HOME}/.config/nvim/UltiSnips
+NV_IDE_DIR := ${HOME}/.nv-ide
+NVIM_DIR := ${HOME}/.config/nvim
+ULTISNIPS_DIR := $(NVIM_DIR)/UltiSnips
 VIMRC := ${HOME}/.vimrc
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
@@ -102,9 +104,18 @@ $(TPM):
 	mkdir -p $(HOME)/.tmux
 	git clone https://github.com/tmux-plugins/tpm $@
 
+.PHONY: nv-ide
+nv-ide: $(NV_IDE_DIR)
+$(NV_IDE_DIR):
+	git clone git@github.com:tapih/nv-ide $@
+	cd $@ && git checkout tapih
+	mkdir -p $(NVIM_DIR)
+	ln -s $@/init.lua $(NVIM_DIR)/init.lua
+	ln -s $@/lua $(NVIM_DIR)/lua
+
 .PHONY: links
-links:
-	mkdir -p ${HOME}/.config/nvim
+links: nv-ide
+	mkdir -p $(NVIM_DIR)
 	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
 	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
@@ -125,7 +136,7 @@ remove-links:
 	rm -f $(VIMRC)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
-	rm -rf $(NVIMRC_DIR)
+	rm -rf $(ULTISNIPS_DIR)
 
 .PHONY: install
 install: brew-packages asdf-packages gotools
