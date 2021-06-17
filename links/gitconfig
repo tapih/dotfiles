@@ -71,10 +71,12 @@
     ro = !gh pr checkout
     r = !gh pr view --web
     rr = !gh pr list --web
+    rs = !gh pr list --web -S
 
     ic = !gh issue create --web
     i = !gh issue view --web
     ii = !gh issue list --web
+    is = !gh issue list --web -S
 
     me = !git config --get-regexp user
     us = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
