@@ -14,6 +14,7 @@
     co = checkout
     cb = checkout -b
     m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+    sync = remote set-head origin --auto
     sw = switch -
 
     ci = commit
