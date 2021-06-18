@@ -198,8 +198,6 @@ zle -N __fzf_gh_issue__
 zle -N __fzf_git_file__
 zle -N __fzf_git_grep__
 
-bindkey '^k' __fzf_gh_pr__
-bindkey '^K' __fzf_gh_issue__
 bindkey '^g' __fzf_ghq__
 bindkey '^o' __fzf_git_file__
 bindkey '^j' __fzf_git_grep__
