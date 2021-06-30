@@ -51,6 +51,7 @@
     po = push
     pi = pull --rebase
     pm = pull --merge
+    pr = !git push && gh pr create --web
     prc = !git push && gh pr create --web
 
     sts = stash
