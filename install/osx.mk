@@ -11,6 +11,7 @@ install:
 		sqlite3 \
 		xz \
 		zlib \
+		gnu-sed \
 		reattach-to-user-namespace
 	brew install --cask font-hack-nerd-font
 	# nodejs dependencies
