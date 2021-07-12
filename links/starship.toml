@@ -1,82 +1,82 @@
 format = """\
-    $directory\
-    $hostname\
     $username\
+    $directory\
     $git_branch\
     $git_commit\
     $git_state\
     $git_status\
-    $kubernetes\
-    $aws\
+    $gcloud\
     $terraform\
+    $golang\
+    $dart\
     $python\
     $custom\
+    $kubernetes\
     $line_break\
     $character\
 """
 
 [username]
 show_always  = true
-format = "😎 [$user]($style) "
-style_user = "bold yellow"
+format = "[$user]($style) "
+style_user = "bold red"
 
 [hostname]
 ssh_only = false
 style = "bold red"
-format = "🍣 [$hostname]($style) "
+format = "[$hostname]($style) "
 
 [git_branch]
-symbol = "🌍 "
-style = "bold black"
+symbol = "🐬 "
+style = "bold cyan"
 format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "bold black"
+style = "bold cyan"
 
 [git_commit]
-style = "bold black"
+style = "bold cyan"
 disabled = true
 
 [character]
-success_symbol = "[❯❯❯](bold green)"
-error_symbol = "[❯❯❯](bold red)"
+success_symbol = "[❯❯❯](bold red)"
+error_symbol = "[❯❯❯](bold yellow)"
 
 [directory]
 truncation_length = 8
 truncate_to_repo = false
-style = "bold green"
-format = "[$path]($style)[$read_only]($read_only_style) "
+style = "bold yellow"
+format = "😇 [$path]($style)[$read_only]($read_only_style) "
 
 [golang]
-style = "bold black"
+style = "bold white"
 format = "[$symbol$version]($style) "
 
 [dart]
-style = "bold black"
+style = "bold white"
 format = "[$symbol$version]($style) "
 
 [python]
-style = "bold black"
+style = "bold white"
 format = "[$symbol$version]($style) "
 
 [nodejs]
-style = "bold black"
+style = "bold white"
 format = "[$symbol$version]($style) "
-symbol = "🐢 "
 
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\) )]($style) '
-style = "bold cyan"
+style = "bold black"
 
 [gcloud]
-style = "bold black"
-symbol = "🐘 "
-format = '[$symbol$account(\($region\))]($style) '
+style = "bold green"
+symbol = "🌴 "
+format = '[$symbol$project]($style) '
 
 [aws]
 style = "bold black"
-symbol = "🌴 "
+symbol = "🌏 "
 format = '[$symbol$profile(\($region\))]($style) '
 
 [terraform]
