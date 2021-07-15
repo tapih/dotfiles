@@ -80,7 +80,7 @@ symbol = "🌏 "
 format = '[$symbol$profile(\($region\))]($style) '
 
 [terraform]
-style = "bold black"
+style = "bold blue"
 format = "[$symbol$workspace]($style) "
 
 [time]
