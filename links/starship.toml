@@ -76,10 +76,10 @@ format = '[$symbol$project]($style) '
 
 [aws]
 style = "bold black"
-symbol = "🌏 "
 format = '[$symbol$profile(\($region\))]($style) '
 
 [terraform]
+symbol = "🌏 "
 style = "bold blue"
 format = "[$symbol$workspace]($style) "
 
