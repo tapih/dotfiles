@@ -22,7 +22,7 @@ set pastetoggle=<C-b>
 set tabstop=4
 au FileType yaml setlocal sw=2 sts=2 ts=2 et
 
-nnoremap <CR> :w<CR>
+nnoremap <silent> <CR> :w<CR>
 nnoremap q :q<CR>
 nnoremap ; :
 nnoremap m ;
@@ -33,3 +33,4 @@ nnoremap H ^
 nnoremap L $
 nnoremap j gj
 nnoremap k gk
+nnoremap <silent> z :<C-u>noh<CR>

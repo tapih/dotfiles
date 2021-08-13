@@ -26,13 +26,11 @@ LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 ZSHRC := ${HOME}/.zshrc
 VIMRC := ${HOME}/.vimrc
 NVIM_DIR := ${HOME}/.config/nvim
-NVIMRC := $(NVIM_DIR)/init.vim
 ZlHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
 NV_IDE_DIR := ${HOME}/.nv-ide
-ULTISNIPS_DIR := $(NVIM_DIR)/UltiSnips
 VIMRC := ${HOME}/.vimrc
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
@@ -121,7 +119,6 @@ links: nv-ide
 	mkdir -p $(NVIM_DIR)
 	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
 	[ -f $(VIMRC) ]          || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
-	[ -f $(NVIMRC) ]         || ln -s $(LINKS_DIR)/vimrc $(NVIMRC)
 	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
 	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
@@ -129,7 +126,6 @@ links: nv-ide
 	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
 	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
 	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
-	[ -d $(ULTISNIPS_DIR) ]  || ln -s $(LINKS_DIR)/snippets $(ULTISNIPS_DIR)
 
 .PHONY: remove-links
 remove-links:
@@ -141,7 +137,6 @@ remove-links:
 	rm -f $(VIMRC)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
-	rm -rf $(ULTISNIPS_DIR)
 
 .PHONY: install
 install: brew-packages asdf-packages gotools
