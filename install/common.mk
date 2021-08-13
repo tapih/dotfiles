@@ -24,12 +24,14 @@ TPM := ${HOME}/.tmux/plugins/tpm
 
 LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 ZSHRC := ${HOME}/.zshrc
-ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
+VIMRC := ${HOME}/.vimrc
+NVIM_DIR := ${HOME}/.config/nvim
+NVIMRC := $(NVIM_DIR)/init.vim
+ZlHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
 NV_IDE_DIR := ${HOME}/.nv-ide
-NVIM_DIR := ${HOME}/.config/nvim
 ULTISNIPS_DIR := $(NVIM_DIR)/UltiSnips
 VIMRC := ${HOME}/.vimrc
 IDEAVIMRC := ${HOME}/.ideavimrc
@@ -118,6 +120,8 @@ $(NV_IDE_DIR):
 links: nv-ide
 	mkdir -p $(NVIM_DIR)
 	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
+	[ -f $(VIMRC) ]          || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
+	[ -f $(NVIMRC) ]         || ln -s $(LINKS_DIR)/vimrc $(NVIMRC)
 	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
 	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)

@@ -1,0 +1,35 @@
+syntax on
+
+colorscheme slate
+
+set encoding=UTF-8
+set cursorline
+set scrolloff=8
+set showmode
+set hidden
+set nobackup
+set noswapfile
+set noundofile
+set splitright
+set splitbelow
+set hlsearch
+set expandtab
+set smartcase
+set ignorecase
+set autoindent
+set smartindent
+set pastetoggle=<C-b>
+set tabstop=4
+au FileType yaml setlocal sw=2 sts=2 ts=2 et
+
+nnoremap <CR> :w<CR>
+nnoremap q :q<CR>
+nnoremap ; :
+nnoremap m ;
+nnoremap : m
+nnoremap U <C-r>
+nnoremap <C-y> <C-v>
+nnoremap H ^
+nnoremap L $
+nnoremap j gj
+nnoremap k gk
