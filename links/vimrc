@@ -31,7 +31,12 @@ set autoindent
 set smartindent
 set pastetoggle=<C-b>
 set tabstop=4
+set noerrorbells
+
+au InsertLeave * set nopaste
+au FileType * set formatoptions-=cro
 au FileType yaml setlocal sw=2 sts=2 ts=2 et
+au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal g'\"" | endif
 
 nnoremap <silent> <CR> :w<CR>
 nnoremap q :q<CR>
