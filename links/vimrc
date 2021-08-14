@@ -9,9 +9,12 @@ let g:loaded_zipPlugin = 1
 let g:loaded_zip = 1
 let g:loaded_netrwPlugin = 1
 
+filetype plugin indent on
 syntax on
 
 colorscheme slate
+
+set ruler
 
 set encoding=UTF-8
 set cursorline
@@ -22,9 +25,11 @@ set noswapfile
 set noundofile
 set splitright
 set splitbelow
+set incsearch
 set hlsearch
 set smartcase
 set ignorecase
+set wildmenu
 set autoindent
 set smartindent
 set showmatch
@@ -33,6 +38,7 @@ set scrolloff=8
 set noerrorbells
 set pastetoggle=<C-b>
 set clipboard=unnamedplus
+set nrformats-=octal
 
 au InsertLeave * set nopaste
 au FileType * set formatoptions-=cro
