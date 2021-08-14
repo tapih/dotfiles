@@ -26,7 +26,8 @@ LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 ZSHRC := ${HOME}/.zshrc
 VIMRC := ${HOME}/.vimrc
 NVIM_DIR := ${HOME}/.config/nvim
-ZlHRC_COMMANDS := ${HOME}/.zshrc.commands
+PACKER_DIR := ${NVIM_DIR}/packer.nvim
+ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
@@ -113,6 +114,11 @@ $(NV_IDE_DIR):
 	mkdir -p $(NVIM_DIR)
 	ln -s $@/init.lua $(NVIM_DIR)/init.lua
 	ln -s $@/lua $(NVIM_DIR)/lua
+
+.PHONY: packer
+packer: $(PACKER_DIR)
+$(PACKER_DIR):
+	git clone https://github.com/wbthomason/packer.nvim $@
 
 .PHONY: links
 links: nv-ide
