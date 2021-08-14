@@ -40,14 +40,21 @@ au BufReadPost * if line("'\"") > 0 && line ("'\"") <= line("$") | exe "normal g
 
 nnoremap <silent> <CR> :w<CR>
 nnoremap q :q<CR>
-nnoremap ; :
-nnoremap m ;
-nnoremap : m
-nnoremap U <C-r>
+nnoremap z :qa<CR>
+nnoremap <silent> <C-q> :noh<CR>
 nnoremap <C-y> <C-v>
-nnoremap H ^
-nnoremap L $
+nnoremap U <C-r>
+nnoremap vy ggVG
 nnoremap j gj
 nnoremap k gk
-nnoremap <silent> z :<C-u>noh<CR>
+nnoremap H ^
+vnoremap H ^
+vnoremap L $
+nnoremap L $
+nnoremap ; :
+nnoremap : m
+nnoremap m ;
+vnoremap ; :
+vnoremap : m
+vnoremap m ;
 
