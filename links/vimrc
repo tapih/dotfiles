@@ -15,7 +15,6 @@ colorscheme slate
 
 set encoding=UTF-8
 set cursorline
-set scrolloff=8
 set showmode
 set hidden
 set nobackup
@@ -29,11 +28,13 @@ set smartcase
 set ignorecase
 set autoindent
 set smartindent
+set showmatch
 set pastetoggle=<C-b>
+set laststatus=2
 set tabstop=4
+set scrolloff=8
 set noerrorbells
-set virtualedit
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 au InsertLeave * set nopaste
 au FileType * set formatoptions-=cro
