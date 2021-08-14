@@ -32,6 +32,7 @@ set smartindent
 set pastetoggle=<C-b>
 set tabstop=4
 set noerrorbells
+set virtualedit
 set clipboard=unnamed
 
 au InsertLeave * set nopaste
