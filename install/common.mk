@@ -70,6 +70,7 @@ BREW_PACKAGES := \
 	yarn \
 	buildkit \
 	grpcurl \
+	trivy \
 	kind \
 	skaffold \
 	stern \
