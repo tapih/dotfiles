@@ -26,13 +26,13 @@ LINKS_DIR := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))/../links
 ZSHRC := ${HOME}/.zshrc
 VIMRC := ${HOME}/.vimrc
 NVIM_DIR := ${HOME}/.config/nvim
+NVIM_INIT := ${HOME}/.config/nvim/init.lua
+NVIM_LUA := ${HOME}/.config/nvim/lua
 PACKER_DIR := ${NVIM_DIR}/packer.nvim
 ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
-NV_IDE_DIR := ${HOME}/.nv-ide
-VIMRC := ${HOME}/.vimrc
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
 
@@ -107,30 +107,22 @@ $(TPM):
 	mkdir -p $(HOME)/.tmux
 	git clone https://github.com/tmux-plugins/tpm $@
 
-.PHONY: nv-ide
-nv-ide: $(NV_IDE_DIR)
-$(NV_IDE_DIR):
-	git clone git@github.com:tapih/nv-ide $@
-	cd $@ && git checkout tapih
-	mkdir -p $(NVIM_DIR)
-	ln -s $@/init.lua $(NVIM_DIR)/init.lua
-	ln -s $@/lua $(NVIM_DIR)/lua
-
 .PHONY: packer
 packer: $(PACKER_DIR)
 $(PACKER_DIR):
 	git clone https://github.com/wbthomason/packer.nvim $@
 
 .PHONY: links
-links: nv-ide
+links:
 	mkdir -p $(NVIM_DIR)
 	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
-	[ -f $(VIMRC) ]          || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
 	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
 	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
 	[ -f $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
-	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/config/nvim/init.vim $(VIMRC)
+	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
+	[ -f $(NVIM_INIT)  ]     || ln -s $(LINKS_DIR)/nvim/init.lua $(NVIM_INIT)
+	[ -f $(NVIM_LUA)  ]      || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
 	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
 	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
 
@@ -142,6 +134,8 @@ remove-links:
 	rm -f $(GITCONFIG)
 	rm -f $(TMUX_CONF)
 	rm -f $(VIMRC)
+	rm -f $(NVIMINIT)
+	rm -f $(NVIMLUA)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
 
