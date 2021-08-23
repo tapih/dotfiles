@@ -73,6 +73,7 @@ BREW_PACKAGES := \
 	trivy \
 	kind \
 	skaffold \
+	kubeval \
 	stern \
 	k9s \
 	krew
@@ -145,6 +146,7 @@ install: brew-packages asdf-packages gotools
 .PHONY: brew-packages
 brew-packages:
 	brew tap homebrew/cask-fonts
+	brew tap instrumenta/instrumenta
 	brew update
 	brew install $(BREW_PACKAGES)
 	brew install --HEAD neovim
