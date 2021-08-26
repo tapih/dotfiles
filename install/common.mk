@@ -244,4 +244,5 @@ gotools:
 	$(GO) install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	$(GO) install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 	$(GO) install github.com/homeport/dyff/cmd/dyff@latest
+	$(GO) install github.com/sachaos/viddy@latest
 
