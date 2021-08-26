@@ -76,7 +76,8 @@ BREW_PACKAGES := \
 	kubeval \
 	stern \
 	k9s \
-	krew
+	krew \
+	hadolint
 
 .PHONY: postinst
 postinst: brew zsh asdf antigen tpm remove-links links
