@@ -99,14 +99,17 @@ not tried yet.
 - Chrome
 - Slack
 - Notion
-- Xcode
 - iTerm2
-- Android Studio
+- VSCode
+- Xcode
+- Android Studio (for flutter)
 - Kindle
 - Docker
 - Alfred
 - ShiftIt
 - Contexts
+- Lens
+- CotEditor
 
 Set `Nerd Hack Font` to iTerm2.
 
