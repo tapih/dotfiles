@@ -65,6 +65,7 @@ BREW_PACKAGES := \
 	yq \
 	colordiff \
 	tree \
+	gnu-sed \
 	htop \
 	watch \
 	yarn \
