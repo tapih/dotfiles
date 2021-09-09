@@ -12,13 +12,14 @@
 ### Ubuntu 20.04
 
 ```sh
+# Update /etc/sudoers like "tapih ALL=NOPASSWD: ALL"
 sudo visudo
-# tapih ALL=NOPASSWD: ALL
 
-# Use mirror in Japan if you are in Japan
+# Use closest mirror
 sudo sed -i.org -e "s/\/\/archive\.ubuntu\.com/\/\/jp\.archive\.ubuntu\.com/g" /etc/apt/sources.list
 sudo apt-get install -y make
 
+# Register key on GitHub
 mkdir -m 700 ~/.ssh && cd ~/.ssh
 cat << EOF > config
 Host github.com
@@ -26,17 +27,17 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github_rsa
 EOF
-# register the generated public key to GitHub
 ssh-keygen -t rsa -b 4096 -f github_rsa
 
+# Clone this repository
 mkdir ~/src && cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
 make postinst OS=ubuntu
 sudo sh -c "echo /home/linuxbrew/.linuxbrew/bin/zsh >> /etc/shells"
 chsh -s /home/linuxbrew/.linuxbrew/bin/zsh
-# exit shell once
 
+# Exit shell once and run the following
 make install OS=ubuntu
 
 # (optional)
@@ -65,6 +66,7 @@ On Windows side, these tools should be installed manually.
 ### macOS
 
 ```sh
+# Register key on GitHub
 mkdir -m 700 ~/.ssh && cd ~/.ssh
 cat << EOF > config
 Host github.com
@@ -72,18 +74,18 @@ Host github.com
     User git
     IdentityFile ~/.ssh/github_rsa
 EOF
-# register the generated public key to GitHub
 ssh-keygen -t rsa -b 4096 -f github_rsa
 
+# Clone this repository
 mkdir ~/src && cd ~/src
 git clone git@github.com:tapih/dotfiles
 cd dotfiles
 make postinst OS=darwin
-# exit shell once
 
+# Exit shell once and run the following command
 make install OS=darwin
 
-# after installing Xcode
+# After installing Xcode
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 sudo xcodebuild -runFirstLaunch
 sudo xcodebuild -license
@@ -92,8 +94,7 @@ sudo gem install cocoapods
 arch -x86_64 open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app/
 ```
 
-Install the following applications manually. These may be installed with cask, but
-not tried yet.
+Install the following applications.
 
 - Enpass
 - Chrome
@@ -111,5 +112,5 @@ not tried yet.
 - Lens
 - CotEditor
 
-Set `Nerd Hack Font` to iTerm2.
+Set iTerm2 font as `Nerd Hack Font`.
 
