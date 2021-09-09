@@ -42,12 +42,12 @@ set_keymap('n', 'tb', ':<C-u>NvimTreeToggle<CR>', {noremap = true, silent = true
 set_keymap('n', 'tt', ':<C-u>NvimTreeFocus<CR>', {noremap = true, silent = true})
 
 -- Telescope
-set_keymap('n', 'tg', ':<C-u>Telescope current_buffer_fuzzy_find<CR>', { noremap = true, silent = true})
-set_keymap('n', 'tG', ':<C-u>Telescope live_grep<CR>',                 { noremap = true, silent = true})
-set_keymap('n', 'to', ':<C-u>Telescope find_files<CR>',                { noremap = true, silent = true})
-set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>',                   { noremap = true, silent = true})
-set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                     { noremap = true, silent = true})
-set_keymap('n', 't-', ':<C-u>TodoTelescope<CR>',                       { noremap = true, silent = true})
+set_keymap('n', 'tg', ':<C-u>Telescope current_buffer_fuzzy_find<CR>',               { noremap = true, silent = true})
+set_keymap('n', 'tG', ':<C-u>Telescope live_grep<CR>',                               { noremap = true, silent = true})
+set_keymap('n', 'to', ':<C-u>Telescope find_files find_command=fd,-HLE.git<CR>', { noremap = true, silent = true})
+set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>',                                 { noremap = true, silent = true})
+set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                                   { noremap = true, silent = true})
+set_keymap('n', 't-', ':<C-u>TodoTelescope<CR>',                                     { noremap = true, silent = true})
 
 -- Browser
 set_keymap('n', 'tw', ":<C-u>GHInteractive<CR>", {noremap = true, silent = true})
