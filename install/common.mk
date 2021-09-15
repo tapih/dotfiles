@@ -59,18 +59,19 @@ BREW_PACKAGES := \
 	tig \
 	lazygit \
 	lazydocker \
-	terraform-ls \
+	grpcurl \
 	unzip \
 	jq \
 	yq \
 	colordiff \
 	tree \
 	gnu-sed \
+	terraform-ls \
 	htop \
 	watch \
+	navi \
 	yarn \
 	buildkit \
-	grpcurl \
 	trivy \
 	kind \
 	skaffold \
