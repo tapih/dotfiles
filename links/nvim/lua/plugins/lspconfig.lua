@@ -14,6 +14,7 @@ require'lspconfig'.dockerls.setup{}
 require'lspconfig'.terraformls.setup{}
 require'lspconfig'.vimls.setup{}
 require'lspconfig'.yamlls.setup{}
+require'lspconfig'.ccls.setup{}
 require'lspconfig'.jsonls.setup{
 	commands = {
 		Format = {

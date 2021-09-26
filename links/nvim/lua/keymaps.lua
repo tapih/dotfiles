@@ -2,7 +2,8 @@ local set_keymap = vim.api.nvim_set_keymap
 -- Basic
 set_keymap('n', '<CR>', ':<C-u>w<CR>', { noremap = true, silent = false})
 set_keymap('n', 'q', ':q<CR>',         { noremap = true, silent = true})
-set_keymap('n', 'Q', ':qa<CR>',        { noremap = true, silent = false})
+set_keymap('n', '<C-q>', ':qa<CR>',    { noremap = true, silent = true})
+set_keymap('n', 'Q', 'q',              { noremap = true, silent = false})
 set_keymap('n', '<C-y>', '<C-v>',      { noremap = true, silent = false})
 set_keymap('n', 'U', '<C-r>',          { noremap = true, silent = false})
 set_keymap('n', 'vy', 'ggVG',          { noremap = true, silent = false})
@@ -30,8 +31,8 @@ set_keymap('x', 'ga', '<Plug>(EasyAlign)', {noremap = false, silent = false})
 set_keymap('n', 'gc', ':<C-u>Commentary<CR>', {noremap = true, silent = true})
 
 -- Fterm
-set_keymap('n', '<C-q>', '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
-set_keymap('t', '<C-q>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
+set_keymap('n', '<C-b>', '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
+set_keymap('t', '<C-b>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
 
 -- Buffer
 set_keymap('n', 'tp', ':<C-u>bprev<CR>', { noremap = true, silent = true })

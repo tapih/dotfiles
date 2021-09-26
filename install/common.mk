@@ -79,7 +79,8 @@ BREW_PACKAGES := \
 	stern \
 	k9s \
 	krew \
-	hadolint
+	hadolint \
+	ccls
 
 .PHONY: postinst
 postinst: brew zsh asdf antigen tpm remove-links links
