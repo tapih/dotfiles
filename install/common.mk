@@ -154,6 +154,7 @@ brew-packages:
 	brew update
 	brew install $(BREW_PACKAGES)
 	brew install --HEAD neovim
+	brew install --cask android-platform-tools
 	$$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
 
 .PHONY: asdf-packages
