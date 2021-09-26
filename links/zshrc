@@ -2,6 +2,11 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
+# setup tools
+[ -d ${HOME}/.antigen ] && touch ${HOME}/.antigen/debug.log && rm -f ${HOME}/.antigen/.lock
+[ -f ${HOME}/.antigen.zsh ] && .  ${HOME}/.antigen.zsh
+[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
+
 bindkey -e
 stty -ixon
 
@@ -28,14 +33,10 @@ export ZSH_AUTOSUGGEST_STRATEGY='completion'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
-if [ -z "$NVIM_LISTEN_ADDRESS" ]; then
-    export VISUAL="nvim"
-    export EDITOR="nvim"
-else
-    export VISUAL="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-    export EDITOR="nvr -cc split --remote-wait +'set bufhidden=wipe'"
-fi
+export VISUAL="nvim"
+export EDITOR="nvim"
 export GOPATH="${HOME}/go"
+export FLUTTER_ROOT=$(asdf where flutter)
 export PATH=${PATH}:${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin
 
 case "$TERM" in
@@ -53,34 +54,19 @@ esac
 
 # open tmux on startup
 if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
-    base_session='auto'
-    tmux has-session -t $base_session || tmux new-session -d -s $base_session
-    tmux -2 attach-session -t $base_session
+  base_session='auto'
+  tmux has-session -t $base_session || tmux new-session -d -s $base_session
+  tmux -2 attach-session -t $base_session
 fi
 
-# seup tools
-[ -d ~/.antigen ] && touch ~/.antigen/debug.log && rm -f ~/.antigen/.lock
-[ -f ~/.antigen.zsh ] && .  ~/.antigen.zsh
+# tools
 antigen bundle paulirish/git-open
-
+exists starship && eval "$(starship init zsh)"
+exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-exists /usr/bin/lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-[ -f ~/.zshrc.commands ] && . ~/.zshrc.commands
-
-eval "$(starship init zsh)"
 
 # completion
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
-[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
-if uname -r | grep -q -i 'microsoft'; then
-  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
-        genie -s
-  fi
-  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-  export VTE_CJK_WIDTH=1
-fi
 
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
@@ -93,20 +79,23 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
-tcsh-backward-delete-word() {
-  local WORDCHARS="${WORDCHARS:s#/#}"
-  zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-bindkey "^w" tcsh-backward-delete-word
-
 # antigen bundle zsh-users/zsh-autosuggestions
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# genie
+if uname -r | grep -q -i 'microsoft'; then
+  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
+        genie -s
+  fi
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+  export VTE_CJK_WIDTH=1
+fi
 
 # load other rc files
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+[ -f ~/.zshrc.commands ] && . ~/.zshrc.commands
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
 
-
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform

@@ -1,5 +1,12 @@
 #! /usr/bin/zsh
 
+tcsh-backward-delete-word() {
+  local WORDCHARS="${WORDCHARS:s#/#}"
+  zle backward-delete-word
+}
+zle -N tcsh-backward-delete-word
+bindkey "^w" tcsh-backward-delete-word
+
 cdls() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
