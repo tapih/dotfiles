@@ -26,4 +26,6 @@ require'lspconfig'.jsonls.setup{
 }
 
 vim.opt.runtimepath = vim.opt.runtimepath + '~/.local/share/nvim/site/pack/packer/opt/flutter-tools.nvim'
-require("flutter-tools").setup{}
+require("flutter-tools").setup{
+  flutter_lookup_cmd = 'asdf where flutter'
+}
