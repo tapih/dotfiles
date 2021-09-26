@@ -139,8 +139,8 @@ remove-links:
 	rm -f $(GITCONFIG)
 	rm -f $(TMUX_CONF)
 	rm -f $(VIMRC)
-	rm -f $(NVIMINIT)
-	rm -f $(NVIMLUA)
+	rm -f $(NVIM_INIT)
+	rm -f $(NVIM_LUA)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
 
