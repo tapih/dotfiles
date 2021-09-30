@@ -54,8 +54,8 @@
     pr = !git push && gh pr create --web
     prc = !git push && gh pr create --web
 
-    sts = stash
-    pop = stash pop
+    ts = stash
+    op = stash pop
 
     r = remote
     rs = remote show
