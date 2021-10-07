@@ -36,11 +36,13 @@ TMUX_CONF := ${HOME}/.tmux.conf
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
 
+ASDF := ${HOME}/.asdf/asdf.sh
+
 COMMON_MK := $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))/common.mk
 GOPATH := ${HOME}/go
 GO := $(ASDF_DIR)/shims/go
 PIP := $(ASDF_DIR)/shims/pip
-ASDF := ${HOME}/.asdf/asdf.sh
+HELM := $(ASDF_DIR)/shims/helm
 
 BREW_PACKAGES := \
 	cask \
@@ -186,6 +188,7 @@ kubectl:
 .PHONY: helm
 helm:
 	$(MAKE) -f $(COMMON_MK) _asdf_install TARGET_NAME=$@ TARGET_VERSION=$(HELM_VERSION)
+	$(HELM) plugin install https://github.com/databus23/helm-diff
 
 .PHONY: kustomize
 kustomize:
