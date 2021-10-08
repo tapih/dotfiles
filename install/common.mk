@@ -72,6 +72,7 @@ BREW_PACKAGES := \
 	htop \
 	watch \
 	navi \
+	viddy \
 	yarn \
 	buildkit \
 	trivy \
