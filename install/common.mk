@@ -28,13 +28,15 @@ VIMRC := ${HOME}/.vimrc
 NVIM_DIR := ${HOME}/.config/nvim
 NVIM_INIT := ${HOME}/.config/nvim/init.lua
 NVIM_LUA := ${HOME}/.config/nvim/lua
-PACKER_DIR := ${NVIM_DIR}/packer.nvim
+PACKER_DIR := $(NVIM_DIR)/packer.nvim
 ZSHRC_COMMANDS := ${HOME}/.zshrc.commands
 INPUTRC := ${HOME}/.inputrc
 GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
+NAVI_DIR := ${HOME}/.config/cheat
+NAVI_CHEAT := $(NAVI_DIR)/main.cheat
 
 ASDF := ${HOME}/.asdf/asdf.sh
 
@@ -123,16 +125,18 @@ $(PACKER_DIR):
 .PHONY: links
 links:
 	mkdir -p $(NVIM_DIR)
-	[ -f $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
-	[ -f $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
-	[ -f $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
-	[ -f $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
-	[ -f $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
-	[ -f $(VIMRC)  ]         || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
-	[ -f $(NVIM_INIT)  ]     || ln -s $(LINKS_DIR)/nvim/init.lua $(NVIM_INIT)
-	[ -f $(NVIM_LUA)  ]      || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
-	[ -f $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
-	[ -f $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
+	mkdir -p $(NAVI_DIR)
+	[ -L $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
+	[ -L $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
+	[ -L $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
+	[ -L $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
+	[ -L $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
+	[ -L $(VIMRC)  ]         || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
+	[ -L $(NVIM_INIT) ]      || ln -s $(LINKS_DIR)/nvim/init.lua $(NVIM_INIT)
+	[ -L $(NVIM_LUA) ]       || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
+	[ -L $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
+	[ -L $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
+	[ -L $(NAVI_CHEAT) ]     || ln -s $(LINKS_DIR)/cheat $(NAVI_CHEAT)
 
 .PHONY: remove-links
 remove-links:
@@ -146,6 +150,7 @@ remove-links:
 	rm -f $(NVIM_LUA)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
+	rm -f $(NAVI_CHEAT)
 
 .PHONY: install
 install: brew-packages asdf-packages gotools
