@@ -35,8 +35,6 @@ GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
-NAVI_DIR := ${HOME}/.config/cheat
-NAVI_CHEAT := $(NAVI_DIR)/main.cheat
 
 ASDF := ${HOME}/.asdf/asdf.sh
 
@@ -73,7 +71,6 @@ BREW_PACKAGES := \
 	terraform-ls \
 	htop \
 	watch \
-	navi \
 	viddy \
 	yarn \
 	buildkit \
@@ -125,7 +122,6 @@ $(PACKER_DIR):
 .PHONY: links
 links:
 	mkdir -p $(NVIM_DIR)
-	mkdir -p $(NAVI_DIR)
 	[ -L $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
 	[ -L $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
 	[ -L $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
@@ -136,7 +132,6 @@ links:
 	[ -L $(NVIM_LUA) ]       || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
 	[ -L $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
 	[ -L $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
-	[ -L $(NAVI_CHEAT) ]     || ln -s $(LINKS_DIR)/cheat $(NAVI_CHEAT)
 
 .PHONY: remove-links
 remove-links:
@@ -150,7 +145,6 @@ remove-links:
 	rm -f $(NVIM_LUA)
 	rm -f $(IDEAVIMRC)
 	rm -f $(STARSHIPRC)
-	rm -f $(NAVI_CHEAT)
 
 .PHONY: install
 install: brew-packages asdf-packages gotools
@@ -259,4 +253,4 @@ gotools:
 	$(GO) install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 	$(GO) install github.com/homeport/dyff/cmd/dyff@latest
 	$(GO) install github.com/sachaos/viddy@latest
-
+	$(GO) install github.com/cheat/cheat/cmd/cheat@latest

@@ -37,7 +37,6 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export FLUTTER_ROOT=$(asdf where flutter)
-export NAVI_PATH=${HOME}/.config/cheat
 export PATH=${PATH}:${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin
 
 case "$TERM" in
