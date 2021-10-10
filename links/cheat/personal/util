@@ -1,0 +1,2 @@
+# regex
+echo -e "aabbaabb\naabbaabbaabb" | perl -pe 's;aa;bb;g'

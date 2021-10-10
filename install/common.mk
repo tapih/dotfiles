@@ -35,6 +35,11 @@ GITCONFIG := ${HOME}/.gitconfig
 TMUX_CONF := ${HOME}/.tmux.conf
 IDEAVIMRC := ${HOME}/.ideavimrc
 STARSHIPRC := ${HOME}/.config/starship.toml
+CHEAT_DIR := ${HOME}/.config/cheat
+CHEAT_CONFIG := $(CHEAT_DIR)/config.yaml
+CHEAT_SHEETS_DIR := $(CHEAT_DIR)/cheatsheets
+CHEAT_SHEETS_COMMUNITY_DIR := $(CHEAT_SHEETS_DIR)/community
+CHEAT_SHEETS_PERSONAL_DIR := $(CHEAT_SHEETS_DIR)/personal
 
 ASDF := ${HOME}/.asdf/asdf.sh
 
@@ -122,16 +127,20 @@ $(PACKER_DIR):
 .PHONY: links
 links:
 	mkdir -p $(NVIM_DIR)
-	[ -L $(ZSHRC) ]          || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
-	[ -L $(ZSHRC_COMMANDS) ] || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
-	[ -L $(INPUTRC) ]        || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
-	[ -L $(GITCONFIG) ]      || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
-	[ -L $(TMUX_CONF) ]      || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
-	[ -L $(VIMRC)  ]         || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
-	[ -L $(NVIM_INIT) ]      || ln -s $(LINKS_DIR)/nvim/init.lua $(NVIM_INIT)
-	[ -L $(NVIM_LUA) ]       || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
-	[ -L $(IDEAVIMRC) ]      || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
-	[ -L $(STARSHIPRC) ]     || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
+	mkdir -p $(CHEAT_SHEETS_DIR)
+	mkdir -p $(CHEAT_SHEETS_COMMUNITY_DIR)
+	[ -L $(ZSHRC) ]                     || ln -s $(LINKS_DIR)/zshrc $(ZSHRC)
+	[ -L $(ZSHRC_COMMANDS) ]            || ln -s $(LINKS_DIR)/zshrc.commands $(ZSHRC_COMMANDS)
+	[ -L $(INPUTRC) ]                   || ln -s $(LINKS_DIR)/inputrc $(INPUTRC)
+	[ -L $(GITCONFIG) ]                 || ln -s $(LINKS_DIR)/gitconfig $(GITCONFIG)
+	[ -L $(TMUX_CONF) ]                 || ln -s $(LINKS_DIR)/tmux.conf $(TMUX_CONF)
+	[ -L $(VIMRC)  ]                    || ln -s $(LINKS_DIR)/vimrc $(VIMRC)
+	[ -L $(NVIM_INIT) ]                 || ln -s $(LINKS_DIR)/nvim/init.lua $(NVIM_INIT)
+	[ -L $(NVIM_LUA) ]                  || ln -s $(LINKS_DIR)/nvim/lua $(NVIM_LUA)
+	[ -L $(IDEAVIMRC) ]                 || ln -s $(LINKS_DIR)/ideavimrc $(IDEAVIMRC)
+	[ -L $(STARSHIPRC) ]                || ln -s $(LINKS_DIR)/starship.toml $(STARSHIPRC)
+	[ -L $(CHEAT_CONFIG) ]              || ln -s $(LINKS_DIR)/cheat/conf.yml $(CHEAT_CONFIG)
+	[ -L $(CHEAT_SHEETS_PERSONAL_DIR) ] || ln -s $(LINKS_DIR)/cheat/personal $(CHEAT_SHEETS_DIR)
 
 .PHONY: remove-links
 remove-links:
