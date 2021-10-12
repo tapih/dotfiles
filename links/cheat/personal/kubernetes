@@ -1,0 +1,2 @@
+# auto generate kustomization.yaml
+kustomize create --autodetect --recursive
