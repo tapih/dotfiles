@@ -1,4 +1,97 @@
 #! /usr/bin/zsh
+#
+exists() { type $1 >/dev/null 2>&1; return $?; }
+
+[ -d ${HOME}/.antigen ] && touch ${HOME}/.antigen/debug.log && rm -f ${HOME}/.antigen/.lock
+[ -f ${HOME}/.antigen.zsh ] && .  ${HOME}/.antigen.zsh
+[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+
+bindkey -e
+stty -ixon
+
+setopt no_beep
+setopt auto_pushd
+setopt noclobber
+setopt append_history
+setopt share_history
+setopt hist_ignore_dups
+setopt auto_param_slash
+setopt mark_dirs
+setopt magic_equal_subst
+
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export HISTFILE=${HOME}/.zsh_history
+export HISTCONTROL=ignoreboth
+export HISTSIZE=10000
+export SAVEHIST=100000
+export HISTFILESIZE=100000
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export ZSH_AUTOSUGGEST_STRATEGY='completion'
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
+export FZF_COMPLETION_TRIGGER='jj'
+export VISUAL="nvim"
+export EDITOR="nvim"
+export GOPATH="${HOME}/go"
+export FLUTTER_ROOT=$(asdf where flutter)
+export PATH=${PATH}:${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin
+
+case "$TERM" in
+  xterm*)
+  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
+  export TERM=xterm-256color
+  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
+    export TERM=xterm-debian
+  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
+    export TERM=xterm-color
+  else
+    export TERM=xterm
+  fi ;;
+esac
+
+# open tmux on startup
+if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
+  base_session='auto'
+  tmux has-session -t $base_session || tmux new-session -d -s $base_session
+  tmux -2 attach-session -t $base_session
+fi
+
+# tools
+antigen bundle paulirish/git-open
+exists starship && eval "$(starship init zsh)"
+exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
+exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# completion
+[ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
+
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -Uz compinit && compinit
+autoload colors && colors
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^p' history-beginning-search-backward-end
+bindkey '^n' history-beginning-search-forward-end
+
+# antigen bundle zsh-users/zsh-autosuggestions
+exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /opt/homebrew/bin/terraform terraform
+
+# genie
+if uname -r | grep -q -i 'microsoft'; then
+  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
+        genie -s
+  fi
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+  export VTE_CJK_WIDTH=1
+fi
 
 tcsh-backward-delete-word() {
   local WORDCHARS="${WORDCHARS:s#/#}"
@@ -208,3 +301,8 @@ zle -N __fzf_git_grep__
 bindkey '^g' __fzf_ghq__
 bindkey '^o' __fzf_git_file__
 bindkey '^j' __fzf_git_grep__
+
+# load other rc files
+[ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
+[ -f ~/.zshrc.local ] && . ~/.zshrc.local
+

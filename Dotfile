@@ -1,0 +1,13 @@
+.bashrc
+.gitconfig
+.ideavimrc
+.inputrc
+.tmux.conf
+.vimrc
+.wslconfig
+.zshrc
+.config/cheat
+.config/nvim/init.lua
+.config/nvim/lua
+.config/starship.toml
+
