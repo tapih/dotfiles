@@ -104,7 +104,7 @@ local function init()
 	}
 
   -- Autocomplete
-  use 'windwp/nvim-autopairs'
+  use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
   use 'andymass/vim-matchup'
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'

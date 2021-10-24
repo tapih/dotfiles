@@ -1,5 +1,6 @@
 #! /bin/sh
 
+echo "=== key ===" ; ./scripts/keygen.sh  Dotfile
 echo "=== dot ===" ; ./scripts/dot.sh  Dotfile
 source ~/.zshrc
 echo "=== brew ==="; ./scripts/brew.sh Brewfile
