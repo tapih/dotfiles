@@ -65,22 +65,6 @@ set_keymap('n', 'tc', '<Plug>CtrlSFCwordExec',  {noremap = false, silent = false
 set_keymap('n', 'tC', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
 set_keymap('n', 'tF', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
 
--- Compe
-local function t(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-function _G.smart_tab()
-  return vim.fn.pumvisible() == 1 and t'<C-n>' or t'<Tab>'
-end
-
-set_keymap('i', '<Tab>', 'v:lua.smart_tab()',                                                     { noremap = true, silent = true, expr = true})
-set_keymap('i', '<C-k>', [[compe#complete()]],                                                    { noremap = true, silent = true, expr = true})
-set_keymap('i', '<C-e>', [[compe#close('<C-e>')]],                                                { noremap = true, silent = true, expr = true})
-set_keymap('i', '<C-f>', [[compe#scroll({ 'delta': +4 })]],                                       { noremap = true, silent = true, expr = true})
-set_keymap('i', '<C-d>', [[compe#scroll({ 'delta': -4 })]],                                       { noremap = true, silent = true, expr = true})
-set_keymap('i', '<CR>',  [[compe#confirm('luaeval("require 'nvim-autopairs'.autopairs_cr()")')]], { noremap = true, silent = true, expr = true})
-
 -- LSP
 set_keymap('n', 'tk',    ':lua vim.lsp.diagnostic.goto_prev()<CR>', {noremap = true, silent = true})
 set_keymap('n', 'tj',    ':lua vim.lsp.diagnostic.goto_next()<CR>', {noremap = true, silent = true})

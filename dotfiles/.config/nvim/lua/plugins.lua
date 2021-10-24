@@ -104,18 +104,14 @@ local function init()
 	}
 
   -- Autocomplete
+  use 'windwp/nvim-autopairs'
   use 'andymass/vim-matchup'
-  use {
-    'hrsh7th/nvim-compe',
-    event = 'InsertEnter *',
-    config = [[require('plugins.nvim-compe')]],
-  }
-  use {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter *',
-    config = [[require('plugins.nvim-autopairs')]],
-  }
-  -- use 'L3MON4D3/LuaSnip'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
+  use 'hrsh7th/cmp-vsnip'
+  use 'hrsh7th/vim-vsnip'
+  use 'windwp/nvim-ts-autotag'
 
 	-- Telescope
 	use {

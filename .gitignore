@@ -1,6 +1,4 @@
 .cache
-nvim/.netrwhist
 tmux-client-*
 tmux-server-*
-links/config/nvim/.netrwhist
 Brewfile.lock.json
