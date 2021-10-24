@@ -64,6 +64,8 @@ local function init()
 	use 'ruanyl/vim-gh-line'
 	use { 'xavierchow/vim-swagger-preview', ft = {'yaml'} }
 
+  -- Comment
+  use { 'terrortylor/nvim-comment', config =[[require('nvim_comment').setup()]] }
 
 	-- Tim Pope docet
 	use 'tpope/vim-surround'
@@ -75,6 +77,12 @@ local function init()
 	-- LSP
 	use 'neovim/nvim-lspconfig'
 	use { 'onsails/lspkind-nvim', config = [[require('plugins.lspkind')]] }
+  use { "ray-x/lsp_signature.nvim" }
+  -- use {
+  --   'stevearc/aerial.nvim',
+  --   config = [[require('plugins.aerial')]],
+  --   cmd = {"AerialToggle"},
+  -- }
 
 	-- Git
 	use {

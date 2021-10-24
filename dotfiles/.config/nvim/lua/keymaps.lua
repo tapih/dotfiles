@@ -65,6 +65,9 @@ set_keymap('n', 'tc', '<Plug>CtrlSFCwordExec',  {noremap = false, silent = false
 set_keymap('n', 'tC', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
 set_keymap('n', 'tF', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
 
+-- Aerial
+set_keymap('n', 'ty', '<cmd>AerialToggle!<CR>', {noremap = true, silent = true})
+
 -- LSP
 set_keymap('n', 'tk',    ':lua vim.lsp.diagnostic.goto_prev()<CR>', {noremap = true, silent = true})
 set_keymap('n', 'tj',    ':lua vim.lsp.diagnostic.goto_next()<CR>', {noremap = true, silent = true})
