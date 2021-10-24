@@ -2,6 +2,12 @@
 
 ⚡⚡⚡
 
+### Install
+
+```sh
+$ ./install.sh
+```
+
 ### (Memo)
 - Chrome
 - Mozc(+Swap Ctrl and Caps)

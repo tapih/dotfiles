@@ -2,11 +2,6 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
-[ -d ${HOME}/.antigen ] && touch ${HOME}/.antigen/debug.log && rm -f ${HOME}/.antigen/.lock
-[ -f ${HOME}/.antigen.zsh ] && .  ${HOME}/.antigen.zsh
-[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-
 bindkey -e
 stty -ixon
 
@@ -20,6 +15,17 @@ setopt auto_param_slash
 setopt mark_dirs
 setopt magic_equal_subst
 
+# === tools ===
+[ -d ${HOME}/.antigen ] && touch ${HOME}/.antigen/debug.log && rm -f ${HOME}/.antigen/.lock
+[ -f ${HOME}/.antigen.zsh ] && .  ${HOME}/.antigen.zsh
+[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+antigen bundle paulirish/git-open
+exists starship && eval "$(starship init zsh)"
+exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
+exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# === envs ===
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -37,7 +43,7 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export FLUTTER_ROOT=$(asdf where flutter)
-export PATH=${PATH}:${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin
+export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
 
 case "$TERM" in
   xterm*)
@@ -59,15 +65,10 @@ if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
   tmux -2 attach-session -t $base_session
 fi
 
-# tools
-antigen bundle paulirish/git-open
-exists starship && eval "$(starship init zsh)"
-exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# completion
+# === completion ===
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 
+# asdf
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 autoload colors && colors
@@ -79,19 +80,12 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
+# Disabled because it sometime hangs
 # antigen bundle zsh-users/zsh-autosuggestions
+#
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-# genie
-if uname -r | grep -q -i 'microsoft'; then
-  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
-        genie -s
-  fi
-  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-  export VTE_CJK_WIDTH=1
-fi
 
 tcsh-backward-delete-word() {
   local WORDCHARS="${WORDCHARS:s#/#}"
@@ -99,6 +93,8 @@ tcsh-backward-delete-word() {
 }
 zle -N tcsh-backward-delete-word
 bindkey "^w" tcsh-backward-delete-word
+
+# === function ===
 
 cdls() {
   if ! builtin cd 2>/dev/null $@; then
@@ -248,6 +244,8 @@ __fzf_git_branch__() {
     zle -R -c
 }
 
+# === alias ===
+
 alias cd='cdls'
 if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
     alias ls='ls -FG'
@@ -283,14 +281,11 @@ alias .4='cd ../../../..'
 alias g='git'
 alias G='gh'
 alias z='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
-alias tmux="tmux -2"
 alias d='docker'
 alias t='terraform'
 alias fig='docker-compose'
 alias v='nvim'
 alias agit='nvim +Agit'
-[ -n "$NVIM_LISTEN_ADDRESS" ] && alias nvim=nvr -cc split --remote-wait +'set bufhidden=wipe'
-[ -n "$KREW_ROOT" ] && export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 
 zle -N __fzf_ghq__
 zle -N __fzf_gh_pr__
@@ -305,4 +300,13 @@ bindkey '^j' __fzf_git_grep__
 # load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
+
+# === genie ===
+if uname -r | grep -q -i 'microsoft'; then
+  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
+        genie -s
+  fi
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+  export VTE_CJK_WIDTH=1
+fi
 

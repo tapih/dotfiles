@@ -1,6 +1,10 @@
 #! /bin/sh
 
-if [ -e ~/.ssh/github_rsa ]; then
+set -e
+
+key=~/.ssh/github_rsa
+
+if [ -e ${key} ]; then
   echo "file already exists"
   exit 0
 fi
@@ -10,7 +14,7 @@ cat << EOF > ~/.ssh/config
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/github_rsa
+    IdentityFile ${key}
 EOF
-ssh-keygen -t ed25519 -P "" -f ~/.ssh/github_rsa
+ssh-keygen -t ed25519 -P "" -f ${key}
 

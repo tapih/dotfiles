@@ -3,7 +3,6 @@ tap "homebrew/cask-fonts"
 tap "homebrew/cask"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "fluxcd"
 
 # shell
 brew "zsh"
@@ -70,7 +69,7 @@ brew "helm"
 brew "helmfile"
 brew "stern"
 brew "k9s"
-brew "flux"
+brew "fluxcd/tap/flux"
 brew "skaffold"
 brew "kind"
 
