@@ -10,6 +10,6 @@ fi
 
 file=$1
 
-apt-get update
-apt-get install -y --no-install-recommends $(grep -vE "^\s*#" $(file) | tr "\n" " ")
+sudo apt-get update
+sudo apt-get install -y --no-install-recommends $(grep -vE "^\s*#" $(file) | tr "\n" " ")
 

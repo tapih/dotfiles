@@ -77,9 +77,10 @@ local function init()
 	-- LSP
 	use 'neovim/nvim-lspconfig'
 	use { 'onsails/lspkind-nvim', config = [[require('plugins.lspkind')]] }
-  use { "ray-x/lsp_signature.nvim", config = [[require'lsp_signature'.setup {}]] }
+  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
+  use { 'jose-elias-alvarez/null-ls.nvim', config = [[require'plugins.null-ls']] }
   use {
-    "folke/trouble.nvim",
+    'folke/trouble.nvim',
     requires = "kyazdani42/nvim-web-devicons",
     config = [[require("trouble").setup {}]]
   }
