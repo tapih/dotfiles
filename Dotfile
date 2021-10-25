@@ -6,7 +6,8 @@
 .vimrc
 .wslconfig
 .zshrc
-.config/cheat
+.config/cheat/cheatsheets/personal
+.config/cheat/conf.yml
 .config/nvim/init.lua
 .config/nvim/lua
 .config/starship.toml
