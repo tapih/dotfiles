@@ -65,7 +65,7 @@ local function init()
 	use { 'xavierchow/vim-swagger-preview', ft = {'yaml'} }
 
   -- Comment
-  use { 'terrortylor/nvim-comment', config =[[require('nvim_comment').setup()]] }
+  use { 'terrortylor/nvim-comment', config =[[require('nvim_comment').setup {}]] }
 
 	-- Tim Pope docet
 	use 'tpope/vim-surround'
@@ -77,7 +77,12 @@ local function init()
 	-- LSP
 	use 'neovim/nvim-lspconfig'
 	use { 'onsails/lspkind-nvim', config = [[require('plugins.lspkind')]] }
-  use { "ray-x/lsp_signature.nvim" }
+  use { "ray-x/lsp_signature.nvim", config = [[require'lsp_signature'.setup {}]] }
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = [[require("trouble").setup {}]]
+  }
   -- use {
   --   'stevearc/aerial.nvim',
   --   config = [[require('plugins.aerial')]],

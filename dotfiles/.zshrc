@@ -60,7 +60,7 @@ esac
 
 # open tmux on startup
 if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
-  base_session='auto'
+  base_session='main'
   tmux has-session -t $base_session || tmux new-session -d -s $base_session
   tmux -2 attach-session -t $base_session
 fi
