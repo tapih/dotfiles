@@ -58,6 +58,7 @@ case "$TERM" in
   fi ;;
 esac
 
+# ==== tmux ===
 # open tmux on startup
 if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
   base_session='main'
