@@ -81,9 +81,8 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
-# Disabled because it sometime hangs
+# Disabled because this sometimes hangs
 # antigen bundle zsh-users/zsh-autosuggestions
-#
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
