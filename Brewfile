@@ -38,6 +38,7 @@ brew "cheat"
 brew "htop"
 brew "asciinema"
 brew "asdf"
+brew "actionlint"
 brew "neovim", args: ["HEAD"]
 
 # nodejs
