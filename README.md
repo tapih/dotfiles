@@ -8,7 +8,7 @@
 $ ./install.sh
 ```
 
-### (Memo) Install with winget
+### (Memo) TODO winget
 - Chrome
 - Mozc(+Swap Ctrl and Caps)
 - Enpass
