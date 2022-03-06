@@ -20,4 +20,5 @@ github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 github.com/homeport/dyff/cmd/dyff@latest
 github.com/sachaos/viddy@latest
 github.com/cheat/cheat/cmd/cheat@latest
+github.com/cosmtrek/air@latest
 
