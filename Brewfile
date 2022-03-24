@@ -40,6 +40,7 @@ brew "htop"
 brew "asciinema"
 brew "asdf"
 brew "actionlint"
+brew "jsonnet"
 brew "neovim", args: ["HEAD"]
 
 # nodejs
