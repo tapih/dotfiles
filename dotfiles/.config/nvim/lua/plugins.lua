@@ -29,8 +29,8 @@ local function init()
     config = [[require('colorizer').setup {'css', 'javascript', 'vim', 'html'}]],
   }
   use { 'lukas-reineke/indent-blankline.nvim', config = [[require('plugins.indent-blackline')]] }
-  use { 'nvim-treesitter/nvim-treesitter',     config = [[require('plugins.nvim-treesitter')]], run = ':TSUpdate' }
-  use { 'romgrk/nvim-treesitter-context',      requires = {'nvim-treesitter/nvim-treesitter'} }
+  -- use { 'nvim-treesitter/nvim-treesitter',     config = [[require('plugins.nvim-treesitter')]], run = ':TSUpdate' }
+  -- use { 'romgrk/nvim-treesitter-context',      requires = {'nvim-treesitter/nvim-treesitter'} }
 
   -- Project
   use 'airblade/vim-rooter'
@@ -78,7 +78,7 @@ local function init()
   use 'neovim/nvim-lspconfig'
   use { 'onsails/lspkind-nvim', config = [[require('plugins.lspkind')]] }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { 'jose-elias-alvarez/null-ls.nvim', config = [[require'plugins.null-ls']] }
+  -- use { 'jose-elias-alvarez/null-ls.nvim', config = [[require'plugins.null-ls']] }
   use {
     'folke/trouble.nvim',
     requires = "kyazdani42/nvim-web-devicons",
@@ -125,7 +125,7 @@ local function init()
     use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
     use 'hrsh7th/cmp-vsnip'
     use 'hrsh7th/vim-vsnip'
-    use 'windwp/nvim-ts-autotag'
+    -- use 'windwp/nvim-ts-autotag'
 
     -- Telescope
     use {
@@ -169,6 +169,9 @@ local function init()
     -- Go
     use { 'buoto/gotests-vim',   ft = {'go'}, cmd = {'GoTests', 'GoTestsAll'} }
     use { 'mattn/vim-goimports', ft = {'go'}, cmd = {'w'} }
+
+    -- Jsonnet
+    use { 'google/vim-jsonnet' }
 
   end
 
