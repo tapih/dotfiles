@@ -15,6 +15,8 @@ local function init()
   use 'nvim-lua/plenary.nvim'
   use 'morhetz/gruvbox'
   use 'kyazdani42/nvim-web-devicons'
+  use 'famiu/feline.nvim'
+  use 'romgrk/barbar.nvim'
   use 'airblade/vim-rooter'
   use 'mhinz/vim-startify'
   use 'bronson/vim-trailing-whitespace'
@@ -26,8 +28,6 @@ local function init()
   use 'google/vim-jsonnet'
   use 'andymass/vim-matchup'
   use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
-  use { 'famiu/feline.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
-  use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'tpope/vim-commentary', opt = true, cmd = {'Commentary'} }
   use { 'easymotion/vim-easymotion', config = [[require('plugins.vim-easymotion')]] }
   use { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = [[vim.g.startuptime_tries = 10]] }
@@ -39,6 +39,7 @@ local function init()
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
 
   -- Git
+  use 'f-person/git-blame.nvim'
   use {
     'sindrets/diffview.nvim',
     opt = true,
@@ -51,7 +52,7 @@ local function init()
     config = [[require('plugins.gitsigns')]],
   }
 
-  -- Autocomplete
+  -- nvim-cmp
   use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
@@ -59,6 +60,18 @@ local function init()
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
+
+  -- Telescope
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      'nvim-lua/popup.nvim',
+      'nvim-lua/plenary.nvim',
+    },
+    opt = true,
+    cmd = {'Telescope'},
+    config = [[require('plugins.telescope')]],
+  }
 
   end
 

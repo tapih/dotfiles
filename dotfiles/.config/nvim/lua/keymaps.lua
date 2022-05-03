@@ -40,3 +40,9 @@ set_keymap('n', 'ti', ':lua vim.lsp.buf.implementation()<CR>',   {noremap = true
 set_keymap('n', 't]', ':lua vim.lsp.buf.definition()<CR>',       {noremap = true, silent = true})
 set_keymap('n', 't}', ':lua vim.lsp.buf.references()<CR>',       {noremap = true, silent = true})
 
+set_keymap('n', 'tg', ':<C-u>Telescope current_buffer_fuzzy_find<CR>',           { noremap = true, silent = true})
+set_keymap('n', 'tG', ':<C-u>Telescope live_grep<CR>',                           { noremap = true, silent = true})
+set_keymap('n', 'to', ':<C-u>Telescope find_files find_command=fd,-HLE.git<CR>', { noremap = true, silent = true})
+set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>',                             { noremap = true, silent = true})
+set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                               { noremap = true, silent = true})
+set_keymap('n', 't-', ':<C-u>TodoTelescope<CR>',                                 { noremap = true, silent = true})
