@@ -58,6 +58,9 @@ brew "xz"
 brew "zlib"
 brew "reattach-to-user-namespace"
 
+# yaml
+brew "yaml-language-server"
+
 # network
 brew "grpcurl"
 brew "dnsmasq"
