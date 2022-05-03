@@ -56,7 +56,7 @@ vim.cmd 'colorscheme gruvbox'
 vim.g.gruvbox_material_enable_italic = 1
 vim.g.gruvbox_material_sign_column_background = 'none'
 
-vim.o.completeopt = "menuone,noselect"
+vim.opt.completeopt = "menu,menuone,noselect"
 
 vim.opt.number         = true
 vim.opt.relativenumber = true

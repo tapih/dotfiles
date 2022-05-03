@@ -24,6 +24,8 @@ local function init()
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
   use 'google/vim-jsonnet'
+  use 'andymass/vim-matchup'
+  use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
   use { 'famiu/feline.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'tpope/vim-commentary', opt = true, cmd = {'Commentary'} }
@@ -50,13 +52,13 @@ local function init()
   }
 
   -- Autocomplete
-  use 'andymass/vim-matchup'
+  use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
   use 'hrsh7th/cmp-nvim-lsp'
   use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
-  use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
-  use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
 
   end
 
