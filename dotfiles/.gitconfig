@@ -90,8 +90,8 @@
     fd = !fd
     sc = !fd --type f | xargs misspell -locale US -error
 
-    g  = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
-    gg = grep
+    g  = !git grep -n
+    gg = grep -n
 
     pwd  = rev-parse --show-prefix
     root = rev-parse --show-toplevel
