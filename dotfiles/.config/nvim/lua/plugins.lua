@@ -15,7 +15,7 @@ local function init()
   use 'nvim-lua/plenary.nvim'
   use 'morhetz/gruvbox'
   use 'kyazdani42/nvim-web-devicons'
-  use 'famiu/feline.nvim'
+  use 'feline-nvim/feline.nvim'
   use 'romgrk/barbar.nvim'
   use 'airblade/vim-rooter'
   use 'mhinz/vim-startify'
