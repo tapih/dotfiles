@@ -13,7 +13,7 @@ local function init()
 
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
-  use 'morhetz/gruvbox'
+  use 'sickill/vim-monokai'
   use 'kyazdani42/nvim-web-devicons'
   use 'feline-nvim/feline.nvim'
   use 'romgrk/barbar.nvim'
@@ -32,6 +32,7 @@ local function init()
   use { 'easymotion/vim-easymotion', config = [[require('plugins.vim-easymotion')]] }
   use { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = [[vim.g.startuptime_tries = 10]] }
   use { 'lukas-reineke/indent-blankline.nvim', config = [[require('plugins.indent-blackline')]] }
+  use { 'kyazdani42/nvim-tree.lua', requires = {'kyazdani42/nvim-web-devicons'} }
 
   -- LSP
   use 'neovim/nvim-lspconfig'

@@ -46,3 +46,7 @@ set_keymap('n', 'to', ':<C-u>Telescope find_files find_command=fd,-HLE.git<CR>',
 set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>',                             { noremap = true, silent = true})
 set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                               { noremap = true, silent = true})
 set_keymap('n', 't-', ':<C-u>TodoTelescope<CR>',                                 { noremap = true, silent = true})
+
+set_keymap('n', 'tb', ':<C-u>NvimTreeToggle<CR>', {noremap = true, silent = true})
+set_keymap('n', 'tt', ':<C-u>NvimTreeFocus<CR>', {noremap = true, silent = true})
+
