@@ -267,9 +267,7 @@ alias a='alias'
 alias b='__fzf_git_branch__'
 alias q='exit'
 alias e='nvim ~/.zshrc'
-alias E='nvim ~/.nv-ide/init.lua'
 alias u='. ~/.zshrc'
-alias U='(\cd ~/.nv-ide && git pull origin tapih)'
 alias j='cd -'
 alias k='kubectl'
 alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
@@ -284,9 +282,9 @@ alias z='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; f
 alias d='docker'
 alias t='terraform'
 alias fig='docker-compose'
+alias c="code ."
 alias v='nvim'
 alias agit='nvim +Agit'
-alias c="code ."
 
 zle -N __fzf_ghq__
 zle -N __fzf_gh_pr__
