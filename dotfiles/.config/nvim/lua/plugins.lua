@@ -29,9 +29,9 @@ local function init()
   use { 'famiu/feline.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
   use { 'tpope/vim-commentary', opt = true, cmd = {'Commentary'} }
-  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('plugins.indent-blackline')]] }
   use { 'easymotion/vim-easymotion', config = [[require('plugins.vim-easymotion')]] }
   use { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = [[vim.g.startuptime_tries = 10]] }
+  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('plugins.indent-blackline')]] }
 
   -- LSP
   use 'neovim/nvim-lspconfig'

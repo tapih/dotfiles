@@ -9,6 +9,8 @@ cmp.setup({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
     ['<C-k>'] = cmp.mapping.complete(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
   },
@@ -16,8 +18,8 @@ cmp.setup({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
     { name = 'path' },
-    -- { name = 'treesitter' },
     { name = 'buffer' },
+    { name = 'nvim_lsp_signature_help' },
   }),
   formatting = {
     format = function(entry, vim_item)
