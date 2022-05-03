@@ -286,6 +286,7 @@ alias t='terraform'
 alias fig='docker-compose'
 alias v='nvim'
 alias agit='nvim +Agit'
+alias c="code ."
 
 zle -N __fzf_ghq__
 zle -N __fzf_gh_pr__
