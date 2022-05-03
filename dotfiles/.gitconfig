@@ -5,77 +5,95 @@
 [alias]
     a = add
     u = add -u
-    b = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+
+    b  = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
     br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+
     bl = blame
+
     co = checkout
     cb = checkout -b
-    m = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    sync = remote set-head origin --auto
+    m  = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
     sw = switch -
-    ci = commit
-    cm = commit -m
-    cs = commit -sm
+
+    ci    = commit
+    cm    = commit -m
+    cs    = commit -sm
+    amn   = commit --amend
     amend = commit --amend
-    f = fetch
+
+    f  = fetch
     fo = fetch origin
-    h = show
-    hn = show --name-only
-    d = diff
-    dw = diff --word-diff
-    dn = diff --name-only
-    ds = diff --staged
-    dsw = diff --staged --word-diff
-    dsn = diff --staged --name-only
-    hasdiff=diff --exit-code
-    lo = log
-    lm = log --no-merges
-    la = log --author
-    lg = log --grep
+
+    d       = diff
+    dw      = diff --word-diff
+    dn      = diff --name-only
+    ds      = diff --staged
+    dsw     = diff --staged --word-diff
+    dsn     = diff --staged --name-only
+    hasdiff = diff --exit-code
+
+    l  = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(cyan)[%ad]%C(reset) %C(magenta)%h%C(reset) %C(yellow)%d%an%C(reset) %s'
+    lm = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(cyan)[%ad]%C(reset) %C(magenta)%h%C(reset) %C(yellow)%d%an%C(reset) %s' --no-merges
     lt = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-    l = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(green)[%ad]%C(reset) %C(red)%h%C(reset) %C(yellow)%d%an%C(reset) %s'
-    pick = cherry-pick
-    mo = !git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
+
     merge = merge --no-ff
     fmerge = merge --ff
-    po = push
+    pick = cherry-pick
+
+    mo = !git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
     pi = !git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
     pm = pull --merge
+
+    po = push
     pr = !git push && gh pr create --web
-    prc = !git push && gh pr create --web
+
     ts = stash
     op = stash pop
-    r = remote
-    rs = remote show
-    s = status -s
+
+    h  = show
+    hn = show --name-only
+
+    r    = remote
+    sync = remote set-head origin --auto
+
+    s  = status -s
     st = status
-    t = tag
-    o = open
+
     hard = reset --hard
-    mix = reset
+    mix  = reset
     soft = reset --soft
+
     rc = !gh pr create --web
     ro = !gh pr checkout
-    r = !gh pr view --web
+    rv = !gh pr view --web
     rr = !gh pr list --web
     rs = !gh pr list --web -S
     ic = !gh issue create --web
-    i = !gh issue view --web
+    i  = !gh issue view --web
     ii = !gh issue list --web
     is = !gh issue list --web -S
-    me = !git config --get-regexp user
-    us = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
-    ours = checkout --ours
+
+    me     = !git config --get-regexp user
+    us     = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
+    ours   = checkout --ours
     theirs = checkout --theirs
-    alias = !git config --get-regexp alias
-    e = !nvim ~/.gitconfig
+    gl     = !git config --global alias.gl 'config --global -l'
+    alias  = !git config --get-regexp alias
+
+    t  = tag
+    o  = open
+    e  = !nvim ~/.gitconfig
+    ls = ls-files
+    gc = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; };f"
+
     fd = !fd
     sc = !fd --type f | xargs misspell -locale US -error
-    g = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
-    rg = !rg -g '!.git/**' --hidden
-    ls = !git ls-files
-    gc = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; };f"
-    pwd = rev-parse --show-prefix
+
+    g  = !rg --hidden -g "!.git/**" -g "!vendor/**" -g "!node_modules/**"
+    gg = grep
+
+    pwd  = rev-parse --show-prefix
     root = rev-parse --show-toplevel
 
 [init]
