@@ -48,11 +48,7 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop     = 2
 vim.opt.expandtab   = true
 
-vim.cmd 'au FileType go        setlocal sw=0 sts=8 ts=8'
-vim.cmd 'au FileType dart      setlocal sw=0 sts=2 ts=2 et'
-vim.cmd 'au FileType python    setlocal sw=0 sts=4 ts=4 et'
-vim.cmd 'au FileType yaml      setlocal sw=0 sts=2 ts=2 et'
-vim.cmd 'au FileType terraform setlocal sw=0 sts=2 ts=2 et'
+vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
 
 -- Not existing in vimrc
 -- Config
@@ -68,8 +64,6 @@ vim.opt.colorcolumn    = "80"
 vim.opt.list           = true
 vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
 vim.opt.termguicolors  = true
-
-vim.cmd [[au BufWritePost *.dart silent execute '!kill -SIGUSR1 $(pgrep -f "[f]lutter_tool.*run")']]
 
 -- Packer
 vim.cmd [[command! PackerInstall packadd packer.nvim | lua require('plugins').install()]]

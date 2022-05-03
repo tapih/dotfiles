@@ -30,17 +30,9 @@ set_keymap('x', 'ga', '<Plug>(EasyAlign)', {noremap = false, silent = false})
 -- Commentary
 set_keymap('n', 'gc', ':<C-u>Commentary<CR>', {noremap = true, silent = true})
 
--- Fterm
-set_keymap('n', '<C-b>', '<CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
-set_keymap('t', '<C-b>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', { noremap = true, silent = true })
-
 -- Buffer
 set_keymap('n', 'tp', ':<C-u>bprev<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tn', ':<C-u>bnext<CR>', { noremap = true, silent = true })
-
--- Layout
-set_keymap('n', 'tb', ':<C-u>NvimTreeToggle<CR>', {noremap = true, silent = true})
-set_keymap('n', 'tt', ':<C-u>NvimTreeFocus<CR>', {noremap = true, silent = true})
 
 -- Telescope
 set_keymap('n', 'tg', ':<C-u>Telescope current_buffer_fuzzy_find<CR>',               { noremap = true, silent = true})
@@ -52,21 +44,10 @@ set_keymap('n', 't-', ':<C-u>TodoTelescope<CR>',                                
 
 -- Browser
 set_keymap('n', 'tw', ":<C-u>GHInteractive<CR>", {noremap = true, silent = true})
-set_keymap('n', 'tW', ":<C-u>execute 'OpenBrowserSmartSearch' expand('<cWORD>')<CR>", {noremap = true, silent = true})
 
 -- DiffView
 set_keymap('n', 'td', ':<C-u>DiffviewOpen<CR>',  {noremap = true, silent = true})
 set_keymap('n', 'tD', ':<C-u>DiffviewClose<CR>', {noremap = true, silent = true})
-
--- Ctrlsf
-set_keymap('n', 'tf', '<Plug>CtrlSFPrompt',     {noremap = false, silent = false})
-set_keymap('v', 'tf', '<Plug>CtrlSFVwordExec',  {noremap = false, silent = false})
-set_keymap('n', 'tc', '<Plug>CtrlSFCwordExec',  {noremap = false, silent = false})
-set_keymap('n', 'tC', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
-set_keymap('n', 'tF', ':<C-u>CtrlSFToggle<CR>', {noremap = true,  silent = true })
-
--- Aerial
-set_keymap('n', 'ty', '<cmd>AerialToggle!<CR>', {noremap = true, silent = true})
 
 -- LSP
 set_keymap('n', 'tk',    ':lua vim.lsp.diagnostic.goto_prev()<CR>', {noremap = true, silent = true})
