@@ -58,25 +58,6 @@ local function init()
   use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
   use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
 
-  -- Telescope
-  use {
-    {
-      'nvim-telescope/telescope.nvim',
-      requires = {
-        'nvim-lua/popup.nvim',
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope-fzy-native.nvim',
-      },
-      config = [[require('plugins.telescope')]],
-      opt = true,
-      cmd = {'Telescope'},
-    },
-    {
-      'nvim-telescope/telescope-fzy-native.nvim',
-      run = 'git submodule update --init --recursive',
-    },
-  }
-
   end
 
   return setmetatable({}, {
