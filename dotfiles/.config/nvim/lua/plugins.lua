@@ -35,16 +35,23 @@ local function init()
   use 'kana/vim-operator-user'
   use 'kevinhwang91/nvim-hlslens'
   use 'itchyny/vim-cursorword'
+  use { 'simrat39/rust-tools.nvim', ft = {'rs'} }
+  use { 'ray-x/go.nvim', ft = {'go'} }
   use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
   use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
   use { 'tpope/vim-commentary',    opt = true, cmd = {'Commentary'} }
   use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
   use {
+    'akinsho/flutter-tools.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    config = [[require'flutter-tools'.setup()]]
+  }
+  use {
     'stevearc/aerial.nvim',
     opt = true,
     cmd = {'AerialToggle'},
-    config = [[require('aerial').setup()]],
+    config = [[require'aerial'.setup()]],
   }
   use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]] }
   use {
