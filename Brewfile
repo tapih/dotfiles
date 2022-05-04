@@ -42,6 +42,7 @@ brew "asdf"
 brew "actionlint"
 brew "jsonnet"
 brew "neovim", args: ["HEAD"]
+cask "alacritty"
 
 # nodejs
 brew "gnupg"
