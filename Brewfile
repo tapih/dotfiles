@@ -12,8 +12,6 @@ brew "ghq"
 brew "gh"
 brew "hub"
 brew "git"
-brew "tig"
-brew "lazygit"
 
 # tools
 brew "fzf"
@@ -43,7 +41,6 @@ brew "actionlint"
 brew "jsonnet"
 brew "silicon"
 brew "neovim", args: ["HEAD"]
-cask "alacritty"
 
 # lua
 brew "lua-language-server"
@@ -90,7 +87,6 @@ brew "kind"
 # docker
 brew "docker"
 brew "buildkit"
-brew "lazydocker"
 brew "hadolint"
 brew "trivy"
 
