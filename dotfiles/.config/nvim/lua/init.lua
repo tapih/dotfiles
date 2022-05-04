@@ -52,7 +52,7 @@ vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
 
 -- Not existing in vimrc
 -- Config
-vim.cmd 'colorscheme monokai'
+vim.cmd 'colorscheme gruvbox'
 
 vim.opt.completeopt = "menu,menuone,noselect"
 

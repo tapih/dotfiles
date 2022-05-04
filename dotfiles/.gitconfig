@@ -19,7 +19,7 @@
     ci    = commit
     cm    = commit -m
     cs    = commit -sm
-    amn   = commit --amend
+    amd   = commit --amend
     amend = commit --amend
 
     f  = fetch

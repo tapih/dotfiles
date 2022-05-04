@@ -11,14 +11,12 @@ local function init()
   -- Packer can manage packer on its own :)
   use '~/.config/nvim/packer.nvim'
 
+  use 'morhetz/gruvbox'
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
-  use 'sickill/vim-monokai'
+  use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
-  use 'feline-nvim/feline.nvim'
   use 'romgrk/barbar.nvim'
-  use 'airblade/vim-rooter'
-  use 'mhinz/vim-startify'
   use 'bronson/vim-trailing-whitespace'
   use 'junegunn/vim-easy-align'
   use 'roxma/vim-tmux-clipboard'
@@ -27,35 +25,85 @@ local function init()
   use 'tpope/vim-repeat'
   use 'google/vim-jsonnet'
   use 'andymass/vim-matchup'
-  use { 'windwp/nvim-autopairs', config = [[require('plugins.nvim-autopairs')]] }
-  use { 'tpope/vim-commentary', opt = true, cmd = {'Commentary'} }
-  use { 'easymotion/vim-easymotion', config = [[require('plugins.vim-easymotion')]] }
-  use { 'dstein64/vim-startuptime', cmd = 'StartupTime', config = [[vim.g.startuptime_tries = 10]] }
-  use { 'lukas-reineke/indent-blankline.nvim', config = [[require('plugins.indent-blackline')]] }
-  use { 'kyazdani42/nvim-tree.lua', requires = {'kyazdani42/nvim-web-devicons'} }
+  use 'myusuf3/numbers.vim'
+  use 'airblade/vim-rooter'
+  use 'dstein64/nvim-scrollview'
+  use 'unblevable/quick-scope'
+  use 'haya14busa/vim-asterisk'
+  use 'jsborjesson/vim-uppercase-sql'
+  use 'kana/vim-operator-replace'
+  use 'kana/vim-operator-user'
+  use 'kevinhwang91/nvim-hlslens'
+  use 'itchyny/vim-cursorword'
+  use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
+  use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
+  use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
+  use { 'tpope/vim-commentary',    opt = true, cmd = {'Commentary'} }
+  use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
+  use {
+    'stevearc/aerial.nvim',
+    opt = true,
+    cmd = {'AerialToggle'},
+    config = [[require('aerial').setup()]],
+  }
+  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]] }
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup({
+        disable_filetype = { "TelescopePrompt" , "vim" },
+      })
+    end,
+  }
+  use {
+  "nvim-neo-tree/neo-tree.nvim",
+    branch = "v2.x",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+    }
+  }
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
+  }
+  use {
+    'easymotion/vim-easymotion',
+    config = function()
+      vim.g["EasyMotion_keys"] = 'fjdkslaureiwoqpvncm'
+      vim.g["EasyMotion_startofline"] = 0
+    end,
+  }
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = {'kyazdani42/nvim-web-devicons'},
+    config = [[require('lualine').setup { options = { theme  = 'gruvbox' } }]],
+  }
 
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-  use { 'onsails/lspkind-nvim', config = [[require('plugins.lspkind')]] }
-  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
+  -- Treesitter
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'm-demare/hlargs.nvim', requires = { 'nvim-treesitter/nvim-treesitter' }, config = [[require('hlargs').setup()]] }
+  use{
+    "yioneko/nvim-yati",
+    requires = "nvim-treesitter/nvim-treesitter",
+    confifg = function()
+      require("nvim-treesitter.configs").setup {
+        yati = { enable = true }
+      }
+    end,
+  }
 
   -- Git
   use 'f-person/git-blame.nvim'
-  use {
-    'sindrets/diffview.nvim',
-    opt = true,
-    cmd = {'DiffviewOpen'},
-    condig = [[require('plugins.diffview')]],
-  }
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = {'nvim-lua/plenary.nvim'},
-    config = [[require('plugins.gitsigns')]],
-  }
+  use { 'sindrets/diffview.nvim', opt = true, cmd = {'DiffviewOpen'} }
+  use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = [[require('plugins.gitsigns')]] }
 
   -- nvim-cmp
   use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
   use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lsp-signature-help'
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
@@ -71,8 +119,67 @@ local function init()
     },
     opt = true,
     cmd = {'Telescope'},
-    config = [[require('plugins.telescope')]],
+    config = function()
+      require('telescope').setup{
+          defaults = {
+              layout_strategy = 'horizontal',
+              layout_config = {
+                  horizontal = {
+                      width = 0.8,
+                  },
+              },
+          }
+      }
+    end,
   }
+
+  -- TODO
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end,
+  }
+  -- LSP
+  use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
+  use {
+    'onsails/lspkind-nvim',
+    config = function()
+      require('lspkind').init({
+        symbol_map = {
+          Text = '',
+          Method = 'ƒ',
+          Function = '',
+          Constructor = '',
+          Variable = '',
+          Class = '',
+          Interface = 'ﰮ',
+          Module = '',
+          Property = '',
+          Unit = '',
+          Value = '',
+          Enum = '了',
+          Keyword = '',
+          Snippet = '﬌',
+          Color = '',
+          File = '',
+          Folder = '',
+          EnumMember = '',
+          Constant = '',
+          Struct = ''
+        },
+      })
+    end,
+  }
+  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
+  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
+  use 'j-hui/fidget.nvim'
+  use 'neovim/nvim-lspconfig'
+
 
   end
 

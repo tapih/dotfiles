@@ -41,8 +41,12 @@ brew "asciinema"
 brew "asdf"
 brew "actionlint"
 brew "jsonnet"
+brew "silicon"
 brew "neovim", args: ["HEAD"]
 cask "alacritty"
+
+# lua
+brew "lua-language-server"
 
 # nodejs
 brew "gnupg"
@@ -50,6 +54,9 @@ brew "yarn"
 
 # cpp
 brew "ccls"
+
+# rust
+brew "rust-analyzer"
 
 # python
 brew "openssl"
