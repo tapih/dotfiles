@@ -153,23 +153,6 @@ __fzf_ghq__() {
     zle -R -c
 }
 
-__fzf_gh_pr__() {
-    number=$(gh pr list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh pr view")
-    if [ ! -z "${number}" ]; then
-        BUFFER="gh pr view ${number}"
-        zle accept-line
-    fi
-    zle -R -c
-}
-
-__fzf_gh_issue__() {
-    number=$(gh issue list | fzf --preview "echo {} | awk '{print \$1}' | xargs gh issue view")
-    if [ ! -z "${number}" ]; then
-        BUFFER="gh issue view ${number}"
-        zle accept-line
-    fi
-    zle -R -c
-}
 __fzf_git_cd__() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]; then
@@ -283,8 +266,6 @@ alias v='nvim'
 alias agit='nvim +Agit'
 
 zle -N __fzf_ghq__
-zle -N __fzf_gh_pr__
-zle -N __fzf_gh_issue__
 zle -N __fzf_git_file__
 zle -N __fzf_git_grep__
 
