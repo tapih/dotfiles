@@ -13,7 +13,7 @@ brew "gh"
 brew "hub"
 brew "git"
 brew "tig"
-brew "lazygit"
+brew "git-open"
 
 # tools
 brew "fzf"
@@ -90,7 +90,6 @@ brew "kind"
 # docker
 brew "docker"
 brew "buildkit"
-brew "lazydocker"
 brew "hadolint"
 brew "trivy"
 

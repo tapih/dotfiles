@@ -16,11 +16,8 @@ setopt mark_dirs
 setopt magic_equal_subst
 
 # === tools ===
-[ -d ${HOME}/.antigen ] && touch ${HOME}/.antigen/debug.log && rm -f ${HOME}/.antigen/.lock
-[ -f ${HOME}/.antigen.zsh ] && .  ${HOME}/.antigen.zsh
 [ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
 [ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-antigen bundle paulirish/git-open
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -82,7 +79,6 @@ bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
 # Disabled because this sometimes hangs
-# antigen bundle zsh-users/zsh-autosuggestions
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
