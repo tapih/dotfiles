@@ -42,6 +42,7 @@ brew "asdf"
 brew "actionlint"
 brew "jsonnet"
 brew "silicon"
+brew "openssl"
 brew "neovim", args: ["HEAD"]
 cask "alacritty"
 
