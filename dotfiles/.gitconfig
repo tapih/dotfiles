@@ -1,100 +1,42 @@
 [user]
-    name=Hiroshi Muraoka
-    email=h.muraoka714@gmail.com
+    name = Hiroshi Muraoka
+    email = h.muraoka714@gmail.com
 
 [alias]
-    a = add
-    u = add -u
-
-    b  = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
-    br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
-
-    bl = blame
-
-    co = checkout
-    cb = checkout -b
-    m  = !git checkout $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    sw = switch -
-
-    ci    = commit
-    cm    = commit -m
-    cs    = commit -sm
-    amd   = commit --amend
     amend = commit --amend
-
-    f  = fetch
-    fo = fetch origin
-
-    d       = diff
-    dw      = diff --word-diff
-    dn      = diff --name-only
-    ds      = diff --staged
-    dsw     = diff --staged --word-diff
-    dsn     = diff --staged --name-only
-    hasdiff = diff --exit-code
-
-    l  = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(cyan)[%ad]%C(reset) %C(magenta)%h%C(reset) %C(yellow)%d%an%C(reset) %s'
-    lm = log --decorate-refs-exclude=*HEAD --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(cyan)[%ad]%C(reset) %C(magenta)%h%C(reset) %C(yellow)%d%an%C(reset) %s' --no-merges
-    lt = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
-
-    merge = merge --no-ff
-    fmerge = merge --ff
-    pick = cherry-pick
-
+    b = branch --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+    br = branch -r --sort=committerdate --format='%(color:green)[%(committerdate:short)]%(color:reset) %(refname:short) %(color:yellow)%(authorname)%(color:reset)' --color
+    cb = checkout -b
+    ci = commit
+    cm = commit -m
+    co = checkout
+    cs = commit -sm
+    d = diff
+    ds = diff --staged
+    edit = !nvim ~/.gitconfig
+    f = fetch origin
+    fd = !fd
+    g = !git grep -n
+    gc = "!git branch --merged | grep  -v '\\*\\|main\\|master\\|develop' | xargs -n 1 -r git branch -d"
+    gg = grep -n
+    h = show
+    hard = reset --hard
+    l = log --oneline --pretty=format:'%h [%cd] %d %s <%an>' --date=format:'%Y/%m/%d %H:%M:%S'
+    ls = ls-files
     mo = !git pull origin $(git symbolic-ref refs/remotes/origin/HEAD | awk -F'[/]' '{print $NF}')
-    pi = !git pull --rebase origin $(git rev-parse --abbrev-ref HEAD)
-    pm = pull --merge
-
+    o = open
+    op = stash pop
+    ours = checkout --ours
+    pi = pull
+    pk = chery-pick
     po = push
     pr = !git push && gh pr create --web
-
-    ts = stash
-    op = stash pop
-
-    h  = show
-    hn = show --name-only
-
-    r    = remote
-    sync = remote set-head origin --auto
-
-    s  = status -s
-    st = status
-
-    hard = reset --hard
-    mix  = reset
-    soft = reset --soft
-
-    rc = !gh pr create --web
-    ro = !gh pr checkout
-    rv = !gh pr view --web
-    rr = !gh pr list --web
-    rs = !gh pr list --web -S
-    ic = !gh issue create --web
-    i  = !gh issue view --web
-    ii = !gh issue list --web
-    is = !gh issue list --web -S
-
-    me     = !git config --get-regexp user
-    us     = !git log --pretty=format:"%an" | sort | uniq -c | sort -rn
-    ours   = checkout --ours
+    s = status -s
+    ss = status
     theirs = checkout --theirs
-    gl     = !git config --global alias.gl 'config --global -l'
-    alias  = !git config --get-regexp alias
-
-    t  = tag
-    o  = open
-    e  = !nvim ~/.gitconfig
-    ls = ls-files
-    gc = "!f () { git checkout $1; git branch --merged|egrep -v '\\*|develop|main'|xargs git branch -d; };f"
-
-    fd = !fd
-    sc = !fd --type f | xargs misspell -locale US -error
-
-    g  = !git grep -n
-    gg = grep -n
-
-    pwd  = rev-parse --show-prefix
-    root = rev-parse --show-toplevel
+    ts = stash
+    u = add -u
+[alias]
 
 [init]
     defaultBranch = main
@@ -102,17 +44,14 @@
 [core]
     editor = nvim
     autocrlf= false
-    pager = delta
+    pager = delta -s
 
 [delta]
     syntax-theme = Monokai Extended
     features = line-numbers decorations
 
-[interactive]
-    diffFilter = delta --color-only
-
 [pull]
-    rebase = true
+    ff = only
 
 [push]
     default = current
@@ -131,8 +70,6 @@
 
 [ghq]
     root=~/.ghq
-    root=~/.nv-ide
-    root=~/.go/src
     root=~/dart/src
     root=~/python/src
     root=~/go/src
