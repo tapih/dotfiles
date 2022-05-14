@@ -50,7 +50,7 @@ vim.opt.expandtab   = true
 
 vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
 
--- Not existing in vimrc
+-- Lines below do not exist in vimrc
 -- Config
 vim.cmd 'colorscheme gruvbox'
 

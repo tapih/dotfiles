@@ -143,7 +143,7 @@ _fzf_comprun() {
     esac
 }
 
-__fzf_ghq__() {
+__fzf_ghq() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
         BUFFER="cd $name"
@@ -152,23 +152,7 @@ __fzf_ghq__() {
     zle -R -c
 }
 
-__fzf_git_cd__() {
-    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z "${toplevel}" ]; then
-        echo "error: this is not a git repository"
-        return 1
-    fi
-
-    # git fd is defined in .gitconfig
-    selected=$(git fd --type d | fzf --preview 'tree -C '${toplevel}'/{} | head -200')
-    if [ ! -z "${selected}" ]; then
-        BUFFER="cd ${toplevel}/${selected}"
-        zle accept-line
-    fi
-    zle -R -c
-}
-
-__fzf_git_file__() {
+__fzf_git_file() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]; then
         echo "error: this is not a git repository"
@@ -185,41 +169,37 @@ __fzf_git_file__() {
     zle -R -c
 }
 
-__fzf_git_grep__() {
-    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z "${toplevel}" ]; then
-        echo "error: this is not a git repository"
-        return 1
-    fi
-
-    grep_cmd="git g --hidden --line-number --no-heading --smart-case -- '%s' || true"
-    initial_cmd=$(printf "$grep_cmd" "")
-    reload_cmd=$(printf "$grep_cmd" "{q}")
-    preview_cmd='echo {} | awk -F: '\''{print "bat --style=numbers --color=always -H=" ($2) " --line-range=" ($2-15>0?$2-15:0) ":" ($2+50) " '${toplevel}'/" $1}'\'' | xargs -L 1 -I VAR sh -c "VAR"'
-    selected=$(eval "$initial_cmd" | fzf -d : --nth 3.. --preview-window down:80%:wrap --preview "$preview_cmd" --bind change:reload:"$reload_cmd" | awk -F: '{print $1}')
-    if [ ! -z "${selected}" ]; then
-        BUFFER="${EDITOR} ${toplevel}/${selected}"
-        zle accept-line
-    fi
-    zle -R -c
+__fzf_git_branch() {
+  branch=$(
+    git branch -a |
+      fzf \
+        --exit-0 \
+        --layout=reverse \
+        --info=hidden \
+        --no-multi \
+        --preview-window="right,65%" \
+        --prompt="CHECKOUT BRANCH > " \
+        --preview="echo {} | tr -d ' *' | xargs git l --color=always" |
+      head -n 1 |
+      perl -pe "s/\s//g" |
+      perl -pe "s/\*//g" |
+      perl -pe "s/remotes\/origin\///g"
+  )
+  if [[ -n "$branch" ]]; then
+    BUFFER="git switch $b"
+    zle accept-line
+  fi
 }
 
-
-__fzf_git_branch__() {
-    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z "${toplevel}" ]; then
-        echo "error: this is not a git repository"
-        return 1
-    fi
-
-    branches=$(env IFS='\n' git branch --sort='-committerdate' --format='[%(committerdate:short)] %(refname:short) %(authorname)')
-    selected=$(echo "$branches" | fzf --preview "eval 'git show \$(echo '{}' | awk '{print $2}') | bat --color=always --line-range :200'")
-    if [ ! -z "${selected}" ]; then
-        branch=$(echo ${selected} | cut -d" " -f2)
-        BUFFER="git checkout ${branch}"
-        zle accept-line
-    fi
-    zle -R -c
+__fzf_git_log() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'EOF'
+                {}
+EOF"
 }
 
 # === alias ===
@@ -242,7 +222,8 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias a='alias'
-alias b='__fzf_git_branch__'
+alias b='__fzf_git_branch'
+alias l='__fzf_git_log'
 alias q='exit'
 alias e='nvim ~/.zshrc'
 alias u='. ~/.zshrc'
@@ -263,14 +244,16 @@ alias fig='docker-compose'
 alias c="code ."
 alias v='nvim'
 alias agit='nvim +Agit'
+# https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
+alias watch='watch '
 
-zle -N __fzf_ghq__
-zle -N __fzf_git_file__
-zle -N __fzf_git_grep__
+zle -N __fzf_ghq
+zle -N __fzf_git_file
+zle -N __fzf_git_branch
 
-bindkey '^g' __fzf_ghq__
-bindkey '^o' __fzf_git_file__
-bindkey '^j' __fzf_git_grep__
+bindkey '^g' __fzf_ghq
+bindkey '^o' __fzf_git_file
+bindkey '^j' __fzf_git_branch
 
 # load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
