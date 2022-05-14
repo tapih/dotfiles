@@ -43,7 +43,6 @@ brew "actionlint"
 brew "jsonnet"
 brew "silicon"
 brew "openssl"
-brew "zsh-autosuggestions"
 brew "neovim", args: ["HEAD"]
 cask "alacritty"
 

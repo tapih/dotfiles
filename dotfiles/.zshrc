@@ -65,6 +65,7 @@ fi
 
 # === completion ===
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # asdf
 fpath=(${ASDF_DIR}/completions $fpath)
@@ -77,8 +78,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
-
-# Disabled because this sometimes hangs
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/homebrew/bin/terraform terraform
