@@ -67,7 +67,6 @@ fi
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# asdf
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 autoload colors && colors
@@ -214,6 +213,7 @@ else
     alias ll='ls -Flh --color=auto'
     alias la='ls -Flha --color=auto'
 fi
+alias history='history -i'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
@@ -236,6 +236,7 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
+alias r='grep'
 alias G='gh'
 alias z='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 alias d='docker'
