@@ -35,25 +35,32 @@ local function init()
   use 'kana/vim-operator-user'
   use 'kevinhwang91/nvim-hlslens'
   use 'itchyny/vim-cursorword'
+  use 'markonm/traces.vim'
+
+  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]] }
+
+  use { 'ray-x/go.nvim',            ft = {'go'} }
   use { 'simrat39/rust-tools.nvim', ft = {'rs'} }
-  use { 'ray-x/go.nvim', ft = {'go'} }
-  use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
+
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
-  use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
+  use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
   use { 'tpope/vim-commentary',    opt = true, cmd = {'Commentary'} }
+  use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
   use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
+
   use {
     'akinsho/flutter-tools.nvim',
     requires = 'nvim-lua/plenary.nvim',
     config = [[require'flutter-tools'.setup()]]
   }
+
   use {
     'stevearc/aerial.nvim',
     opt = true,
     cmd = {'AerialToggle'},
     config = [[require'aerial'.setup()]],
   }
-  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]] }
+
   use {
     'windwp/nvim-autopairs',
     config = function()
@@ -140,17 +147,6 @@ local function init()
     end,
   }
 
-  -- TODO
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-  use {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = true,
-      }
-    end,
-  }
   -- LSP
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
   use {
@@ -187,6 +183,17 @@ local function init()
   use 'j-hui/fidget.nvim'
   use 'neovim/nvim-lspconfig'
 
+  -- TODO
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    config = function()
+      require("indent_blankline").setup {
+        show_current_context = true,
+        show_current_context_start = true,
+      }
+    end,
+  }
 
   end
 
