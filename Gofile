@@ -21,4 +21,4 @@ github.com/homeport/dyff/cmd/dyff@latest
 github.com/sachaos/viddy@latest
 github.com/cheat/cheat/cmd/cheat@latest
 github.com/cosmtrek/air@latest
-
+github.com/google/go-jsonnet/cmd/jsonnet@latest

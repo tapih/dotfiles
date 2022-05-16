@@ -40,7 +40,6 @@ brew "htop"
 brew "asciinema"
 brew "asdf"
 brew "actionlint"
-brew "jsonnet"
 brew "silicon"
 brew "openssl"
 brew "neovim", args: ["HEAD"]
