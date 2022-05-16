@@ -16,7 +16,6 @@ setopt mark_dirs
 setopt magic_equal_subst
 
 # === tools ===
-[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
 [ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
@@ -39,8 +38,9 @@ export FZF_COMPLETION_TRIGGER='jj'
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
-export FLUTTER_ROOT=$(asdf where flutter)
 export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
+[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
+export FLUTTER_ROOT=$(asdf where flutter)
 
 case "$TERM" in
   xterm*)
