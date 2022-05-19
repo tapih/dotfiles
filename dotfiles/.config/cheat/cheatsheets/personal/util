@@ -1,2 +1,2 @@
 # regex
-echo -e "aabbaabb\naabbaabbaabb" | perl -pe 's;aa;bb;g'
+find . -name '*.js' | xargs perl -i -pe 's{/tmp}{/var/log}'
