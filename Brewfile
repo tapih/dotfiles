@@ -43,6 +43,7 @@ brew "actionlint"
 brew "silicon"
 brew "openssl"
 brew "neovim", args: ["HEAD"]
+brew "bazel"
 cask "alacritty"
 
 # lua
