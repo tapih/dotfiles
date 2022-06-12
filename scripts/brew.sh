@@ -4,11 +4,11 @@ set -e
 
 if [ $# -lt 1 ]
 then
-  echo "USAGE: brew.sh <file>" 1>&2
+  echo "USAGE: brew.sh <target>" 1>&2
   exit 1
 fi
 
-file=$1
+target=$1
 
 if ! which brew >/dev/null 2>&1
 then
@@ -17,4 +17,4 @@ then
 fi
 
 brew update
-brew bundle --file ${file}
+brew bundle --file ${target}

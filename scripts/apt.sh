@@ -4,12 +4,12 @@ set -e
 
 if [ $# -lt 1 ]
 then
-  echo "USAGE: apt.sh <AptFile>" 1>&2
+  echo "USAGE: apt.sh <target>" 1>&2
   exit 1
 fi
 
-file=$1
+target=$1
 
 sudo apt-get update
-sudo apt-get install -y --no-install-recommends $(grep -vE "^\s*#" $(file) | tr "\n" " ")
+sudo apt-get install -y --no-install-recommends $(grep -vE "^\s*#" ${target} | tr "\n" " ")
 
