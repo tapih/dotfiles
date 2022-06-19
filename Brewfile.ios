@@ -1,4 +1,3 @@
-brew "antigen"
 cask "xcode"
 cask "notion"
 cask "slack"

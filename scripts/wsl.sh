@@ -1,23 +1,23 @@
 #! /bin/sh
+# https://zenn.dev/masakura/articles/8d05c70c35b0d7
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
 
-curl -sSLf https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -o /tmp/packages-microsoft-prod.deb
-sudo dpkg -i /tmp/packages-microsoft-prod.deb
+apt-get update; \
+  apt-get install -y apt-transport-https && \
+  apt-get update && \
+  apt-get install -y aspnetcore-runtime-5.0 daemonize dbus gawk libc6 libstdc++6 policykit-1 systemd systemd-container
 
-sudo apt-get update
-sudo apt-get install -y --no-install-recommends \
-	apt-transport-https \
-	dotnet-sdk-5.0 \
-	daemonize \
-	systemd-container \
-	x11-apps \
-	x11-utils \
-	x11-xserver-utils \
-	dbus-x11
+wget -O /etc/apt/trusted.gpg.d/wsl-transdebian.gpg https://arkane-systems.github.io/wsl-transdebian/apt/wsl-transdebian.gpg
 
-curl -sSLf -o /tmp/download.deb https://github.com/arkane-systems/genie/releases/download/v1.43/systemd-genie_1.43_amd64.deb
-sudo dpkg -i /tmp/download.deb || true
-sudo apt-get --fix-broken install
-sudo dpkg -i /tmp/download.deb
+chmod a+r /etc/apt/trusted.gpg.d/wsl-transdebian.gpg
 
-sudo curl -o /usr/local/bin/wsl-open https://raw.githubusercontent.com/4U6U57/wsl-open/master/wsl-open.sh
-sudo chmod +x /usr/local/bin/wsl-open
+cat << EOF > /etc/apt/sources.list.d/wsl-transdebian.list
+deb https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main
+deb-src https://arkane-systems.github.io/wsl-transdebian/apt/ $(lsb_release -cs) main
+EOF
+
+apt update
+apt install -y systemd-genie
+

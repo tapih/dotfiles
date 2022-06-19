@@ -15,12 +15,6 @@ setopt auto_param_slash
 setopt mark_dirs
 setopt magic_equal_subst
 
-# === tools ===
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
-exists starship && eval "$(starship init zsh)"
-exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
 # === envs ===
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -39,8 +33,6 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
-[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
-export FLUTTER_ROOT=$(asdf where flutter)
 
 case "$TERM" in
   xterm*)
@@ -55,19 +47,27 @@ case "$TERM" in
   fi ;;
 esac
 
-# ==== tmux ===
+[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+exists starship && eval "$(starship init zsh)"
+exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
+exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# === asdf ===
+[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
+fpath=(${ASDF_DIR}/completions $fpath)
+
+# === tmux ===
 # open tmux on startup
-if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
-  base_session='main'
-  tmux has-session -t $base_session || tmux new-session -d -s $base_session
-  tmux -2 attach-session -t $base_session
-fi
+# if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
+#   base_session='main'
+#   tmux has-session -t $base_session || tmux new-session -d -s $base_session
+#   tmux -2 attach-session -t $base_session
+# fi
 
 # === completion ===
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 autoload colors && colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}

@@ -1,7 +1,7 @@
 #! /bin/sh
 
-mkdir -p ~/.tmux
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/tpm
+mkdir -p ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 mkdir -p ~/.zsh
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions

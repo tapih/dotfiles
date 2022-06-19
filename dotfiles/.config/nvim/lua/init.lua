@@ -52,8 +52,6 @@ vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
 
 -- Lines below do not exist in vimrc
 -- Config
-vim.cmd 'colorscheme gruvbox'
-
 vim.opt.completeopt = "menu,menuone,noselect"
 
 vim.opt.number         = true
@@ -69,4 +67,7 @@ vim.cmd [[command! PackerUpdate packadd packer.nvim  | lua require('plugins').up
 vim.cmd [[command! PackerSync packadd packer.nvim    | lua require('plugins').sync()]]
 vim.cmd [[command! PackerClean packadd packer.nvim   | lua require('plugins').clean()]]
 vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
+
+-- Color
+vim.cmd 'colorscheme gruvbox'
 
