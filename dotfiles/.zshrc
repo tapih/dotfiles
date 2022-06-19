@@ -29,23 +29,11 @@ export ZSH_AUTOSUGGEST_STRATEGY='completion'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
+export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
-
-case "$TERM" in
-  xterm*)
-  if [ -f /usr/share/terminfo/x/xterm-256color ]; then
-  export TERM=xterm-256color
-  elif [ -f /usr/share/terminfo/x/xterm-debian ]; then
-    export TERM=xterm-debian
-  elif [ -f /usr/share/terminfo/x/xterm-color ]; then
-    export TERM=xterm-color
-  else
-    export TERM=xterm
-  fi ;;
-esac
 
 [ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
 exists starship && eval "$(starship init zsh)"
@@ -58,11 +46,8 @@ exists brew && ASDF_DIR=$(brew --prefix asdf)
 [ -d ${ASDF_DIR} ] && fpath=(${ASDF_DIR}/libexec/completions $fpath)
 
 # === tmux ===
-# open tmux on startup
 if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
-  base_session='main'
-  tmux has-session -t $base_session || tmux new-session -d -s $base_session
-  tmux -2 attach-session -t $base_session
+  tmux -2 attach-session -t main >/dev/null 2>&1 || tmux -2 new -s main
 fi
 
 # === completion ===
@@ -269,4 +254,3 @@ if uname -r | grep -q -i 'microsoft'; then
   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
   export VTE_CJK_WIDTH=1
 fi
-
