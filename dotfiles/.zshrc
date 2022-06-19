@@ -53,16 +53,17 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # === asdf ===
-[ -d ${HOME}/.asdf ] && . ${HOME}/.asdf/asdf.sh
-fpath=(${ASDF_DIR}/completions $fpath)
+exists brew && ASDF_DIR=$(brew --prefix asdf)
+[ -d ${ASDF_DIR} ] && . ${ASDF_DIR}/libexec/asdf.sh
+[ -d ${ASDF_DIR} ] && fpath=(${ASDF_DIR}/libexec/completions $fpath)
 
 # === tmux ===
 # open tmux on startup
-# if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
-#   base_session='main'
-#   tmux has-session -t $base_session || tmux new-session -d -s $base_session
-#   tmux -2 attach-session -t $base_session
-# fi
+if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]; then
+  base_session='main'
+  tmux has-session -t $base_session || tmux new-session -d -s $base_session
+  tmux -2 attach-session -t $base_session
+fi
 
 # === completion ===
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
