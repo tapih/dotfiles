@@ -6,6 +6,7 @@ set_keymap('n', 'Q', 'q',                        { noremap = true,  silent = tru
 set_keymap('n', '<C-y>', '<C-v>',                { noremap = true,  silent = true})
 set_keymap('n', 'U', '<C-r>',                    { noremap = true,  silent = true})
 set_keymap('n', 'vy', 'ggVG',                    { noremap = true,  silent = true})
+set_keymap('i', 'jj', '<Esc>',                   { noremap = true,  silent = true})
 set_keymap('n', 'j', 'gj',                       { noremap = true,  silent = true})
 set_keymap('n', 'k', 'gk',                       { noremap = true,  silent = true})
 set_keymap('n', 'H', '^',                        { noremap = true,  silent = true})

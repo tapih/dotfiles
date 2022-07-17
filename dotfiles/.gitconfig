@@ -21,7 +21,7 @@
     gg = grep -n
     h = show
     hard = reset --hard
-    l = log --graph --decorate --abbrev-commit --pretty=log
+    l = log --graph --decorate --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     o = open
     op = stash pop
     ours = checkout --ours
