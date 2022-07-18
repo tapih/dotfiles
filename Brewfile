@@ -45,4 +45,5 @@ brew "tfenv"
 brew "terraform"
 brew "tflint"
 brew "terraform-ls"
+brew "alp"
 
