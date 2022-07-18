@@ -46,4 +46,4 @@ brew "terraform"
 brew "tflint"
 brew "terraform-ls"
 brew "alp"
-
+brew "httpstat"
