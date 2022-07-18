@@ -41,9 +41,7 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # === asdf ===
-exists brew && ASDF_DIR=$(brew --prefix asdf)
-[ -d ${ASDF_DIR} ] && . ${ASDF_DIR}/libexec/asdf.sh
-[ -d ${ASDF_DIR} ] && fpath=(${ASDF_DIR}/libexec/completions $fpath)
+. ${HOME}/.asdf/asdf.sh
 
 # === tmux ===
 TMUX_DEFAULT_SESSION=$(whoami)

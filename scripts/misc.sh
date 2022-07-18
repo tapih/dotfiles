@@ -10,3 +10,5 @@ mkdir -p ~/.config/nvim
 git clone https://github.com/wbthomason/packer.nvim ~/.config/nvim/packer.nvim
 
 $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
+
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
