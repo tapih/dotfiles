@@ -34,8 +34,8 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
-
-[ -f ~/.fzf.zsh ] && . ~/.fzf.zsh
+[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
+[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"

@@ -9,6 +9,6 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosugges
 mkdir -p ~/.config/nvim
 git clone https://github.com/wbthomason/packer.nvim ~/.config/nvim/packer.nvim
 
-$(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash
-
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
+
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
