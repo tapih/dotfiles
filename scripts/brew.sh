@@ -12,8 +12,8 @@ target=$1
 
 if ! which brew >/dev/null 2>&1
 then
-  echo "brew command is not found.\nstart installing brew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  echo "brew command is not found." 1>&2
+  exit 1
 fi
 
 brew update

@@ -1,6 +1,5 @@
 #! /bin/sh
 
-echo "=== key ===" ; ./scripts/keygen.sh
 echo "=== apt ===" ; ./scripts/apt.sh  Debfile
 echo "=== misc ==="; ./scripts/misc.sh
 echo "=== dot ===" ; ./scripts/dot.sh  Dotfile $(pwd)/dotfiles
