@@ -203,6 +203,9 @@ else
     alias ls='ls -F --color=auto'
     alias ll='ls -Flh --color=auto'
     alias la='ls -Flha --color=auto'
+    if [[ "$(uname -r)" = *microsoft* ]]; then
+      alias pbcopy='/mnt/c/WINDOWS/System32/clip.exe'
+    fi
 fi
 alias history='history -i'
 alias grep='grep --color=auto'

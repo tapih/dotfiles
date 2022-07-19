@@ -10,3 +10,4 @@ ca-certificates
 software-properties-common
 build-essential
 apt-file
+xsel
