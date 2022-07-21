@@ -20,7 +20,7 @@ format = """\
 [username]
 show_always  = true
 format = "[$user]($style) "
-style_user = "bold red"
+style_user = "bold green"
 
 [hostname]
 ssh_only = false
@@ -28,15 +28,15 @@ style = "bold red"
 format = "[$hostname]($style) "
 
 [git_branch]
-symbol = "🐬 "
-style = "bold cyan"
+symbol = "⛵ "
+style = "bold yellow"
 format = "[$symbol$branch]($style) "
 
 [git_status]
-style = "bold cyan"
+style = "bold yellow"
 
 [git_commit]
-style = "bold cyan"
+style = "bold yellow"
 disabled = true
 
 [character]
@@ -47,8 +47,8 @@ vimcmd_symbol = "[❮❮❮](bold yellow)"
 [directory]
 truncation_length = 8
 truncate_to_repo = false
-style = "bold yellow"
-format = "😇 [$path]($style)[$read_only]($read_only_style) "
+style = "bold red"
+format = "🌹 [$path]($style)[$read_only]($read_only_style) "
 
 [golang]
 style = "bold white"
