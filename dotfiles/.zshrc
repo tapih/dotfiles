@@ -2,7 +2,7 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
-bindkey -e
+bindkey -v
 stty -ixon
 
 setopt no_beep
