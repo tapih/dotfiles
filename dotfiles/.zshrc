@@ -34,8 +34,6 @@ export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export PATH=${HOME}/bin:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
-[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
-[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -56,10 +54,14 @@ then
 fi
 
 # === completion ===
+[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
+[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
 autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 autoload colors && colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
@@ -68,16 +70,6 @@ zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
-exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/homebrew/bin/terraform terraform
-
-tcsh-backward-delete-word() {
-  local WORDCHARS="${WORDCHARS:s#/#}"
-  zle backward-delete-word
-}
-zle -N tcsh-backward-delete-word
-bindkey "^w" tcsh-backward-delete-word
 
 # === function ===
 
@@ -192,6 +184,11 @@ __fzf_git_log() {
 EOF"
 }
 
+tcsh-backward-delete-word() {
+  local WORDCHARS="${WORDCHARS:s#/#}"
+  zle backward-delete-word
+}
+
 # === alias ===
 
 alias cd='cdls'
@@ -242,10 +239,12 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 
+zle -N tcsh-backward-delete-word
 zle -N __fzf_ghq
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
 
+bindkey "^w" tcsh-backward-delete-word
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
