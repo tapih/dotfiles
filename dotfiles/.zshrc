@@ -15,6 +15,7 @@ setopt hist_ignore_dups
 setopt auto_param_slash
 setopt mark_dirs
 setopt magic_equal_subst
+setopt globdots
 
 # === envs ===
 export KEYTIMEOUT=5
