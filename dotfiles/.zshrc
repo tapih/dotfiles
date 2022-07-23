@@ -55,16 +55,18 @@ then
 fi
 
 # === completion ===
-[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
-[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
+[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
+fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 autoload colors && colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
 
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
