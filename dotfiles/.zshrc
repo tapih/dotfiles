@@ -60,7 +60,7 @@ fi
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
 [ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
-fpath=(~/.zsh/completion ~/.zsh/docker/compose/contrib/completion/zsh $fpath)
+fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
