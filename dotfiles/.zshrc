@@ -10,6 +10,7 @@ setopt auto_pushd
 setopt noclobber
 setopt append_history
 setopt share_history
+
 setopt hist_ignore_dups
 setopt auto_param_slash
 setopt mark_dirs
@@ -28,7 +29,7 @@ export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export ZSH_AUTOSUGGEST_STRATEGY='completion'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-export FZF_COMPLETION_TRIGGER='jj'
+export FZF_COMPLETION_TRIGGER='**'
 export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -39,7 +40,7 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # === asdf ===
-. ${HOME}/.asdf/asdf.sh
+[ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
 
 # === tmux ===
 TMUX_DEFAULT_SESSION=$(whoami)
