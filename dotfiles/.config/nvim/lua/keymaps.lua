@@ -1,4 +1,4 @@
-local           set_keymap = vim.api.nvim_set_keymap
+local set_keymap = vim.api.nvim_set_keymap
 set_keymap('n', '<CR>', ':<C-u>w<CR>',           { noremap = true,  silent = true})
 set_keymap('n', 'q', ':q<CR>',                   { noremap = true,  silent = true})
 set_keymap('n', '<C-q>', ':qa<CR>',              { noremap = true,  silent = true})
@@ -13,7 +13,7 @@ set_keymap('n', 'H', '^',                        { noremap = true,  silent = tru
 set_keymap('n', 'L', '$',                        { noremap = true,  silent = true})
 set_keymap('v', 'H', '^',                        { noremap = true,  silent = true})
 set_keymap('v', 'L', '$',                        { noremap = true,  silent = true})
-set_keymap('n', ';', ':',                        { noremap = true,  silent = true})
+set_keymap('n', ';', ':',                        { noremap = true,  silent = false})
 set_keymap('n', ':', 'm',                        { noremap = true,  silent = true})
 set_keymap('n', 'm', ';',                        { noremap = true,  silent = true})
 set_keymap('v', ';', ':',                        { noremap = true,  silent = true})
