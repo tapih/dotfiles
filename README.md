@@ -37,4 +37,5 @@ EOF"
 - Notion
 - Kindle
 - VSCode
+- FiraCode
 
