@@ -6,7 +6,7 @@
 
 ```sh
 $ sudo apt-get update
-$ sudo apt-get install -y curl
+$ sudo apt-get install -y curl zsh
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
 $ mkdir -p -m 700 ~/.ssh
