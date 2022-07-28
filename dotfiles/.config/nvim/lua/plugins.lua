@@ -10,7 +10,7 @@ require'packer'.startup(function()
   use 'romgrk/barbar.nvim'
   use 'bronson/vim-trailing-whitespace'
   use 'junegunn/vim-easy-align'
-  use 'roxma/vim-tmux-clipboard'
+  -- use 'roxma/vim-tmux-clipboard'
   use 'ruanyl/vim-gh-line'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
