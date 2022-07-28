@@ -69,4 +69,4 @@ vim.cmd [[command! PackerClean packadd packer.nvim   | lua require('plugins').cl
 vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
 
 -- Color
-vim.cmd 'colorscheme gruvbox'
+vim.cmd [[try | colorscheme gruvbox | catch | echo 'catch: ' . v:exception | endtry]]
