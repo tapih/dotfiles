@@ -1,15 +1,7 @@
-local packer = nil
-local function init()
-  if packer == nil then
-    packer = require('packer')
-    packer.init { disable_commands = true }
-  end
+vim.cmd[[packadd packer.nvim]]
 
-  local use = packer.use
-  packer.reset()
-
-  -- Packer can manage packer on its own :)
-  use '~/.config/nvim/packer.nvim'
+require'packer'.startup(function()
+  use 'wbthomason/packer.nvim'
   use 'morhetz/gruvbox'
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
@@ -188,17 +180,9 @@ local function init()
   }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
   use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
-  use { 'neovim/nvim-lspconfig', config = [[require'plugins.lspconfig'.setup {}]] }
+  use 'neovim/nvim-lspconfig'
   use 'j-hui/fidget.nvim'
 
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-
-  end
-
-  return setmetatable({}, {
-    __index = function(_, key)
-      init()
-      return packer[key]
-    end,
-  })
+end)

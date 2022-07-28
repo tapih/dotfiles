@@ -61,12 +61,5 @@ vim.opt.list           = true
 vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
 vim.opt.termguicolors  = true
 
--- Packer
-vim.cmd [[command! PackerInstall packadd packer.nvim | lua require('plugins').install()]]
-vim.cmd [[command! PackerUpdate packadd packer.nvim  | lua require('plugins').update()]]
-vim.cmd [[command! PackerSync packadd packer.nvim    | lua require('plugins').sync()]]
-vim.cmd [[command! PackerClean packadd packer.nvim   | lua require('plugins').clean()]]
-vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
-
 -- Color
 vim.cmd [[try | colorscheme gruvbox | catch | echo 'catch: ' . v:exception | endtry]]
