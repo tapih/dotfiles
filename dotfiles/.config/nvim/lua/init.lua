@@ -37,10 +37,10 @@ vim.cmd 'au InsertLeave * set nopaste'
 vim.cmd 'au FileType * set formatoptions-=cro'
 vim.cmd 'au BufReadPost * lua goto_last_pos()'
 function goto_last_pos()
-	local last_pos = vim.fn.line("'\"")
-	if last_pos > 0 and last_pos <= vim.fn.line("$") then
-		vim.api.nvim_win_set_cursor(0, {last_pos, 0})
-	end
+local last_pos = vim.fn.line("'\"")
+if last_pos > 0 and last_pos <= vim.fn.line("$") then
+  vim.api.nvim_win_set_cursor(0, {last_pos, 0})
+end
 end
 
 vim.opt.shiftwidth  = 0
@@ -68,3 +68,5 @@ vim.cmd [[command! PackerSync packadd packer.nvim    | lua require('plugins').sy
 vim.cmd [[command! PackerClean packadd packer.nvim   | lua require('plugins').clean()]]
 vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
 
+-- Color
+vim.cmd 'colorscheme gruvbox'

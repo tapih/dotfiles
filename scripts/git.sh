@@ -18,5 +18,10 @@ do
   destination=$(bash -c "echo ${i} | cut -d' ' -f2")
 
   mkdir -p $(dirname ${destination})
-  git clone --depth 1 ${url} ${destination}
+  if [ -d ${destination} ]
+  then
+    echo "skip installing ${i}"
+  else 
+    git clone --depth 1 ${url} ${destination}
+  fi
 done

@@ -10,7 +10,6 @@ local function init()
 
   -- Packer can manage packer on its own :)
   use '~/.config/nvim/packer.nvim'
-
   use 'morhetz/gruvbox'
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
@@ -189,14 +188,11 @@ local function init()
   }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
   use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
+  use { 'neovim/nvim-lspconfig', config = [[require'plugins.lspconfig'.setup {}]] }
   use 'j-hui/fidget.nvim'
-  use 'neovim/nvim-lspconfig'
 
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-
-  -- Color
-  vim.cmd 'colorscheme gruvbox'
 
   end
 
