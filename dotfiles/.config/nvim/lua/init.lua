@@ -68,6 +68,3 @@ vim.cmd [[command! PackerSync packadd packer.nvim    | lua require('plugins').sy
 vim.cmd [[command! PackerClean packadd packer.nvim   | lua require('plugins').clean()]]
 vim.cmd [[command! PackerCompile packadd packer.nvim | lua require('plugins').compile()]]
 
--- Color
-vim.cmd 'colorscheme gruvbox'
-

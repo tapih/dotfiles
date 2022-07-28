@@ -195,6 +195,9 @@ local function init()
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 
+  -- Color
+  vim.cmd 'colorscheme gruvbox'
+
   end
 
   return setmetatable({}, {
