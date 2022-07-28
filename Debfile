@@ -11,3 +11,4 @@ software-properties-common
 build-essential
 apt-file
 xsel
+fonts-firacode
