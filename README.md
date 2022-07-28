@@ -4,7 +4,11 @@
 
 ### Install
 
-```
+```sh
+$ sudo apt-get update
+$ sudo apt-get install -y curl
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
 $ mkdir -p -m 700 ~/.ssh
 $ cat << EOF > ~/.ssh/config
 Host github.com
@@ -13,12 +17,7 @@ Host github.com
     IdentityFile ~/.ssh/github_rsa
 EOF
 $ ssh-keygen -t ed25519 -P "" -f ~/.ssh/github_rsa
-$ sudo apt-get update
-$ sudo apt-get install -y curl
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-```
-
-```sh
+$ git clone https://github.com/tapih/dotfiles
 $ ./install.sh
 ```
 
