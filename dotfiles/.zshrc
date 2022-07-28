@@ -237,8 +237,9 @@ alias r='grep'
 alias G='gh'
 alias z='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
 alias d='docker'
-alias t='terraform'
 alias fig='docker-compose'
+alias tf="terraform"
+alias terrafrom="terraform"
 alias c="code ."
 alias v='nvim'
 alias agit='nvim +Agit'
