@@ -12,12 +12,14 @@ file=$1
 
 if ! which go >/dev/null 2>&1
 then
-  asdf add plugin go
+  asdf plugin add golang || true
   asdf install golang latest
+  asdf global golang latest
 fi
 
 for i in $(grep -vE "^\s*#" ${file} | tr "\n" " ")
 do
+  echo ${i}
   go install ${i}
 done
 

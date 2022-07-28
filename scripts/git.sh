@@ -15,7 +15,7 @@ IFS='
 do
   echo ${i}
   url=$(echo ${i} | cut -d' ' -f1)
-  destination=$(echo ${i} | cut -d' ' -f2)
+  destination=$(bash -c "echo ${i} | cut -d' ' -f2")
 
   mkdir -p $(dirname ${destination})
   git clone --depth 1 ${url} ${destination}

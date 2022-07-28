@@ -1,7 +1,6 @@
 # git
 brew "ghq"
 brew "gh"
-brew "git"
 brew "git-open"
 
 # tools

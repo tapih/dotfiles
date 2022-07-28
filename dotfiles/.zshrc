@@ -258,12 +258,3 @@ bindkey '^j' __fzf_git_branch
 # load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
 [ -f ~/.zshrc.local ] && . ~/.zshrc.local
-
-# === genie ===
-if uname -r | grep -q -i 'microsoft'; then
-  if [ "`ps -eo pid,cmd | grep systemd | grep -v grep | sort -n -k 1 | awk 'NR==1 { print $1  }'`" != "1"  ]; then
-        genie -s
-  fi
-  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-  export VTE_CJK_WIDTH=1
-fi
