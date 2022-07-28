@@ -19,7 +19,7 @@ EOF
 $ ssh-keygen -t ed25519 -P "" -f ~/.ssh/github_rsa
 $ mkdir -p ~/src/github.com/tapih
 $ git clone https://github.com/tapih/dotfiles ~/src/github.com/tapih/dotfiles
-$ ./install.sh
+$ ./src/github.com/tapih/dotfiles/install.sh
 ```
 
 ### Windows
