@@ -36,6 +36,12 @@
     ts = stash
     u = add -u
 
+    # https://stackoverflow.com/questions/66232497/git-alias-which-works-for-main-or-master-or-other
+    main-branch = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+    remotesh = remote set-head origin --auto
+    m = "!f(){ git checkout $(git main-branch) $@;}; f"
+    mr = "!f(){ git pull --rebase --autostash origin $(git main-branch) $@;}; f"
+
 [init]
     defaultBranch = main
 
