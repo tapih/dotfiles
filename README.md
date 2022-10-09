@@ -2,7 +2,21 @@
 
 ⚡⚡⚡
 
-### Install
+## Install
+
+### On Windows side
+
+- Chrome
+- Mozc(+Swap Ctrl and Caps)
+- Enpass
+- Slack
+- Notion
+- Kindle
+- VSCode
+- FiraCode
+- Docker Desktop
+
+### On WSL2 side
 
 ```sh
 $ sudo apt-get update
@@ -22,21 +36,18 @@ $ git clone https://github.com/tapih/dotfiles
 $ cd dotfiles
 $ ./install.sh
 
-# wsl
 # Set startup command to "C:\Windows\system32\wsl.exe -d Ubuntu-22.04 /usr/libexec/nslogin /usr/bin/zsh"
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 command = /usr/libexec/wsl-systemd
 EOF"
-```
 
-### Windows
-- Chrome
-- Mozc(+Swap Ctrl and Caps)
-- Enpass
-- Slack
-- Notion
-- Kindle
-- VSCode
-- FiraCode
+$ cat << "EOF" > /etc/wsl.conf
+[wsl2]
+memory=16GB
+processors=4
+EOF
+
+$ sudo gpasswd -a $USER docker
+```
 
