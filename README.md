@@ -47,7 +47,7 @@ command = /usr/libexec/wsl-systemd
 memory=16GB
 processors=4
 EOF"
-
-$ sudo gpasswd -a $USER docker
 ```
+
+Then, install [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 

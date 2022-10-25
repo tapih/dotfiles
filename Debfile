@@ -13,6 +13,7 @@ build-essential
 apt-file
 xsel
 fonts-firacode
+lsb-release
 
 # python
 libssl-dev
