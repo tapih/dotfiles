@@ -12,7 +12,7 @@
 - Slack
 - Notion
 - Kindle
-- VSCode
+- VSCode(+Remote Repository)
 - FiraCode
 - Docker Desktop
 
