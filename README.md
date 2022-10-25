@@ -40,9 +40,7 @@ $ ./install.sh
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 command = /usr/libexec/wsl-systemd
-EOF"
 
-$ sudo sh -c "cat << EOF > /etc/wsl.conf
 [wsl2]
 memory=16GB
 processors=4
