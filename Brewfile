@@ -27,6 +27,7 @@ brew "asdf"
 brew "actionlint"
 brew "silicon"
 brew "neovim", args: ["HEAD"]
+brew "lua-language-server"
 brew "rust-analyzer"
 brew "vegeta"
 brew "kubernetes-cli"
