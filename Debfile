@@ -2,6 +2,7 @@ wget
 zsh
 curl
 make
+clang
 tmux
 gnupg
 openssl
