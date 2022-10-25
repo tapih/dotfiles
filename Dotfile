@@ -3,7 +3,6 @@
 .inputrc
 .tmux.conf
 .vimrc
-.wslconfig
 .zshrc
 .config/cheat/cheatsheets/personal
 .config/cheat/conf.yml

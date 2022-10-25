@@ -24,7 +24,7 @@ require'packer'.startup(function()
   use 'jsborjesson/vim-uppercase-sql'
   use 'kana/vim-operator-replace'
   use 'kana/vim-operator-user'
-  use 'kevinhwang91/nvim-hlslens'
+  use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use 'itchyny/vim-cursorword'
   use 'markonm/traces.vim'
 
