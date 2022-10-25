@@ -22,6 +22,7 @@
 $ sudo apt-get update
 $ sudo apt-get install -y curl zsh
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+$ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
 $ mkdir -p -m 700 ~/.ssh
 $ cat << EOF > ~/.ssh/config
