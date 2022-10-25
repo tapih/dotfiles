@@ -42,11 +42,11 @@ $ sudo sh -c "cat << EOF > /etc/wsl.conf
 command = /usr/libexec/wsl-systemd
 EOF"
 
-$ cat << "EOF" > /etc/wsl.conf
+$ sudo sh -c "cat << EOF > /etc/wsl.conf
 [wsl2]
 memory=16GB
 processors=4
-EOF
+EOF"
 
 $ sudo gpasswd -a $USER docker
 ```
