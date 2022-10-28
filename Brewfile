@@ -25,7 +25,7 @@ brew "asciinema"
 brew "asdf"
 brew "actionlint"
 brew "silicon"
-brew "neovim", args: ["HEAD"]
+brew "neovim"
 brew "lua-language-server"
 brew "rust-analyzer"
 brew "vegeta"
