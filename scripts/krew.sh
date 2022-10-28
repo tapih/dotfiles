@@ -1,6 +1,7 @@
 #! /bin/sh
 
-set -e
+set -eu
+set -o pipefail
 
 if [ $# -lt 1 ]
 then
@@ -12,6 +13,6 @@ target=$1
 
 for i in $(grep -vE "^\s*#" ${target} | tr "\n" " ")
 do
-  kubectl krew install ${i}
+  kubectl krew install ${i} || exit 1
 done
 
