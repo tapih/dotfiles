@@ -41,7 +41,7 @@ $ ./install.sh
 # Set startup command to "C:\Windows\system32\wsl.exe -d Ubuntu-22.04 /usr/libexec/nslogin /usr/bin/zsh"
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
-command = /usr/libexec/wsl-systemd
+systemd=true
 
 [wsl2]
 memory=16GB
