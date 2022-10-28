@@ -1,6 +1,7 @@
 #! /bin/sh
 
-set -e
+set -eu
+set -o pipefail
 
 if [ $# -lt 1 ]
 then
