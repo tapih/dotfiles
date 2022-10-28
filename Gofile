@@ -6,7 +6,7 @@ github.com/nametake/golangci-lint-langserver@latest
 github.com/cweill/gotests/gotests@latest
 honnef.co/go/tools/cmd/staticcheck@latest
 github.com/fatih/gomodifytags@latest
-github.com/spf13/cobra/cobra@latest
+github.com/spf13/cobra-cli@latest
 github.com/go-delve/delve/cmd/dlv@latest
 github.com/client9/misspell/cmd/misspell@latest
 github.com/josharian/impl@latest
