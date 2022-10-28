@@ -1,6 +1,7 @@
 #! /bin/sh
 
-set -e
+set -eu
+set -o pipefail
 
 if [ $# -lt 1 ]
 then
@@ -20,6 +21,6 @@ fi
 for i in $(grep -vE "^\s*#" ${file} | tr "\n" " ")
 do
   echo ${i}
-  npm -g i ${i}
+  npm -g i ${i} || exit 1
 done
 
