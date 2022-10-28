@@ -17,8 +17,6 @@
 
 ### On WSL2 side
 
-Set "wsl.exe ~" to the startup command of Windows Terminal.
-
 ```sh
 $ sudo apt-get update
 $ sudo apt-get install -y curl zsh
