@@ -14,7 +14,6 @@
 - Kindle
 - VSCode
 - FiraCode
-- Docker Desktop
 
 ### On WSL2 side
 
