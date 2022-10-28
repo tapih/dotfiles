@@ -1,6 +1,7 @@
-wget
 zsh
 curl
+wget
+unzip
 make
 clang
 tmux
@@ -14,6 +15,7 @@ apt-file
 xsel
 fonts-firacode
 lsb-release
+tree
 
 # python
 libssl-dev
