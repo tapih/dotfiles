@@ -1,4 +1,7 @@
-#! /bin/sh
+#! /bin/bash
+
+set -eu
+set -o pipefail
 
 echo "=== apt ===" ; ./scripts/apt.sh  Debfile
 echo "=== git ===" ; ./scripts/git.sh  Gitfile
