@@ -1,6 +1,7 @@
 #! /bin/sh
 
-set -e
+set -eu
+set -o pipefail
 
 if [ $# -lt 1 ]
 then
@@ -22,6 +23,6 @@ do
   then
     echo "skip installing ${i}"
   else 
-    git clone --depth 1 ${url} ${destination}
+    git clone --depth 1 ${url} ${destination} || exit 1
   fi
 done
