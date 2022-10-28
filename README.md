@@ -17,6 +17,8 @@
 
 ### On WSL2 side
 
+Set "wsl.exe ~" to the startup command of Windows Terminal.
+
 ```sh
 $ sudo apt-get update
 $ sudo apt-get install -y curl zsh
@@ -37,7 +39,6 @@ $ git clone https://github.com/tapih/dotfiles
 $ cd dotfiles
 $ ./install.sh
 
-# Set startup command to "C:\Windows\system32\wsl.exe -d Ubuntu-22.04 /usr/libexec/nslogin /usr/bin/zsh"
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 systemd=true
