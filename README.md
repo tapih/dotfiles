@@ -36,6 +36,7 @@ $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
 $ cd dotfiles
 $ ./install.sh
+$ sudo ln -s $(which wsl-open) /usr/local/bin/xdg-open
 
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
