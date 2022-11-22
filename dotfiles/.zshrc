@@ -36,7 +36,7 @@ export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
-export PATH=${PATH}:${HOME}/.asdf/shims:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin
+export PATH=${HOME}/.asdf/shims:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${PATH}
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
