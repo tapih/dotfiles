@@ -1,4 +1,5 @@
 # git
+brew "git"
 brew "ghq"
 brew "gh"
 
@@ -36,6 +37,7 @@ brew "lazydocker"
 brew "buildkit"
 brew "hadolint"
 brew "terraform-ls"
+brew "terraformer"
 brew "alp"
 brew "httpstat"
 brew "urlview"
