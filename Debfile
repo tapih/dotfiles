@@ -16,6 +16,7 @@ xsel
 fonts-firacode
 lsb-release
 tree
+google-cloud-sdk-gke-gcloud-auth-plugin
 
 # python
 libssl-dev

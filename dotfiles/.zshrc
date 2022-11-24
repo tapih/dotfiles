@@ -40,6 +40,8 @@ export PATH=${HOME}/.asdf/shims:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${H
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # === asdf ===
 [ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
