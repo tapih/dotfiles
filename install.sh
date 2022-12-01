@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-echo "=== apt ===" ; ./scripts/apt.sh  Debfile
+echo "=== apt ===" ; ./scripts/apt.sh  Aptfile
 echo "=== git ===" ; ./scripts/git.sh  Gitfile
 echo "=== dot ===" ; ./scripts/dot.sh  Dotfile $(pwd)/dotfiles
 echo "=== brew ==="; ./scripts/brew.sh Brewfile
