@@ -5,6 +5,7 @@
 [alias]
     amend = commit --amend
     b = !git branch -a | fzf | xargs git checkout
+    bd = branch -D
     c = clone --recursive
     cb = checkout -b
     ci = commit
