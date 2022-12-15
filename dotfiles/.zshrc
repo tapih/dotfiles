@@ -31,7 +31,7 @@ export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export ZSH_AUTOSUGGEST_STRATEGY='completion'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-export FZF_COMPLETION_TRIGGER='**'
+export FZF_COMPLETION_TRIGGER='jj'
 export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -161,7 +161,7 @@ __fzf_git_file() {
 
 __fzf_git_branch() {
   branch=$(
-    git branch -a |
+    git branch --sort=-authordate |
       fzf \
         --exit-0 \
         --layout=reverse \
@@ -176,7 +176,7 @@ __fzf_git_branch() {
       perl -pe "s/remotes\/origin\///g"
   )
   if [[ -n "$branch" ]]; then
-    BUFFER="git switch $b"
+    BUFFER="git switch $branch"
     zle accept-line
   fi
 }
