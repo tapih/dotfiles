@@ -59,6 +59,7 @@
     ff = only
 
 [push]
+    default = current
     autoSetupRemote = true
 
 [include]
