@@ -14,6 +14,7 @@
 - Kindle
 - VSCode
 - FiraCode
+- Xming
 
 ### On WSL2 side
 
