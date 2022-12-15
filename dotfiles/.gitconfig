@@ -5,8 +5,6 @@
 [alias]
     amend = commit --amend
     b = !git branch -a | fzf | xargs git checkout
-    c = clone --recursive
-    cb = checkout -b
     ci = commit
     cm = commit -m
     co = checkout
@@ -23,7 +21,6 @@
     l = log --graph --decorate --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
     o = open
     op = stash pop
-    ours = checkout --ours
     pf = push --force-with-lease
     pi = pull
     pk = chery-pick
@@ -31,9 +28,14 @@
     pr = !git push && gh pr create --web
     s = status -s
     ss = status
-    theirs = checkout --theirs
     ts = stash
     u = add -u
+    w = switch
+    c = switch -c
+
+    cl = checkout HEAD
+    ours = checkout --ours
+    theirs = checkout --theirs
 
     main-branch = !gh repo view --json defaultBranchRef --jq .defaultBranchRef.name
     remotesh = remote set-head origin --auto
