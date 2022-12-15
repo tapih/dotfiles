@@ -14,7 +14,8 @@
 - Kindle
 - VSCode
 - FiraCode
-- Xming
+
+Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
 
 ### On WSL2 side
 
