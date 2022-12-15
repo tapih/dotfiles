@@ -7,7 +7,9 @@
     current-branch = rev-parse --abbrev-ref HEAD
 
     amend = commit --amend
+    bd = branch -D
     ci = commit
+    cl = checkout HEAD
     cm = commit -m
     cs = commit -sm
     d = diff
@@ -28,7 +30,7 @@
     po = push
     pr = !git push && gh pr create --web
     v = !gh pr view --web
-    vc = !gh browse -b $(git current-branch)
+    vv = !gh browse -b $(git current-branch)
     vm = !gh browse
     s = status -s
     ss = status
@@ -39,15 +41,16 @@
 
     I = !gh issue list --search 'involves:@me' -L 100 | fzf --height 90% --preview 'gh issue view {+1}' | awk '{print $1}' | xargs gh issue view --web
     P = "!f() { gh pr list --search 'involves:@me' -L 100 --json number,headRefName,title,updatedAt --template '{{range .}}{{tablerow (printf \"#%v\" .number | autocolor \"green\") .headRefName .title (timeago .updatedAt)}}{{end}}' | fzf --height 90% --preview 'gh pr diff --color=always {+1}' | awk '{print $1}' | xargs gh pr view --web; };f"
-    b = "!f() { gh pr list --search 'involves:@me' -L 100 --json number,headRefName,title,updatedAt --template '{{range .}}{{tablerow (printf \"#%v\" .number | autocolor \"green\") .headRefName .title (timeago .updatedAt)}}{{end}}' | fzf --height 90% --preview 'gh pr diff --color=always {+1}' | awk '{print $2}' | xargs git switch; };f"
+    b = "!f() { gh pr list --search 'involves:@me' -L 100 --json number,headRefName,title,updatedAt --template '{{range .}}{{tablerow (printf \"#%v\" .number | autocolor \"green\") .headRefName .title (timeago .updatedAt)}}{{end}}' | fzf --height 90% --preview 'gh pr diff --color=always {+1}' | awk '{print $2}' | xargs git switch; }; f"
 
-    cl = checkout HEAD
     ours = checkout --ours
     theirs = checkout --theirs
 
     m = "!f(){ git checkout $(git main-branch) $@;}; f"
     mr = "!f(){ git pull --rebase --autostash origin $(git main-branch) $@;}; f"
-    cl = "!f(){ B=$(git main-branch); git branch --format='%(refname:short)' --merged=${B} | grep -v \"^${B}$\" | xargs -n 1 git branch -D; }; f"
+
+    lprune = "!f(){ B=$(git main-branch); git switch ${B}; git branch --format='%(refname:short)' --merged=${B} | grep -v \"^${B}$\" | xargs -n 1 git branch -D; }; f"
+    rprune = fetch --prune
 
 [init]
     defaultBranch = main
