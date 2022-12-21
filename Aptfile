@@ -4,7 +4,6 @@ wget
 unzip
 make
 clang
-tmux
 gnupg
 openssl
 apt-transport-https

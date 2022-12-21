@@ -4,6 +4,7 @@ brew "ghq"
 brew "gh"
 
 # tools
+brew "tmux"
 brew "gawk"
 brew "colordiff"
 brew "gnu-sed"
