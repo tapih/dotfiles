@@ -36,10 +36,11 @@ export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
-export PATH=${HOME}/.asdf/shims:/home/linuxbrew/.linuxbrew/bin:${GOPATH}/bin:${HOME}/.pub-cache/bin:/opt/homebrew/bin:${HOME}/.krew/bin:${HOME}/.bin:${PATH}
+export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
 # https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
