@@ -1,7 +1,10 @@
 access-matrix
 cert-manager
 ctx
+cost
 deprecations
+get-all
+graph
 neat
 node-shell
 kyverno
@@ -10,5 +13,11 @@ resource-capacity
 sniff
 tail
 tree
+slice
 who-can
-
+rbac-lookup
+rolesum
+iexec
+images
+view-allocations
+view-utilization
