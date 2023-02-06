@@ -14,6 +14,7 @@
 - Kindle
 - VSCode
 - Wireshark
+- win32yank
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
 Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
