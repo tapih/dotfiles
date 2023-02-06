@@ -44,6 +44,7 @@ $ sudo ln -s $(which wsl-open) /usr/local/bin/xdg-open
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 systemd=true
+localhostForwarding=true
 
 [wsl2]
 memory=16GB
