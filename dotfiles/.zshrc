@@ -193,11 +193,6 @@ __fzf_git_log() {
 EOF"
 }
 
-tcsh-backward-delete-word() {
-  local WORDCHARS="${WORDCHARS:s#/#}"
-  zle backward-delete-word
-}
-
 # === alias ===
 
 alias cd='cdls'
@@ -249,12 +244,10 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 
-zle -N tcsh-backward-delete-word
 zle -N __fzf_ghq
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
 
-bindkey "^w" tcsh-backward-delete-word
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
