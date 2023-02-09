@@ -249,11 +249,13 @@ bindkey -a ds delete-surround
 bindkey -a ys add-surround
 bindkey -M visual S add-surround
 
+# vi mode
+bindkey -M vicmd 'U' redo
+
 # fzf
 zle -N __fzf_ghq
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
-
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
