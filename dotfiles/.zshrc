@@ -199,18 +199,51 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 
+# completion
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
 autoload colors && colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu select
 
+exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
+
+# history-search-end
 autoload history-search-end
 zle -N history-beginning-search-backward-end history-search-end
 zle -N history-beginning-search-forward-end history-search-end
 bindkey '^p' history-beginning-search-backward-end
 bindkey '^n' history-beginning-search-forward-end
 
+# select-bracketed
+autoload -U select-bracketed
+zle -N select-bracketed
+for m in visual viopp; do
+  for c in {a,i}${(s..)^:-'()[]{}<>bB'}; do
+    bindkey -M $m $c select-bracketed
+  done
+done
+
+# select-quoted
+autoload -U select-quoted
+zle -N select-quoted
+for m in visual viopp; do
+  for c in {a,i}{\',\",\`}; do
+    bindkey -M $m $c select-quoted
+  done
+done
+
+# surround
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N change-surround surround
+zle -N add-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
+
+# fzf
 zle -N __fzf_ghq
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
@@ -218,8 +251,6 @@ zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
-
-exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
 
 # autoload tmux
 TMUX_DEFAULT_SESSION=$(whoami)
