@@ -120,7 +120,7 @@ setopt auto_pushd
 setopt noclobber
 setopt append_history
 setopt share_history
-setopt hist_ignore_dups
+setopt hist_ignore_all_dups
 setopt auto_param_slash
 setopt mark_dirs
 setopt magic_equal_subst
