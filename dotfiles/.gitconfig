@@ -9,6 +9,7 @@
     amend = commit --amend
     bd = branch -D
     ci = commit
+    co = checkout HEAD
     cl = checkout HEAD
     cm = commit -m
     cs = commit -sm
@@ -39,8 +40,13 @@
     w = switch
     c = switch -c
 
+    # open issue
     I = !gh issue list --search 'involves:@me' -L 100 | fzf --height 90% --preview 'gh issue view {+1}' | awk '{print $1}' | xargs gh issue view --web
+
+    # open PR
     P = "!f() { gh pr list --search 'involves:@me' -L 100 --json number,headRefName,title,updatedAt --template '{{range .}}{{tablerow (printf \"#%v\" .number | autocolor \"green\") .headRefName .title (timeago .updatedAt)}}{{end}}' | fzf --height 90% --preview 'gh pr diff --color=always {+1}' | awk '{print $1}' | xargs gh pr view --web; };f"
+
+    # switch branch
     b = "!f() { gh pr list --search 'involves:@me' -L 100 --json number,headRefName,title,updatedAt --template '{{range .}}{{tablerow (printf \"#%v\" .number | autocolor \"green\") .headRefName .title (timeago .updatedAt)}}{{end}}' | fzf --height 90% --preview 'gh pr diff --color=always {+1}' | awk '{print $2}' | xargs git switch; }; f"
 
     ours = checkout --ours
