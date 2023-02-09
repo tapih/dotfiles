@@ -125,6 +125,7 @@ setopt auto_param_slash
 setopt mark_dirs
 setopt magic_equal_subst
 setopt globdots
+setopt no_flow_control
 
 export KEYTIMEOUT=5
 export LANG=en_US.UTF-8
@@ -197,9 +198,6 @@ alias v='nvim'
 alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
-
-# disable ^S
-stty -ixon
 
 autoload -Uz compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
