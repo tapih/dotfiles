@@ -130,7 +130,6 @@ setopt globdots
 setopt no_flow_control
 
 # environment variables
-export KEYTIMEOUT=5
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
@@ -150,6 +149,8 @@ export EDITOR="nvim"
 export GOPATH="${HOME}/go"
 export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin
 export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
+# https://github.com/zsh-users/zsh-autosuggestions/issues/254
+export KEYTIMEOUT=25
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
