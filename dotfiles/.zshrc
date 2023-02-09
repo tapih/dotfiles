@@ -113,8 +113,10 @@ __fzf_git_log() {
 EOF"
 }
 
+# vim keybinding
 bindkey -v
 
+# setopt
 setopt no_beep
 setopt auto_pushd
 setopt noclobber
@@ -127,6 +129,7 @@ setopt magic_equal_subst
 setopt globdots
 setopt no_flow_control
 
+# environment variables
 export KEYTIMEOUT=5
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
@@ -149,6 +152,8 @@ export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOM
 export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# load plugins
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 [ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
@@ -158,6 +163,7 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 [ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 
+# alias
 alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
