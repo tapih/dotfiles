@@ -2,7 +2,7 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
-cdls() {
+function cdls() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
     return
@@ -33,7 +33,7 @@ cdls() {
   fi
 }
 
-_fzf_compgen_path() {
+function _fzf_compgen_path() {
       fd -HLE.git . "$1"
 }
 
@@ -54,7 +54,7 @@ _fzf_comprun() {
     esac
 }
 
-__fzf_ghq() {
+function __fzf_ghq() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
         BUFFER="cd $name"
@@ -63,7 +63,7 @@ __fzf_ghq() {
     zle -R -c
 }
 
-__fzf_git_file() {
+function __fzf_git_file() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]; then
         echo "error: this is not a git repository"
@@ -80,7 +80,7 @@ __fzf_git_file() {
     zle -R -c
 }
 
-__fzf_git_branch() {
+function __fzf_git_branch() {
   branch=$(
     git branch --sort=-authordate |
       fzf \
