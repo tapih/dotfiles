@@ -23,3 +23,4 @@ github.com/cheat/cheat/cmd/cheat@latest
 github.com/cosmtrek/air@latest
 github.com/google/go-jsonnet/cmd/jsonnet@latest
 github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
+github.com/catatsuy/notify_slack/cmd/notify_slack@latest
