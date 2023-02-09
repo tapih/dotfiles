@@ -2,87 +2,6 @@
 #
 exists() { type $1 >/dev/null 2>&1; return $?; }
 
-bindkey -v
-stty -ixon
-
-setopt no_beep
-setopt auto_pushd
-setopt noclobber
-setopt append_history
-setopt share_history
-
-setopt hist_ignore_dups
-setopt auto_param_slash
-setopt mark_dirs
-setopt magic_equal_subst
-setopt globdots
-
-# === envs ===
-export KEYTIMEOUT=5
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
-export HISTFILE=${HOME}/.zsh_history
-export HISTCONTROL=ignoreboth
-export HISTSIZE=10000
-export SAVEHIST=100000
-export HISTFILESIZE=100000
-export HISTTIMEFORMAT="%h %d %H:%M:%S "
-export ZSH_AUTOSUGGEST_STRATEGY='completion'
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
-export FZF_COMPLETION_TRIGGER='jj'
-export TERM=xterm-256color
-export VISUAL="nvim"
-export EDITOR="nvim"
-export GOPATH="${HOME}/go"
-export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin
-export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
-exists starship && eval "$(starship init zsh)"
-exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# https://cloud.google.com/blog/products/containers-kubernetes/kubectl-auth-changes-in-gke?hl=en
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
-# === asdf ===
-[ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
-
-# === tmux ===
-TMUX_DEFAULT_SESSION=$(whoami)
-if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
-then
-  if tmux has-session -t ${TMUX_DEFAULT_SESSION} >/dev/null 2>&1
-  then
-    tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
-  else
-    tmux -2 new -s ${TMUX_DEFAULT_SESSION}
-  fi
-fi
-
-# === completion ===
-[ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
-[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
-[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
-fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
-
-autoload -Uz compinit && compinit
-autoload -U +X bashcompinit && bashcompinit
-autoload colors && colors
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle ':completion:*' menu select
-
-autoload history-search-end
-zle -N history-beginning-search-backward-end history-search-end
-zle -N history-beginning-search-forward-end history-search-end
-bindkey '^p' history-beginning-search-backward-end
-bindkey '^n' history-beginning-search-forward-end
-
-exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
-
-# === function ===
-
 cdls() {
   if ! builtin cd 2>/dev/null $@; then
     echo "cannot cd: $@$reset_color"
@@ -194,21 +113,55 @@ __fzf_git_log() {
 EOF"
 }
 
-# === alias ===
+bindkey -v
+
+setopt no_beep
+setopt auto_pushd
+setopt noclobber
+setopt append_history
+setopt share_history
+setopt hist_ignore_dups
+setopt auto_param_slash
+setopt mark_dirs
+setopt magic_equal_subst
+setopt globdots
+
+export KEYTIMEOUT=5
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+export HISTFILE=${HOME}/.zsh_history
+export HISTCONTROL=ignoreboth
+export HISTSIZE=10000
+export SAVEHIST=100000
+export HISTFILESIZE=100000
+export HISTTIMEFORMAT="%h %d %H:%M:%S "
+export ZSH_AUTOSUGGEST_STRATEGY='completion'
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
+export FZF_COMPLETION_TRIGGER='jj'
+export TERM=xterm-256color
+export VISUAL="nvim"
+export EDITOR="nvim"
+export GOPATH="${HOME}/go"
+export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin
+export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+exists starship && eval "$(starship init zsh)"
+exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
+[ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
+[ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
+[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
+[ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
+fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 
 alias cd='cdls'
-if [ "$(uname 2> /dev/null)" = "Darwin" ]; then
-    alias ls='ls -FG'
-    alias ll='ls -FlhG'
-    alias la='ls -FlhaG'
-else
-    alias ls='ls -F --color=auto'
-    alias ll='ls -Flh --color=auto'
-    alias la='ls -Flha --color=auto'
-    if [[ "$(uname -r)" = *microsoft* ]]; then
-      alias pbcopy='/mnt/c/WINDOWS/System32/clip.exe'
-    fi
-fi
+alias ls='ls -F --color=auto'
+alias ll='ls -Flh --color=auto'
+alias la='ls -Flha --color=auto'
+[[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
 alias history='history -i'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -245,6 +198,21 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 
+# disable ^S
+stty -ixon
+
+autoload -Uz compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
+autoload colors && colors
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^p' history-beginning-search-backward-end
+bindkey '^n' history-beginning-search-forward-end
+
 zle -N __fzf_ghq
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
@@ -252,6 +220,20 @@ zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
+
+exists kubectl && . <(kubectl completion zsh) && compdef k=kubectl
+
+# autoload tmux
+TMUX_DEFAULT_SESSION=$(whoami)
+if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
+then
+  if tmux has-session -t ${TMUX_DEFAULT_SESSION} >/dev/null 2>&1
+  then
+    tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
+  else
+    tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+  fi
+fi
 
 # load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
