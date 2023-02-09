@@ -28,8 +28,8 @@ style = "bold red"
 format = "[$hostname]($style) "
 
 [git_branch]
-symbol = "⛵ "
 style = "bold yellow"
+symbol = "🎷 "
 format = "[$symbol$branch]($style) "
 
 [git_status]
@@ -48,7 +48,7 @@ vimcmd_symbol = "[❮❮❮](bold yellow)"
 truncation_length = 8
 truncate_to_repo = false
 style = "bold red"
-format = "🌹 [$path]($style)[$read_only]($read_only_style) "
+format = "💕 [$path]($style)[$read_only]($read_only_style) "
 
 [golang]
 style = "bold white"
@@ -73,7 +73,7 @@ style = "bold black"
 
 [gcloud]
 style = "bold green"
-symbol = "🌴 "
+symbol = "🍀 "
 format = '[$symbol$project]($style) '
 
 [aws]
