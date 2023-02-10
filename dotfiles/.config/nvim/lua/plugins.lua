@@ -108,6 +108,19 @@ require'packer'.startup(function()
   use 'f-person/git-blame.nvim'
   use { 'sindrets/diffview.nvim', opt = true, cmd = {'DiffviewOpen'} }
   use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = [[require('plugins.gitsigns')]] }
+  use {
+    'pwntester/octo.nvim',
+    opt = true,
+    cmd = {'Octo'},
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim',
+      'kyazdani42/nvim-web-devicons',
+    },
+    config = function ()
+      require"octo".setup()
+    end,
+  }
 
   -- nvim-cmp
   use { 'hrsh7th/nvim-cmp', config = [[require('plugins.nvim-cmp')]] }
