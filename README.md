@@ -14,6 +14,7 @@
 - Kindle
 - VSCode
 - Wireshark
+- PowerToys
 - win32yank
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
