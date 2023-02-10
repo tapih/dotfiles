@@ -39,6 +39,7 @@
     u = add -u
     w = switch
     c = switch -c
+    cl = clean -fd
 
     # open issue
     I = !gh issue list --search 'involves:@me' -L 100 | fzf --height 90% --preview 'gh issue view {+1}' | awk '{print $1}' | xargs gh issue view --web
