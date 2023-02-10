@@ -143,6 +143,10 @@ require'packer'.startup(function()
   }
 
   -- LSP
+  use 'neovim/nvim-lspconfig'
+  use 'j-hui/fidget.nvim'
+  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
+  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
   use {
     'onsails/lspkind-nvim',
@@ -173,10 +177,6 @@ require'packer'.startup(function()
       })
     end,
   }
-  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
-  use 'neovim/nvim-lspconfig'
-  use 'j-hui/fidget.nvim'
 
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
