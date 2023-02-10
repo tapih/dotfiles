@@ -74,13 +74,7 @@ require'packer'.startup(function()
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
   }
-  use {
-    'easymotion/vim-easymotion',
-    config = function()
-      vim.g["EasyMotion_keys"] = 'fjdkslaureiwoqpvncm'
-      vim.g["EasyMotion_startofline"] = 0
-    end,
-  }
+  use 'ggandor/lightspeed.nvim'
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons'},
