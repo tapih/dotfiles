@@ -5,6 +5,7 @@ brew "gh"
 
 # tools
 brew "tmux"
+brew "tmuxinator"
 brew "gawk"
 brew "colordiff"
 brew "jq"

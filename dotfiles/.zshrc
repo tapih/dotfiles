@@ -205,6 +205,7 @@ alias v='nvim'
 alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
+exists tmuxinator && alias mux='tmuxinator'
 
 # completion
 autoload -Uz compinit && compinit
