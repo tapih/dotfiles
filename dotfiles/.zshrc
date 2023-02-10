@@ -63,6 +63,15 @@ function __fzf_ghq() {
     zle -R -c
 }
 
+function __fzf_ghq_open() {
+    name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    if [ ! -z "${name}" ]; then
+        BUFFER="code $name"
+        zle accept-line
+    fi
+    zle -R -c
+}
+
 function __fzf_git_file() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]; then
@@ -74,7 +83,7 @@ function __fzf_git_file() {
     preview_cmd="bat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
     if [ ! -z "${selected}" ]; then
-        BUFFER="${EDITOR} ${toplevel}/${selected}"
+        BUFFER="${EDITOR:-vim} ${toplevel}/${selected}"
         zle accept-line
     fi
     zle -R -c
@@ -169,7 +178,6 @@ alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
 alias la='ls -Flha --color=auto'
-[[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
 alias history='history -i'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -193,9 +201,8 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
-alias r='grep'
 alias G='gh'
-alias z='if [ ${HOME}/t = $(pwd) ]; then popd; else mkdir -p ~/t && pushd ~/t; fi'
+alias r='grep'
 alias d='docker'
 alias fig='docker-compose'
 alias tf="terraform"
@@ -206,6 +213,8 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 exists tmuxinator && alias mux='tmuxinator'
+
+[[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
 
 # completion
 autoload -Uz compinit && compinit
@@ -256,9 +265,11 @@ bindkey -M vicmd 'U' redo
 
 # fzf
 zle -N __fzf_ghq
+zle -N __fzf_ghq_open
 zle -N __fzf_git_file
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
+bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
 
