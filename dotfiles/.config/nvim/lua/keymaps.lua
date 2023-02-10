@@ -19,11 +19,16 @@ set_keymap('n', 'm', ';',                        { noremap = true,  silent = tru
 set_keymap('v', ';', ':',                        { noremap = true,  silent = true})
 set_keymap('v', ':', 'm',                        { noremap = true,  silent = true})
 set_keymap('v', 'm', ';',                        { noremap = true,  silent = true})
-set_keymap('n', 'tp', ':<C-u>bprev<CR>',         { noremap = true,  silent = true })
-set_keymap('n', 'tn', ':<C-u>bnext<CR>',         { noremap = true,  silent = true })
-set_keymap('n', 'tu', ':<C-u>noh<CR>',           { noremap = true,  silent = true })
+set_keymap('n', 'tp', ':<C-u>bprev<CR>',         { noremap = true,  silent = true})
+set_keymap('n', 'tn', ':<C-u>bnext<CR>',         { noremap = true,  silent = true})
+set_keymap('n', 'tu', ':<C-u>noh<CR>',           { noremap = true,  silent = true})
 set_keymap('n', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true})
 set_keymap('v', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true})
+
+set_keymap('', 'w', '<Plug>CamelCaseMotion_w',   { noremap = false, silent = true})
+set_keymap('', 'b', '<Plug>CamelCaseMotion_b',   { noremap = false, silent = true})
+set_keymap('', 'e', '<Plug>CamelCaseMotion_e',   { noremap = false, silent = true})
+set_keymap('', 'ge', '<Plug>CamelCaseMotion_ge', { noremap = false, silent = true})
 
 set_keymap('n', '*',  "<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>",  { noremap = false, silent = true})
 set_keymap('v', '*',  "<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>",  { noremap = false, silent = true})
@@ -34,7 +39,6 @@ set_keymap('v', 'g*', "<Plug>(asterisk-g*)<Cmd>lua require('hlslens').start()<CR
 set_keymap('n', 'g#', "<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>", { noremap = false, silent = true})
 set_keymap('v', 'g#', "<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>", { noremap = false, silent = true})
 
-set_keymap('n', ',',  '<Plug>(easymotion-s)',         { noremap = false, silent = false})
 set_keymap('n', 'ta', '<Plug>(EasyAlign)',            { noremap = false, silent = false})
 set_keymap('x', 'ta', '<Plug>(EasyAlign)',            { noremap = false, silent = false})
 set_keymap('n', 't/', ':<C-u>Commentary<CR>',         { noremap = true,  silent = true})
