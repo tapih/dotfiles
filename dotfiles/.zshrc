@@ -203,7 +203,6 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
-alias G='gh'
 alias r='grep'
 alias d='docker'
 alias fig='docker-compose'
@@ -214,7 +213,7 @@ alias v='nvim'
 alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
-exists lazygit && alias lg="lazygit"
+exists lazygit && alias G="lazygit"
 exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias K='k9s --readonly'
 exists tmuxinator && alias mux='tmuxinator'
