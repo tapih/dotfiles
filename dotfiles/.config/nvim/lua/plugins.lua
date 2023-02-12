@@ -23,7 +23,6 @@ require'packer'.startup(function()
   use 'jsborjesson/vim-uppercase-sql'
   use 'kana/vim-operator-replace'
   use 'kana/vim-operator-user'
-  use 'itchyny/vim-cursorword'
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
@@ -185,4 +184,8 @@ require'packer'.startup(function()
 
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+
+  if not(vim.g.vscode) then
+    use 'itchyny/vim-cursorword'
+  end
 end)
