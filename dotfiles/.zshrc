@@ -1,6 +1,6 @@
 #! /usr/bin/zsh
 #
-exists() { type $1 >/dev/null 2>&1; return $?; }
+function exists() { type $1 >/dev/null 2>&1; return $?; }
 
 function cdls() {
   if ! builtin cd 2>/dev/null $@; then
