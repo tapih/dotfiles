@@ -1,5 +1,8 @@
 gui:
   showIcons: true
+git:
+  refresher:
+    refreshInterval: 1
 keybinding:
   universal:
     executeCustomCommand: ";"
