@@ -216,6 +216,7 @@ alias agit='nvim +Agit'
 alias watch='watch '
 exists lazygit && alias lg="lazygit"
 exists k9s && alias k9s='k9s --readonly'
+exists k9s && alias K='k9s --readonly'
 exists tmuxinator && alias mux='tmuxinator'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
