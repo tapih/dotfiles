@@ -37,11 +37,11 @@ function _fzf_compgen_path() {
       fd -HLE.git . "$1"
 }
 
-_fzf_compgen_dir() {
+function _fzf_compgen_dir() {
       fd --type d -HLE.git . "$1"
 }
 
-_fzf_comprun() {
+function _fzf_comprun() {
     local command=$1
     shift
 
@@ -111,7 +111,7 @@ function __fzf_git_branch() {
   fi
 }
 
-__fzf_git_log() {
+function __fzf_git_log() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
@@ -152,6 +152,7 @@ export ZSH_AUTOSUGGEST_STRATEGY='completion'
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
+export _ZO_FZF_OPTS="${FZF_DEFAULT_OPTS} --preview 'echo {} | cut -f2 | xargs tree -C | head -200'"
 export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
@@ -172,6 +173,7 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
 [ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
+eval "$(zoxide init zsh)"
 
 # alias
 alias cd='cdls'
@@ -266,6 +268,7 @@ bindkey -M visual S add-surround
 bindkey -M vicmd 'U' redo
 
 # fzf
+zle -N zi
 zle -N __fzf_ghq
 zle -N __fzf_ghq_open
 zle -N __fzf_git_file
@@ -274,6 +277,7 @@ bindkey '^g' __fzf_ghq
 bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
+bindkey '^s' zi
 
 # autoload tmux
 TMUX_DEFAULT_SESSION=$(whoami)

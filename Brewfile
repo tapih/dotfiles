@@ -12,6 +12,7 @@ brew "terraform-ls"
 brew "actionlint"
 brew "bufbuild/buf/buf"
 brew "protobuf"
+brew "zoxide"
 
 # basic tools
 brew "tmux"
