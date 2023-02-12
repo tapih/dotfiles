@@ -33,7 +33,7 @@ brew "asciinema"
 brew "silicon"
 brew "urlview"
 
-#infrastructure 
+#infrastructure
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
