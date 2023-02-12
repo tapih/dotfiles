@@ -67,6 +67,10 @@ format = "[$symbol$version]($style) "
 style = "bold white"
 format = "[$symbol$version]($style) "
 
+[buf]
+style = "bold white"
+format = "[$symbol$version]($style) "
+
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\) )]($style) '
