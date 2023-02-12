@@ -49,7 +49,7 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
-au FileType go        setlocal sw=0 sts=8 ts=8
+au FileType go        setlocal sw=0 sts=4 ts=4
 au FileType dart      setlocal sw=0 sts=2 ts=2 et
 au FileType python    setlocal sw=0 sts=4 ts=4 et
 au FileType yaml      setlocal sw=0 sts=2 ts=2 et
