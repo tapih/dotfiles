@@ -189,8 +189,6 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 alias a='alias'
-alias b='__fzf_git_branch'
-alias l='__fzf_git_log'
 alias q='exit'
 alias e='nvim ~/.zshrc'
 alias u='. ~/.zshrc'
@@ -272,12 +270,14 @@ zle -N zi
 zle -N __fzf_ghq
 zle -N __fzf_ghq_open
 zle -N __fzf_git_file
+zle -N __fzf_git_log
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
 bindkey '^j' __fzf_git_branch
-bindkey '^s' zi
+bindkey '^s' __fzf_git_log
+bindkey '^z' zi
 
 # autoload tmux
 TMUX_DEFAULT_SESSION=$(whoami)
