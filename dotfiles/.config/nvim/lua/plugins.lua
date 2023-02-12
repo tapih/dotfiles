@@ -25,12 +25,12 @@ require'packer'.startup(function()
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
-  use 'itchyny/vim-cursorword'
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
 
-  use { 'ray-x/go.nvim',            ft = {'go'} }
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use { 'ray-x/go.nvim',         ft = 'go' }
 
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
   use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
@@ -181,7 +181,4 @@ require'packer'.startup(function()
       })
     end,
   }
-
-  -- TODO
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
 end)

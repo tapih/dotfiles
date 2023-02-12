@@ -1,7 +1,6 @@
 local set_keymap = vim.api.nvim_set_keymap
 set_keymap('n', '<CR>', ':<C-u>w<CR>',           { noremap = true,  silent = true})
 set_keymap('n', 'q', ':q<CR>',                   { noremap = true,  silent = true})
-set_keymap('n', '<C-q>', ':qa<CR>',              { noremap = true,  silent = true})
 set_keymap('n', 'Q', 'q',                        { noremap = true,  silent = true})
 set_keymap('n', '<C-y>', '<C-v>',                { noremap = true,  silent = true})
 set_keymap('n', 'U', '<C-r>',                    { noremap = true,  silent = true})
@@ -75,3 +74,7 @@ set_keymap('n', 'tc', ':<C-u>Telescope commands<CR>',                           
 set_keymap('n', 'tv', ':<C-u>Telescope registers<CR>',                               { noremap = true, silent = true})
 
 set_keymap("n", "tz", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+
+if vim.g.vscode then
+  set_keymap('n', 'q', ':<C-u>call VSCodeCall("workbench.action.closeActiveEditor")<CR>', { noremap = true,  silent = true})
+end
