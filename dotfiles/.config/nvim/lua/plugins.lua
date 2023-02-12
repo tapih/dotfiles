@@ -27,9 +27,10 @@ require'packer'.startup(function()
   use 'itchyny/vim-cursorword'
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
-  use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
+  use 'ggandor/lightspeed.nvim'
 
-  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]] }
+  use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
+  use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
 
   use { 'ray-x/go.nvim',            ft = {'go'} }
   use { 'simrat39/rust-tools.nvim', ft = {'rs'} }
@@ -39,12 +40,6 @@ require'packer'.startup(function()
   use { 'tpope/vim-commentary',    opt = true, cmd = {'Commentary'} }
   use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
   use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
-
-  use {
-    'akinsho/flutter-tools.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    config = [[require'flutter-tools'.setup()]]
-  }
 
   use {
     'stevearc/aerial.nvim',
@@ -75,7 +70,6 @@ require'packer'.startup(function()
     requires = { 'kyazdani42/nvim-web-devicons' },
     config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
   }
-  use 'ggandor/lightspeed.nvim'
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons'},
