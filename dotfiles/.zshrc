@@ -213,6 +213,7 @@ alias agit='nvim +Agit'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 exists lazygit && alias lg="lazygit"
+exists k9s && alias k9s='k9s --readonly'
 exists tmuxinator && alias mux='tmuxinator'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
