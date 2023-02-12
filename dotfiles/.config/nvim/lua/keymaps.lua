@@ -74,3 +74,4 @@ set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                              
 set_keymap('n', 'tc', ':<C-u>Telescope commands<CR>',                                { noremap = true, silent = true})
 set_keymap('n', 'tv', ':<C-u>Telescope registers<CR>',                               { noremap = true, silent = true})
 
+set_keymap("n", "tz", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})

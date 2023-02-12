@@ -9,7 +9,6 @@ vim.cmd('sign define LspDiagnosticsSignInformation text=')
 vim.cmd('sign define LspDiagnosticsSignHint text=')
 vim.cmd('setlocal omnifunc=v:lua.vim.lsp.omnifunc')
 
-require'lspconfig'.sumneko_lua.setup{ capabilities = capabilities }
 require'lspconfig'.gopls.setup{ capabilities = capabilities }
 require'lspconfig'.rust_analyzer.setup{ capabilities = capabilities }
 require'lspconfig'.pyright.setup{ capabilities = capabilities }

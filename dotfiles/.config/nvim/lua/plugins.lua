@@ -41,6 +41,8 @@ require'packer'.startup(function()
   use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
   use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
 
+  use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
+
   use {
     'stevearc/aerial.nvim',
     opt = true,
