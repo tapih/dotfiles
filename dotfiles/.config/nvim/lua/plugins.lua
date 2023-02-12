@@ -10,7 +10,6 @@ require'packer'.startup(function()
   use 'romgrk/barbar.nvim'
   use 'bronson/vim-trailing-whitespace'
   use 'junegunn/vim-easy-align'
-  -- use 'roxma/vim-tmux-clipboard'
   use 'ruanyl/vim-gh-line'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
@@ -33,7 +32,6 @@ require'packer'.startup(function()
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
 
   use { 'ray-x/go.nvim',            ft = {'go'} }
-  use { 'simrat39/rust-tools.nvim', ft = {'rs'} }
 
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
   use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
