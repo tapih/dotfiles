@@ -26,6 +26,7 @@ require'packer'.startup(function()
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
+  use 'itchyny/vim-cursorword'
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
@@ -184,8 +185,4 @@ require'packer'.startup(function()
 
   -- TODO
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-
-  if not(vim.g.vscode) then
-    use 'itchyny/vim-cursorword'
-  end
 end)
