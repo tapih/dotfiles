@@ -185,7 +185,5 @@ require'packer'.startup(function()
 
     -- TODO
     use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-
-    use 'unblevable/quick-scope'
   end
 end)
