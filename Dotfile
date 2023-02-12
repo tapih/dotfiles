@@ -9,4 +9,5 @@
 .config/nvim/init.lua
 .config/nvim/lua
 .config/starship.toml
+.config/lazygit/config.yml
 
