@@ -9,8 +9,9 @@ format = """\
     $gcloud\
     $terraform\
     $golang\
-    $dart\
+    $nodejs\
     $python\
+    $dart\
     $custom\
     $kubernetes\
     $line_break\
