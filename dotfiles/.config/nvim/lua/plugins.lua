@@ -135,8 +135,6 @@ require'packer'.startup(function()
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
     },
-    opt = true,
-    cmd = {'Telescope'},
     config = function()
       require('telescope').setup{
           defaults = {
