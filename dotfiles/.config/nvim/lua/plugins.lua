@@ -103,6 +103,7 @@ require'packer'.startup(function()
   -- Git
   use 'f-person/git-blame.nvim'
   use { 'sindrets/diffview.nvim', opt = true, cmd = {'DiffviewOpen'} }
+  use { 'mattn/vim-gist', opt = true, cmd = {'Gist'} }
   use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = [[require('plugins.gitsigns')]] }
   use {
     'pwntester/octo.nvim',
