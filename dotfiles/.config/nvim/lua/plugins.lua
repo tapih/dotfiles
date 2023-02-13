@@ -26,6 +26,7 @@ require'packer'.startup(function()
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
+  use 'windwp/nvim-spectre'
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
