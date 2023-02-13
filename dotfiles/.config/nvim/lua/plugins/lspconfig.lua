@@ -14,6 +14,7 @@ require 'lspconfig'.gopls.setup { capabilities = capabilities }
 require 'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
 require 'lspconfig'.pyright.setup { capabilities = capabilities }
 require 'lspconfig'.tsserver.setup { capabilities = capabilities }
+require 'lspconfig'.dartls.setup { capabilities = capabilities }
 require 'lspconfig'.terraformls.setup { capabilities = capabilities }
 require 'lspconfig'.tflint.setup { capabilities = capabilities }
 require 'lspconfig'.dockerls.setup { capabilities = capabilities }
