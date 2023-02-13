@@ -26,7 +26,7 @@
     o = open
     op = stash pop
     pf = push --force-with-lease
-    pi = pull
+    pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
     pk = chery-pick
     po = push
     pr = !git push && gh pr create --web
