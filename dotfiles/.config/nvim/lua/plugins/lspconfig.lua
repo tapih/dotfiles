@@ -9,32 +9,39 @@ vim.cmd('sign define LspDiagnosticsSignInformation text=')
 vim.cmd('sign define LspDiagnosticsSignHint text=')
 vim.cmd('setlocal omnifunc=v:lua.vim.lsp.omnifunc')
 
-require'lspconfig'.lua_ls.setup{ capabilities = capabilities }
-require'lspconfig'.gopls.setup{ capabilities = capabilities }
-require'lspconfig'.rust_analyzer.setup{ capabilities = capabilities }
-require'lspconfig'.pyright.setup{ capabilities = capabilities }
-require'lspconfig'.tsserver.setup{ capabilities = capabilities }
-require'lspconfig'.terraformls.setup{ capabilities = capabilities }
-require'lspconfig'.tflint.setup{ capabilities = capabilities }
-require'lspconfig'.dockerls.setup{ capabilities = capabilities }
-require'lspconfig'.vimls.setup{ capabilities = capabilities }
-require'lspconfig'.yamlls.setup{ capabilities = capabilities }
-require'lspconfig'.bashls.setup{ capabilities = capabilities }
-require'lspconfig'.jsonls.setup{
-  capabilities = capabilities,
-	commands = {
-		Format = {
-			function()
-				vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
-			end
-		}
-	},
+require 'lspconfig'.lua_ls.setup { capabilities = capabilities }
+require 'lspconfig'.gopls.setup { capabilities = capabilities }
+require 'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
+require 'lspconfig'.pyright.setup { capabilities = capabilities }
+require 'lspconfig'.tsserver.setup { capabilities = capabilities }
+require 'lspconfig'.terraformls.setup { capabilities = capabilities }
+require 'lspconfig'.tflint.setup { capabilities = capabilities }
+require 'lspconfig'.dockerls.setup { capabilities = capabilities }
+require 'lspconfig'.vimls.setup { capabilities = capabilities }
+require 'lspconfig'.yamlls.setup {
+    capabilities = capabilities,
+    settings = {
+        yaml = {
+            schemas = { kubernetes = "globPattern" },
+        }
+    }
+}
+require 'lspconfig'.bashls.setup { capabilities = capabilities }
+require 'lspconfig'.jsonls.setup {
+    capabilities = capabilities,
+    commands = {
+        Format = {
+            function()
+              vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+            end
+        }
+    },
 }
 
 -- https://github.com/golang/tools/blob/556c550a381650eb5b7b2ca5126b4bed281d47f9/gopls/doc/vim.md#neovim-imports
 function GoImport(wait_ms)
   local params = vim.lsp.util.make_range_params()
-  params.context = {only = {"source.organizeImports"}}
+  params.context = { only = { "source.organizeImports" } }
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, wait_ms)
   for _, res in pairs(result or {}) do
     for _, r in pairs(res.result or {}) do
