@@ -157,7 +157,7 @@ export TERM=xterm-256color
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
-export PATH=${PATH}:${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin
+export PATH=${GOPATH}/bin:${HOME}/.pub-cache/bin:${HOME}/.krew/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin:${PATH}
 export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 # https://github.com/zsh-users/zsh-autosuggestions/issues/254
 export KEYTIMEOUT=25

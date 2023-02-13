@@ -27,7 +27,7 @@ set_keymap('', 'e', '<Plug>CamelCaseMotion_e',   { noremap = false, silent = tru
 set_keymap('', 'ge', '<Plug>CamelCaseMotion_ge', { noremap = false, silent = true})
 
 set_keymap('n', 'gh', ':<C-u>Octo actions<CR>', { noremap = true, silent = true})
-set_keymap("n", "gj", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+set_keymap("n", "gk", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 
 set_keymap('n', '*',  "<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>",  { noremap = false, silent = true})
 set_keymap('v', '*',  "<Plug>(asterisk-*)<Cmd>lua require('hlslens').start()<CR>",  { noremap = false, silent = true})
