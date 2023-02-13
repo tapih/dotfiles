@@ -9,7 +9,7 @@ require'packer'.startup(function()
   use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use 'romgrk/barbar.nvim'
-  use 'bronson/vim-trailing-whitespace'
+  use 'ntpeters/vim-better-whitespace'
   use 'junegunn/vim-easy-align'
   use 'ruanyl/vim-gh-line'
   use 'tpope/vim-surround'
@@ -27,6 +27,7 @@ require'packer'.startup(function()
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
+  use 'hashivim/vim-terraform'
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
