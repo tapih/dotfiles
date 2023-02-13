@@ -2,6 +2,7 @@ vim.cmd[[packadd packer.nvim]]
 
 require'packer'.startup(function()
   use 'wbthomason/packer.nvim'
+  use 'lewis6991/impatient.nvim'
   use 'morhetz/gruvbox'
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
