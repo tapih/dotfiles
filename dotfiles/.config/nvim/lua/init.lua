@@ -62,4 +62,4 @@ vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends 
 vim.opt.termguicolors  = true
 
 -- Color
-vim.cmd [[try | colorscheme gruvbox | catch | echo 'catch: ' . v:exception | endtry]]
+vim.cmd [[try | colorscheme tokyonight-night | catch | echo 'catch: ' . v:exception | endtry]]

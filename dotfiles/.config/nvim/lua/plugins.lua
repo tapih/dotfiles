@@ -3,7 +3,7 @@ vim.cmd[[packadd packer.nvim]]
 require'packer'.startup(function()
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
-  use 'morhetz/gruvbox'
+  use 'folke/tokyonight.nvim'
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'MunifTanjim/nui.nvim'
@@ -27,7 +27,8 @@ require'packer'.startup(function()
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
-  use 'hashivim/vim-terraform'
+  use { 'hashivim/vim-terraform', ft = 'terraform' }
+  use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
   use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
