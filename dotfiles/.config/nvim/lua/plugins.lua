@@ -151,6 +151,7 @@ require'packer'.startup(function()
       }
     end,
   }
+  use { "ahmedkhalf/project.nvim", config = [[require("project_nvim").setup()]] }
 
   -- LSP
   use 'neovim/nvim-lspconfig'
