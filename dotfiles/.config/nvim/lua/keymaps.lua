@@ -64,10 +64,9 @@ set_keymap('n', 'tf', ':<C-u>Telescope current_buffer_fuzzy_find<CR>',          
 set_keymap('n', 'tF', ':<C-u>Telescope live_grep<CR>',                                   { noremap = true, silent = true })
 set_keymap('n', 'th', '<cmd>lua require("spectre").open_file_search()<CR>',              { noremap = true, silent = true })
 set_keymap('n', 'tH', '<cmd>lua require("spectre").open()<CR>',                          { noremap = true, silent = true })
-set_keymap('n', 'ti', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
-set_keymap('v', 'ti', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
+set_keymap('n', 'ti', ':<C-u>Telescope diagnostics<CR>',                              { noremap = true, silent = true })
+set_keymap('n', 'tI', ':<C-u>TroubleToggle<CR>',                                         { noremap = true, silent = true })
 set_keymap('n', 'tj', ':lua vim.diagnostic.goto_next()<CR>',                             { noremap = true, silent = true })
-set_keymap('n', 'tJ', ':<C-u>TroubleToggle<CR>',                                         { noremap = true, silent = true })
 set_keymap('n', 'tk', ':lua vim.diagnostic.goto_prev()<CR>',                             { noremap = true, silent = true })
 set_keymap('n', 'tl', ':<C-u>noh<CR>',                                                   { noremap = true, silent = true })
 set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>',                                       { noremap = true, silent = true })
@@ -80,6 +79,8 @@ set_keymap('n', 'tw', ":<C-u>Bdelete<CR>",                                      
 set_keymap('n', 'ty', ':<C-u>Telescope registers<CR>',                                   { noremap = true, silent = true })
 set_keymap('n', 't;', ':<C-u>CommaOrSemiColon<CR>',                                      { noremap = true, silent = true });
 set_keymap('n', 't?', ':<C-u>Telescope keymaps<CR>',                                     { noremap = true, silent = true })
+set_keymap('n', 't*', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
+set_keymap('v', 't*', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', { noremap = true, silent = true })
 
 set_keymap('n', 't/', ':<C-u>Commentary<CR>',                                            { noremap = true, silent = true })
 set_keymap('v', 't/', ':Commentary<CR>',                                                 { noremap = true, silent = true })

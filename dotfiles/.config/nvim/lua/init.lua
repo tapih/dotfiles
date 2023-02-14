@@ -9,7 +9,6 @@ vim.g['loaded_tar']          = 1
 vim.g['loaded_zipPlugin']    = 1
 vim.g['loaded_zip']          = 1
 vim.g['loaded_netrwPlugin']  = 1
-
 vim.opt.encoding    = "UTF-8"
 vim.opt.cursorline  = true
 vim.opt.showmode    = true
