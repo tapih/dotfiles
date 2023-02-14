@@ -27,6 +27,7 @@ require'packer'.startup(function()
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
+
   use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 
@@ -76,7 +77,7 @@ require'packer'.startup(function()
   use {
     'nvim-lualine/lualine.nvim',
     requires = {'kyazdani42/nvim-web-devicons'},
-    config = [[require('lualine').setup { options = { theme  = 'gruvbox' } }]],
+    config = [[require('lualine').setup { options = { theme  = 'tokyonight' } }]],
   }
   use {
     'lukas-reineke/indent-blankline.nvim',
