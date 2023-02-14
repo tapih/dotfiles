@@ -62,5 +62,6 @@ vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends 
 vim.opt.termguicolors  = true
 
 -- Color
-vim.cmd [[try | colorscheme tokyonight-night | catch | echo 'catch: ' . v:exception | endtry]]
+vim.g.material_style = "oceanic"
+vim.cmd [[try | colorscheme material | catch | echo 'catch: ' . v:exception | endtry]]
 

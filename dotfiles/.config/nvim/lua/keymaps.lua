@@ -1,4 +1,6 @@
 local set_keymap = vim.api.nvim_set_keymap
+vim.g.mapleader = ','
+
 set_keymap('n', '<CR>', ':<C-u>w<CR>',           { noremap = true, silent = true })
 set_keymap('n', 'q', ':q<CR>',                   { noremap = true, silent = true })
 set_keymap('n', 'Q', ':qa<CR>',                   { noremap = true, silent = true })
@@ -49,9 +51,9 @@ set_keymap('n', 'gi', ':lua vim.lsp.buf.implementation()<CR>',                  
 set_keymap('n', 'gr', ':lua vim.lsp.buf.references()<CR>',                               { noremap = true, silent = true })
 set_keymap('n', 'gs', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>',  { noremap = true, silent = true })
 set_keymap('n', 'gS', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>', { noremap = true, silent = true })
-set_keymap('n', '<space>g', ':lua vim.lsp.buf.code_action()<CR>',                              { noremap = true, silent = true })
+set_keymap('n', '<space>g', ':lua vim.lsp.buf.code_action()<CR>',                        { noremap = true, silent = true })
 set_keymap('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>',                         { noremap = true, silent = true })
-set_keymap('n', '<space>r', ':lua vim.lsp.buf.rename()<CR>',                                   { noremap = true, silent = true })
+set_keymap('n', '<space>r', ':lua vim.lsp.buf.rename()<CR>',                             { noremap = true, silent = true })
 
 set_keymap('n', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })
 set_keymap('x', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })
