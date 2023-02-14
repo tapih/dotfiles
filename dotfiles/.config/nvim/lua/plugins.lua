@@ -39,10 +39,10 @@ require'packer'.startup(function()
 
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
   use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
-  use { 'tpope/vim-commentary',    opt = true, cmd = {'Commentary'} }
   use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
   use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
 
+  use { 'numToStr/Comment.nvim',   config = [[require('Comment').setup()]] }
   use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
 
   use {
@@ -163,7 +163,7 @@ require'packer'.startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig'
-  use 'j-hui/fidget.nvim'
+  use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup {}]] }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
   use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"}, on = {'Trouble', 'TroubleToggle'} }
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
