@@ -1,7 +1,8 @@
 local set_keymap = vim.api.nvim_set_keymap
 set_keymap('n', '<CR>', ':<C-u>w<CR>',           { noremap = true, silent = true })
 set_keymap('n', 'q', ':q<CR>',                   { noremap = true, silent = true })
-set_keymap('n', 'Q', 'q',                        { noremap = true, silent = true })
+set_keymap('n', 'Q', ':qa<CR>',                   { noremap = true, silent = true })
+set_keymap('n', '<C-q>', 'q',                    { noremap = true, silent = true })
 set_keymap('n', '<C-y>', '<C-v>',                { noremap = true, silent = true })
 set_keymap('n', 'U', '<C-r>',                    { noremap = true, silent = true })
 set_keymap('n', 'vy', 'ggVG',                    { noremap = true, silent = true })

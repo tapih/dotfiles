@@ -35,11 +35,12 @@ vim.cmd 'set nrformats-=octal'
 vim.cmd 'au InsertLeave * set nopaste'
 vim.cmd 'au FileType * set formatoptions-=cro'
 vim.cmd 'au BufReadPost * lua goto_last_pos()'
+
 function goto_last_pos()
-local last_pos = vim.fn.line("'\"")
-if last_pos > 0 and last_pos <= vim.fn.line("$") then
-  vim.api.nvim_win_set_cursor(0, {last_pos, 0})
-end
+  local last_pos = vim.fn.line("'\"")
+  if last_pos > 0 and last_pos <= vim.fn.line("$") then
+    vim.api.nvim_win_set_cursor(0, {last_pos, 0})
+  end
 end
 
 vim.opt.shiftwidth  = 0
@@ -62,3 +63,4 @@ vim.opt.termguicolors  = true
 
 -- Color
 vim.cmd [[try | colorscheme tokyonight-night | catch | echo 'catch: ' . v:exception | endtry]]
+
