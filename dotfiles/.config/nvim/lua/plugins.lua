@@ -37,6 +37,7 @@ require'packer'.startup(function()
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'ray-x/go.nvim',         ft = 'go' }
 
+  use { 'mattn/vim-sonictemplate', opt = true, cmd = {'Template'}}
   use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
   use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
   use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
@@ -106,6 +107,7 @@ require'packer'.startup(function()
   use 'f-person/git-blame.nvim'
   use { 'sindrets/diffview.nvim', opt = true, cmd = {'DiffviewOpen'} }
   use { 'mattn/vim-gist', opt = true, cmd = {'Gist'} }
+  use { 'akinsho/git-conflict.nvim', config = [[require('git-conflict').setup()]] }
   use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = [[require('plugins.gitsigns')]] }
   use {
     'pwntester/octo.nvim',
@@ -130,6 +132,14 @@ require'packer'.startup(function()
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
+  use {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require("copilot").setup {}
+    end,
+  }
 
   -- Telescope
   use {
