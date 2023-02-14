@@ -137,6 +137,8 @@ require'packer'.startup(function()
     requires = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-fzf-native.nvim',
+      'nvim-telescope/telescope-project.nvim',
     },
     config = function()
       require('telescope').setup{
@@ -147,11 +149,15 @@ require'packer'.startup(function()
                       width = 0.8,
                   },
               },
-          }
+          },
       }
+
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('project')
     end,
   }
-  use { "ahmedkhalf/project.nvim", config = [[require("project_nvim").setup()]] }
+  use 'nvim-telescope/telescope-project.nvim'
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- LSP
   use 'neovim/nvim-lspconfig'
