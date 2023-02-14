@@ -137,6 +137,7 @@ require'packer'.startup(function()
     requires = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
+      'ahmedkhalf/project.nvim',
       'nvim-telescope/telescope-fzf-native.nvim',
       'nvim-telescope/telescope-project.nvim',
     },
@@ -157,13 +158,14 @@ require'packer'.startup(function()
     end,
   }
   use 'nvim-telescope/telescope-project.nvim'
+  use { "ahmedkhalf/project.nvim", config = [[require("project_nvim").setup {}]] }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- LSP
   use 'neovim/nvim-lspconfig'
   use 'j-hui/fidget.nvim'
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"} }
+  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"}, on = {'Trouble', 'TroubleToggle'} }
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
   use {
     'onsails/lspkind-nvim',
