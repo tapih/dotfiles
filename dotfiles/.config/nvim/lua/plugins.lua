@@ -32,7 +32,7 @@ require'packer'.startup(function()
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
-  use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]] }
+  use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
 
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'ray-x/go.nvim',         ft = 'go' }
