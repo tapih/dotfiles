@@ -54,6 +54,7 @@ set_keymap('n', '<space>r', ':lua vim.lsp.buf.rename()<CR>',                    
 
 set_keymap('n', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })
 set_keymap('x', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })
+set_keymap('n', 'tb', ':<C-u>Telescope git_branches<CR>',                                { noremap = true, silent = true })
 set_keymap('n', 'td', ':<C-u>DiffviewOpen<CR>',                                          { noremap = true, silent = true })
 set_keymap('n', 'tD', ':<C-u>DiffviewClose<CR>',                                         { noremap = true, silent = true })
 set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>',                                     { noremap = true, silent = true })
@@ -77,6 +78,8 @@ set_keymap('n', 'tw', ":<C-u>Bdelete<CR>",                                      
 set_keymap('n', 'ty', ':<C-u>Telescope commands<CR>',                                    { noremap = true, silent = true })
 set_keymap('n', 'tY', ':<C-u>Telescope command_history<CR>',                             { noremap = true, silent = true })
 set_keymap('n', 't;', ':<C-u>CommaOrSemiColon<CR>',                                      { noremap = true, silent = true });
+set_keymap('n', 't?', ':<C-u>Telescope keymaps<CR>',                                     { noremap = true, silent = true })
+
 set_keymap('n', 't/', ':<C-u>Commentary<CR>',                                            { noremap = true, silent = true })
 set_keymap('v', 't/', ':Commentary<CR>',                                                 { noremap = true, silent = true })
 

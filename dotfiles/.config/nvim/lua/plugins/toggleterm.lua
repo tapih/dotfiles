@@ -1,4 +1,9 @@
-require('toggleterm').setup()
+require('toggleterm').setup {
+  open_mapping = [[<C-x>]],
+  float_opts = {
+    border = 'rounded',
+  },
+}
 
 local Terminal  = require('toggleterm.terminal').Terminal
 local lazygit = Terminal:new({
