@@ -19,6 +19,10 @@ cmp.setup({
         ['<C-e>']  = cmp.mapping.abort(),
         ['<CR>']   = cmp.mapping.confirm({ select = true }),
         ['<Tab>']  = cmp.mapping.confirm({ select = true }),
+        ['<C-g>'] = cmp.mapping(function(fallback)
+          vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n',
+              true)
+        end)
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
@@ -41,12 +45,6 @@ cmp.setup({
               })[entry.source.name]
           return vim_item
         end,
-    },
-    mapping = {
-        ['<C-g>'] = cmp.mapping(function(fallback)
-          vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n',
-              true)
-        end)
     },
     experimental = {
         ghost_text = false -- this feature conflict to the copilot.vim's preview.
