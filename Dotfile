@@ -8,6 +8,7 @@
 .config/cheat/conf.yml
 .config/nvim/init.lua
 .config/nvim/lua
+.config/k9s/plugin.yml
 .config/starship.toml
 .config/lazygit/config.yml
 
