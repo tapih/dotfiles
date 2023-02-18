@@ -27,9 +27,9 @@ require 'packer'.startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
   use {
-    'filipdutescu/renamer.nvim',
-    requires = { 'nvim-lua/plenary.nvim'},
-    config = [[require('renamer').setup{}]],
+      'filipdutescu/renamer.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = [[require('renamer').setup{}]],
   }
   use {
       'gelguy/wilder.nvim',
@@ -174,12 +174,11 @@ require 'packer'.startup(function()
       requires = {
           'nvim-lua/popup.nvim',
           'nvim-lua/plenary.nvim',
-          'ahmedkhalf/project.nvim',
           'nvim-telescope/telescope-fzf-native.nvim',
-          'nvim-telescope/telescope-project.nvim',
       },
       config = function()
-        require('telescope').setup {
+        local telescope = require('telescope')
+        telescope.setup {
             defaults = {
                 layout_strategy = 'horizontal',
                 layout_config = {
@@ -188,14 +187,25 @@ require 'packer'.startup(function()
                     },
                 },
             },
+            extensions = {
+                repo = {
+                    list = {
+                        fd_opts = {
+                            "--no-ignore-vcs",
+                        },
+                        search_dirs = {
+                            "~/src",
+                        },
+                    },
+                },
+            },
         }
 
-        require('telescope').load_extension('fzf')
-        require('telescope').load_extension('project')
+        telescope.load_extension('fzf')
+        telescope.load_extension('repo')
       end,
   }
-  use 'nvim-telescope/telescope-project.nvim'
-  use { "ahmedkhalf/project.nvim", config = [[require("project_nvim").setup {}]] }
+  use 'cljoly/telescope-repo.nvim'
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- LSP

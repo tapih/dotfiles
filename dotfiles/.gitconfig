@@ -93,9 +93,6 @@
 
 [ghq]
     root=~/.ghq
-    root=~/dart/src
-    root=~/python/src
-    root=~/go/src
     root=~/src
 
 [url "https://"]
