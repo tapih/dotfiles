@@ -26,6 +26,18 @@ require 'packer'.startup(function()
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
+  use {
+      'gelguy/wilder.nvim',
+      config = function()
+        local wilder = require('wilder')
+        wilder.setup {
+            modes = { ':', '/', '?' },
+        }
+        wilder.set_option('renderer', wilder.popupmenu_renderer({
+            highlighter = wilder.basic_highlighter(),
+        }))
+      end
+  }
 
   use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
