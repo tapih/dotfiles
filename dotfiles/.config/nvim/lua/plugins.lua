@@ -27,6 +27,7 @@ require 'packer'.startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'unblevable/quick-scope'
   use 'windwp/nvim-spectre'
+  use 'RRethy/vim-illuminate'
   use {
       'phaazon/hop.nvim',
       branch = 'v2', -- optional but strongly recommended
@@ -251,4 +252,12 @@ require 'packer'.startup(function()
         })
       end,
   }
+
+  -- markdown
+  use { 'ekickx/clipboard-image.nvim', ft = "markdown" }
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+    ft = "markdown",
+})
 end)
