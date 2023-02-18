@@ -1,6 +1,6 @@
-vim.cmd[[packadd packer.nvim]]
+vim.cmd [[packadd packer.nvim]]
 
-require'packer'.startup(function()
+require 'packer'.startup(function()
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
   use 'marko-cerovac/material.nvim'
@@ -8,7 +8,6 @@ require'packer'.startup(function()
   use 'nvim-lua/plenary.nvim'
   use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
-  use 'romgrk/barbar.nvim'
   use 'ntpeters/vim-better-whitespace'
   use 'junegunn/vim-easy-align'
   use 'ruanyl/vim-gh-line'
@@ -32,95 +31,113 @@ require'packer'.startup(function()
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
-  use { 'dstein64/vim-startuptime',  config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
+  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
 
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-  use { 'ray-x/go.nvim',         ft = 'go' }
+  use { 'ray-x/go.nvim', ft = 'go' }
 
-  use { 'mattn/vim-sonictemplate', opt = true, cmd = {'Template'}}
-  use { 'lfilho/cosco.vim',        opt = true, cmd = {'CommaOrSemiColon'}}
-  use { 'famiu/bufdelete.nvim',    opt = true, cmd = {'Bdelete'} }
-  use { 'segeljakt/vim-silicon',   opt = true, cmd = {'Silicon'} }
-  use { 'voldikss/vim-translator', opt = true, cmd = {'Translate', 'TranslateW'} }
+  use { 'mattn/vim-sonictemplate', opt = true, cmd = { 'Template' } }
+  use { 'lfilho/cosco.vim', opt = true, cmd = { 'CommaOrSemiColon' } }
+  use { 'famiu/bufdelete.nvim', opt = true, cmd = { 'Bdelete' } }
+  use { 'segeljakt/vim-silicon', opt = true, cmd = { 'Silicon' } }
+  use { 'voldikss/vim-translator', opt = true, cmd = { 'Translate', 'TranslateW' } }
 
-  use { 'numToStr/Comment.nvim',   config = [[require('Comment').setup()]] }
+  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
   use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
 
   use {
-    'stevearc/aerial.nvim',
-    opt = true,
-    cmd = {'AerialToggle'},
-    config = [[require'aerial'.setup()]],
+      'stevearc/aerial.nvim',
+      opt = true,
+      cmd = { 'AerialToggle' },
+      config = [[require'aerial'.setup()]],
   }
 
   use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup({
-        disable_filetype = { "TelescopePrompt" , "vim" },
-      })
-    end,
+      'windwp/nvim-autopairs',
+      config = function()
+        require('nvim-autopairs').setup({
+            disable_filetype = { "TelescopePrompt", "vim" },
+        })
+      end,
   }
   use {
-  "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-    }
+      'goolord/alpha-nvim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
   }
   use {
-    'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require('lualine').setup { options = { theme  = 'material' } }]],
   }
   use {
-    'nvim-lualine/lualine.nvim',
-    requires = {'kyazdani42/nvim-web-devicons'},
-    config = [[require('lualine').setup { options = { theme  = 'material' } }]],
+      'lukas-reineke/indent-blankline.nvim',
+      config = function()
+        require("indent_blankline").setup {
+            show_current_context = true,
+            show_current_context_start = true,
+        }
+      end,
   }
+
+  -- Widget
+  use 'romgrk/barbar.nvim'
   use {
-    'lukas-reineke/indent-blankline.nvim',
-    config = function()
-      require("indent_blankline").setup {
-        show_current_context = true,
-        show_current_context_start = true,
+      "SmiteshP/nvim-navic",
+      requires = "neovim/nvim-lspconfig"
+  }
+  use({
+      "utilyre/barbecue.nvim",
+      requires = {
+          "SmiteshP/nvim-navic",
+          "nvim-tree/nvim-web-devicons", -- optional dependency
+      },
+      after = "nvim-web-devicons", -- keep this if you're using NvChad
+      config = function()
+        require("barbecue").setup()
+      end,
+  })
+  use {
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
       }
-    end,
   }
 
   -- Treesitter
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use { 'm-demare/hlargs.nvim', requires = { 'nvim-treesitter/nvim-treesitter' }, config = [[require('hlargs').setup()]] }
-  use{
-    "yioneko/nvim-yati",
-    requires = "nvim-treesitter/nvim-treesitter",
-    confifg = function()
-      require("nvim-treesitter.configs").setup {
-        yati = { enable = true }
-      }
-    end,
+  use {
+      "yioneko/nvim-yati",
+      requires = "nvim-treesitter/nvim-treesitter",
+      confifg = function()
+        require("nvim-treesitter.configs").setup {
+            yati = { enable = true }
+        }
+      end,
   }
 
   -- Git
   use 'f-person/git-blame.nvim'
-  use { 'sindrets/diffview.nvim', opt = true, cmd = {'DiffviewOpen'} }
-  use { 'mattn/vim-gist', opt = true, cmd = {'Gist'} }
+  use { 'sindrets/diffview.nvim', opt = true, cmd = { 'DiffviewOpen' } }
+  use { 'mattn/vim-gist', opt = true, cmd = { 'Gist' } }
   use { 'akinsho/git-conflict.nvim', config = [[require('git-conflict').setup()]] }
-  use { 'lewis6991/gitsigns.nvim', requires = {'nvim-lua/plenary.nvim'}, config = [[require('plugins.gitsigns')]] }
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, config = [[require('plugins.gitsigns')]] }
   use {
-    'pwntester/octo.nvim',
-    opt = true,
-    cmd = {'Octo'},
-    requires = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'kyazdani42/nvim-web-devicons',
-    },
-    config = function ()
-      require"octo".setup()
-    end,
+      'pwntester/octo.nvim',
+      opt = true,
+      cmd = { 'Octo' },
+      requires = {
+          'nvim-lua/plenary.nvim',
+          'nvim-telescope/telescope.nvim',
+          'kyazdani42/nvim-web-devicons',
+      },
+      config = function()
+        require "octo".setup()
+      end,
   }
 
   -- nvim-cmp
@@ -136,29 +153,29 @@ require'packer'.startup(function()
 
   -- Telescope
   use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      'nvim-lua/popup.nvim',
-      'nvim-lua/plenary.nvim',
-      'ahmedkhalf/project.nvim',
-      'nvim-telescope/telescope-fzf-native.nvim',
-      'nvim-telescope/telescope-project.nvim',
-    },
-    config = function()
-      require('telescope').setup{
-          defaults = {
-              layout_strategy = 'horizontal',
-              layout_config = {
-                  horizontal = {
-                      width = 0.8,
-                  },
-              },
-          },
-      }
+      'nvim-telescope/telescope.nvim',
+      requires = {
+          'nvim-lua/popup.nvim',
+          'nvim-lua/plenary.nvim',
+          'ahmedkhalf/project.nvim',
+          'nvim-telescope/telescope-fzf-native.nvim',
+          'nvim-telescope/telescope-project.nvim',
+      },
+      config = function()
+        require('telescope').setup {
+            defaults = {
+                layout_strategy = 'horizontal',
+                layout_config = {
+                    horizontal = {
+                        width = 0.8,
+                    },
+                },
+            },
+        }
 
-      require('telescope').load_extension('fzf')
-      require('telescope').load_extension('project')
-    end,
+        require('telescope').load_extension('fzf')
+        require('telescope').load_extension('project')
+      end,
   }
   use 'nvim-telescope/telescope-project.nvim'
   use { "ahmedkhalf/project.nvim", config = [[require("project_nvim").setup {}]] }
@@ -168,35 +185,35 @@ require'packer'.startup(function()
   use 'neovim/nvim-lspconfig'
   use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup {}]] }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { "folke/trouble.nvim", requires = {"kyazdani42/nvim-web-devicons"}, on = {'Trouble', 'TroubleToggle'} }
+  use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" }, on = { 'Trouble', 'TroubleToggle' } }
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
   use {
-    'onsails/lspkind-nvim',
-    config = function()
-      require('lspkind').init({
-        symbol_map = {
-          Text = '',
-          Method = 'ƒ',
-          Function = '',
-          Constructor = '',
-          Variable = '',
-          Class = '',
-          Interface = 'ﰮ',
-          Module = '',
-          Property = '',
-          Unit = '',
-          Value = '',
-          Enum = '了',
-          Keyword = '',
-          Snippet = '﬌',
-          Color = '',
-          File = '',
-          Folder = '',
-          EnumMember = '',
-          Constant = '',
-          Struct = ''
-        },
-      })
-    end,
+      'onsails/lspkind-nvim',
+      config = function()
+        require('lspkind').init({
+            symbol_map = {
+                Text = '',
+                Method = 'ƒ',
+                Function = '',
+                Constructor = '',
+                Variable = '',
+                Class = '',
+                Interface = 'ﰮ',
+                Module = '',
+                Property = '',
+                Unit = '',
+                Value = '',
+                Enum = '了',
+                Keyword = '',
+                Snippet = '﬌',
+                Color = '',
+                File = '',
+                Folder = '',
+                EnumMember = '',
+                Constant = '',
+                Struct = ''
+            },
+        })
+      end,
   }
 end)
