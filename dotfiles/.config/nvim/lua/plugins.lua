@@ -8,38 +8,29 @@ require 'packer'.startup(function()
   use 'nvim-lua/plenary.nvim'
   use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
+
   use 'ntpeters/vim-better-whitespace'
   use 'junegunn/vim-easy-align'
   use 'ruanyl/vim-gh-line'
   use 'tpope/vim-surround'
   use 'tpope/vim-repeat'
-  use 'google/vim-jsonnet'
   use 'andymass/vim-matchup'
   use 'myusuf3/numbers.vim'
   use 'airblade/vim-rooter'
-  use 'dstein64/nvim-scrollview'
-  use 'haya14busa/vim-asterisk'
-  use 'jsborjesson/vim-uppercase-sql'
   use 'kana/vim-operator-replace'
   use 'kana/vim-operator-user'
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
-  use 'ggandor/lightspeed.nvim'
-  use 'unblevable/quick-scope'
-  use 'windwp/nvim-spectre'
   use 'RRethy/vim-illuminate'
-  use {
-      'phaazon/hop.nvim',
-      branch = 'v2', -- optional but strongly recommended
-      config = function()
-        require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-      end
-  }
-  use {
-      'filipdutescu/renamer.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
-      config = [[require('renamer').setup{}]],
-  }
+  use { 'lfilho/cosco.vim', opt = true, cmd = { 'CommaOrSemiColon' } }
+  use { 'mattn/vim-sonictemplate', opt = true, cmd = { 'Template' } }
+  use { 'famiu/bufdelete.nvim', opt = true, cmd = { 'Bdelete' } }
+  use { 'segeljakt/vim-silicon', opt = true, cmd = { 'Silicon' } }
+  use { 'voldikss/vim-translator', opt = true, cmd = { 'Translate', 'TranslateW' } }
+  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
+  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
+  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
+  use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
   use {
       'gelguy/wilder.nvim',
       config = function()
@@ -52,32 +43,6 @@ require 'packer'.startup(function()
         }))
       end
   }
-
-  use { 'hashivim/vim-terraform', ft = 'terraform' }
-  use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
-
-  use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
-  use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
-
-  use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
-  use { 'ray-x/go.nvim', ft = 'go' }
-
-  use { 'mattn/vim-sonictemplate', opt = true, cmd = { 'Template' } }
-  use { 'lfilho/cosco.vim', opt = true, cmd = { 'CommaOrSemiColon' } }
-  use { 'famiu/bufdelete.nvim', opt = true, cmd = { 'Bdelete' } }
-  use { 'segeljakt/vim-silicon', opt = true, cmd = { 'Silicon' } }
-  use { 'voldikss/vim-translator', opt = true, cmd = { 'Translate', 'TranslateW' } }
-
-  use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
-  use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
-
-  use {
-      'stevearc/aerial.nvim',
-      opt = true,
-      cmd = { 'AerialToggle' },
-      config = [[require'aerial'.setup()]],
-  }
-
   use {
       'windwp/nvim-autopairs',
       config = function()
@@ -92,11 +57,6 @@ require 'packer'.startup(function()
       config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
   }
   use {
-      'nvim-lualine/lualine.nvim',
-      requires = { 'kyazdani42/nvim-web-devicons' },
-      config = [[require('lualine').setup { options = { theme  = 'material' } }]],
-  }
-  use {
       'lukas-reineke/indent-blankline.nvim',
       config = function()
         require("indent_blankline").setup {
@@ -106,8 +66,35 @@ require 'packer'.startup(function()
       end,
   }
 
+  -- search
+  use 'haya14busa/vim-asterisk'
+  use 'ggandor/lightspeed.nvim'
+  use 'unblevable/quick-scope'
+  use 'windwp/nvim-spectre'
+  use {
+      'phaazon/hop.nvim',
+      branch = 'v2', -- optional but strongly recommended
+      config = function()
+        require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      end
+  }
+  use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
+
+  use {
+      'stevearc/aerial.nvim',
+      opt = true,
+      cmd = { 'AerialToggle' },
+      config = [[require'aerial'.setup()]],
+  }
+
   -- Widget
   use 'romgrk/barbar.nvim'
+  use 'dstein64/nvim-scrollview'
+  use {
+      'nvim-lualine/lualine.nvim',
+      requires = { 'kyazdani42/nvim-web-devicons' },
+      config = [[require('lualine').setup { options = { theme  = 'material' } }]],
+  }
   use {
       "SmiteshP/nvim-navic",
       requires = "neovim/nvim-lspconfig"
@@ -219,6 +206,11 @@ require 'packer'.startup(function()
 
   -- LSP
   use 'neovim/nvim-lspconfig'
+  use {
+      'filipdutescu/renamer.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = [[require('renamer').setup{}]],
+  }
   use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup {}]] }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
   use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" }, on = { 'Trouble', 'TroubleToggle' } }
@@ -253,11 +245,22 @@ require 'packer'.startup(function()
       end,
   }
 
+  -- go
+  use { 'ray-x/go.nvim', ft = "go" }
+  use { 'ray-x/guihua.lua', ft = "go" }
+
   -- markdown
   use { 'ekickx/clipboard-image.nvim', ft = "markdown" }
   use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-    ft = "markdown",
-})
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+      ft = "markdown",
+  })
+
+  -- othe languages
+  use { 'hashivim/vim-terraform', ft = 'terraform' }
+  use 'jsborjesson/vim-uppercase-sql'
+  use 'google/vim-jsonnet'
+  use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
+
 end)
