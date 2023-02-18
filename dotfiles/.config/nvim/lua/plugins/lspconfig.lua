@@ -27,14 +27,23 @@ lspconfig.tflint.setup { capabilities = capabilities }
 lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.vimls.setup { capabilities = capabilities }
 lspconfig.bashls.setup { capabilities = capabilities }
-lspconfig.yamlls.setup {
-    capabilities = capabilities,
+
+local yaml_config = require("yaml-companion").setup({
+  schemas = {
+    {
+      name = "Kubernetes 1.25.6",
+      uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.6-standalone-strict/all.json",
+    },
+  },
+  lspconfig = {
     settings = {
-        yaml = {
-            schemas = yaml_schemas,
-        }
+      yaml = {
+        schemas = yaml_schemas,
+      }
     }
-}
+  }
+})
+lspconfig.yamlls.setup(yaml_config)
 lspconfig.jsonls.setup {
     capabilities = capabilities,
     settings = {

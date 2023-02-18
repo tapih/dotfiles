@@ -170,7 +170,6 @@ require 'packer'.startup(function()
       requires = {
           'nvim-lua/popup.nvim',
           'nvim-lua/plenary.nvim',
-          'nvim-telescope/telescope-fzf-native.nvim',
       },
       config = function()
         local telescope = require('telescope')
@@ -196,13 +195,29 @@ require 'packer'.startup(function()
                 },
             },
         }
-
-        telescope.load_extension('fzf')
-        telescope.load_extension('repo')
       end,
   }
-  use 'cljoly/telescope-repo.nvim'
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {
+      'cljoly/telescope-repo.nvim',
+      requires = {
+          'nvim-lua/plenary.nvim',
+          'nvim-telescope/telescope.nvim',
+      },
+      config = function()
+        require('telescope').load_extension('repo')
+      end,
+  }
+  use {
+      'nvim-telescope/telescope-fzf-native.nvim',
+      run = 'make',
+      requires = {
+          'nvim-lua/plenary.nvim',
+          'nvim-telescope/telescope.nvim',
+      },
+      config = function()
+        require('telescope').load_extension('fzf')
+      end,
+  }
 
   -- LSP
   use 'neovim/nvim-lspconfig'
@@ -259,9 +274,19 @@ require 'packer'.startup(function()
 
   -- othe languages
   use "b0o/schemastore.nvim"
+  use {
+      "someone-stole-my-name/yaml-companion.nvim",
+      requires = {
+          { "neovim/nvim-lspconfig" },
+          { "nvim-lua/plenary.nvim" },
+          { "nvim-telescope/telescope.nvim" },
+      },
+      config = function()
+        require("telescope").load_extension("yaml_schema")
+      end,
+  }
   use 'jsborjesson/vim-uppercase-sql'
   use 'google/vim-jsonnet'
   use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
-
 end)
