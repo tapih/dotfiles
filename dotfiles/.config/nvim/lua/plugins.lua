@@ -258,9 +258,10 @@ require 'packer'.startup(function()
   })
 
   -- othe languages
-  use { 'hashivim/vim-terraform', ft = 'terraform' }
+  use "b0o/schemastore.nvim"
   use 'jsborjesson/vim-uppercase-sql'
   use 'google/vim-jsonnet'
+  use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 
 end)
