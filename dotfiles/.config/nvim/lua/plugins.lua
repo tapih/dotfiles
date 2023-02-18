@@ -25,7 +25,15 @@ require 'packer'.startup(function()
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'ggandor/lightspeed.nvim'
+  use 'unblevable/quick-scope'
   use 'windwp/nvim-spectre'
+  use {
+      'phaazon/hop.nvim',
+      branch = 'v2', -- optional but strongly recommended
+      config = function()
+        require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      end
+  }
   use {
       'filipdutescu/renamer.nvim',
       requires = { 'nvim-lua/plenary.nvim' },
