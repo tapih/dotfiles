@@ -53,7 +53,11 @@ set_keymap('n', 'gs', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{
 set_keymap('n', 'gS', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>', { noremap = true, silent = true })
 set_keymap('n', '<space>g', ':lua vim.lsp.buf.code_action()<CR>',                        { noremap = true, silent = true })
 set_keymap('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>',                         { noremap = true, silent = true })
-set_keymap('n', '<space>r', ':lua vim.lsp.buf.rename()<CR>',                             { noremap = true, silent = true })
+-- set_keymap('n', '<space>r', ':lua vim.lsp.buf.rename()<CR>',                             { noremap = true, silent = true })
+
+set_keymap('i', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
+set_keymap('n', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
+set_keymap('v', '<F2>', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
 
 set_keymap('n', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })
 set_keymap('x', 'ta', '<Plug>(EasyAlign)',                                               { noremap = false, silent = false })

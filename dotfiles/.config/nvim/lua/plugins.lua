@@ -27,6 +27,11 @@ require 'packer'.startup(function()
   use 'ggandor/lightspeed.nvim'
   use 'windwp/nvim-spectre'
   use {
+    'filipdutescu/renamer.nvim',
+    requires = { 'nvim-lua/plenary.nvim'},
+    config = [[require('renamer').setup{}]],
+  }
+  use {
       'gelguy/wilder.nvim',
       config = function()
         local wilder = require('wilder')
