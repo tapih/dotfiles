@@ -43,7 +43,9 @@ set_keymap('v', 'g#', "<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR
 
 set_keymap('n', 'gh', ':<C-u>Octo actions<CR>', { noremap = true, silent = true })
 set_keymap('n', 'gH', ":<C-u>GHInteractive<CR>", { noremap = true, silent = true })
-set_keymap("n", "gl", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
+set_keymap("n", "gl", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
+set_keymap("n", "<C-x>", "<cmd>FloatermToggle<CR>", { noremap = true, silent = true })
+set_keymap("t", "<C-x>", "<cmd>FloatermToggle<CR>", { noremap = true, silent = true })
 
 set_keymap('n', '<C-k>', ':lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
 set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })

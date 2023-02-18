@@ -30,7 +30,18 @@ require 'packer'.startup(function()
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
   use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
-  use { "akinsho/toggleterm.nvim", config = [[require'plugins/toggleterm']] }
+  use {
+      'voldikss/vim-floaterm',
+      opt = true,
+      cmd = {
+          'FloatermToggle',
+          'FloatermNew',
+      },
+      config = function()
+        vim.g.floaterm_height = 0.9
+        vim.g.floaterm_width = 0.9
+      end
+  }
   use {
       'gelguy/wilder.nvim',
       config = function()
