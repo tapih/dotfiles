@@ -43,6 +43,8 @@ set_keymap("t", "<C-x>", "<cmd>FloatermToggle<CR>", { noremap = true, silent = t
 set_keymap('n', '<C-k>', ':lua vim.lsp.buf.signature_help()<CR>', { noremap = true, silent = true })
 set_keymap("n", "<C-g>", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
+set_keymap("n", "<leader>b", ":<C-u>Telescope file_browser<CR>", { noremap = true, silent = true })
+set_keymap("n", "<leader>B", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>c', ':<C-u>noh<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>d', ':lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>f', ':<C-u>Telescope current_buffer_fuzzy_find<CR>', { noremap = true, silent = true })
@@ -53,13 +55,15 @@ set_keymap('n', '<leader>H', '<cmd>lua require("spectre").open()<CR>', { noremap
 set_keymap('n', '<leader>i', ':lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>j', ':lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>k', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
-set_keymap('n', '<leader>l', ':lua vim.lsp.buf.formatting()<CR>', { noremap = true, silent = true })
+set_keymap('n', '<leader>l', ':lua vim.lsp.buf.format { async = true }<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
 set_keymap('v', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
 set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
 -- set_keymap('n', '<leader>r', ':<C-u>Telescope lsp_references<CR>', { noremap = true, silent = true })
-set_keymap('n', '<leader>s', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>', { noremap = true, silent = true })
-set_keymap('n', '<leader>S', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>', { noremap = true, silent = true })
+set_keymap('n', '<leader>s', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>',
+    { noremap = true, silent = true })
+set_keymap('n', '<leader>S', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>',
+    { noremap = true, silent = true })
 set_keymap('n', '<leader>t', ':lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true })
 
 set_keymap('n', 'ta', '<Plug>(EasyAlign)', { noremap = false, silent = false })
