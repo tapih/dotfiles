@@ -41,7 +41,7 @@ set_keymap('n', 'g#', "<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR
 set_keymap('v', 'g#', "<Plug>(asterisk-g#)<Cmd>lua require('hlslens').start()<CR>", { noremap = false, silent = true })
 
 vim.g.mapleader = ' '
-set_keymap('', ',', ':<C-u>HopChar1<CR>', { noremap = true, silent = true })
+set_keymap('', '<leader><space>', ':<C-u>HopChar1<CR>', { noremap = true, silent = true })
 set_keymap('n', 'K', ':lua vim.lsp.buf.hover()<CR>', { noremap = true, silent = true })
 set_keymap("n", "<C-x>", "<cmd>FloatermToggle<CR>", { noremap = true, silent = true })
 set_keymap("t", "<C-x>", "<cmd>FloatermToggle<CR>", { noremap = true, silent = true })
