@@ -9,6 +9,7 @@ require 'packer'.startup(function()
   use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
 
+  use 'sheerun/vim-polyglot'
   use 'ntpeters/vim-better-whitespace'
   use 'junegunn/vim-easy-align'
   use 'ruanyl/vim-gh-line'
