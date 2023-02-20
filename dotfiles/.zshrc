@@ -66,7 +66,7 @@ function __fzf_ghq() {
 function __fzf_ghq_open() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
-        BUFFER="code $name"
+        BUFFER="${EDITOR:-vim} $name"
         zle accept-line
     fi
     zle -R -c
@@ -206,7 +206,6 @@ alias d='docker'
 alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
-alias c="code ."
 alias n='nvim'
 alias v='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
