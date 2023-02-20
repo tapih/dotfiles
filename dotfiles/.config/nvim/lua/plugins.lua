@@ -243,7 +243,6 @@ require 'packer'.startup(function()
   }
   use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup {}]] }
   use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { "folke/trouble.nvim", requires = { "kyazdani42/nvim-web-devicons" }, on = { 'Trouble', 'TroubleToggle' } }
   use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
   use {
       'onsails/lspkind-nvim',
