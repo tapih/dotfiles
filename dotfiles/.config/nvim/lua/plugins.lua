@@ -313,7 +313,7 @@ require 'packer'.startup(function()
       end,
   }
   use 'jsborjesson/vim-uppercase-sql'
-  use 'google/vim-jsonnet'
+  use { 'google/vim-jsonnet', ft = 'jsonnet' }
   use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
 end)
