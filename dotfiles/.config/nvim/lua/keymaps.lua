@@ -44,7 +44,8 @@ set_keymap('n', '<C-k>', ':lua vim.lsp.buf.signature_help()<CR>', { noremap = tr
 set_keymap("n", "<C-g>", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', { noremap = true, silent = true })
 set_keymap("n", "<leader>b", ":<C-u>Telescope file_browser<CR>", { noremap = true, silent = true })
-set_keymap("n", "<leader>B", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", { noremap = true, silent = true })
+set_keymap("n", "<leader>B", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>",
+    { noremap = true, silent = true })
 set_keymap('n', '<leader>c', ':<C-u>noh<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>d', ':lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>f', ':<C-u>Telescope current_buffer_fuzzy_find<CR>', { noremap = true, silent = true })
@@ -65,32 +66,30 @@ set_keymap('n', '<leader>s', '<Cmd>lua require"telescope.builtin".lsp_document_s
 set_keymap('n', '<leader>S', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>',
     { noremap = true, silent = true })
 set_keymap('n', '<leader>t', ':lua vim.lsp.buf.type_definition()<CR>', { noremap = true, silent = true })
+set_keymap('n', '<leader>v', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+    { noremap = true, silent = true })
+set_keymap('v', '<leader>V', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
+    { noremap = true, silent = true })
+set_keymap('n', '<leader>/', '<Plug>(comment_toggle_linewise_current)', { noremap = false, silent = true })
+set_keymap('v', '<leader>/', '<Plug>(comment_toggle_blockwise_visual)', { noremap = false, silent = true })
+set_keymap('n', '<leader>;', ':<C-u>CommaOrSemiColon<CR>', { noremap = true, silent = true });
 
 set_keymap('n', 'ta', '<Plug>(EasyAlign)', { noremap = false, silent = false })
 set_keymap('x', 'ta', '<Plug>(EasyAlign)', { noremap = false, silent = false })
-set_keymap('n', 'tb', ':<C-u>Telescope git_branches<CR>', { noremap = true, silent = true })
 set_keymap('n', 'td', ':<C-u>DiffviewOpen<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tD', ':<C-u>DiffviewClose<CR>', { noremap = true, silent = true })
 set_keymap('n', 'te', ':<C-u>Telescope buffers<CR>', { noremap = true, silent = true })
-set_keymap('n', 'tg', ':<C-u>Octo actions<CR>', { noremap = true, silent = true })
 set_keymap('n', 'th', ':<C-u>Telescope command_history<CR>', { noremap = true, silent = true })
 set_keymap('n', 'ti', ':<C-u>Telescope diagnostics<CR>', { noremap = true, silent = true })
+set_keymap('n', 'tj', ':<C-u>Telescope git_branches<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tk', ':<C-u>Telescope commands<CR>', { noremap = true, silent = true })
+set_keymap('n', 'tl', ':<C-u>Octo actions<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tm', ':<C-u>Telescope marks<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tn', ':<C-u>bnext<CR>', { noremap = true, silent = true })
 set_keymap('n', 'to', ':<C-u>Telescope find_files find_command=fd,-HLE.git,-tf<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tp', ':<C-u>bprev<CR>', { noremap = true, silent = true })
-set_keymap('n', 'tt', ':<C-u>NeoTreeFloatToggle<CR>', { noremap = true, silent = true })
 set_keymap('n', 'tw', ":<C-u>Bdelete<CR>", { noremap = true, silent = true })
 set_keymap('n', 'ty', ':<C-u>Telescope registers<CR>', { noremap = true, silent = true })
-set_keymap('n', 't;', ':<C-u>CommaOrSemiColon<CR>', { noremap = true, silent = true });
-set_keymap('n', 't?', ':<C-u>Telescope keymaps<CR>', { noremap = true, silent = true })
-set_keymap('n', 't*', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-    { noremap = true, silent = true })
-set_keymap('v', 't*', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
-    { noremap = true, silent = true })
-set_keymap('n', 't/', '<Plug>(comment_toggle_linewise_current)', { noremap = false, silent = true })
-set_keymap('v', 't/', '<Plug>(comment_toggle_blockwise_visual)', { noremap = false, silent = true })
 
 if vim.g.vscode then
   set_keymap('n', 'q', ':<C-u>call VSCodeCall("workbench.action.closeActiveEditor")<CR>',
