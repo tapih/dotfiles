@@ -30,7 +30,8 @@ require 'packer'.startup(function()
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
   use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
-  use({ 'mrjones2014/legendary.nvim', config = [[require('plugins/legendary')]] })
+  use { 'mvllow/modes.nvim', tag = 'v0.2.1', config = [[require('modes').setup()]] }
+  use { 'mrjones2014/legendary.nvim', tag = 'v2.7.1', config = [[require('plugins/legendary')]] }
   use {
       'voldikss/vim-floaterm',
       opt = true,
