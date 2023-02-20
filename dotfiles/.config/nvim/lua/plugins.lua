@@ -9,7 +9,6 @@ require 'packer'.startup(function()
   use 'MunifTanjim/nui.nvim'
   use 'kyazdani42/nvim-web-devicons'
 
-  use 'sheerun/vim-polyglot'
   use 'ntpeters/vim-better-whitespace'
   use 'junegunn/vim-easy-align'
   use 'ruanyl/vim-gh-line'
@@ -137,7 +136,18 @@ require 'packer'.startup(function()
   }
 
   -- Treesitter
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = ':TSUpdate',
+      config = function()
+        require('nvim-treesitter.configs').setup {
+            highlight = {
+                enable = true,
+            },
+            ensure_installed = 'all',
+        }
+      end
+  }
   use { 'm-demare/hlargs.nvim', requires = { 'nvim-treesitter/nvim-treesitter' }, config = [[require('hlargs').setup()]] }
   use {
       "yioneko/nvim-yati",
