@@ -23,6 +23,8 @@ set_keymap('v', 'm', ';', { noremap = true, silent = true })
 set_keymap('n', 'Y', '%', { noremap = true, silent = true })
 set_keymap('v', 'Y', '%', { noremap = true, silent = true })
 -- set C-b as PageUp explicitly because a certain plugin overwrites it.
+set_keymap('n', ',u', ':<C-u>PackerUpdate<CR>', { noremap = true, silent = false })
+set_keymap('n', ',c', ':<C-u>PackerCompile<CR>', { noremap = true, silent = false })
 set_keymap('n', '<C-b>', '<PageUp>', { noremap = true, silent = true })
 set_keymap('v', '<C-b>', '<PageUp>', { noremap = true, silent = true })
 set_keymap('n', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
