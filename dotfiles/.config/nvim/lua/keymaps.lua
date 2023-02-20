@@ -47,12 +47,11 @@ set_keymap('n', '<leader>a', ':lua vim.lsp.buf.code_action()<CR>', { noremap = t
 set_keymap("n", "<leader>b", ":<C-u>Telescope file_browser<CR>", { noremap = true, silent = true })
 set_keymap("n", "<leader>B", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>",
     { noremap = true, silent = true })
-set_keymap('n', '<leader>c', ':<C-u>noh<CR>', { noremap = true, silent = true })
+set_keymap("n", "<leader>c", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>d', ':lua vim.lsp.buf.definition()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>f', ':<C-u>Telescope current_buffer_fuzzy_find<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>F', ':<C-u>Telescope live_grep<CR>', { noremap = true, silent = true })
-set_keymap("n", "<leader>g", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
-set_keymap('n', '<leader>G', ":<C-u>GHInteractive<CR>", { noremap = true, silent = true })
+set_keymap('n', '<leader>g', ":<C-u>GHInteractive<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>h', '<cmd>lua require("spectre").open_file_search()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>H', '<cmd>lua require("spectre").open()<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>i', ':lua vim.lsp.buf.implementation()<CR>', { noremap = true, silent = true })
@@ -61,6 +60,8 @@ set_keymap('n', '<leader>k', ':lua vim.diagnostic.goto_prev()<CR>', { noremap = 
 set_keymap('n', '<leader>l', ':lua vim.lsp.buf.format { async = true }<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
 set_keymap('v', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
+set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
+set_keymap("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", { noremap = true, silent = true })
 set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
 -- set_keymap('n', '<leader>r', ':<C-u>Telescope lsp_references<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>s', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>',
@@ -72,6 +73,7 @@ set_keymap('n', '<leader>v', '<cmd>lua require("spectre").open_visual({select_wo
     { noremap = true, silent = true })
 set_keymap('v', '<leader>V', '<cmd>lua require("spectre").open_visual({select_word=true})<CR>',
     { noremap = true, silent = true })
+set_keymap('n', '<leader>z', ':<C-u>noh<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>/', '<Plug>(comment_toggle_linewise_current)', { noremap = false, silent = true })
 set_keymap('v', '<leader>/', '<Plug>(comment_toggle_blockwise_visual)', { noremap = false, silent = true })
 set_keymap('n', '<leader>;', ':<C-u>CommaOrSemiColon<CR>', { noremap = true, silent = true });
