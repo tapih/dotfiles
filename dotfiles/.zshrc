@@ -218,7 +218,8 @@ exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists tmuxinator && alias mux='tmuxinator'
 
-[[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe'
+[[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
+[[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
 
 # completion
 autoload -Uz compinit && compinit
