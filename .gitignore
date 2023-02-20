@@ -2,3 +2,4 @@
 tmux-client-*
 tmux-server-*
 Brewfile.lock.json
+.luarc.json
