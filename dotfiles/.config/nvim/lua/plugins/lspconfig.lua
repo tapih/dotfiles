@@ -17,7 +17,9 @@ end, json_schemas)
 
 lspconfig = require('lspconfig')
 lspconfig.gopls.setup { capabilities = capabilities }
-lspconfig.rust_analyzer.setup { capabilities = capabilities }
+lspconfig.golangci_lint_ls.setup { capabilities = capabilities }
+lspconfig.sqlls.setup { capabilities = capabilities }
+lspconfig.graphql.setup { capabilities = capabilities }
 lspconfig.pyright.setup { capabilities = capabilities }
 lspconfig.tsserver.setup { capabilities = capabilities }
 lspconfig.dartls.setup { capabilities = capabilities }
@@ -26,6 +28,7 @@ lspconfig.tflint.setup { capabilities = capabilities }
 lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.vimls.setup { capabilities = capabilities }
 lspconfig.bashls.setup { capabilities = capabilities }
+lspconfig.jsonnet_ls.setup { capabilities = capabilities }
 
 lspconfig.lua_ls.setup {
     capabilities = capabilities,
