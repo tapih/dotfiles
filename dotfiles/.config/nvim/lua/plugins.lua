@@ -254,9 +254,9 @@ require 'packer'.startup(function()
       requires = { 'nvim-lua/plenary.nvim' },
       config = [[require('renamer').setup{}]],
   }
-  use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup {}]] }
-  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup {}]] }
-  use { 'williamboman/nvim-lsp-installer', config = [[require("nvim-lsp-installer").setup { automatic_installation = true }]] }
+  use { 'j-hui/fidget.nvim', config = [[require'fidget'.setup()]] }
+  use { 'ray-x/lsp_signature.nvim', config = [[require'lsp_signature'.setup()]] }
+  use { "williamboman/mason.nvim", config = [[require'mason'.setup()]] }
   use {
       'onsails/lspkind-nvim',
       config = function()
@@ -293,11 +293,11 @@ require 'packer'.startup(function()
 
   -- markdown
   use { 'ekickx/clipboard-image.nvim', ft = "markdown" }
-  use({
+  use {
       "iamcco/markdown-preview.nvim",
       run = function() vim.fn["mkdp#util#install"]() end,
       ft = "markdown",
-  })
+  }
 
   -- othe languages
   use "b0o/schemastore.nvim"
