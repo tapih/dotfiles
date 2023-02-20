@@ -1,5 +1,5 @@
 local set_keymap = vim.api.nvim_set_keymap
-vim.g.mapleader = ','
+vim.g.mapleader = '<Space>'
 
 set_keymap('n', '<CR>', ':<C-u>w<CR>', { noremap = true, silent = true })
 set_keymap('n', 'q', ':q<CR>', { noremap = true, silent = true })
@@ -23,8 +23,6 @@ set_keymap('v', ':', 'm', { noremap = true, silent = true })
 set_keymap('v', 'm', ';', { noremap = true, silent = true })
 set_keymap('n', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
 set_keymap('v', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
-set_keymap('', 's', '<Nop>', { noremap = false, silent = true })
-set_keymap('', 'S', '<Nop>', { noremap = false, silent = true })
 
 set_keymap('', 'w', '<Plug>CamelCaseMotion_w', { noremap = false, silent = true })
 set_keymap('', 'b', '<Plug>CamelCaseMotion_b', { noremap = false, silent = true })

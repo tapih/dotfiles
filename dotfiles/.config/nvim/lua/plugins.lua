@@ -83,7 +83,7 @@ require 'packer'.startup(function()
 
   -- search
   use 'haya14busa/vim-asterisk'
-  use 'ggandor/lightspeed.nvim'
+  use 'rhysd/clever-f.vim'
   use 'unblevable/quick-scope'
   use 'windwp/nvim-spectre'
   use {
