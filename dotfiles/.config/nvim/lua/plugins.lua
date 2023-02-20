@@ -95,13 +95,6 @@ require 'packer'.startup(function()
   }
   use { 'kevinhwang91/nvim-hlslens', config = [[require'hlslens'.setup()]] }
 
-  use {
-      'stevearc/aerial.nvim',
-      opt = true,
-      cmd = { 'AerialToggle' },
-      config = [[require'aerial'.setup()]],
-  }
-
   -- Widget
   use 'romgrk/barbar.nvim'
   use 'dstein64/nvim-scrollview'
