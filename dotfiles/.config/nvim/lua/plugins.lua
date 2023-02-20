@@ -3,7 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 require 'packer'.startup(function()
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
-  use 'marko-cerovac/material.nvim'
+  use { 'folke/tokyonight.nvim', tag='v1.3.0' }
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'MunifTanjim/nui.nvim'
@@ -102,7 +102,7 @@ require 'packer'.startup(function()
   use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons' },
-      config = [[require('lualine').setup { options = { theme  = 'material' } }]],
+      config = [[require('lualine').setup { options = { theme  = 'tokyonight' } }]],
   }
   use {
       "SmiteshP/nvim-navic",

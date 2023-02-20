@@ -3,19 +3,35 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 require('lspkind').init()
 
-vim.cmd('sign define LspDiagnosticsSignError text=')
-vim.cmd('sign define LspDiagnosticsSignWarning text=')
-vim.cmd('sign define LspDiagnosticsSignInformation text=')
-vim.cmd('sign define LspDiagnosticsSignHint text=')
-vim.cmd('setlocal omnifunc=v:lua.vim.lsp.omnifunc')
+vim.cmd 'sign define LspDiagnosticsSignError text='
+vim.cmd 'sign define LspDiagnosticsSignWarning text='
+vim.cmd 'sign define LspDiagnosticsSignInformation text='
+vim.cmd 'sign define LspDiagnosticsSignHint text='
+vim.cmd 'setlocal omnifunc=v:lua.vim.lsp.omnifunc'
 
-local json_schemas = require('schemastore').json.schemas {}
-local yaml_schemas = {}
-vim.tbl_map(function(schema)
-  yaml_schemas[schema.url] = schema.fileMatch
-end, json_schemas)
+local lspconfig = require('lspconfig')
 
-lspconfig = require('lspconfig')
+local all_clients = vim.lsp.get_active_clients()
+for _, client in pairs(all_clients) do
+  if client.server_capabilities.documentHighlightProvider then
+    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+    vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+    vim.api.nvim_create_autocmd({"CursorHold", "CursorHoldI"}, {
+        callback = vim.lsp.buf.document_highlight,
+        buffer = bufnr,
+        group = "lsp_document_highlight",
+        desc = "Document Highlight",
+    })
+    vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
+        callback = vim.lsp.buf.clear_references,
+        buffer = bufnr,
+        group = "lsp_document_highlight",
+        desc = "Clear All the References",
+    })
+    return;
+  end
+end
+
 lspconfig.gopls.setup { capabilities = capabilities }
 lspconfig.golangci_lint_ls.setup { capabilities = capabilities }
 lspconfig.sqlls.setup { capabilities = capabilities }
@@ -50,6 +66,12 @@ lspconfig.lua_ls.setup {
         },
     },
 }
+
+local json_schemas = require('schemastore').json.schemas {}
+local yaml_schemas = {}
+vim.tbl_map(function(schema)
+  yaml_schemas[schema.url] = schema.fileMatch
+end, json_schemas)
 
 local yaml_config = require("yaml-companion").setup({
         schemas = {
