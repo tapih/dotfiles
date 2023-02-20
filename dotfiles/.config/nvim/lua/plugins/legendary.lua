@@ -1,0 +1,3 @@
+require('legendary').setup {
+
+}

@@ -30,6 +30,7 @@ require 'packer'.startup(function()
   use { 'kevinhwang91/nvim-bqf', ft = 'qf' }
   use { 'dstein64/vim-startuptime', config = [[vim.g.startuptime_tries = 10]], cmd = { "StartupTime" } }
   use { 'numToStr/Comment.nvim', config = [[require('Comment').setup()]] }
+  use({ 'mrjones2014/legendary.nvim', config = [[require('plugins/legendary')]] })
   use {
       'voldikss/vim-floaterm',
       opt = true,
@@ -40,6 +41,14 @@ require 'packer'.startup(function()
       config = function()
         vim.g.floaterm_height = 0.9
         vim.g.floaterm_width = 0.9
+      end
+  }
+  use {
+      "folke/which-key.nvim",
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require("which-key").setup {}
       end
   }
   use {
