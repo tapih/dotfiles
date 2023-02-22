@@ -63,4 +63,3 @@ vim.opt.termguicolors  = true
 
 -- Color
 vim.cmd [[try | colorscheme tokyonight-night | catch | echo 'catch: ' . v:exception | endtry]]
-

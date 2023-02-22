@@ -3,7 +3,7 @@ vim.cmd [[packadd packer.nvim]]
 require 'packer'.startup(function()
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
-  use { 'folke/tokyonight.nvim', tag='v1.3.0' }
+  use { 'folke/tokyonight.nvim', tag = 'v1.3.0' }
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'MunifTanjim/nui.nvim'
@@ -181,7 +181,16 @@ require 'packer'.startup(function()
   use 'hrsh7th/cmp-cmdline'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
-  use { "github/copilot.vim", cmd = "Copilot", event = "InsertEnter" }
+  -- use "github/copilot.vim"
+  use {
+      "zbirenbaum/copilot.lua",
+      cmd = "Copilot",
+      event = "InsertEnter",
+      config = function()
+        require("copilot").setup({})
+      end,
+  }
+  use { "zbirenbaum/copilot-cmp", requires = { "copilot.lua" }, config = [[require("copilot_cmp").setup()]] }
 
   -- Telescope
   use {
