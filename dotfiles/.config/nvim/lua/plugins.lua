@@ -1,7 +1,10 @@
 require 'lazy'.setup {
   -- Development
-  { 'lewis6991/impatient.nvim' },
-  { "folke/neodev.nvim" },
+  {
+    "folke/neodev.nvim",
+    lazy = true,
+    ft = { 'lua' },
+  },
   {
     'dstein64/vim-startuptime',
     lazy = true,
@@ -9,6 +12,16 @@ require 'lazy'.setup {
   },
 
   -- Basic
+  {
+    'EtiamNullam/deferred-clipboard.nvim',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    config = function()
+      require('deferred-clipboard').setup {
+        fallback = 'unnamedplus', -- or your preferred setting for clipboard
+      }
+    end,
+  },
   { 'nvim-lua/popup.nvim' },
   { 'nvim-lua/plenary.nvim' },
   { 'MunifTanjim/nui.nvim' },
@@ -84,6 +97,8 @@ require 'lazy'.setup {
   -- LSP
   {
     'neovim/nvim-lspconfig',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require 'plugins.lspconfig',
     dependencies = {
       { 'ray-x/lsp_signature.nvim' },
@@ -130,11 +145,16 @@ require 'lazy'.setup {
   {
     'filipdutescu/renamer.nvim',
     lazy = true,
+    keys = {
+      {'<leader>m' },
+    },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = [[require('renamer').setup{}]],
   },
   {
     "someone-stole-my-name/yaml-companion.nvim",
+    lazy = true,
+    ft = { "yaml", "json" },
     dependencies = {
       { "b0o/schemastore.nvim" },
       { "neovim/nvim-lspconfig" },
@@ -161,6 +181,8 @@ require 'lazy'.setup {
       { 'hrsh7th/cmp-emoji' },
       { 'hrsh7th/cmp-vsnip' },
       { 'hrsh7th/vim-vsnip' },
+      { 'golang/vscode-go' },
+      { 'Dart-Code/Dart-Code' },
     },
   },
   {
@@ -231,18 +253,36 @@ require 'lazy'.setup {
   },
 
   -- Apperance
-  { 'mvllow/modes.nvim',             tag = 'v0.2.1', config = [[require('modes').setup()]] },
   { 'nvim-tree/nvim-web-devicons' },
-  { 'RRethy/vim-illuminate' },
-  { 'ntpeters/vim-better-whitespace' },
-  { 'myusuf3/numbers.vim' },
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = [[require('lualine').setup { options = { theme  = 'tokyonight' } }]],
   },
   {
+    'RRethy/vim-illuminate',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
+  {
+    'ntpeters/vim-better-whitespace',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
+  { 'myusuf3/numbers.vim' },
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  {
+    'mvllow/modes.nvim',
+    tag = 'v0.2.1',
+    lazy = true,
+    event = "InsertEnter",
+    config = [[require('modes').setup()]],
+  },
+  {
     'lukas-reineke/indent-blankline.nvim',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = function()
       require("indent_blankline").setup {
         show_current_context = true,
@@ -295,7 +335,7 @@ require 'lazy'.setup {
   {
     'famiu/bufdelete.nvim',
     lazy = true,
-    cmd = { 'Bdelete' }
+    cmd = { 'Bdelete' },
   },
   {
     'voldikss/vim-floaterm',
@@ -436,6 +476,8 @@ require 'lazy'.setup {
   -- Git
   {
     'lewis6991/gitsigns.nvim',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = require('plugins.gitsigns'),
   },
@@ -523,7 +565,7 @@ require 'lazy'.setup {
   {
     'google/vim-jsonnet',
     lazy = true,
-    ft = 'jsonnet',
+    ft = { 'jsonnet' },
   },
   {
     'hashivim/vim-terraform',
