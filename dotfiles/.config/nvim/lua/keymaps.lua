@@ -20,8 +20,8 @@ set_keymap('n', 'm', ';', { noremap = true, silent = true })
 set_keymap('v', ';', ':', { noremap = true, silent = true })
 set_keymap('v', ':', 'm', { noremap = true, silent = true })
 set_keymap('v', 'm', ';', { noremap = true, silent = true })
-set_keymap('n', 'Y', '%', { noremap = true, silent = true })
-set_keymap('v', 'Y', '%', { noremap = true, silent = true })
+set_keymap('n', 'Y', 'g%', { noremap = true, silent = true })
+set_keymap('v', 'Y', 'g%', { noremap = true, silent = true })
 
 set_keymap('n', ',u', ':<C-u>PackerUpdate<CR>', { noremap = true, silent = false })
 set_keymap('n', ',c', ':<C-u>PackerCompile<CR>', { noremap = true, silent = false })
@@ -69,10 +69,10 @@ set_keymap('n', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { norem
 set_keymap('v', '<leader>m', '<cmd>lua require("renamer").rename()<cr>', { noremap = true, silent = true })
 set_keymap("n", "<Leader>nf", ":lua require('neogen').generate()<CR>", { noremap = true, silent = true })
 set_keymap("n", "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>", { noremap = true, silent = true })
+-- set_keymap('n', '<leader>r', ':<C-u>Telescope lsp_references<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>r', ':lua vim.lsp.buf.references()<CR>', { noremap = true, silent = true })
 set_keymap("n", "<Leader>sh", ":<C-u>SidewaysLeft<CR>", { noremap = true, silent = true })
 set_keymap("n", "<Leader>sl", ":<C-u>SidewaysRight<CR>", { noremap = true, silent = true })
--- set_keymap('n', '<leader>r', ':<C-u>Telescope lsp_references<CR>', { noremap = true, silent = true })
 set_keymap('n', '<leader>s', '<Cmd>lua require"telescope.builtin".lsp_document_symbols{}<CR>',
     { noremap = true, silent = true })
 set_keymap('n', '<leader>S', '<Cmd>lua require"telescope.builtin".lsp_workspace_symbols{}<CR>',
