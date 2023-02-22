@@ -1,3 +1,3 @@
-require('legendary').setup {
-
-}
+return function()
+  require('legendary').setup {}
+end

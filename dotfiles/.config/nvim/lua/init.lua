@@ -30,6 +30,7 @@ vim.opt.scrolloff         = 8
 vim.opt.errorbells        = false
 vim.opt.pastetoggle       = "<C-b>"
 vim.opt.clipboard         = "unnamedplus"
+vim.opt.completeopt       = "menu,menuone,noselect"
 
 vim.cmd 'set nrformats-=octal'
 vim.cmd 'au InsertLeave * set nopaste'
@@ -63,6 +64,6 @@ vim.opt.list           = true
 vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
 vim.opt.termguicolors  = true
 
--- Color
-vim.cmd [[try | colorscheme tokyonight-night | catch | echo 'catch: ' . v:exception | endtry]]
-
+-- Plugin Manager
+local lazypath         = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+vim.opt.rtp:prepend(lazypath)

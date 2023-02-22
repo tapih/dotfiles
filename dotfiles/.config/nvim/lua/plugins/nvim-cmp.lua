@@ -1,6 +1,5 @@
+return function()
 local cmp = require 'cmp'
-
-vim.opt.completeopt = "menu,menuone,noselect"
 
 cmp.setup({
     snippet = {
@@ -50,3 +49,4 @@ cmp.setup({
         ghost_text = false -- this feature conflict to the copilot.vim's preview.
     }
 })
+end
