@@ -19,6 +19,7 @@
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
 Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
+Show accent color on window borders.
 
 ### On WSL2 side
 
