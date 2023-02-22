@@ -22,6 +22,7 @@ require 'packer'.startup(function()
   use 'markonm/traces.vim'
   use 'bkad/CamelCaseMotion'
   use 'RRethy/vim-illuminate'
+  use 'AndrewRadev/sideways.vim'
   use { 'lfilho/cosco.vim', opt = true, cmd = { 'CommaOrSemiColon' } }
   use { 'mattn/vim-sonictemplate', opt = true, cmd = { 'Template' } }
   use { 'famiu/bufdelete.nvim', opt = true, cmd = { 'Bdelete' } }
@@ -179,6 +180,7 @@ require 'packer'.startup(function()
   use 'hrsh7th/cmp-buffer'
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
+  use 'hrsh7th/cmp-emoji'
   use 'hrsh7th/cmp-vsnip'
   use 'hrsh7th/vim-vsnip'
   -- use "github/copilot.vim"
@@ -326,4 +328,5 @@ require 'packer'.startup(function()
   use { 'google/vim-jsonnet', ft = 'jsonnet' }
   use { 'hashivim/vim-terraform', ft = 'terraform' }
   use { 'juliosueiras/vim-terraform-completion', ft = 'terraform' }
+  use { "folke/neodev.nvim", ft = "lua" }
 end)

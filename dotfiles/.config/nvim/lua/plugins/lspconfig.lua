@@ -45,27 +45,7 @@ lspconfig.dockerls.setup { capabilities = capabilities }
 lspconfig.vimls.setup { capabilities = capabilities }
 lspconfig.bashls.setup { capabilities = capabilities }
 lspconfig.jsonnet_ls.setup { capabilities = capabilities }
-
-lspconfig.lua_ls.setup {
-    capabilities = capabilities,
-    -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                globals = { 'vim' },
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
+lspconfig.lua_ls.setup { capabilities = capabilities }
 
 local json_schemas = require('schemastore').json.schemas {}
 local yaml_schemas = {}
