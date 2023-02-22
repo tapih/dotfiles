@@ -28,7 +28,7 @@ vim.opt.showmatch         = true
 vim.opt.laststatus        = 2
 vim.opt.scrolloff         = 8
 vim.opt.errorbells        = false
-vim.opt.pastetoggle       = "<C-b>"
+vim.opt.pastetoggle       = "<C-\\>"
 vim.opt.clipboard         = "unnamedplus"
 vim.opt.completeopt       = "menu,menuone,noselect"
 

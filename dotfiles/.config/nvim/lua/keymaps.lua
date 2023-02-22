@@ -28,8 +28,6 @@ set_keymap('n', ',c', ':<C-u>PackerCompile<CR>', { noremap = true, silent = fals
 set_keymap('n', ',s', ':<C-u>source %<CR>', { noremap = true, silent = false })
 
 -- set C-b as PageUp explicitly because a certain plugin overwrites it.
-set_keymap('n', '<C-b>', '<PageUp>', { noremap = true, silent = true })
-set_keymap('v', '<C-b>', '<PageUp>', { noremap = true, silent = true })
 set_keymap('n', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
 set_keymap('v', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
 set_keymap('', 'w', '<Plug>CamelCaseMotion_w', { noremap = false, silent = true })
