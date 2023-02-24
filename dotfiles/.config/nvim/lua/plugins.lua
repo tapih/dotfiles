@@ -127,7 +127,6 @@ require 'lazy'.setup {
           'tsserver',
           'lua_ls',
           'pyright',
-          'pyright',
           'zk',
           'sqlls',
           'terraformls',
@@ -241,6 +240,8 @@ require 'lazy'.setup {
   -- Telescope
   {
     'nvim-telescope/telescope.nvim',
+    lazy = true,
+    cmd = { "Telescope" },
     tag = "0.1.1",
     dependencies = {
       'nvim-lua/popup.nvim',
@@ -315,9 +316,12 @@ require 'lazy'.setup {
     commit = "1b22dc57a2751c7afbc6025a7da39b7c22db635d",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
-  { 'myusuf3/numbers.vim', commit = "1867e76e819db182a4fb71f48f4bd36a5e2c6b6e" },
-  lazy = true,
-  event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  {
+    'myusuf3/numbers.vim',
+    lazy = true,
+    commit = "1867e76e819db182a4fb71f48f4bd36a5e2c6b6e",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
   {
     'mvllow/modes.nvim',
     tag = 'v0.2.1',
@@ -432,12 +436,8 @@ require 'lazy'.setup {
     commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
-  {
-    'andymass/vim-matchup',
-    lazy = true,
-    commit = "3a48818a8113a502f245c29d894201421727577a",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
-  },
+  -- Lazy load by event is not recommended.
+  { 'andymass/vim-matchup', commit = "3a48818a8113a502f245c29d894201421727577a" },
   {
     'bkad/CamelCaseMotion',
     lazy = true,
@@ -536,7 +536,7 @@ require 'lazy'.setup {
       'HopAnywhere',
     },
     config = function()
-      require 'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+      require 'hop'.setup { keys = 'jkhlfdgsieurowyta;qpmv,c' }
     end
   },
 
@@ -657,6 +657,7 @@ require 'lazy'.setup {
   },
   {
     'juliosueiras/vim-terraform-completion',
+    lazy = true,
     commit = "125d0e892f5fd8f32b57a5a5983d03f1aa611949",
     ft = { 'terraform', 'hcl' },
   },
