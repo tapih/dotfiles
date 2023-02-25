@@ -428,6 +428,7 @@ require 'lazy'.setup {
   },
 
   -- Editing
+  { 'AndrewRadev/splitjoin.vim', tag = 'v1.1.0' },
   {
     'junegunn/vim-easy-align',
     lazy = true,
@@ -441,7 +442,7 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   -- Lazy load by event is not recommended.
-  { 'andymass/vim-matchup', commit = "3a48818a8113a502f245c29d894201421727577a" },
+  { 'andymass/vim-matchup',      commit = "3a48818a8113a502f245c29d894201421727577a" },
   {
     'bkad/CamelCaseMotion',
     lazy = true,
