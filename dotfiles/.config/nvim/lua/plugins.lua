@@ -18,10 +18,10 @@ require 'lazy'.setup {
   },
 
   -- Basic
-  { 'nvim-tree/nvim-web-devicons', commit = "4709a504d2cd2680fb511675e64ef2790d491d36" },
   { 'nvim-lua/plenary.nvim',       tag = "v0.1.3" },
   { 'nvim-lua/popup.nvim',         commit = "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
   { 'MunifTanjim/nui.nvim',        commit = "d147222a1300901656f3ebd5b95f91732785a329" },
+  { 'nvim-tree/nvim-web-devicons', commit = "4709a504d2cd2680fb511675e64ef2790d491d36" },
   {
     'kevinhwang91/nvim-bqf',
     lazy = true,
@@ -116,25 +116,31 @@ require 'lazy'.setup {
       {
         "williamboman/mason-lspconfig.nvim",
         commit = "93e58e100f37ef4fb0f897deeed20599dae9d128",
-        ensure_installed = {
-          'bashls',
-          'dagger',
-          'dockerls',
-          'docker_compose_language_service',
-          'golangci_lint_ls',
-          'gopls',
-          'graphql',
-          'jsonls',
-          'jsonnet_ls',
-          'tsserver',
-          'lua_ls',
-          'pyright',
-          'zk',
-          'sqlls',
-          'terraformls',
-          'tflint',
-          'yamlls',
-        },
+        -- This is slow on startup.
+        --[[ config = function()
+          require 'mason-lspconfig'.setup {
+            automatic_installation = true,
+            ensure_installed = {
+              'bashls',
+              'dagger',
+              'dockerls',
+              'docker_compose_language_service',
+              'golangci_lint_ls',
+              'gopls',
+              'graphql',
+              'jsonls',
+              'jsonnet_ls',
+              'tsserver',
+              'lua_ls',
+              'pyright',
+              'zk',
+              'sqlls',
+              'terraformls',
+              'tflint',
+              'yamlls',
+            },
+          }
+        end ]]
       },
       {
         "williamboman/mason.nvim",
