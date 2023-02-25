@@ -21,13 +21,9 @@ set_keymap('v', ';', ':', { noremap = true, silent = true })
 set_keymap('v', ':', 'm', { noremap = true, silent = true })
 set_keymap('v', 'm', ';', { noremap = true, silent = true })
 
-set_keymap('n', ',u', ':<C-u>PackerUpdate<CR>', { noremap = true, silent = false })
-set_keymap('n', ',c', ':<C-u>PackerCompile<CR>', { noremap = true, silent = false })
+set_keymap('n', ',u', ':<C-u>Lazy update<CR>', { noremap = true, silent = false })
 set_keymap('n', ',s', ':<C-u>source %<CR>', { noremap = true, silent = false })
 
--- set C-b as PageUp explicitly because a certain plugin overwrites it.
-set_keymap('n', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
-set_keymap('v', 'R', '<Plug>(operator-replace)', { noremap = false, silent = true })
 set_keymap('', 'w', '<Plug>CamelCaseMotion_w', { noremap = false, silent = true })
 set_keymap('', 'b', '<Plug>CamelCaseMotion_b', { noremap = false, silent = true })
 set_keymap('', 'e', '<Plug>CamelCaseMotion_e', { noremap = false, silent = true })
@@ -103,7 +99,3 @@ set_keymap('n', '<A-y>', ':<C-u>Telescope registers<CR>', { noremap = true, sile
 set_keymap('n', '<A-;>', 'g%', { noremap = false, silent = true })
 set_keymap('v', '<A-;>', 'g%', { noremap = false, silent = true })
 
-if vim.g.vscode then
-  set_keymap('n', 'q', ':<C-u>call VSCodeCall("workbench.action.closeActiveEditor")<CR>',
-      { noremap = true, silent = true })
-end
