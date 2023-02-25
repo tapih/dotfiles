@@ -2,12 +2,6 @@ return function()
   local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-  vim.cmd 'sign define LspDiagnosticsSignError text='
-  vim.cmd 'sign define LspDiagnosticsSignWarning text='
-  vim.cmd 'sign define LspDiagnosticsSignInformation text='
-  vim.cmd 'sign define LspDiagnosticsSignHint text='
-  vim.cmd 'setlocal omnifunc=v:lua.vim.lsp.omnifunc'
-
   local all_clients = vim.lsp.get_active_clients()
   for _, client in pairs(all_clients) do
     if client.server_capabilities.documentHighlightProvider then
@@ -56,7 +50,7 @@ return function()
   local yaml_config = require("yaml-companion").setup({
           schemas = {
               {
-                  name = "Kubernetes 1.25.6",
+                  name = "Kubernetes",
                   uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.6-standalone-strict/all.json",
               },
           },
@@ -85,4 +79,10 @@ return function()
           }
       },
   }
+  vim.cmd 'sign define LspDiagnosticsSignError text='
+
+  vim.cmd 'sign define LspDiagnosticsSignWarning text='
+  vim.cmd 'sign define LspDiagnosticsSignInformation text='
+  vim.cmd 'sign define LspDiagnosticsSignHint text='
+  vim.cmd 'setlocal omnifunc=v:lua.vim.lsp.omnifunc'
 end

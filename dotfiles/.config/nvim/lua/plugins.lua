@@ -51,16 +51,13 @@ require 'lazy'.setup {
   {
     'nvim-treesitter/nvim-treesitter',
     tag = "v0.8.5.2",
-    build = function()
-      if #vim.api.nvim_list_uis() ~= 0 then
-        vim.api.nvim_command("TSUpdate")
-      end
-    end,
+    build = [[vim.api.nvim_command("TSUpdate")]],
     config = function()
       require('nvim-treesitter.configs').setup {
         highlight = {
           enable = true,
         },
+        auto_install = true,
         ensure_installed = {
           'bash',
           'dart',
@@ -98,7 +95,7 @@ require 'lazy'.setup {
     lazy = true,
     commit = "8240f369d47c389ac898f87613e0901f126b40f3",
     dependencies = "nvim-treesitter/nvim-treesitter",
-    confifg = function()
+    config = function()
       require("nvim-treesitter.configs").setup {
         yati = { enable = true }
       }
@@ -306,7 +303,13 @@ require 'lazy'.setup {
     'nvim-lualine/lualine.nvim',
     commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    config = [[require('lualine').setup { options = { theme  = 'tokyonight' } }]],
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'tokyonight',
+        },
+      }
+    end
   },
   {
     'RRethy/vim-illuminate',
@@ -362,7 +365,9 @@ require 'lazy'.setup {
       "nvim-tree/nvim-web-devicons",
     },
     config = function()
-      require("barbecue").setup()
+      require("barbecue").setup {
+        theme = 'tokyonight',
+      }
     end,
   },
   {
@@ -668,11 +673,8 @@ require 'lazy'.setup {
   },
 
   -- Color
-  {
-    'folke/tokyonight.nvim',
-    tag = 'v1.3.0',
-    config = function()
-      vim.cmd [[colorscheme tokyonight-night]]
-    end
-  },
+  { 'folke/tokyonight.nvim', tag = 'v1.3.0' },
+  { 'norcalli/nvim-colorizer.lua', commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' },
 }
+
+vim.cmd [[colorscheme tokyonight-night]]
