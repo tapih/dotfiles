@@ -451,7 +451,7 @@ require 'lazy'.setup {
   },
 
   -- Editing
-  { 'AndrewRadev/splitjoin.vim', tag = 'v1.1.0' },
+  { 'AndrewRadev/splitjoin.vim',   tag = 'v1.1.0' },
   {
     'junegunn/vim-easy-align',
     lazy = true,
@@ -468,7 +468,7 @@ require 'lazy'.setup {
   {
     'andymass/vim-matchup',
     lazy = true,
-    commit = "3a48818a8113a502f245c29d894201421727577a" ,
+    commit = "3a48818a8113a502f245c29d894201421727577a",
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
@@ -696,7 +696,19 @@ require 'lazy'.setup {
   },
 
   -- Color
-  { 'folke/tokyonight.nvim',       tag = 'v1.3.0' },
+  { 'folke/tokyonight.nvim', tag = 'v1.3.0',
+    config = function()
+      require 'tokyonight'.setup {
+        -- Disable italic because Windows Terminal does not support it.
+        on_highlights = function(highlights, colors)
+          highlights['@keyword'].style.italic = false
+          highlights['Comment'].style.italic = false
+          highlights['DashboardFooter'].italic = false
+          highlights['Keyword'].style.italic = false
+        end,
+      }
+    end
+  },
   { 'norcalli/nvim-colorizer.lua', commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' },
 }
 
