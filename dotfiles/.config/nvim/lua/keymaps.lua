@@ -20,8 +20,6 @@ set_keymap('n', 'm', ';', { noremap = true, silent = true })
 set_keymap('v', ';', ':', { noremap = true, silent = true })
 set_keymap('v', ':', 'm', { noremap = true, silent = true })
 set_keymap('v', 'm', ';', { noremap = true, silent = true })
-set_keymap('n', 'Y', 'g%', { noremap = true, silent = true })
-set_keymap('v', 'Y', 'g%', { noremap = true, silent = true })
 
 set_keymap('n', ',u', ':<C-u>PackerUpdate<CR>', { noremap = true, silent = false })
 set_keymap('n', ',c', ':<C-u>PackerCompile<CR>', { noremap = true, silent = false })
@@ -102,6 +100,8 @@ set_keymap('n', '<A-o>', ':<C-u>Telescope find_files find_command=fd,-HLE.git,-t
 set_keymap('n', '<A-p>', ':<C-u>bprev<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-w>', ":<C-u>Bdelete<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-y>', ':<C-u>Telescope registers<CR>', { noremap = true, silent = true })
+set_keymap('n', '<A-;>', 'g%', { noremap = false, silent = true })
+set_keymap('v', '<A-;>', 'g%', { noremap = false, silent = true })
 
 if vim.g.vscode then
   set_keymap('n', 'q', ':<C-u>call VSCodeCall("workbench.action.closeActiveEditor")<CR>',

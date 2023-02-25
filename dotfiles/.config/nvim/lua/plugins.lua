@@ -495,12 +495,7 @@ require 'lazy'.setup {
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   -- Lazy load by event is not recommended.
-  {
-    'andymass/vim-matchup',
-    lazy = true,
-    commit = "3a48818a8113a502f245c29d894201421727577a",
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-  },
+  { 'andymass/vim-matchup', commit = "3a48818a8113a502f245c29d894201421727577a" },
   {
     'bkad/CamelCaseMotion',
     lazy = true,
