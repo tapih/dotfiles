@@ -7,6 +7,7 @@ require 'lazy'.setup {
     "folke/neodev.nvim",
     lazy = true,
     tag = "v2.4.0",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'lua' },
   },
   {
@@ -17,24 +18,15 @@ require 'lazy'.setup {
   },
 
   -- Basic
-  {
-    'EtiamNullam/deferred-clipboard.nvim',
-    lazy = true,
-    tag = "v0.7.0",
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    config = function()
-      require('deferred-clipboard').setup {
-        fallback = 'unnamedplus', -- or your preferred setting for clipboard
-      }
-    end,
-  },
-  { 'nvim-lua/plenary.nvim', tag = "v0.1.3" },
-  { 'nvim-lua/popup.nvim',   commit = "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
-  { 'MunifTanjim/nui.nvim',  commit = "d147222a1300901656f3ebd5b95f91732785a329" },
+  { 'nvim-tree/nvim-web-devicons', commit = "4709a504d2cd2680fb511675e64ef2790d491d36" },
+  { 'nvim-lua/plenary.nvim',       tag = "v0.1.3" },
+  { 'nvim-lua/popup.nvim',         commit = "b7404d35d5d3548a82149238289fa71f7f6de4ac" },
+  { 'MunifTanjim/nui.nvim',        commit = "d147222a1300901656f3ebd5b95f91732785a329" },
   {
     'kevinhwang91/nvim-bqf',
     lazy = true,
     tag = "v1.1.0",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = 'qf',
   },
 
@@ -47,7 +39,7 @@ require 'lazy'.setup {
   {
     'glepnir/dashboard-nvim',
     lazy = true,
-    event = 'VimEnter',
+    event = { 'VimEnter' },
     config = [[require('dashboard').setup()]],
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
@@ -55,7 +47,9 @@ require 'lazy'.setup {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
+    lazy = true,
     tag = "v0.8.5.2",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     build = [[vim.api.nvim_command("TSUpdate")]],
     config = function()
       require('nvim-treesitter.configs').setup {
@@ -92,6 +86,7 @@ require 'lazy'.setup {
     'm-demare/hlargs.nvim',
     lazy = true,
     commit = "88b925d699fb39633cdda02c24f0b3ba5d0e6964",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = [[require('hlargs').setup()]],
   },
@@ -99,6 +94,7 @@ require 'lazy'.setup {
     "yioneko/nvim-yati",
     lazy = true,
     commit = "8240f369d47c389ac898f87613e0901f126b40f3",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = "nvim-treesitter/nvim-treesitter",
     config = function()
       require("nvim-treesitter.configs").setup {
@@ -146,11 +142,6 @@ require 'lazy'.setup {
         config = [[require'mason'.setup()]],
       },
       {
-        'j-hui/fidget.nvim',
-        commit = "688b4fec4517650e29c3e63cfbb6e498b3112ba1",
-        config = [[require'fidget'.setup()]],
-      },
-      {
         'onsails/lspkind-nvim',
         commit = "c68b3a003483cf382428a43035079f78474cd11e",
         config = function()
@@ -183,6 +174,13 @@ require 'lazy'.setup {
     },
   },
   {
+    'j-hui/fidget.nvim',
+    lazy = true,
+    commit = "688b4fec4517650e29c3e63cfbb6e498b3112ba1",
+    config = [[require'fidget'.setup()]],
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
+  {
     'filipdutescu/renamer.nvim',
     lazy = true,
     tag = 'v5.1.0',
@@ -212,7 +210,7 @@ require 'lazy'.setup {
     'hrsh7th/nvim-cmp',
     lazy = true,
     commit = "7a3b1e76f74934b12fda82158237c6ad8bfd3d40",
-    event = "InsertEnter",
+    event = { "InsertEnter" },
     config = require('plugins.nvim-cmp'),
     dependencies = {
       { 'hrsh7th/cmp-nvim-lsp',                commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
@@ -316,7 +314,6 @@ require 'lazy'.setup {
   },
 
   -- Apperance
-  { 'nvim-tree/nvim-web-devicons', commit = "4709a504d2cd2680fb511675e64ef2790d491d36" },
   {
     'nvim-lualine/lualine.nvim',
     commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80",
@@ -351,7 +348,7 @@ require 'lazy'.setup {
     'mvllow/modes.nvim',
     tag = 'v0.2.1',
     lazy = true,
-    event = "InsertEnter",
+    event = { "InsertEnter" },
     config = [[require('modes').setup()]],
   },
   {
@@ -368,8 +365,16 @@ require 'lazy'.setup {
   },
 
   -- Widget
-  { 'romgrk/barbar.nvim',          tag = "release/1.4.1" },
-  { 'dstein64/nvim-scrollview',    tag = "v3.0.3" },
+  {
+    'romgrk/barbar.nvim',
+    tag = "release/1.4.1",
+  },
+  {
+    'dstein64/nvim-scrollview',
+    lazy = true,
+    tag = "v3.0.3",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
   {
     "SmiteshP/nvim-navic",
     commit = "7e9d2b2b601149fecdccd11b516acb721e571fe6",
@@ -422,10 +427,7 @@ require 'lazy'.setup {
     'voldikss/vim-floaterm',
     lazy = true,
     commit = "ca44a13a379d9af75092bc2fe2efee8c5248e876",
-    cmd = {
-      'FloatermToggle',
-      'FloatermNew',
-    },
+    cmd = { 'FloatermToggle', 'FloatermNew' },
     config = function()
       vim.g.floaterm_height = 0.9
       vim.g.floaterm_width = 0.9
@@ -442,7 +444,7 @@ require 'lazy'.setup {
     "folke/which-key.nvim",
     lazy = true,
     tag = 'v1.1.1',
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "VeryLazy" },
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -451,18 +453,34 @@ require 'lazy'.setup {
   },
 
   -- Editing
-  { 'AndrewRadev/splitjoin.vim',   tag = 'v1.1.0' },
+  {
+    'EtiamNullam/deferred-clipboard.nvim',
+    lazy = true,
+    tag = "v0.7.0",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    config = function()
+      require('deferred-clipboard').setup {
+        fallback = 'unnamedplus', -- or your preferred setting for clipboard
+      }
+    end,
+  },
+  {
+    'AndrewRadev/splitjoin.vim',
+    tag = 'v1.1.0',
+    -- Use "on Buf*" because "on Cursor*" does not work.
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
   {
     'junegunn/vim-easy-align',
     lazy = true,
     commit = "12dd6316974f71ce333e360c0260b4e1f81169c3",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    cmd = { 'EasyAlign' },
   },
   {
     'tpope/vim-surround',
     lazy = true,
     commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   -- Lazy load by event is not recommended.
   {
@@ -475,7 +493,7 @@ require 'lazy'.setup {
     'bkad/CamelCaseMotion',
     lazy = true,
     commit = "de439d7c06cffd0839a29045a103fe4b44b15cdc",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'AndrewRadev/sideways.vim',
@@ -509,7 +527,7 @@ require 'lazy'.setup {
     'windwp/nvim-autopairs',
     lazy = true,
     commit = "6a5faeabdbcc86cfbf1561ae430a451a72126e81",
-    event = "InsertEnter",
+    event = { "InsertEnter" },
     config = function()
       require('nvim-autopairs').setup({
         disable_filetype = { "TelescopePrompt", "vim" },
@@ -522,37 +540,37 @@ require 'lazy'.setup {
     'markonm/traces.vim',
     lazy = true,
     commit = "9663fcf84de5776bee71b6c816c25ccb6ea11d1a",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'haya14busa/vim-asterisk',
     lazy = true,
     commit = "77e97061d6691637a034258cc415d98670698459",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'rhysd/clever-f.vim',
     lazy = true,
     commit = "6a3ac5e3688598af9411ab741737f98c47370c22",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    keys = { "f", "F", "t", "T" },
   },
   {
     'unblevable/quick-scope',
     lazy = true,
     tag = "v2.5.16",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'windwp/nvim-spectre',
     lazy = true,
     commit = "b71b64afe9fedbfdd25a8abec897ff4af3bd553a",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'kevinhwang91/nvim-hlslens',
     lazy = true,
     tag = "v1.0.0",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require'hlslens'.setup()]],
   },
   {
@@ -569,7 +587,9 @@ require 'lazy'.setup {
       'HopAnywhere',
     },
     config = function()
-      require 'hop'.setup { keys = 'jkhlfdgsieurowyta;qpmv,c' }
+      require 'hop'.setup {
+        keys = 'jkhlfdgsieurowyta;qpmv,c',
+      }
     end
   },
 
@@ -598,13 +618,14 @@ require 'lazy'.setup {
     'f-person/git-blame.nvim',
     lazy = true,
     commit = "17840d01f42ee308e1dbbcc2cde991297aee36c9",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'akinsho/git-conflict.nvim',
     lazy = true,
     commit = "2957f747e1a34f1854e4e0efbfbfa59a1db04af5",
     config = [[require('git-conflict').setup()]],
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'pwntester/octo.nvim',
@@ -645,12 +666,14 @@ require 'lazy'.setup {
     'ray-x/go.nvim',
     lazy = true,
     commit = "4d066613379d85094bb4ddd52e34e6d3f55fc24e",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     ft = "go",
   },
   {
     'ray-x/guihua.lua',
     lazy = true,
     commit = "a19ac4447021f21383fadd7a9e1fc150d0b67e1f",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     ft = "go",
   },
 
@@ -659,6 +682,7 @@ require 'lazy'.setup {
     'ekickx/clipboard-image.nvim',
     lazy = true,
     commit = "d1550dc26729b7954f95269952e90471b838fa25",
+    cmd = { 'PasteImg' },
     ft = "markdown",
   },
   {
@@ -666,6 +690,7 @@ require 'lazy'.setup {
     lazy = true,
     tag = "v0.0.10",
     ft = "markdown",
+    cmd = { 'MarkdownPreview' },
     build = function() vim.fn["mkdp#util#install"]() end,
   },
 
@@ -674,24 +699,28 @@ require 'lazy'.setup {
     'jsborjesson/vim-uppercase-sql',
     lazy = true,
     commit = "58bfde1d679a1387dabfe292b38d51d84819b267",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'sql' },
   },
   {
     'google/vim-jsonnet',
     lazy = true,
     commit = "4ebc6619ddce5d032a985b42a9864154c3d20e4a",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'jsonnet' },
   },
   {
     'hashivim/vim-terraform',
     lazy = true,
     commit = "d00503de9bed3a1da7206090cb148c6a1acce870",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'terraform', 'hcl' },
   },
   {
     'juliosueiras/vim-terraform-completion',
     lazy = true,
     commit = "125d0e892f5fd8f32b57a5a5983d03f1aa611949",
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'terraform', 'hcl' },
   },
 
@@ -709,7 +738,12 @@ require 'lazy'.setup {
       }
     end
   },
-  { 'norcalli/nvim-colorizer.lua', commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' },
+  {
+    'norcalli/nvim-colorizer.lua',
+    lazy = true,
+    commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6',
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
 }
 
 vim.cmd [[colorscheme tokyonight-night]]

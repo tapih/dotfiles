@@ -82,8 +82,8 @@ set_keymap('n', '<leader>/', '<Plug>(comment_toggle_linewise_current)', { norema
 set_keymap('v', '<leader>/', '<Plug>(comment_toggle_blockwise_visual)', { noremap = false, silent = true })
 set_keymap('n', '<leader>;', ':<C-u>CommaOrSemiColon<CR>', { noremap = true, silent = true });
 
-set_keymap('n', '<A-a>', '<Plug>(EasyAlign)', { noremap = false, silent = false })
-set_keymap('x', '<A-a>', '<Plug>(EasyAlign)', { noremap = false, silent = false })
+set_keymap('n', '<A-a>', ':<C-u>EasyAlign<CR>', { noremap = true, silent = false })
+set_keymap('v', '<A-a>', ':<C-u>EasyAlign<CR>', { noremap = true, silent = false })
 set_keymap('n', '<A-b>', ':<C-u>Telescope git_branches<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-c>', ':<C-u>Telescope commands<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-e>', ':<C-u>Telescope buffers<CR>', { noremap = true, silent = true })
