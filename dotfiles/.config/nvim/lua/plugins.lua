@@ -1,3 +1,6 @@
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+vim.opt.rtp:prepend(lazypath)
+
 require 'lazy'.setup {
   -- Development
   {
@@ -40,10 +43,7 @@ require 'lazy'.setup {
   {
     'glepnir/dashboard-nvim',
     event = 'VimEnter',
-    config = function()
-      require('dashboard').setup {
-      }
-    end,
+    config = [[require('dashboard').setup()]],
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
   },
 

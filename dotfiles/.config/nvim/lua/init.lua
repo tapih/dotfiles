@@ -35,6 +35,7 @@ vim.cmd 'set nrformats-=octal'
 vim.cmd 'au InsertLeave * set nopaste'
 vim.cmd 'au FileType * set formatoptions-=cro'
 vim.cmd 'au BufReadPost * lua goto_last_pos()'
+vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
 
 function goto_last_pos()
   local last_pos = vim.fn.line("'\"")
@@ -48,8 +49,6 @@ vim.opt.softtabstop = 2
 vim.opt.tabstop     = 2
 vim.opt.expandtab   = true
 
-vim.cmd 'au FileType yaml setlocal sw=0 sts=2 ts=2 et'
-
 -- Lines below do not exist in vimrc
 -- Config
 vim.g.mapleader        = ' '
@@ -62,7 +61,3 @@ vim.opt.colorcolumn    = "80"
 vim.opt.list           = true
 vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
 vim.opt.termguicolors  = true
-
--- Plugin Manager
-local lazypath         = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-vim.opt.rtp:prepend(lazypath)
