@@ -471,6 +471,12 @@ require 'lazy'.setup {
     end,
   },
   {
+    'bennypowers/nvim-regexplainer',
+    lazy = true,
+    commit = '8af9a846644982ab1e11cc99b6e4831e12479207',
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
+  {
     'AndrewRadev/splitjoin.vim',
     tag = 'v1.1.0',
     -- Use "on Buf*" because "on Cursor*" does not work.
