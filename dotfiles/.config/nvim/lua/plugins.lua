@@ -21,7 +21,7 @@ require 'lazy'.setup {
     'EtiamNullam/deferred-clipboard.nvim',
     lazy = true,
     tag = "v0.7.0",
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = function()
       require('deferred-clipboard').setup {
         fallback = 'unnamedplus', -- or your preferred setting for clipboard
@@ -39,9 +39,14 @@ require 'lazy'.setup {
   },
 
   -- Project
-  { 'airblade/vim-rooter',         commit = "4f52ca556a0b9e257bf920658714470ea0320b7a" },
+  {
+    'airblade/vim-rooter',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    commit = "4f52ca556a0b9e257bf920658714470ea0320b7a" },
   {
     'glepnir/dashboard-nvim',
+    lazy = true,
     event = 'VimEnter',
     config = [[require('dashboard').setup()]],
     dependencies = { { 'nvim-tree/nvim-web-devicons' } }
@@ -194,7 +199,6 @@ require 'lazy'.setup {
     ft = { "yaml", "json" },
     dependencies = {
       { "b0o/schemastore.nvim",         commit = "6f2ffb8420422db9a6c43dbce7227f0fdb9fcf75" },
-      { "neovim/nvim-lspconfig" },
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
     },
@@ -227,8 +231,7 @@ require 'lazy'.setup {
     "zbirenbaum/copilot.lua",
     lazy = true,
     commit = "ca68fc39f656d4025c5e0acc2faf07a28be3a389",
-    cmd = "Copilot",
-    event = "InsertEnter",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require("copilot").setup()]],
     dependencies = {
       {
@@ -247,28 +250,6 @@ require 'lazy'.setup {
     dependencies = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
-      {
-        'cljoly/telescope-repo.nvim',
-        commit = "50b5fc6eba11b5f1fcb249d5f7490551f86d1a00",
-        config = function()
-          require('telescope').load_extension('repo')
-        end,
-      },
-      {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        commit = "580b6c48651cabb63455e97d7e131ed557b8c7e2",
-        build = 'make',
-        config = function()
-          require('telescope').load_extension('fzf')
-        end,
-      },
-      {
-        "nvim-telescope/telescope-file-browser.nvim",
-        commit = "6eb6bb45b7a9bed94a464a3e1dadfe870459628c",
-        config = function()
-          require("telescope").load_extension "file_browser"
-        end
-      },
     },
     config = function()
       local telescope = require('telescope')
@@ -295,6 +276,43 @@ require 'lazy'.setup {
         },
       }
     end,
+  },
+  {
+    'cljoly/telescope-repo.nvim',
+    lazy = true,
+    commit = "50b5fc6eba11b5f1fcb249d5f7490551f86d1a00",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension('repo')
+    end,
+  },
+  {
+    'nvim-telescope/telescope-fzf-native.nvim',
+    lazy = true,
+    commit = "580b6c48651cabb63455e97d7e131ed557b8c7e2",
+    build = 'make',
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require('telescope').load_extension('fzf')
+    end,
+  },
+  {
+    "nvim-telescope/telescope-file-browser.nvim",
+    lazy = true,
+    commit = "6eb6bb45b7a9bed94a464a3e1dadfe870459628c",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    config = function()
+      require("telescope").load_extension "file_browser"
+    end
   },
 
   -- Apperance
@@ -350,8 +368,8 @@ require 'lazy'.setup {
   },
 
   -- Widget
-  { 'romgrk/barbar.nvim',       tag = "release/1.4.1" },
-  { 'dstein64/nvim-scrollview', tag = "v3.0.3" },
+  { 'romgrk/barbar.nvim',          tag = "release/1.4.1" },
+  { 'dstein64/nvim-scrollview',    tag = "v3.0.3" },
   {
     "SmiteshP/nvim-navic",
     commit = "7e9d2b2b601149fecdccd11b516acb721e571fe6",
@@ -447,7 +465,12 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   -- Lazy load by event is not recommended.
-  { 'andymass/vim-matchup',      commit = "3a48818a8113a502f245c29d894201421727577a" },
+  {
+    'andymass/vim-matchup',
+    lazy = true,
+    commit = "3a48818a8113a502f245c29d894201421727577a" ,
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
   {
     'bkad/CamelCaseMotion',
     lazy = true,
@@ -673,7 +696,7 @@ require 'lazy'.setup {
   },
 
   -- Color
-  { 'folke/tokyonight.nvim', tag = 'v1.3.0' },
+  { 'folke/tokyonight.nvim',       tag = 'v1.3.0' },
   { 'norcalli/nvim-colorizer.lua', commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6' },
 }
 
