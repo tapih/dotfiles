@@ -37,11 +37,15 @@ require 'lazy'.setup {
 
   -- Project
   { 'airblade/vim-rooter',         commit = "4f52ca556a0b9e257bf920658714470ea0320b7a" },
-  -- {
-  --    'goolord/alpha-nvim',
-  --    dependencies = { 'nvim-tree/nvim-web-devicons' },
-  --    config = [[require'alpha'.setup(require'alpha.themes.startify'.config)]],
-  -- },
+  {
+    'glepnir/dashboard-nvim',
+    event = 'VimEnter',
+    config = function()
+      require('dashboard').setup {
+      }
+    end,
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+  },
 
   -- Treesitter
   {
@@ -192,7 +196,7 @@ require 'lazy'.setup {
     tag = '0.1.3',
     ft = { "yaml", "json" },
     dependencies = {
-      { "b0o/schemastore.nvim", commit = "6f2ffb8420422db9a6c43dbce7227f0fdb9fcf75" },
+      { "b0o/schemastore.nvim",         commit = "6f2ffb8420422db9a6c43dbce7227f0fdb9fcf75" },
       { "neovim/nvim-lspconfig" },
       { "nvim-lua/plenary.nvim" },
       { "nvim-telescope/telescope.nvim" },
@@ -210,16 +214,16 @@ require 'lazy'.setup {
     event = "InsertEnter",
     config = require('plugins.nvim-cmp'),
     dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp', commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
+      { 'hrsh7th/cmp-nvim-lsp',                commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
       { 'hrsh7th/cmp-nvim-lsp-signature-help', commit = "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1" },
-      { 'hrsh7th/cmp-buffer', commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
-      { 'hrsh7th/cmp-path', commit = "91ff86cd9c29299a64f968ebb45846c485725f23" },
-      { 'hrsh7th/cmp-cmdline', commit = "8fcc934a52af96120fe26358985c10c035984b53" },
-      { 'hrsh7th/cmp-emoji', commit = "19075c36d5820253d32e2478b6aaf3734aeaafa0" },
-      { 'hrsh7th/cmp-vsnip', commit = "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
-      { 'hrsh7th/vim-vsnip', commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e" },
-      { 'golang/vscode-go', commit = "v0.37.1" },
-      { 'Dart-Code/Dart-Code', commit = "v3.58.0" },
+      { 'hrsh7th/cmp-buffer',                  commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
+      { 'hrsh7th/cmp-path',                    commit = "91ff86cd9c29299a64f968ebb45846c485725f23" },
+      { 'hrsh7th/cmp-cmdline',                 commit = "8fcc934a52af96120fe26358985c10c035984b53" },
+      { 'hrsh7th/cmp-emoji',                   commit = "19075c36d5820253d32e2478b6aaf3734aeaafa0" },
+      { 'hrsh7th/cmp-vsnip',                   commit = "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
+      { 'hrsh7th/vim-vsnip',                   commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e" },
+      { 'golang/vscode-go',                    commit = "v0.37.1" },
+      { 'Dart-Code/Dart-Code',                 commit = "v3.58.0" },
     },
   },
   {
@@ -460,13 +464,13 @@ require 'lazy'.setup {
     'numToStr/Comment.nvim',
     lazy = true,
     tag = "v0.7.0",
-    event = "InsertEnter",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require('Comment').setup()]] },
   {
     "danymat/neogen",
     lazy = true,
     tag = "2.13.1",
-    event = "InsertEnter",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require('neogen').setup {}]],
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
