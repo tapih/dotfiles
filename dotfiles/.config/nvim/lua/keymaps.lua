@@ -1,26 +1,5 @@
 local set_keymap = vim.api.nvim_set_keymap
 
-set_keymap('n', '<CR>', ':<C-u>w<CR>', { noremap = true, silent = true })
-set_keymap('n', 'q', ':q<CR>', { noremap = true, silent = true })
-set_keymap('n', 'Q', ':qa<CR>', { noremap = true, silent = true })
-set_keymap('n', '<C-q>', 'q', { noremap = true, silent = true })
-set_keymap('n', '<C-y>', '<C-v>', { noremap = true, silent = true })
-set_keymap('n', 'U', '<C-r>', { noremap = true, silent = true })
-set_keymap('n', 'vy', 'ggVG', { noremap = true, silent = true })
-set_keymap('i', 'jj', '<Esc>', { noremap = true, silent = true })
-set_keymap('n', 'j', 'gj', { noremap = true, silent = true })
-set_keymap('n', 'k', 'gk', { noremap = true, silent = true })
-set_keymap('n', 'H', '^', { noremap = true, silent = true })
-set_keymap('n', 'L', '$', { noremap = true, silent = true })
-set_keymap('v', 'H', '^', { noremap = true, silent = true })
-set_keymap('v', 'L', '$', { noremap = true, silent = true })
-set_keymap('n', ';', ':', { noremap = true, silent = false })
-set_keymap('n', ':', 'm', { noremap = true, silent = true })
-set_keymap('n', 'm', ';', { noremap = true, silent = true })
-set_keymap('v', ';', ':', { noremap = true, silent = true })
-set_keymap('v', ':', 'm', { noremap = true, silent = true })
-set_keymap('v', 'm', ';', { noremap = true, silent = true })
-
 set_keymap('n', ',u', ':<C-u>Lazy update<CR>', { noremap = true, silent = false })
 set_keymap('n', ',s', ':<C-u>source %<CR>', { noremap = true, silent = false })
 
@@ -98,4 +77,3 @@ set_keymap('n', '<A-w>', ":<C-u>Bdelete<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-y>', ':<C-u>Telescope registers<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-;>', 'g%', { noremap = false, silent = true })
 set_keymap('v', '<A-;>', 'g%', { noremap = false, silent = true })
-
