@@ -211,10 +211,9 @@ alias v='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 exists lazygit && alias G="lazygit"
-exists lazygit && alias lg="lazygit"
-exists lazygit && alias gl="lazygit"
-exists k9s && alias k9s='k9s --readonly'
+exists lazydocker && alias D="lazydocker"
 exists k9s && alias K='k9s --readonly'
+exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists tmuxinator && alias mux='tmuxinator'
 
