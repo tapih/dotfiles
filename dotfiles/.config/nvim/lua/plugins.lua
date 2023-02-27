@@ -256,6 +256,7 @@ require 'lazy'.setup {
       'nvim-lua/plenary.nvim',
     },
     config = function()
+      local actions = require("telescope.actions")
       local telescope = require('telescope')
       telescope.setup {
         defaults = {
@@ -263,6 +264,12 @@ require 'lazy'.setup {
           layout_config = {
             horizontal = {
               width = 0.8,
+            },
+          },
+          mappings = {
+            i = {
+              ["<esc>"] = actions.close,
+              ["<C-u>"] = false,
             },
           },
         },
