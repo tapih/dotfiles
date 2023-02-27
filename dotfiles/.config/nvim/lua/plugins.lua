@@ -471,6 +471,12 @@ require 'lazy'.setup {
     end,
   },
   {
+    'mg979/vim-visual-multi',
+    lazy = true,
+    commit = '724bd53adfbaf32e129b001658b45d4c5c29ca1a',
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
+  {
     'bennypowers/nvim-regexplainer',
     lazy = true,
     commit = '8af9a846644982ab1e11cc99b6e4831e12479207',
