@@ -148,6 +148,34 @@ require 'lazy'.setup {
         config = [[require'mason'.setup()]],
       },
       {
+        "jose-elias-alvarez/null-ls.nvim",
+        commit = '689cdd78f70af20a37b5309ebc287ac645ae4f76',
+        dependencies = {
+          { "nvim-lua/plenary.nvim" },
+          { "jay-babu/mason-null-ls.nvim", tag = 'v1.1.0' },
+        },
+        config = function()
+          require("null-ls").setup {
+            ensure_installed = {
+              'buf',
+              'cue_fmt',
+              'cueimports',
+              'dart_format',
+              'hclfmt',
+              'goimports',
+              'markdownlint',
+              'pg_format',
+              'prettier',
+              'prettier_eslint',
+              'protolint',
+              'rego',
+              'sqlfluff',
+              'terraform_fmt',
+            },
+          }
+        end,
+      },
+      {
         'onsails/lspkind-nvim',
         commit = "c68b3a003483cf382428a43035079f78474cd11e",
         config = function()
