@@ -1,0 +1,9 @@
+{
+  "Print to console": {
+    "prefix": "fff",
+    "body": [
+      "fmt.Printf(\"==========%#v\\n\", $1)"
+    ],
+    "description": "Debug print of random variable"
+  }
+}

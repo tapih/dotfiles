@@ -4,6 +4,7 @@
 .tmux.conf
 .vimrc
 .zshrc
+.vsnip
 .config/cheat/cheatsheets/personal
 .config/cheat/conf.yml
 .config/nvim/init.lua
