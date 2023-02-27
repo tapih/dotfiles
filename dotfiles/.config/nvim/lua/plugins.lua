@@ -187,16 +187,6 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   {
-    'filipdutescu/renamer.nvim',
-    lazy = true,
-    tag = 'v5.1.0',
-    keys = {
-      { '<leader>m' },
-    },
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = [[require('renamer').setup{}]],
-  },
-  {
     "someone-stole-my-name/yaml-companion.nvim",
     lazy = true,
     tag = '0.1.3',
