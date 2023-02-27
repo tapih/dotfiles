@@ -74,6 +74,7 @@ set_keymap('n', '<A-m>', ':<C-u>Telescope marks<CR>', { noremap = true, silent =
 set_keymap('n', '<A-n>', ':<C-u>bnext<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-o>', ':<C-u>Telescope find_files find_command=fd,-HLE.git,-tf<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-p>', ':<C-u>bprev<CR>', { noremap = true, silent = true })
+set_keymap("n", "<A-t>", ":<C-u>NeoTreeFloatToggle<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-w>', ":<C-u>Bdelete<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-y>', ':<C-u>Telescope registers<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-;>', 'g%', { noremap = false, silent = true })
