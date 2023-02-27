@@ -547,6 +547,13 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   {
+    'gbprod/substitute.nvim',
+    lazy = true,
+    tag = 'v1.1.1',
+    event = 'VeryLazy',
+    config = [[require'substitute'.setup {}]],
+  },
+  {
     'junegunn/vim-easy-align',
     lazy = true,
     commit = "12dd6316974f71ce333e360c0260b4e1f81169c3",
