@@ -456,6 +456,14 @@ require 'lazy'.setup {
     tag = 'v2.7.1',
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require('plugins.legendary'),
+    dependencies = {
+      {
+        "stevearc/dressing.nvim",
+        lazy = true,
+        commit = '5f44f829481640be0f96759c965ae22a3bcaf7ce',
+        event = "VeryLazy",
+      },
+    },
   },
   {
     "folke/which-key.nvim",
