@@ -346,6 +346,12 @@ require 'lazy'.setup {
 
   -- Apperance
   {
+    'haringsrob/nvim_context_vt',
+    lazy = true,
+    commit = 'e592a9142fbfe0878ce886cd0d745963604c61d2',
+    event = "VeryLazy",
+  },
+  {
     'nvim-lualine/lualine.nvim',
     commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
