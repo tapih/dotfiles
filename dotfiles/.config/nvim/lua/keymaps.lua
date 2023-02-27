@@ -59,6 +59,7 @@ set_keymap('n', '<A-a>', ':<C-u>EasyAlign<CR>', { noremap = true, silent = false
 set_keymap('v', '<A-a>', ':<C-u>EasyAlign<CR>', { noremap = true, silent = false })
 set_keymap('n', '<A-b>', ':<C-u>Telescope git_branches<CR>', { noremap = true, silent = true })
 set_keymap('n', '<A-c>', ':<C-u>Telescope commands<CR>', { noremap = true, silent = true })
+set_keymap("n", "<A-d>", "<cmd>FloatermNew lazydocker<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-e>', ':<C-u>Telescope buffers<CR>', { noremap = true, silent = true })
 set_keymap("n", "<A-g>", "<cmd>FloatermNew lazygit<CR>", { noremap = true, silent = true })
 set_keymap('n', '<A-G>', ":<C-u>GHInteractive<CR>", { noremap = true, silent = true })
