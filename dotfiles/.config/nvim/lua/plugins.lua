@@ -358,6 +358,16 @@ require 'lazy'.setup {
     end
   },
   {
+    "folke/todo-comments.nvim",
+    lazy = true,
+    commit = 'v1.0.0',
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = {
+      { "nvim-lua/plenary.nvim" },
+    },
+    config = [[require("todo-comments").setup {}]],
+  },
+  {
     'RRethy/vim-illuminate',
     lazy = true,
     commit = "49062ab1dd8fec91833a69f0a1344223dd59d643",
