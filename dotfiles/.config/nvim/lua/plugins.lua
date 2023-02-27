@@ -469,6 +469,26 @@ require 'lazy'.setup {
     end
   },
 
+  -- Enhanced motions
+  -- Lazy load by event is not recommended.
+  { 'andymass/vim-matchup', commit = "3a48818a8113a502f245c29d894201421727577a" },
+  {
+    'bkad/CamelCaseMotion',
+    lazy = true,
+    commit = "de439d7c06cffd0839a29045a103fe4b44b15cdc",
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
+  {
+    'mg979/vim-visual-multi',
+    lazy = true,
+    commit = '724bd53adfbaf32e129b001658b45d4c5c29ca1a',
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
+  {
+    'terryma/vim-expand-region',
+    lazy = true,
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+  },
   -- Editing
   {
     'EtiamNullam/deferred-clipboard.nvim',
@@ -480,12 +500,6 @@ require 'lazy'.setup {
         fallback = 'unnamedplus', -- or your preferred setting for clipboard
       }
     end,
-  },
-  {
-    'mg979/vim-visual-multi',
-    lazy = true,
-    commit = '724bd53adfbaf32e129b001658b45d4c5c29ca1a',
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'bennypowers/nvim-regexplainer',
@@ -509,14 +523,6 @@ require 'lazy'.setup {
     'tpope/vim-surround',
     lazy = true,
     commit = "3d188ed2113431cf8dac77be61b842acb64433d9",
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-  },
-  -- Lazy load by event is not recommended.
-  { 'andymass/vim-matchup', commit = "3a48818a8113a502f245c29d894201421727577a" },
-  {
-    'bkad/CamelCaseMotion',
-    lazy = true,
-    commit = "de439d7c06cffd0839a29045a103fe4b44b15cdc",
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
