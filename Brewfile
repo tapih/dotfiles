@@ -6,7 +6,7 @@ brew "git-delta"
 brew "lazygit"
 
 # coding
-brew "neovim"
+brew "neovim@0.8.3"
 brew "lua-language-server"
 brew "terraform-ls"
 brew "actionlint"
