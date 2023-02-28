@@ -270,7 +270,7 @@ require 'lazy'.setup {
   },
   {
     "zbirenbaum/copilot.lua",
-    commit = "ca68fc39f656d4025c5e0acc2faf07a28be3a389",
+    commit = "b41d4c9c7d4f5e0272bcf94061b88e244904c56f",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require("copilot").setup()]],
