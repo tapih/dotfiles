@@ -1,0 +1,60 @@
+name: Comment GitHub diff URL
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    timeout-minutes: 3
+    if: github.actor == 'renovate[bot]'
+    steps:
+      - name: Comment
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const pullNumber = "${{ github.event.pull_request.number }}"
+
+            const pr = await github.rest.pulls.get({
+                pull_number: pullNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+            })
+            console.log(pr.data.body)
+
+            const re = /\| .+ \| digest \| `.+` -> `.+` \|\n/
+            const results = re.exec(pr.data.body)
+            if (results.length === 0) {
+              console.log("The description comment does not contain \`digest\`. So skip.")
+              return
+            }
+
+            /*
+            Input:
+              | neovim/nvim-lspconfig | digest | `62856b2` -> `95b7a69` |
+
+            Output
+              repository: neovim/nvim-lspconfig
+              baseSha: 62856b2
+              targetSha: 95b7a69
+            */
+            const matched = results[0]
+            const s = matched.replaceAll(" ", "").replaceAll("`", "").replace("->", "|").split("|")
+            const repository = s[1]
+            const baseSha = s[3]
+            const targetSha = s[4]
+
+            const url = `https://github.com/${repository}/compare/${baseSha}...${targetSha}`
+            const body = `[diff](${url})`
+
+            await github.rest.issues.createComment({
+                issue_number: pullNumber,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body
+            })
