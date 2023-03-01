@@ -35,6 +35,7 @@ brew "silicon"
 brew "urlview"
 
 #infrastructure
+brew "wireshark"
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
