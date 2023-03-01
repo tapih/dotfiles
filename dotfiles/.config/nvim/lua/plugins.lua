@@ -211,9 +211,11 @@ require 'lazy'.setup {
               Folder = '',
               EnumMember = '',
               Constant = '',
-              Struct = ''
+              Struct = '',
+              Copilot = "",
             },
           })
+          vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
         end,
       },
     },
@@ -284,23 +286,33 @@ require 'lazy'.setup {
         commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e",
       },
       {
+        'lukas-reineke/cmp-under-comparator',
+        commit = '6857f10272c3cfe930cece2afa2406e1385bfef8',
+      },
+      {
         'golang/vscode-go',
         tag = "v0.37.1",
       },
+    },
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    lazy = true,
+    commit = '92535dfd9c430b49ca7d9a7da336c5db65826b65',
+    event = { "InsertEnter" },
+    config = function()
+      require("copilot_cmp").setup()
+    end,
+    dependencies = {
       {
-        "zbirenbaum/copilot-cmp",
-        commit = "92535dfd9c430b49ca7d9a7da336c5db65826b65",
-        dependencies = {
-          {
-            "zbirenbaum/copilot.lua",
-            config = function()
-              require("copilot").setup({
-                suggestion = { enabled = false },
-                panel = { enabled = false },
-              })
-            end,
-          }
-        },
+        "zbirenbaum/copilot.lua",
+        commit = 'b41d4c9c7d4f5e0272bcf94061b88e244904c56f',
+        config = function()
+          require("copilot").setup({
+            suggestion = { enabled = false },
+            panel = { enabled = false },
+          })
+        end,
       },
     },
   },
