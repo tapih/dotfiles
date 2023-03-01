@@ -1,5 +1,6 @@
 return function()
   require('legendary').setup {
+    select_prompt = " Command Palette ",
     keymaps = {
       -- Development
       { ',u',              ':<C-u>Lazy update<CR>',                                           mode = 'n', description = '[System] Update plugins',                       opts = { silent = true, remap = false } },
