@@ -248,31 +248,59 @@ require 'lazy'.setup {
     'hrsh7th/nvim-cmp',
     commit = "7a3b1e76f74934b12fda82158237c6ad8bfd3d40",
     lazy = true,
-    event = { "InsertEnter" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = require('plugins.nvim-cmp'),
     dependencies = {
-      { 'hrsh7th/cmp-nvim-lsp',                commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef" },
-      { 'hrsh7th/cmp-nvim-lsp-signature-help', commit = "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1" },
-      { 'hrsh7th/cmp-buffer',                  commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" },
-      { 'hrsh7th/cmp-path',                    commit = "91ff86cd9c29299a64f968ebb45846c485725f23" },
-      { 'hrsh7th/cmp-cmdline',                 commit = "8fcc934a52af96120fe26358985c10c035984b53" },
-      { 'hrsh7th/cmp-emoji',                   commit = "19075c36d5820253d32e2478b6aaf3734aeaafa0" },
-      { 'hrsh7th/cmp-vsnip',                   commit = "989a8a73c44e926199bfd05fa7a516d51f2d2752" },
-      { 'hrsh7th/vim-vsnip',                   commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e" },
-      { 'golang/vscode-go',                    tag = "v0.37.1" },
-      { 'Dart-Code/Dart-Code',                 tag = "v3.58.0" },
-    },
-  },
-  {
-    "zbirenbaum/copilot.lua",
-    commit = "ca68fc39f656d4025c5e0acc2faf07a28be3a389",
-    lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    config = [[require("copilot").setup()]],
-    dependencies = {
+      {
+        'hrsh7th/cmp-nvim-lsp',
+        commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef",
+      },
+      {
+        'hrsh7th/cmp-nvim-lsp-signature-help',
+        commit = "3d8912ebeb56e5ae08ef0906e3a54de1c66b92f1",
+      },
+      {
+        'hrsh7th/cmp-buffer',
+        commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa",
+      },
+      {
+        'hrsh7th/cmp-path',
+        commit = "91ff86cd9c29299a64f968ebb45846c485725f23",
+      },
+      {
+        'hrsh7th/cmp-cmdline',
+        commit = "8fcc934a52af96120fe26358985c10c035984b53",
+      },
+      {
+        'hrsh7th/cmp-emoji',
+        commit = "19075c36d5820253d32e2478b6aaf3734aeaafa0",
+      },
+      {
+        'hrsh7th/cmp-vsnip',
+        commit = "989a8a73c44e926199bfd05fa7a516d51f2d2752",
+      },
+      {
+        'hrsh7th/vim-vsnip',
+        commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e",
+      },
+      {
+        'golang/vscode-go',
+        tag = "v0.37.1",
+      },
       {
         "zbirenbaum/copilot-cmp",
-        config = [[require("copilot_cmp").setup()]],
+        commit = "92535dfd9c430b49ca7d9a7da336c5db65826b65",
+        dependencies = {
+          {
+            "zbirenbaum/copilot.lua",
+            config = function()
+              require("copilot").setup({
+                suggestion = { enabled = false },
+                panel = { enabled = false },
+              })
+            end,
+          }
+        },
       },
     },
   },
