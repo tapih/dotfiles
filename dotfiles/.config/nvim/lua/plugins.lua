@@ -46,8 +46,8 @@ require 'lazy'.setup {
   {
     'airblade/vim-rooter',
     commit = "4f52ca556a0b9e257bf920658714470ea0320b7a" },
-    lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  lazy = true,
+  event = { "BufReadPost", "BufAdd", "BufNewFile" },
   {
     'glepnir/dashboard-nvim',
     commit = '398ba8d9390c13c87a964cbca756319531fffdb7',
@@ -60,12 +60,19 @@ require 'lazy'.setup {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    tag = "v0.8.5.2",
+    commit = "9dd1b9c09707bf1cdd565b999c79ac6461602591",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     build = [[vim.api.nvim_command("TSUpdate")]],
+    dependencies = {
+      {
+        "yioneko/nvim-yati",
+        commit = "8240f369d47c389ac898f87613e0901f126b40f3",
+      },
+    },
     config = function()
       require('nvim-treesitter.configs').setup {
+        yati = { enable = true },
         highlight = {
           enable = true,
         },
@@ -98,22 +105,7 @@ require 'lazy'.setup {
   {
     'm-demare/hlargs.nvim',
     commit = "88b925d699fb39633cdda02c24f0b3ba5d0e6964",
-    lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = [[require('hlargs').setup()]],
-  },
-  {
-    "yioneko/nvim-yati",
-    commit = "8240f369d47c389ac898f87613e0901f126b40f3",
-    lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("nvim-treesitter.configs").setup {
-        yati = { enable = true }
-      }
-    end,
   },
 
   -- LSP
@@ -168,7 +160,10 @@ require 'lazy'.setup {
         commit = '689cdd78f70af20a37b5309ebc287ac645ae4f76',
         dependencies = {
           { "nvim-lua/plenary.nvim" },
-          { "jay-babu/mason-null-ls.nvim", tag = 'v1.1.0' },
+          {
+            "jay-babu/mason-null-ls.nvim",
+            tag = 'v1.1.0',
+          },
         },
         config = function()
           require("null-ls").setup {
