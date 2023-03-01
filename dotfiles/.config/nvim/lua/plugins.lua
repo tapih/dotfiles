@@ -112,7 +112,7 @@ require 'lazy'.setup {
   {
     -- Use commit instead of tag to use lua_ls.
     'neovim/nvim-lspconfig',
-    commit = "62856b20751b748841b0f3ec5a10b1e2f6a6dbc9",
+    commit = "95b7a69bc6da2a6a740584ea3c555e5327638b7d",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require 'plugins.lspconfig',
