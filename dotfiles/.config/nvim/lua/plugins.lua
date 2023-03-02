@@ -215,7 +215,7 @@ require 'lazy'.setup {
               Copilot = "",
             },
           })
-          vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+          vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
         end,
       },
     },
@@ -358,6 +358,18 @@ require 'lazy'.setup {
           },
         },
       }
+    end,
+  },
+  {
+    'nvim-telescope/telescope-frecency.nvim',
+    commit = 'e5696afabd8753d772987ea48434d9c0d8b0aa6b',
+    lazy = true,
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+      'kkharji/sqlite.lua',
+    },
+    config = function()
+      require "telescope".load_extension("frecency")
     end,
   },
   {
