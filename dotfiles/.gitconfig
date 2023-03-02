@@ -66,6 +66,7 @@
     editor = nvim
     autocrlf= false
     pager = delta -s
+    sparseCheckout = true
 
 [delta]
     syntax-theme = Monokai Extended
