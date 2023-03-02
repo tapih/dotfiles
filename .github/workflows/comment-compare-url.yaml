@@ -29,7 +29,7 @@ jobs:
 
             const re = /\| .+ \| digest \| `.+` -> `.+` \|\n/
             const results = re.exec(pr.data.body)
-            if (results.length === 0) {
+            if (results === null) {
               console.log("The description comment does not contain \`digest\`. So skip.")
               return
             }
