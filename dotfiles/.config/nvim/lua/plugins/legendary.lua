@@ -52,6 +52,17 @@ return function()
       { '<leader>;',       ':<C-u>CommaOrSemiColon<CR>',                                      mode = 'n', description = '[Edit] Add comma or semicolon at the end',      opts = { remap = false, silent = true } },
       { '<leader>,',       ':<C-u>SplitjoinSplit<CR>',                                        mode = 'n', description = '[Edit] Convert single line to multi lines',     opts = { remap = false, silent = true } },
       { '<leader>.',       ':<C-u>SplitjoinJoin<CR>',                                         mode = 'n', description = '[Edit] Convert multi lines to single line',     opts = { remap = false, silent = true } },
+      { '<leader>gj',      "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",   mode = 'n', description = '[Git] Go to next hunk',                         opts = { remap = false, silent = true } },
+      { '<leader>gk',      "&diff ? ']c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",   mode = 'n', description = '[Git] Go to prev hunk',                         opts = { remap = false, silent = true } },
+      { '<leader>gs',      '<cmd>lua require"gitsigns".stage_hunk()<CR>',                     mode = 'n', description = '[Git] Stage hunk',                              opts = { remap = false, silent = true } },
+      { '<leader>gs',      '<cmd>lua require"gitsigns".stage_hunk()<CR>',                     mode = 'v', description = '[Git] Stage hunk',                              opts = { remap = false, silent = true } },
+      { '<leader>gu',      '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',                mode = 'n', description = '[Git] Undo stage hunk',                         opts = { remap = false, silent = true } },
+      { '<leader>gr',      '<cmd>lua require"gitsigns".reset_hunk()<CR>',                     mode = 'n', description = '[Git] Reset hunk',                              opts = { remap = false, silent = true } },
+      { '<leader>gr',      '<cmd>lua require"gitsigns".reset_hunk()<CR>',                     mode = 'v', description = '[Git] Reset hunk',                              opts = { remap = false, silent = true } },
+      { '<leader>gp',      '<cmd>lua require"gitsigns".preview_hunk()<CR>',                   mode = 'n', description = '[Git] Preview hunk',                            opts = { remap = false, silent = true } },
+      { '<leader>gb',      '<cmd>lua require"gitsigns".blame_line()<CR>',                     mode = 'n', description = '[Git] Blame line',                              opts = { remap = false, silent = true } },
+      { '<leader>gd',      '<cmd>lua require"gitsigns".diffthis()<CR>',                       mode = 'n', description = '[Git] Show Diff',                               opts = { remap = false, silent = true } },
+
       -- <A->
       { '<A-a>',           ':<C-u>EasyAlign<CR>',                                             mode = 'n', description = '[Edit] Align code',                             opts = { remap = false, silent = false } },
       { '<A-a>',           ':<C-u>EasyAlign<CR>',                                             mode = 'v', description = '[Edit] Align code',                             opts = { remap = false, silent = false } },
