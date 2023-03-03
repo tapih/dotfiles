@@ -326,8 +326,35 @@ require 'lazy'.setup {
     dependencies = {
       'nvim-lua/popup.nvim',
       'nvim-lua/plenary.nvim',
+      {
+        'nvim-telescope/telescope-frecency.nvim',
+        commit = 'e5696afabd8753d772987ea48434d9c0d8b0aa6b',
+        dependencies = {
+          {
+            'kkharji/sqlite.lua',
+            tag = "v1.2.2",
+          },
+        },
+      },
+      {
+        'cljoly/telescope-repo.nvim',
+        commit = "50b5fc6eba11b5f1fcb249d5f7490551f86d1a00",
+      },
+      {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        commit = "580b6c48651cabb63455e97d7e131ed557b8c7e2",
+      },
+      {
+        "nvim-telescope/telescope-file-browser.nvim",
+        commit = "6eb6bb45b7a9bed94a464a3e1dadfe870459628c",
+      },
     },
     config = function()
+      require('telescope').load_extension('fzf')
+      require('telescope').load_extension('repo')
+      require("telescope").load_extension "file_browser"
+      require "telescope".load_extension("frecency")
+
       local actions = require("telescope.actions")
       local telescope = require('telescope')
       telescope.setup {
@@ -359,55 +386,6 @@ require 'lazy'.setup {
         },
       }
     end,
-  },
-  {
-    'nvim-telescope/telescope-frecency.nvim',
-    commit = 'e5696afabd8753d772987ea48434d9c0d8b0aa6b',
-    lazy = true,
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-      'kkharji/sqlite.lua',
-    },
-    config = function()
-      require "telescope".load_extension("frecency")
-    end,
-  },
-  {
-    'cljoly/telescope-repo.nvim',
-    commit = "50b5fc6eba11b5f1fcb249d5f7490551f86d1a00",
-    lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('telescope').load_extension('repo')
-    end,
-  },
-  {
-    'nvim-telescope/telescope-fzf-native.nvim',
-    commit = "580b6c48651cabb63455e97d7e131ed557b8c7e2",
-    lazy = true,
-    build = 'make',
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require('telescope').load_extension('fzf')
-    end,
-  },
-  {
-    "nvim-telescope/telescope-file-browser.nvim",
-    commit = "6eb6bb45b7a9bed94a464a3e1dadfe870459628c",
-    lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-    config = function()
-      require("telescope").load_extension "file_browser"
-    end
   },
 
   -- Apperance
