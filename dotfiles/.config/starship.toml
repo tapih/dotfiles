@@ -74,7 +74,7 @@ format = "[$symbol$version]($style) "
 [kubernetes]
 disabled = false
 format = '[$symbol$context( \($namespace\) )]($style) '
-style = "bold black"
+style = "bold white"
 
 [gcloud]
 style = "bold green"
@@ -82,7 +82,7 @@ symbol = "🍀 "
 format = '[$symbol$project]($style) '
 
 [aws]
-style = "bold black"
+style = "bold white"
 format = '[$symbol$profile(\($region\))]($style) '
 
 [terraform]
@@ -93,4 +93,4 @@ format = "[$symbol$workspace]($style) "
 [time]
 disabled = false
 format = "🕘 [$time]($style) "
-style = "bold black"
+style = "bold white"

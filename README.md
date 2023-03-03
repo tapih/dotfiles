@@ -6,14 +6,13 @@
 
 ### On Windows side
 
-- Chrome
 - Mozc(+Swap Ctrl and Caps)
+- Chrome
 - Enpass
 - Slack
 - Notion
 - Kindle
-- VSCode
-- Wireshark
+- Alacritty
 - PowerToys
 - win32yank
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
