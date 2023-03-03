@@ -750,12 +750,6 @@ require 'lazy'.setup {
     cmd = { 'GH', 'GHInteractive' },
   },
   {
-    'mattn/vim-gist',
-    commit = "5bfbb5450d9eff248f6c074de0b7800392439304",
-    lazy = true,
-    cmd = { 'Gist' },
-  },
-  {
     'f-person/git-blame.nvim',
     commit = "17840d01f42ee308e1dbbcc2cde991297aee36c9",
     lazy = true,
@@ -866,6 +860,21 @@ require 'lazy'.setup {
   },
 
   -- Color
+  {
+    'xiyaowong/nvim-transparent',
+    commit = '4c3c392f285378e606d154bee393b6b3dd18059c',
+    config = function()
+      require 'transparent'.setup {
+        enable = true,
+      }
+    end,
+  },
+  {
+    'norcalli/nvim-colorizer.lua',
+    commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6',
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
   { 'folke/tokyonight.nvim',
     tag = 'v1.3.0',
     config = function()
@@ -879,12 +888,6 @@ require 'lazy'.setup {
         end,
       }
     end
-  },
-  {
-    'norcalli/nvim-colorizer.lua',
-    commit = '36c610a9717cc9ec426a07c8e6bf3b3abcb139d6',
-    lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
 }
 
