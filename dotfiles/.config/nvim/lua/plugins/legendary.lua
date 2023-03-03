@@ -38,7 +38,7 @@ return function()
       { '<leader>m',       ':lua vim.lsp.buf.rename()<CR>',                                   mode = 'v', description = '[Refactor] Rename',                             opts = { remap = false, silent = true } },
       { "<Leader>nf",      ":lua require('neogen').generate()<CR>",                           mode = "n", description = '[Comment] Generate doc for function',           opts = { remap = false, silent = true } },
       { "<Leader>nc",      ":lua require('neogen').generate({ type = 'class' }}<CR>",         mode = "n", description = '[Comment] Generate doc for class',              opts = { remap = false, silent = true } },
-      { '<leader>p',       ':<C-u> Legendary keymaps<CR>',                                    mode = 'n', description = '[Keymap] Find command',                         opts = { remap = false, silent = true } },
+      { '<leader>p',       ':<C-u> Legendary keymaps<CR>',                                    mode = 'n', description = '[Keymap] Find keymap',                         opts = { remap = false, silent = true } },
       { '<leader>r',       ':<C-u>Telescope lsp_references<CR>',                              mode = 'n', description = '[LSP] Go to reference',                         opts = { remap = false, silent = true } },
       { '<leader>sh',      ":<C-u>SidewaysLeft<CR>",                                          mode = "n", description = '[Edit] Move argument to left',                  opts = { remap = false, silent = true } },
       { "<leader>sl",      ":<C-u>SidewaysRight<CR>",                                         mode = "n", description = '[Edit] Move argument to right',                 opts = { remap = false, silent = true } },
