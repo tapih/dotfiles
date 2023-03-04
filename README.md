@@ -7,7 +7,6 @@
 ### On Windows side
 
 - Mozc(+Swap Ctrl and Caps)
-- Chrome
 - Enpass
 - Slack
 - Notion
