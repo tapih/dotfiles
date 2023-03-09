@@ -27,7 +27,7 @@
     op = stash pop
     pf = push --force-with-lease
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
-    pk = chery-pick
+    pk = cherry-pick
     po = push
     pr = !git push && gh pr create --web
     v = !gh pr view --web
