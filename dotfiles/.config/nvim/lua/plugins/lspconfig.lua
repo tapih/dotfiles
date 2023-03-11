@@ -23,8 +23,6 @@ return function()
     end
   end
 
-  require("neodev").setup()
-
   local lspconfig = require('lspconfig')
   lspconfig.gopls.setup { capabilities = capabilities }
   lspconfig.golangci_lint_ls.setup { capabilities = capabilities }
@@ -41,46 +39,7 @@ return function()
   lspconfig.jsonnet_ls.setup { capabilities = capabilities }
   lspconfig.lua_ls.setup { capabilities = capabilities }
 
-  local json_schemas = require('schemastore').json.schemas {}
-  local yaml_schemas = {}
-  vim.tbl_map(function(schema)
-    yaml_schemas[schema.url] = schema.fileMatch
-  end, json_schemas)
-
-  local yaml_config = require("yaml-companion").setup({
-          schemas = {
-              {
-                  name = "Kubernetes",
-                  uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.6-standalone-strict/all.json",
-              },
-          },
-          lspconfig = {
-              settings = {
-                  yaml = {
-                      schemas = yaml_schemas,
-                  }
-              }
-          }
-      })
-  lspconfig.yamlls.setup(yaml_config)
-
-  lspconfig.jsonls.setup {
-      capabilities = capabilities,
-      settings = {
-          json = {
-              schemas = json_schemas,
-          }
-      },
-      commands = {
-          Format = {
-              function()
-                vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
-              end
-          }
-      },
-  }
   vim.cmd 'sign define LspDiagnosticsSignError text='
-
   vim.cmd 'sign define LspDiagnosticsSignWarning text='
   vim.cmd 'sign define LspDiagnosticsSignInformation text='
   vim.cmd 'sign define LspDiagnosticsSignHint text='

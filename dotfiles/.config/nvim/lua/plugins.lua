@@ -10,44 +10,46 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'lua' },
   },
-  {
-    'dstein64/vim-startuptime',
-    tag = "v4.3.0",
-    lazy = true,
-    cmd = { "StartupTime" }
-  },
 
   -- Basic
   {
     'nvim-lua/plenary.nvim',
     tag = "v0.1.3",
+    lazy = true,
+    event = { "VeryLazy" },
   },
   {
     'nvim-lua/popup.nvim',
     commit = "b7404d35d5d3548a82149238289fa71f7f6de4ac",
+    lazy = true,
+    event = { "VeryLazy" },
   },
   {
     'MunifTanjim/nui.nvim',
     commit = "d147222a1300901656f3ebd5b95f91732785a329",
+    lazy = true,
+    event = { "VeryLazy" },
   },
   {
     'nvim-tree/nvim-web-devicons',
     commit = "4709a504d2cd2680fb511675e64ef2790d491d36",
+    lazy = true,
+    event = { "VeryLazy" },
   },
   {
     'kevinhwang91/nvim-bqf',
     tag = "v1.1.0",
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = 'qf',
   },
 
   -- Project
   {
     'airblade/vim-rooter',
-    commit = "4f52ca556a0b9e257bf920658714470ea0320b7a" },
-  lazy = true,
-  event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    commit = "4f52ca556a0b9e257bf920658714470ea0320b7a",
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+  },
   {
     'glepnir/dashboard-nvim',
     commit = '398ba8d9390c13c87a964cbca756319531fffdb7',
@@ -105,6 +107,8 @@ require 'lazy'.setup {
   {
     'm-demare/hlargs.nvim',
     commit = "88b925d699fb39633cdda02c24f0b3ba5d0e6964",
+    lazy = true,
+    event = { "VeryLazy" },
     config = [[require('hlargs').setup()]],
   },
 
@@ -114,13 +118,9 @@ require 'lazy'.setup {
     'neovim/nvim-lspconfig',
     commit = "62856b20751b748841b0f3ec5a10b1e2f6a6dbc9",
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "LspAttach" },
     config = require 'plugins.lspconfig',
     dependencies = {
-      {
-        'ray-x/lsp_signature.nvim',
-        commit = "6f6252f63b0baf0f2224c4caea33819a27f3f550",
-      },
       {
         "williamboman/mason-lspconfig.nvim",
         commit = "93e58e100f37ef4fb0f897deeed20599dae9d128",
@@ -186,38 +186,6 @@ require 'lazy'.setup {
           }
         end,
       },
-      {
-        'onsails/lspkind-nvim',
-        commit = "c68b3a003483cf382428a43035079f78474cd11e",
-        config = function()
-          require('lspkind').init({
-            symbol_map = {
-              Text = '',
-              Method = 'ƒ',
-              Function = '',
-              Constructor = '',
-              Variable = '',
-              Class = '',
-              Interface = 'ﰮ',
-              Module = '',
-              Property = '',
-              Unit = '',
-              Value = '',
-              Enum = '了',
-              Keyword = '',
-              Snippet = '﬌',
-              Color = '',
-              File = '',
-              Folder = '',
-              EnumMember = '',
-              Constant = '',
-              Struct = '',
-              Copilot = "",
-            },
-          })
-          vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
-        end,
-      },
     },
   },
   {
@@ -225,7 +193,47 @@ require 'lazy'.setup {
     commit = "688b4fec4517650e29c3e63cfbb6e498b3112ba1",
     lazy = true,
     config = [[require'fidget'.setup()]],
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "LspAttach" },
+  },
+  {
+    'ray-x/lsp_signature.nvim',
+    commit = "6f6252f63b0baf0f2224c4caea33819a27f3f550",
+    lazy = true,
+    event = { "LspAttach" },
+  },
+  {
+    'onsails/lspkind-nvim',
+    commit = "c68b3a003483cf382428a43035079f78474cd11e",
+    lazy = true,
+    event = { "LspAttach" },
+    config = function()
+      require('lspkind').init({
+        symbol_map = {
+          Text = '',
+          Method = 'ƒ',
+          Function = '',
+          Constructor = '',
+          Variable = '',
+          Class = '',
+          Interface = 'ﰮ',
+          Module = '',
+          Property = '',
+          Unit = '',
+          Value = '',
+          Enum = '了',
+          Keyword = '',
+          Snippet = '﬌',
+          Color = '',
+          File = '',
+          Folder = '',
+          EnumMember = '',
+          Constant = '',
+          Struct = '',
+          Copilot = "",
+        },
+      })
+      vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+    end,
   },
   {
     "someone-stole-my-name/yaml-companion.nvim",
@@ -233,15 +241,53 @@ require 'lazy'.setup {
     lazy = true,
     ft = { "yaml", "json" },
     dependencies = {
+      { "nvim-lua/plenary.nvim" },
+      { "neovim/nvim-lspconfig" },
       {
         "b0o/schemastore.nvim",
         commit = "6f2ffb8420422db9a6c43dbce7227f0fdb9fcf75",
       },
-      { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim" },
     },
     config = function()
       require("telescope").load_extension("yaml_schema")
+      local lspconfig = require('lspconfig')
+      local json_schemas = require('schemastore').json.schemas {}
+      local yaml_schemas = {}
+      vim.tbl_map(function(schema)
+        yaml_schemas[schema.url] = schema.fileMatch
+      end, json_schemas)
+
+      local yaml_config = require("yaml-companion").setup({
+        schemas = {
+          {
+            name = "Kubernetes",
+            uri = "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.25.6-standalone-strict/all.json",
+          },
+        },
+        lspconfig = {
+          settings = {
+            yaml = {
+              schemas = yaml_schemas,
+            }
+          }
+        }
+      })
+      lspconfig.yamlls.setup(yaml_config)
+      lspconfig.jsonls.setup {
+        capabilities = capabilities,
+        settings = {
+          json = {
+            schemas = json_schemas,
+          }
+        },
+        commands = {
+          Format = {
+            function()
+              vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line("$"), 0 })
+            end
+          }
+        },
+      }
     end,
   },
 
@@ -250,7 +296,7 @@ require 'lazy'.setup {
     'hrsh7th/nvim-cmp',
     commit = "7a3b1e76f74934b12fda82158237c6ad8bfd3d40",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "InsertEnter", "CmdlineEnter" },
     config = require('plugins.nvim-cmp'),
     dependencies = {
       {
@@ -398,6 +444,8 @@ require 'lazy'.setup {
   {
     'nvim-lualine/lualine.nvim',
     commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80",
+    lazy = true,
+    event = "VeryLazy",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require('lualine').setup {
@@ -459,6 +507,8 @@ require 'lazy'.setup {
   {
     'romgrk/barbar.nvim',
     commit = '4573b19e9ac29a58409a9445bf93753fb5a3e0e4',
+    lazy = true,
+    event = "VeryLazy",
   },
   {
     'dstein64/nvim-scrollview',
@@ -469,11 +519,15 @@ require 'lazy'.setup {
   {
     "SmiteshP/nvim-navic",
     commit = "7e9d2b2b601149fecdccd11b516acb721e571fe6",
-    dependencies = "neovim/nvim-lspconfig",
+    lazy = true,
+    event = "VeryLazy",
+    dependencies = { "neovim/nvim-lspconfig" },
   },
   {
     "utilyre/barbecue.nvim",
     tag = "v0.4.1",
+    lazy = true,
+    event = "VeryLazy",
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
@@ -539,14 +593,12 @@ require 'lazy'.setup {
     'mrjones2014/legendary.nvim',
     tag = 'v2.7.1',
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = require('plugins.legendary'),
     dependencies = {
       {
         "stevearc/dressing.nvim",
         commit = '5f44f829481640be0f96759c965ae22a3bcaf7ce',
-        lazy = true,
-        event = "VeryLazy",
       },
     },
   },
@@ -554,7 +606,7 @@ require 'lazy'.setup {
     "folke/which-key.nvim",
     tag = 'v1.1.1',
     lazy = true,
-    event = { "VeryLazy" },
+    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
