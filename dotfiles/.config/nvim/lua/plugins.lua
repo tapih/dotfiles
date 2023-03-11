@@ -117,8 +117,6 @@ require 'lazy'.setup {
     -- Use commit instead of tag to use lua_ls.
     'neovim/nvim-lspconfig',
     commit = "62856b20751b748841b0f3ec5a10b1e2f6a6dbc9",
-    lazy = true,
-    event = { "LspAttach" },
     config = require 'plugins.lspconfig',
     dependencies = {
       {
@@ -440,6 +438,11 @@ require 'lazy'.setup {
     commit = 'e592a9142fbfe0878ce886cd0d745963604c61d2',
     lazy = true,
     event = "VeryLazy",
+    config = function()
+      require('nvim_context_vt').setup {
+        disable_ft = { 'markdown', 'yaml' }
+      }
+    end,
   },
   {
     'nvim-lualine/lualine.nvim',
