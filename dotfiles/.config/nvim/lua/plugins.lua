@@ -942,6 +942,7 @@ require 'lazy'.setup {
           highlights['Keyword'].style.italic = false
         end,
       }
+      vim.cmd [[highlight Visual cterm=bold ctermbg=Blue ctermfg=NONE]]
     end
   },
 }
