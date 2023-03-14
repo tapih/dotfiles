@@ -931,7 +931,7 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   { 'folke/tokyonight.nvim',
-    tag = 'v1.3.0',
+    tag = 'v1.9.0',
     config = function()
       require 'tokyonight'.setup {
         -- Disable italic because Windows Terminal does not support it.
