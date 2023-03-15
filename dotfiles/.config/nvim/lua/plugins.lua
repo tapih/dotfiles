@@ -497,7 +497,7 @@ require 'lazy'.setup {
     'lukas-reineke/indent-blankline.nvim',
     tag = "v2.20.4",
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "VeryLazy" },
     config = function()
       require("indent_blankline").setup {
         show_current_context = true,
@@ -511,26 +511,26 @@ require 'lazy'.setup {
     'romgrk/barbar.nvim',
     commit = '4573b19e9ac29a58409a9445bf93753fb5a3e0e4',
     lazy = true,
-    event = "VeryLazy",
+    event = { "VeryLazy" },
   },
   {
     'dstein64/nvim-scrollview',
     tag = "v3.0.3",
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "VeryLazy" },
   },
   {
     "SmiteshP/nvim-navic",
     commit = "7e9d2b2b601149fecdccd11b516acb721e571fe6",
     lazy = true,
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     dependencies = { "neovim/nvim-lspconfig" },
   },
   {
     "utilyre/barbecue.nvim",
     tag = "v0.4.1",
     lazy = true,
-    event = "VeryLazy",
+    event = { "VeryLazy" },
     dependencies = {
       "SmiteshP/nvim-navic",
       "nvim-tree/nvim-web-devicons",
@@ -596,7 +596,7 @@ require 'lazy'.setup {
     'mrjones2014/legendary.nvim',
     tag = 'v2.7.1',
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
     config = require('plugins.legendary'),
     dependencies = {
       {
@@ -609,7 +609,7 @@ require 'lazy'.setup {
     "folke/which-key.nvim",
     tag = 'v1.1.1',
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
     config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300
@@ -754,19 +754,19 @@ require 'lazy'.setup {
     'unblevable/quick-scope',
     tag = "v2.5.16",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
   },
   {
     'windwp/nvim-spectre',
     commit = "b71b64afe9fedbfdd25a8abec897ff4af3bd553a",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
   },
   {
     'kevinhwang91/nvim-hlslens',
     tag = "v1.0.0",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
     config = [[require'hlslens'.setup()]],
   },
   {
@@ -794,7 +794,7 @@ require 'lazy'.setup {
     'lewis6991/gitsigns.nvim',
     commit = 'f388995990aba04cfdc7c3ab870c33e280601109',
     lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    event = { "VeryLazy" },
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = require('plugins.gitsigns'),
   },
@@ -808,14 +808,14 @@ require 'lazy'.setup {
     'f-person/git-blame.nvim',
     commit = "17840d01f42ee308e1dbbcc2cde991297aee36c9",
     lazy = true,
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
+    event = { "VeryLazy" },
   },
   {
     'akinsho/git-conflict.nvim',
     commit = "2957f747e1a34f1854e4e0efbfbfa59a1db04af5",
     lazy = true,
+    event = { "VeryLazy" },
     config = [[require('git-conflict').setup()]],
-    event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
   {
     'pwntester/octo.nvim',
@@ -831,6 +831,20 @@ require 'lazy'.setup {
   },
 
   -- General tools
+  {
+    "jackMort/ChatGPT.nvim",
+    lazy = true,
+    commit = '3008b38171b3137448fe33c5edc1bba2641bfcad',
+    cmd = { 'ChatGPT', 'ChatGPTActAs', 'ChatGPTEditWithInstructions' },
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    },
+    config = function()
+      require("chatgpt").setup {}
+    end,
+  },
   {
     'mattn/vim-sonictemplate',
     commit = "0e4d422c85decd8d159c663f234eb484b1b04b25",

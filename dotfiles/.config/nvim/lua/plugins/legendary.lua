@@ -4,6 +4,7 @@ return function()
     keymaps = {
       -- Development
       { ',u',              ':<C-u>Lazy update<CR>',                                           mode = 'n', description = '[System] Update plugins',                       opts = { silent = true, remap = false } },
+      { ',p',              ':<C-u>Lazy profile<CR>',                                          mode = 'n', description = '[System] Measure startup time',                 opts = { silent = true, remap = false } },
       { ',s',              ':<C-u>source %<CR>',                                              mode = 'n', description = '[System] Load vim config',                      opts = { silent = true, remap = false } },
       -- Enhanced move
       { 'w',               '<Plug>CamelCaseMotion_w',                                         mode = '',  description = '[Motion] CamelCaseMotion w',                    opts = { silent = true, remap = true } },
