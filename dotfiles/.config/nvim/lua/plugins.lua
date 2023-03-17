@@ -490,12 +490,6 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   {
-    'myusuf3/numbers.vim',
-    commit = "1867e76e819db182a4fb71f48f4bd36a5e2c6b6e",
-    lazy = true,
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
-  },
-  {
     'mvllow/modes.nvim',
     tag = 'v0.2.1',
     lazy = true,
@@ -621,7 +615,7 @@ require 'lazy'.setup {
     event = { "VeryLazy" },
     config = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 100
+      vim.o.timeoutlen = 300
       require("which-key").setup {}
     end
   },
