@@ -7,8 +7,8 @@ function cdls() {
     echo "cannot cd: $@$reset_color"
     return
   fi
-  if [ "$?" -eq 0 ]; then
     lscdmax=40
+    if [ "$?" -eq 0 ]; then
     nfiles=$(/bin/ls|wc -l)
     if [ $nfiles -eq 0 ]; then
       if [ "$(/bin/ls -A|wc -l)" -eq 0 ]; then
@@ -84,6 +84,23 @@ function __fzf_git_file() {
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
     if [ ! -z "${selected}" ]; then
         BUFFER="${EDITOR:-vim} ${toplevel}/${selected}"
+        zle accept-line
+    fi
+    zle -R -c
+}
+
+function __fzf_git_dir() {
+    toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [ -z "${toplevel}" ]; then
+        echo "error: this is not a git repository"
+        return 1
+    fi
+
+    grep_cmd="git fd --type d -H --exclude '.git' --exclude 'vendor'"
+    preview_cmd="tree -C {} | head -n 200"
+    selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
+    if [ ! -z "${selected}" ]; then
+        BUFFER="cd ${toplevel}/${selected}"
         zle accept-line
     fi
     zle -R -c
@@ -272,11 +289,13 @@ zle -N zi
 zle -N __fzf_ghq
 zle -N __fzf_ghq_open
 zle -N __fzf_git_file
+zle -N __fzf_git_dir
 zle -N __fzf_git_log
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
+bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^s' __fzf_git_log
 bindkey '^z' zi
