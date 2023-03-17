@@ -45,10 +45,18 @@ require 'lazy'.setup {
 
   -- Project
   {
-    'airblade/vim-rooter',
-    commit = "4f52ca556a0b9e257bf920658714470ea0320b7a",
+    "ahmedkhalf/project.nvim",
+    commit = "1c2e9c93c7c85126c2197f5e770054f53b1926fb",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require("project_nvim").setup {
+        detection_methods = { "pattern", "lsp" },
+        patterns = { ".git" },
+      }
+      require('telescope').load_extension('projects')
+    end
   },
   {
     'glepnir/dashboard-nvim',
