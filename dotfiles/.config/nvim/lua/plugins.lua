@@ -114,9 +114,10 @@ require 'lazy'.setup {
 
   -- LSP
   {
-    -- Use commit instead of tag to use lua_ls.
     'neovim/nvim-lspconfig',
     commit = "62856b20751b748841b0f3ec5a10b1e2f6a6dbc9",
+    lazy = true,
+    event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require 'plugins.lspconfig',
     dependencies = {
       {
@@ -658,8 +659,17 @@ require 'lazy'.setup {
     'AndrewRadev/splitjoin.vim',
     tag = 'v1.1.0',
     lazy = true,
-    -- Use "on Buf*" because "on Cursor*" does not work.
-    event = { "BufReadPost", "BufAdd", "BufNewFile" },
+    cmd = { "SplitjoinSplit", 'SplitjoinJoin' },
+  },
+  {
+    'Wansmer/treesj',
+    commit = "90248883bdb2d559ff4ba7f0148eb0145d3f0908",
+    lazy = true,
+    event = { "VeryLazy" },
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('treesj').setup{}
+    end,
   },
   {
     'gbprod/substitute.nvim',
@@ -944,6 +954,8 @@ require 'lazy'.setup {
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
   { 'folke/tokyonight.nvim',
+    lazy = false,
+    priority = 1000,
     tag = 'v1.3.0',
     config = function()
       require 'tokyonight'.setup {

@@ -44,26 +44,26 @@ function goto_last_pos()
   end
 end
 
-vim.opt.shiftwidth  = 0
-vim.opt.softtabstop = 2
-vim.opt.tabstop     = 2
-vim.opt.expandtab   = true
+vim.opt.shiftwidth      = 0
+vim.opt.softtabstop     = 2
+vim.opt.tabstop         = 2
+vim.opt.expandtab       = true
 
 -- Lines below do not exist in vimrc
 -- Config
-vim.g.mapleader        = ' '
+vim.g.mapleader         = ' '
 
-vim.opt.completeopt    = "menu,menuone,noselect"
+vim.opt.completeopt     = "menu,menuone,noselect"
 
-vim.opt.number         = true
-vim.opt.relativenumber = true
-vim.opt.colorcolumn    = "80"
-vim.opt.list           = true
-vim.opt.listchars      = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
-vim.opt.termguicolors  = true
+vim.opt.number          = true
+vim.opt.relativenumber  = true
+vim.opt.colorcolumn     = "80"
+vim.opt.list            = true
+vim.opt.listchars       = { tab = ">>>", trail = "·", precedes = "←", extends = "→", eol = "↲", nbsp = "␣" }
+vim.opt.termguicolors   = true
 
 -- Basic keymaps
-local set_keymap = vim.api.nvim_set_keymap
+local set_keymap        = vim.api.nvim_set_keymap
 
 set_keymap('n', '<CR>', ':<C-u>w<CR>', { noremap = true, silent = true })
 set_keymap('n', 'q', ':q<CR>', { noremap = true, silent = true })
@@ -85,4 +85,3 @@ set_keymap('n', 'm', ';', { noremap = true, silent = true })
 set_keymap('v', ';', ':', { noremap = true, silent = true })
 set_keymap('v', ':', 'm', { noremap = true, silent = true })
 set_keymap('v', 'm', ';', { noremap = true, silent = true })
-
