@@ -621,7 +621,7 @@ require 'lazy'.setup {
     event = { "VeryLazy" },
     config = function()
       vim.o.timeout = true
-      vim.o.timeoutlen = 300
+      vim.o.timeoutlen = 100
       require("which-key").setup {}
     end
   },
