@@ -18,6 +18,7 @@
 
 Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
 Show accent color on window borders.
+Increase key repeat speed.
 
 ### On WSL2 side
 

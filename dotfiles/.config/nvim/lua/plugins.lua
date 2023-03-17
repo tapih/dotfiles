@@ -668,7 +668,7 @@ require 'lazy'.setup {
     event = { "VeryLazy" },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('treesj').setup{}
+      require('treesj').setup {}
     end,
   },
   {
