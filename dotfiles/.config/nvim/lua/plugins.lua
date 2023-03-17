@@ -618,11 +618,6 @@ require 'lazy'.setup {
   },
 
   -- Enhanced motions
-  -- Lazy load by event is not recommended.
-  {
-    'andymass/vim-matchup',
-    commit = "3a48818a8113a502f245c29d894201421727577a",
-  },
   {
     'bkad/CamelCaseMotion',
     commit = "de439d7c06cffd0839a29045a103fe4b44b15cdc",
@@ -787,6 +782,10 @@ require 'lazy'.setup {
         keys = 'jkhlfdgsieurowyta;qpmv,c',
       }
     end
+  },
+  {
+    'andymass/vim-matchup',
+    commit = "3a48818a8113a502f245c29d894201421727577a",
   },
 
   -- Git
