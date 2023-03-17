@@ -63,45 +63,56 @@ function __fzf_ghq() {
     zle -R -c
 }
 
+function __zi() {
+  zi
+  BUFFER="ls"
+  zle accept-line
+}
+
 function __fzf_ghq_open() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    if [ ! -z "${name}" ]; then
-        BUFFER="${EDITOR:-vim} $name"
-        zle accept-line
+    if [ ! -z "${name}" ]
+    then
+      BUFFER="${EDITOR:-vim} $name"
+      zle accept-line
     fi
     zle -R -c
 }
 
 function __fzf_git_file() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z "${toplevel}" ]; then
-        echo "error: this is not a git repository"
-        return 1
+    if [ -z "${toplevel}" ]
+    then
+      echo "error: this is not a git repository"
+      return 1
     fi
 
     grep_cmd="git fd --type f -H --exclude '.git' --exclude 'vendor'"
     preview_cmd="bat --style=numbers --color=always --line-range :200 ${toplevel}/{}"
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
-    if [ ! -z "${selected}" ]; then
-        BUFFER="${EDITOR:-vim} ${toplevel}/${selected}"
-        zle accept-line
+    if [ ! -z "${selected}" ]
+    then
+      BUFFER="${EDITOR:-vim} ${toplevel}/${selected}"
+      zle accept-line
     fi
     zle -R -c
 }
 
 function __fzf_git_dir() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
-    if [ -z "${toplevel}" ]; then
-        echo "error: this is not a git repository"
-        return 1
+    if [ -z "${toplevel}" ]
+    then
+      echo "error: this is not a git repository"
+      return 1
     fi
 
     grep_cmd="git fd --type d -H --exclude '.git' --exclude 'vendor'"
     preview_cmd="tree -C {} | head -n 200"
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
-    if [ ! -z "${selected}" ]; then
-        BUFFER="cd ${toplevel}/${selected}"
-        zle accept-line
+    if [ ! -z "${selected}" ]
+    then
+      BUFFER="cd ${toplevel}/${selected}"
+      zle accept-line
     fi
     zle -R -c
 }
@@ -285,7 +296,7 @@ bindkey -M visual S add-surround
 bindkey -M vicmd 'U' redo
 
 # fzf
-zle -N zi
+zle -N __zi
 zle -N __fzf_ghq
 zle -N __fzf_ghq_open
 zle -N __fzf_git_file
@@ -298,7 +309,7 @@ bindkey '^o' __fzf_git_file
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^s' __fzf_git_log
-bindkey '^z' zi
+bindkey '^z' __zi
 
 # autoload tmux
 TMUX_DEFAULT_SESSION=$(whoami)

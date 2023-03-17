@@ -18,7 +18,7 @@
 
 Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
 Show accent color on window borders.
-Increase key repeat speed.
+[Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 
 ### On WSL2 side
 
