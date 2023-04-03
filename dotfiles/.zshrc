@@ -63,6 +63,15 @@ function __fzf_ghq() {
     zle -R -c
 }
 
+function __fzf_lazygit() {
+    name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
+    if [ ! -z "${name}" ]; then
+        BUFFER="lazygit -p $name"
+        zle accept-line
+    fi
+    zle -R -c
+}
+
 function __zi() {
   zi
   BUFFER="ls"
@@ -299,12 +308,14 @@ bindkey -M vicmd 'U' redo
 # fzf
 zle -N __zi
 zle -N __fzf_ghq
+zle -N __fzf_lazygit
 zle -N __fzf_ghq_open
 zle -N __fzf_git_file
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
+bindkey '^[g' __fzf_lazygit
 bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
 bindkey '^e' __fzf_git_dir
