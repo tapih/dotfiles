@@ -7,6 +7,7 @@
 ### On Windows side
 
 - Mozc(+Swap Ctrl and Caps)
+- VSCode
 - Enpass
 - Slack
 - Notion

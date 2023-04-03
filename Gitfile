@@ -4,3 +4,4 @@ https://github.com/folke/lazy.nvim ~/.local/share/nvim/lazy/lazy.nvim
 https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
 https://github.com/junegunn/fzf.git ~/.fzf
 https://github.com/docker/cli.git ~/.zsh/docker/cli
+https://github.com/lincheney/fzf-tab-completion ~/.zsh/fzf-tab-completion

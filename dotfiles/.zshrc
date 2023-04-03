@@ -200,6 +200,7 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
 [ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
+[ -f ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && . ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
 
