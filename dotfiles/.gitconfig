@@ -29,7 +29,7 @@
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
     pk = cherry-pick
     po = push
-    pr = !git push && gh pr create --web
+    pr = !git push && gh pr create
     v = !gh pr view --web
     vv = !gh browse -b $(git current-branch)
     vm = !gh browse
