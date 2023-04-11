@@ -66,7 +66,7 @@ function __fzf_ghq() {
 function __fzf_lazygit() {
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
-        BUFFER="lazygit -p $name"
+        BUFFER="cd $name && lazygit"
         zle accept-line
     fi
     zle -R -c
