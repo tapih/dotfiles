@@ -20,6 +20,8 @@
 Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
 Show accent color on window borders.
 [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
+Register hotkeys for some FancyZone layouts.
+Disable window animation.
 
 ### On WSL2 side
 
