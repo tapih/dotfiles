@@ -77,7 +77,7 @@ require 'lazy'.setup {
     dependencies = {
       {
         "yioneko/nvim-yati",
-        commit = "8240f369d47c389ac898f87613e0901f126b40f3",
+        commit = "c4307e6855f17ff89f0132787e2daba27495d254",
       },
     },
     config = function()
