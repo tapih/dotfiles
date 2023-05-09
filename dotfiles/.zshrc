@@ -215,6 +215,7 @@ eval "$(zoxide init zsh)"
 
 # alias
 alias y2j='yq -p yaml -o json'
+alias j2y='yq -p json -o yaml'
 alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
