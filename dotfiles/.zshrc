@@ -214,6 +214,7 @@ fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
 
 # alias
+alias y2j='yq -p yaml -o json'
 alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
