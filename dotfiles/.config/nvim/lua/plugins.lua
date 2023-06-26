@@ -659,7 +659,7 @@ require 'lazy'.setup {
   },
   {
     'AndrewRadev/splitjoin.vim',
-    tag = 'v1.1.0',
+    tag = 'v1.2.0',
     lazy = true,
     cmd = { "SplitjoinSplit", 'SplitjoinJoin' },
   },
