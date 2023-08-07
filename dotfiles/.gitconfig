@@ -16,7 +16,8 @@
     d = diff
     ds = diff --staged
     e = !nvim ~/.gitconfig
-    f = fetch origin
+    f = fetch
+    fo = fetch origin
     fd = !fd
     g = !git grep -n
     gg = grep -n
