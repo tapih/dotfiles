@@ -204,6 +204,7 @@ exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 # load plugins
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
+exists direnv && eval "$(direnv hook zsh)"
 [ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh

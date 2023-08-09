@@ -25,3 +25,4 @@ github.com/google/go-jsonnet/cmd/jsonnet@latest
 github.com/bazelbuild/bazel-gazelle/cmd/gazelle@latest
 github.com/catatsuy/notify_slack/cmd/notify_slack@latest
 github.com/mattolenik/hclq@latest
+github.com/direnv/direnv@latest
