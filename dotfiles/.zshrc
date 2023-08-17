@@ -219,6 +219,7 @@ alias y2j='yq -p yaml -o json'
 alias j2y='yq -p json -o yaml'
 alias l2j="jq -Rn '[inputs]'"
 alias j2x="yq -p json -o xml"
+alias x2j="yq -p xml -o json"
 alias cd='cdls'
 alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
