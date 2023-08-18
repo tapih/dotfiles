@@ -200,6 +200,7 @@ export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 export KEYTIMEOUT=25
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export FLUTTER_ROOT=.fvm/flutter_sdk
 
 # load plugins
 exists starship && eval "$(starship init zsh)"
