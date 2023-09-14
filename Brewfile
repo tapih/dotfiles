@@ -33,6 +33,7 @@ brew "btop"
 brew "asciinema"
 brew "silicon"
 brew "urlview"
+brew "caddy"
 
 #infrastructure
 brew "wireshark"
