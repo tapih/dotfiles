@@ -6,22 +6,22 @@
 
 ### On Windows side
 
+Install
 - Mozc(+Swap Ctrl and Caps)
 - VSCode
 - Enpass
 - Slack
 - Notion
-- Kindle
-- Alacritty
 - PowerToys
-- win32yank
+- [win32yank](https://github.com/equalsraf/win32yank)
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
-Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
-Show accent color on window borders.
-[Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
-Register hotkeys for some FancyZone layouts.
-Disable window animation.
+Configure
+- Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
+- Show accent color on window borders.
+- [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
+- Register hotkeys for some FancyZone layouts.
+- Disable window animation.
 
 ### On WSL2 side
 
@@ -52,8 +52,8 @@ systemd=true
 localhostForwarding=true
 
 [wsl2]
-memory=16GB
-processors=4
+memory=24GB
+processors=8
 EOF"
 ```
 
