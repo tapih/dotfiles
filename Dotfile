@@ -13,4 +13,4 @@
 .config/k9s/plugin.yml
 .config/starship.toml
 .config/lazygit/config.yml
-
+.wslconfig
