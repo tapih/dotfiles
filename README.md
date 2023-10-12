@@ -1,29 +1,25 @@
 # dotfiles
 
-⚡⚡⚡
+## Windows
 
-## Install
-
-### On Windows side
-
-Install
+#### Installation
 - Mozc(+Swap Ctrl and Caps)
-- VSCode
 - Enpass
+- PowerToys
+- VSCode
 - Slack
 - Notion
-- PowerToys
 - [win32yank](https://github.com/equalsraf/win32yank)
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
-Configure
-- Enable [Unicode UTF-8](https://togeonet.co.jp/post-13850).
-- Show accent color on window borders.
+#### Configuration
+- [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
+- [Show accent color on window borders](https://www.wikihow.com/Disable-Animations-in-Windows-10).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Register hotkeys for some FancyZone layouts.
-- Disable window animation.
+- [Disable window animation](https://www.wikihow.com/Disable-Animations-in-Windows-10).
 
-### On WSL2 side
+## WSL2
 
 ```sh
 $ sudo apt-get update
