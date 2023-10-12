@@ -333,13 +333,16 @@ bindkey '^z' __zi
 
 # autoload tmux
 TMUX_DEFAULT_SESSION=$(whoami)
-if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
+if [ "$TERM_PROGRAM" != "vscode" ]
 then
-  if tmux has-session -t ${TMUX_DEFAULT_SESSION} >/dev/null 2>&1
+  if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
   then
-    tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
-  else
-    tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+    if tmux has-session -t ${TMUX_DEFAULT_SESSION} >/dev/null 2>&1
+    then
+      tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
+    else
+      tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+    fi
   fi
 fi
 
