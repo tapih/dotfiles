@@ -2,5 +2,4 @@ bash-language-server
 yaml-language-server
 dockerfile-language-server-nodejs
 git-open
-wsl-open
 
