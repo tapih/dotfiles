@@ -518,7 +518,7 @@ require 'lazy'.setup {
   },
   {
     'dstein64/nvim-scrollview',
-    tag = "v3.0.3",
+    tag = "v4.3.0",
     lazy = true,
     event = { "VeryLazy" },
   },
