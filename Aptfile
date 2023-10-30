@@ -11,6 +11,7 @@ ca-certificates
 software-properties-common
 build-essential
 apt-file
+xdg-utils
 xsel
 fonts-firacode
 lsb-release
