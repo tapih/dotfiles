@@ -6,3 +6,7 @@ git:
 keybinding:
   universal:
     executeCustomCommand: ";"
+customCommands:
+  - key: '<c-r>'
+    context: 'commits'
+    command: 'git push && gh pr create'
