@@ -7,6 +7,7 @@ keybinding:
   universal:
     executeCustomCommand: ";"
 customCommands:
-  - key: '<c-r>'
-    context: 'commits'
-    command: 'git push && gh pr create'
+  - key: "<c-R>"
+    command: "gh pr create --fill --web"
+    context: "global"
+    loadingText: "Creating pull request on GitHub"
