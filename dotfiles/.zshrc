@@ -219,6 +219,9 @@ fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
 
 # alias
+alias python='python3'
+alias ipython='ipython3'
+alias pip='pip3'
 alias y2j='yq -p yaml -o json'
 alias j2y='yq -p json -o yaml'
 alias l2j="jq -Rn '[inputs]'"
