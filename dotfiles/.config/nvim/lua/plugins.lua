@@ -114,7 +114,7 @@ require 'lazy'.setup {
   },
   {
     'm-demare/hlargs.nvim',
-    commit = "88b925d699fb39633cdda02c24f0b3ba5d0e6964",
+    commit = "e45fd1f18f2fadf7d4ebe6f14ed1e70c7fca02da",
     lazy = true,
     event = { "VeryLazy" },
     config = [[require('hlargs').setup()]],
