@@ -3,7 +3,7 @@
 ## Windows
 
 #### Installation
-- Mozc(+Swap Ctrl and Caps)
+- Mozc Japanese Input
 - Enpass
 - PowerToys
 - VSCode
