@@ -2,12 +2,16 @@
 
 ## Windows
 
-#### Installation
-- Mozc Japanese Input
+#### Store
+
 - Enpass
 - PowerToys
 - VSCode
 - Slack
+
+#### Others
+
+- Mozc Japanese Input
 - Notion
 - [win32yank](https://github.com/equalsraf/win32yank)
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
