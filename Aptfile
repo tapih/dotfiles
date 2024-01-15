@@ -5,6 +5,7 @@ unzip
 make
 clang
 gnupg
+unicode
 openssl
 apt-transport-https
 ca-certificates
