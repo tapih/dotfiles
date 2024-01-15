@@ -11,7 +11,7 @@
 
 #### Others
 
-- [Mozc Japanese Input](https://github.com/google/mozc)
+- [Mozc Japanese Input](https://www.google.co.jp/ime/)
 - [Notion](https://www.notion.so/desktop/windows)
 - [win32yank](https://github.com/equalsraf/win32yank)
 - [FiraCode NF](https://www.nerdfonts.com/font-downloads)
