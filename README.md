@@ -56,6 +56,8 @@ localhostForwarding=true
 memory=24GB
 processors=8
 EOF"
+
+$ sudo dpkg-reconfigure locales
 ```
 
 Then, install [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
