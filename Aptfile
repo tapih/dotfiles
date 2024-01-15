@@ -6,6 +6,7 @@ make
 clang
 gnupg
 unicode
+cmake
 openssl
 apt-transport-https
 ca-certificates
