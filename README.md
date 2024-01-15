@@ -14,15 +14,15 @@
 - [Mozc Japanese Input](https://www.google.co.jp/ime/)
 - [Notion](https://www.notion.so/desktop/windows)
 - [win32yank](https://github.com/equalsraf/win32yank)
-- [FiraCode NF](https://www.nerdfonts.com/font-downloads)
 
 #### Configuration
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
-- Use FiraCode NF in Windows Terminal.
-- [Show accent color on window borders](https://www.wikihow.com/Disable-Animations-in-Windows-10).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
-- Register hotkeys for some FancyZone layouts.
+- Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
 - Disable window animation via Settings > Accesibility > Animation effects.
+- Register hotkeys for some FancyZone layouts.
+- Install WSL2 with `wsl --install`.
+- Set WSL2 as a default terminal on Windows Terminal.
 
 ## WSL2
 
