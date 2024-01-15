@@ -6,13 +6,14 @@ brew "git-delta"
 brew "lazygit"
 
 # coding
-brew "neovim@0.8.3"
+brew "neovim"
 brew "lua-language-server"
 brew "terraform-ls"
 brew "actionlint"
 brew "bufbuild/buf/buf"
 brew "protobuf"
 brew "zoxide"
+brew "npm"
 
 # basic tools
 brew "tmux"
