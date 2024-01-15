@@ -22,7 +22,7 @@
 - [Show accent color on window borders](https://www.wikihow.com/Disable-Animations-in-Windows-10).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Register hotkeys for some FancyZone layouts.
-- [Disable window animation](https://www.wikihow.com/Disable-Animations-in-Windows-10).
+- Disable window animation via Settings > Accesibility > Animation effects.
 
 ## WSL2
 
