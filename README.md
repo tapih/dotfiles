@@ -19,6 +19,7 @@
 #### Configuration
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
+- Update the Mozc setting to use Ctrl+Space to toggle IME.
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
 - Disable window animation via Settings > Accesibility > Animation effects.
 - Register hotkeys for some FancyZone layouts.
