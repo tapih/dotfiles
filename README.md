@@ -14,6 +14,7 @@
 - [Mozc Japanese Input](https://www.google.co.jp/ime/)
 - [Notion](https://www.notion.so/desktop/windows)
 - [win32yank](https://github.com/equalsraf/win32yank)
+- [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 
 #### Configuration
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
@@ -22,7 +23,10 @@
 - Disable window animation via Settings > Accesibility > Animation effects.
 - Register hotkeys for some FancyZone layouts.
 - Install WSL2 with `wsl --install`.
-- Set WSL2 as a default terminal on Windows Terminal.
+- Configure Windows Terminal.
+  - Set WSL2 to a default terminal.
+  - Use One Half Dark. 
+  - Use Hack Nerd Font.
 
 ## WSL2
 
