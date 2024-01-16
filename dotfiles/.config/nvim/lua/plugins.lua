@@ -70,7 +70,7 @@ require 'lazy'.setup {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    commit = "96e091bafbd17a433597c2830905d73a30fb72ee",
+    commit = "59d4c14a1a4262cf637ff2420032593afa062749",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     build = [[vim.api.nvim_command("TSUpdate")]],
@@ -114,7 +114,7 @@ require 'lazy'.setup {
   },
   {
     'm-demare/hlargs.nvim',
-    commit = "88b925d699fb39633cdda02c24f0b3ba5d0e6964",
+    commit = "e45fd1f18f2fadf7d4ebe6f14ed1e70c7fca02da",
     lazy = true,
     event = { "VeryLazy" },
     config = [[require('hlargs').setup()]],
@@ -480,7 +480,7 @@ require 'lazy'.setup {
   },
   {
     'RRethy/vim-illuminate',
-    commit = "49062ab1dd8fec91833a69f0a1344223dd59d643",
+    commit = "3bd2ab64b5d63b29e05691e624927e5ebbf0fb86",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
@@ -660,7 +660,7 @@ require 'lazy'.setup {
   },
   {
     'AndrewRadev/splitjoin.vim',
-    tag = 'v1.1.0',
+    commit = '503e56ed103b58b6bd0880a3e61225c8b1c40033',
     lazy = true,
     cmd = { "SplitjoinSplit", 'SplitjoinJoin' },
   },
