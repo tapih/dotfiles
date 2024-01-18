@@ -8,6 +8,7 @@
 - PowerToys
 - VSCode
 - Slack
+- Todoist
 
 #### Others
 
