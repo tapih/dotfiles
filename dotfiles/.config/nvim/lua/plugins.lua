@@ -824,7 +824,7 @@ require 'lazy'.setup {
   },
   {
     'akinsho/git-conflict.nvim',
-    commit = "2957f747e1a34f1854e4e0efbfbfa59a1db04af5",
+    commit = "4c8e252b87d54d944c1e56bfb477f78b6fdaf661",
     lazy = true,
     event = { "VeryLazy" },
     config = [[require('git-conflict').setup()]],
