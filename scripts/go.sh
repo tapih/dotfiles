@@ -13,9 +13,7 @@ file=$1
 
 if ! which go >/dev/null 2>&1
 then
-  asdf plugin add golang || true
-  asdf install golang latest
-  asdf global golang latest
+  mise use --global go@1.21.6
 fi
 
 for i in $(grep -vE "^\s*#" ${file} | tr "\n" " ")

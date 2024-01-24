@@ -213,7 +213,6 @@ export BROWSER="powershell.exe /C start"
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 exists direnv && eval "$(direnv hook zsh)"
-[ -f ${HOME}/.asdf/asdf.sh ] && . ${HOME}/.asdf/asdf.sh
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
@@ -221,6 +220,7 @@ exists direnv && eval "$(direnv hook zsh)"
 [ -f ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && . ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
+eval "$(mise activate zsh)"
 
 # alias
 alias python='python3'
