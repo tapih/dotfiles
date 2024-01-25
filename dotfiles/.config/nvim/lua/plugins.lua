@@ -456,7 +456,7 @@ require 'lazy'.setup {
   },
   {
     'nvim-lualine/lualine.nvim',
-    commit = "e99d733e0213ceb8f548ae6551b04ae32e590c80",
+    commit = "7d131a8d3ba5016229e8a1d08bf8782acea98852",
     lazy = true,
     event = "VeryLazy",
     dependencies = { 'nvim-tree/nvim-web-devicons' },
