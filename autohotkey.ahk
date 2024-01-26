@@ -1,10 +1,12 @@
+userprofile := EnvGet("USERPROFILE")
+
 #1::
 {
 	if WinExist("ahk_exe WindowsTerminal.exe")
 		WinActivate
 	else
-		Run("%userprofile%\AppData\Local\Microsoft\WindowsApps\wt.exe")
-  return
+		Run(userprofile "\AppData\Local\Microsoft\WindowsApps\wt.exe")
+    	return
 }
 
 #2::
@@ -13,7 +15,7 @@
 		WinActivate
 	else
 		Run("Slack.exe")
-  return
+    	return
 }
 
 #3::
@@ -22,7 +24,7 @@
 		WinActivate
 	else
 		Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
-  return
+    	return
 }
 
 #4::
@@ -30,6 +32,8 @@
 	if WinExist("ahk_exe Code.exe")
 		WinActivate
 	else
-		Run("%userprofile%AppData\Local\Programs\Microsoft VS Code\Code.exe")
-  return
+		Run(userprofile "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
+    	return
 }
+
+
