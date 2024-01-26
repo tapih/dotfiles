@@ -31,7 +31,7 @@
   - Use One Half Dark. 
   - Use Hack Nerd Font.
 - Download autohotkey.ahk and place it in the startup folder.
-- Update the Quick Task hotkey of Todoist to Shift+Alt+N.
+- Update the Quick Task hotkey of Todoist to Shift+Alt+K.
 
 ## WSL2
 
