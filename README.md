@@ -30,7 +30,7 @@
   - Set WSL2 to a default terminal.
   - Use One Half Dark. 
   - Use Hack Nerd Font.
-- Download autohotkey.ahk and load it to AutoHotKey.
+- Download autohotkey.ahk and place it in the startup folder of Windows.
 
 ## WSL2
 
