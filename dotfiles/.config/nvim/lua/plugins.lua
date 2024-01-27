@@ -804,7 +804,7 @@ require 'lazy'.setup {
   -- Git
   {
     'lewis6991/gitsigns.nvim',
-    commit = 'f388995990aba04cfdc7c3ab870c33e280601109',
+    commit = '2c2463dbd82eddd7dbab881c3a62cfbfbe3c67ae',
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     dependencies = { 'nvim-lua/plenary.nvim' },
