@@ -301,7 +301,7 @@ require 'lazy'.setup {
   --Completion
   {
     'hrsh7th/nvim-cmp',
-    commit = "7a3b1e76f74934b12fda82158237c6ad8bfd3d40",
+    commit = "04e0ca376d6abdbfc8b52180f8ea236cbfddf782",
     lazy = true,
     event = { "InsertEnter", "CmdlineEnter" },
     config = require('plugins.nvim-cmp'),
