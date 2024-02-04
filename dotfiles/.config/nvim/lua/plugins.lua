@@ -359,7 +359,7 @@ require 'lazy'.setup {
     dependencies = {
       {
         "zbirenbaum/copilot.lua",
-        commit = 'b41d4c9c7d4f5e0272bcf94061b88e244904c56f',
+        commit = '03f825956ec49e550d07875d867ea6e7c4dc8c00',
         config = function()
           require("copilot").setup({
             suggestion = { enabled = false },
