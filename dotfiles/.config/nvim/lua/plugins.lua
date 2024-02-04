@@ -480,7 +480,7 @@ require 'lazy'.setup {
   },
   {
     'RRethy/vim-illuminate',
-    commit = "3bd2ab64b5d63b29e05691e624927e5ebbf0fb86",
+    commit = "305bf07b919ac526deb5193280379e2f8b599926",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
   },
