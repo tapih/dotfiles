@@ -54,17 +54,6 @@ $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
 $ cd dotfiles
 $ ./install.sh
-
-$ sudo sh -c "cat << EOF > /etc/wsl.conf
-[boot]
-systemd=true
-localhostForwarding=true
-
-[wsl2]
-memory=24GB
-processors=8
-EOF"
-
 $ sudo dpkg-reconfigure locales
 ```
 

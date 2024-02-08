@@ -1,2 +1,13 @@
+[boot]
+systemd=true
+localhostForwarding=true
+
+[wsl2]
+memory=24GB
+processors=10
+
+[interop]
+appendWindowsPath = true
+
 [experimental]
 autoMemoryReclaim=true
