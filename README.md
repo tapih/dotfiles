@@ -63,6 +63,9 @@ localhostForwarding=true
 [wsl2]
 memory=24GB
 processors=8
+
+[interop]
+appendWindowsPath = true
 EOF"
 
 $ sudo dpkg-reconfigure locales
