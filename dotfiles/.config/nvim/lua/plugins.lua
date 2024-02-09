@@ -666,7 +666,7 @@ require 'lazy'.setup {
   },
   {
     'Wansmer/treesj',
-    commit = "90248883bdb2d559ff4ba7f0148eb0145d3f0908",
+    commit = "60e27280030f9cd8dfb6ceb335922c6ff76682cc",
     lazy = true,
     event = { "VeryLazy" },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
