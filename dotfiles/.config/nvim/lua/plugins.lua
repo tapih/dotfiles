@@ -880,7 +880,7 @@ require 'lazy'.setup {
   -- Go
   {
     'ray-x/go.nvim',
-    commit = "4d066613379d85094bb4ddd52e34e6d3f55fc24e",
+    commit = "d748e79011437d5b080006b896b3c296656641d7",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     ft = "go",
