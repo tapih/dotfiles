@@ -5,7 +5,7 @@ set -o pipefail
 
 if [ $# -lt 1 ]
 then
-  echo "USAGE: go.sh <file>" 1>&2
+  echo "USAGE: npm.sh <file>" 1>&2
   exit 1
 fi
 

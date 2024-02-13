@@ -13,7 +13,7 @@ file=$1
 
 if ! which go >/dev/null 2>&1
 then
-  mise use --global go@1.21.6
+  mise use --global go@latest
 fi
 
 for i in $(grep -vE "^\s*#" ${file} | tr "\n" " ")
