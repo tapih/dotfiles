@@ -927,7 +927,7 @@ require 'lazy'.setup {
   },
   {
     'hashivim/vim-terraform',
-    commit = "d00503de9bed3a1da7206090cb148c6a1acce870",
+    commit = "21f756b933cd11ac5990a6046fdc7c4e2a6c0aee",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'terraform', 'hcl' },
