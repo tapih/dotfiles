@@ -194,9 +194,12 @@ export _ZO_FZF_OPTS="${FZF_DEFAULT_OPTS} --preview 'echo {} | cut -f2 | xargs tr
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
-export PATH=${GOPATH}/bin:${HOME}/.bin:/home/linuxbrew/.linuxbrew/bin:${PATH}
+export PATH=${GOPATH}/bin:${PATH}
+export PATH=${HOME}/.bin::${PATH}
+export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
 export PATH=${HOME}/.pub-cache/bin:${PATH}
 export PATH=${HOME}/.krew/bin:${PATH}
+export PATH=${HOME}/.local/bin:${PATH}
 export PATH=${HOME}/.zsh/git-open:${PATH}
 export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 # https://github.com/zsh-users/zsh-autosuggestions/issues/254
