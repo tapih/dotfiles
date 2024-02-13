@@ -1,3 +1,8 @@
+# package manager
+brew "npm"
+brew "pnpm"
+brew "pipx"
+
 # git
 brew "git"
 brew "ghq"
@@ -7,17 +12,21 @@ brew "lazygit"
 
 # coding
 brew "neovim"
+brew "mise"
 brew "lua-language-server"
 brew "terraform-ls"
 brew "actionlint"
 brew "bufbuild/buf/buf"
 brew "protobuf"
-brew "zoxide"
 
-# basic tools
+# terminal
 brew "starship"
 brew "tmux"
 brew "tmuxinator"
+brew "xplr"
+
+# utilities
+brew "zoxide"
 brew "gawk"
 brew "colordiff"
 brew "jq"
@@ -28,20 +37,13 @@ brew "fd"
 brew "rg"
 brew "bat"
 brew "ast-grep"
-brew "npm"
-brew "pnpm"
-brew "pipx"
-brew "mise"
-brew "viddy"
 brew "cheat"
-brew "btop"
 brew "asciinema"
 brew "silicon"
 brew "urlview"
 brew "caddy"
 
-#infrastructure
-brew "wireshark"
+# container
 brew "kubernetes-cli"
 brew "krew"
 brew "kustomize"
@@ -55,8 +57,14 @@ brew "buildkit"
 brew "hadolint"
 brew "dive"
 brew "skaffold"
+
+# terraform
 brew "terraformer"
-brew "vegeta"
+
+# troubleshooting
+brew "wireshark"
 brew "alp"
 brew "httpstat"
+brew "viddy"
+brew "btop"
 brew "k6"
