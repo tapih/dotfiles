@@ -499,7 +499,7 @@ require 'lazy'.setup {
   },
   {
     'lukas-reineke/indent-blankline.nvim',
-    tag = "v2.20.4",
+    tag = "v3.5.3",
     lazy = true,
     event = { "VeryLazy" },
     config = function()
