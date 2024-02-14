@@ -169,7 +169,7 @@ require 'lazy'.setup {
           { "nvim-lua/plenary.nvim" },
           {
             "jay-babu/mason-null-ls.nvim",
-            tag = 'v1.1.0',
+            tag = 'v2.5.0',
           },
         },
         config = function()
