@@ -400,7 +400,7 @@ require 'lazy'.setup {
       },
       {
         "nvim-telescope/telescope-file-browser.nvim",
-        commit = "6eb6bb45b7a9bed94a464a3e1dadfe870459628c",
+        commit = "48ffb8de688a22942940f50411d5928631368848",
       },
     },
     config = function()
