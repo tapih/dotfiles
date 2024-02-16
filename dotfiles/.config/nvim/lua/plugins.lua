@@ -26,7 +26,7 @@ require 'lazy'.setup {
   },
   {
     'MunifTanjim/nui.nvim',
-    commit = "d147222a1300901656f3ebd5b95f91732785a329",
+    commit = "c3c7fd618dcb5a89e443a2e1033e7d11fdb0596b",
     lazy = true,
     event = { "VeryLazy" },
   },
