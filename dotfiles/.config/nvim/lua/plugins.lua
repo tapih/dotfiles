@@ -831,7 +831,7 @@ require 'lazy'.setup {
   },
   {
     'pwntester/octo.nvim',
-    commit = "f336322f865cfa310ae15435c6bec337687b6b20",
+    commit = "feae1e5519deebad3c59ee1d57d28aa22822f7c8",
     lazy = true,
     cmd = { 'Octo' },
     dependencies = {
