@@ -812,7 +812,7 @@ require 'lazy'.setup {
   },
   {
     'ruanyl/vim-gh-line',
-    commit = "fbf368bdfad7e5478009a6dc62559e6b2c72d603",
+    commit = "731751fdfa4f64a061dbc7088cb7b2f12e0828ad",
     lazy = true,
     cmd = { 'GH', 'GHInteractive' },
   },
