@@ -766,7 +766,7 @@ require 'lazy'.setup {
   },
   {
     'windwp/nvim-spectre',
-    commit = "b71b64afe9fedbfdd25a8abec897ff4af3bd553a",
+    commit = "3712ff0cdf4f9f877d9ca708d835a877d9a0abaf",
     lazy = true,
     event = { "VeryLazy" },
   },
