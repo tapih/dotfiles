@@ -197,7 +197,7 @@ require 'lazy'.setup {
   },
   {
     'j-hui/fidget.nvim',
-    commit = "688b4fec4517650e29c3e63cfbb6e498b3112ba1",
+    commit = "60404ba67044c6ab01894dd5bf77bd64ea5e09aa",
     lazy = true,
     config = [[require'fidget'.setup()]],
     event = { "LspAttach" },
