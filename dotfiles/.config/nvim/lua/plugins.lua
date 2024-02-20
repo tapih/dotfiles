@@ -38,7 +38,7 @@ require 'lazy'.setup {
   },
   {
     'kevinhwang91/nvim-bqf',
-    tag = "v1.1.0",
+    tag = "v1.1.1",
     lazy = true,
     ft = 'qf',
   },
