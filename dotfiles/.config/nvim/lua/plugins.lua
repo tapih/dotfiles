@@ -130,7 +130,7 @@ require 'lazy'.setup {
     dependencies = {
       {
         "williamboman/mason-lspconfig.nvim",
-        commit = "93e58e100f37ef4fb0f897deeed20599dae9d128",
+        commit = "21d33d69a81f6351e5a5f49078b2e4f0075c8e73",
         -- This is slow on startup.
         --[[ config = function()
           require 'mason-lspconfig'.setup {
