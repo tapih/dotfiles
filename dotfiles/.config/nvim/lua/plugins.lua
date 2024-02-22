@@ -344,7 +344,7 @@ require 'lazy'.setup {
       },
       {
         'golang/vscode-go',
-        tag = "v0.37.1",
+        tag = "v0.41.1",
       },
     },
   },
