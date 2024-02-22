@@ -94,6 +94,9 @@
 [merge]
     ff = false
 
+[log]
+    date = iso
+
 [ghq]
     root=~/.ghq
     root=~/src
