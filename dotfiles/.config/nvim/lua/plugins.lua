@@ -630,7 +630,7 @@ require 'lazy'.setup {
   },
   {
     'mg979/vim-visual-multi',
-    commit = '724bd53adfbaf32e129b001658b45d4c5c29ca1a',
+    commit = 'fe1ec7e430013b83c8c2dee85ae496251b71e253',
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
