@@ -798,7 +798,7 @@ require 'lazy'.setup {
   },
   {
     'andymass/vim-matchup',
-    commit = "3a48818a8113a502f245c29d894201421727577a",
+    commit = "2d660e4aa7c566014c667af2cda0458043527902",
   },
 
   -- Git
