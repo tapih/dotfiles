@@ -210,7 +210,7 @@ require 'lazy'.setup {
   },
   {
     'onsails/lspkind-nvim',
-    commit = "c68b3a003483cf382428a43035079f78474cd11e",
+    commit = "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf",
     lazy = true,
     event = { "LspAttach" },
     config = function()
