@@ -547,7 +547,7 @@ require 'lazy'.setup {
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    commit = '74040b34278910d9b467fd914862e2a9a1ebacaa',
+    commit = '459c60317cc1d251f6eb3b6f010d015d5d24b806',
     lazy = true,
     cmd = {
       'NeoTreeFocus',
