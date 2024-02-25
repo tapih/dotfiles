@@ -654,7 +654,7 @@ require 'lazy'.setup {
   },
   {
     'bennypowers/nvim-regexplainer',
-    commit = '8af9a846644982ab1e11cc99b6e4831e12479207',
+    commit = '78fff711edcb986a05a03253c28a90e32c4ce31f',
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
   },
