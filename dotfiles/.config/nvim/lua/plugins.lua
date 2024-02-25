@@ -164,7 +164,7 @@ require 'lazy'.setup {
       },
       {
         "jose-elias-alvarez/null-ls.nvim",
-        commit = '689cdd78f70af20a37b5309ebc287ac645ae4f76',
+        commit = '0010ea927ab7c09ef0ce9bf28c2b573fc302f5a7',
         dependencies = {
           { "nvim-lua/plenary.nvim" },
           {
