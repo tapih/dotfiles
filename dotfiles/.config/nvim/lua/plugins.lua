@@ -643,7 +643,7 @@ require 'lazy'.setup {
   -- Editing
   {
     'EtiamNullam/deferred-clipboard.nvim',
-    tag = "v0.7.0",
+    tag = "v0.8.0",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = function()
