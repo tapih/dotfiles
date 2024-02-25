@@ -871,7 +871,7 @@ require 'lazy'.setup {
   },
   {
     'voldikss/vim-translator',
-    commit = "681c6b2f650b699572e6bb55162a3d6e62ee5d43",
+    commit = "6f0639c6d471a3a90ac19db96e1e379c030f74e3",
     lazy = true,
     cmd = { 'Translate', 'TranslateW' },
   },
