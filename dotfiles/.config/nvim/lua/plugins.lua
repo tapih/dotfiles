@@ -943,7 +943,7 @@ require 'lazy'.setup {
   -- Color
   {
     'xiyaowong/nvim-transparent',
-    commit = '4c3c392f285378e606d154bee393b6b3dd18059c',
+    commit = 'fd35a46f4b7c1b244249266bdcb2da3814f01724',
     config = function()
       require 'transparent'.setup {
         enable = true,
