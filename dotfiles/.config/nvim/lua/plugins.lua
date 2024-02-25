@@ -598,7 +598,7 @@ require 'lazy'.setup {
   },
   {
     'mrjones2014/legendary.nvim',
-    tag = 'v2.7.1',
+    tag = 'v2.13.6',
     lazy = true,
     event = { "VeryLazy" },
     config = require('plugins.legendary'),
