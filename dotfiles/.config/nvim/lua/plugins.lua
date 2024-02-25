@@ -391,7 +391,7 @@ require 'lazy'.setup {
       },
       {
         'cljoly/telescope-repo.nvim',
-        commit = "50b5fc6eba11b5f1fcb249d5f7490551f86d1a00",
+        commit = "e17462610fb936bc8a8cc12a249c3252156dd6f7",
       },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
