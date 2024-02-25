@@ -859,7 +859,7 @@ require 'lazy'.setup {
   },
   {
     'mattn/vim-sonictemplate',
-    commit = "0e4d422c85decd8d159c663f234eb484b1b04b25",
+    commit = "b85d7b5802c7efdf2b3fbf3dea2119c25322bab3",
     lazy = true,
     cmd = { 'Template' },
   },
