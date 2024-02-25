@@ -470,7 +470,7 @@ require 'lazy'.setup {
   },
   {
     "folke/todo-comments.nvim",
-    tag = 'v1.0.0',
+    tag = 'v1.1.0',
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = {
