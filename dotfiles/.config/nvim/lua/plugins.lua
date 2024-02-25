@@ -818,7 +818,7 @@ require 'lazy'.setup {
   },
   {
     'f-person/git-blame.nvim',
-    commit = "17840d01f42ee308e1dbbcc2cde991297aee36c9",
+    commit = "ed84c1cfc49828a917af52bd92cac882851eca25",
     lazy = true,
     event = { "VeryLazy" },
   },
