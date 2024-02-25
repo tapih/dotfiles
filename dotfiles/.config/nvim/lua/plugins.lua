@@ -532,7 +532,7 @@ require 'lazy'.setup {
   },
   {
     "utilyre/barbecue.nvim",
-    tag = "v0.4.1",
+    tag = "v1.2.0",
     lazy = true,
     event = { "VeryLazy" },
     dependencies = {
