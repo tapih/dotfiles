@@ -760,7 +760,7 @@ require 'lazy'.setup {
   },
   {
     'unblevable/quick-scope',
-    tag = "v2.5.16",
+    tag = "v2.6.1",
     lazy = true,
     event = { "VeryLazy" },
   },
