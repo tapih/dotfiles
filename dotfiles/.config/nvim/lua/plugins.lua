@@ -676,7 +676,7 @@ require 'lazy'.setup {
   },
   {
     'gbprod/substitute.nvim',
-    tag = 'v1.1.1',
+    tag = 'v2.0.0',
     lazy = true,
     event = 'VeryLazy',
     config = [[require'substitute'.setup {}]],
