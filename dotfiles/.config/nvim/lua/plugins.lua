@@ -611,7 +611,7 @@ require 'lazy'.setup {
   },
   {
     "folke/which-key.nvim",
-    tag = 'v1.1.1',
+    tag = 'v1.6.0',
     lazy = true,
     event = { "VeryLazy" },
     config = function()
