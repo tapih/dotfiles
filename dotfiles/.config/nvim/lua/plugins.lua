@@ -582,7 +582,7 @@ require 'lazy'.setup {
   },
   {
     'famiu/bufdelete.nvim',
-    commit = "8933abc09df6c381d47dc271b1ee5d266541448e",
+    commit = "f6bcea78afb3060b198125256f897040538bcb81",
     lazy = true,
     cmd = { 'Bdelete' },
   },
