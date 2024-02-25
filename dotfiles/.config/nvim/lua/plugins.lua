@@ -719,7 +719,7 @@ require 'lazy'.setup {
     config = [[require('Comment').setup()]] },
   {
     "danymat/neogen",
-    tag = "2.13.1",
+    tag = "2.15.2",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     config = [[require('neogen').setup {}]],
