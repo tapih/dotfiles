@@ -324,7 +324,7 @@ require 'lazy'.setup {
       },
       {
         'hrsh7th/cmp-cmdline',
-        commit = "8fcc934a52af96120fe26358985c10c035984b53",
+        commit = "8ee981b4a91f536f52add291594e89fb6645e451",
       },
       {
         'hrsh7th/cmp-emoji',
