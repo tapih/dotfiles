@@ -887,7 +887,7 @@ require 'lazy'.setup {
   },
   {
     'ray-x/guihua.lua',
-    commit = "a19ac4447021f21383fadd7a9e1fc150d0b67e1f",
+    commit = "9fb6795474918b492d9ab01b1ebaf85e8bf6fe0b",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     ft = "go",
