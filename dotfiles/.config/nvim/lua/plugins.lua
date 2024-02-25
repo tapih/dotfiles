@@ -381,7 +381,7 @@ require 'lazy'.setup {
       'nvim-lua/plenary.nvim',
       {
         'nvim-telescope/telescope-frecency.nvim',
-        commit = 'e5696afabd8753d772987ea48434d9c0d8b0aa6b',
+        commit = '771726f7d6e7e96e9273e454b1c1f49168663a37',
         dependencies = {
           {
             'kkharji/sqlite.lua',
