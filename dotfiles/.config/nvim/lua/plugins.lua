@@ -159,7 +159,7 @@ require 'lazy'.setup {
       },
       {
         "williamboman/mason.nvim",
-        commit = "01dfdfd36be77cb1195b60d580315bf4e2d8e62c",
+        commit = "3b5068f0fc565f337d67a2d315d935f574848ee7",
         config = [[require'mason'.setup()]],
       },
       {
