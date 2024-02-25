@@ -32,7 +32,7 @@ require 'lazy'.setup {
   },
   {
     'nvim-tree/nvim-web-devicons',
-    commit = "4709a504d2cd2680fb511675e64ef2790d491d36",
+    commit = "0bb67ef952ea3eb7b1bac9c011281471d99a27bc",
     lazy = true,
     event = { "VeryLazy" },
   },
