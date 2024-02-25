@@ -729,7 +729,7 @@ require 'lazy'.setup {
   },
   {
     'windwp/nvim-autopairs',
-    commit = "6a5faeabdbcc86cfbf1561ae430a451a72126e81",
+    commit = "c6139ca0d5ad7af129ea6c89cb4c56093f2c034a",
     lazy = true,
     event = { "InsertEnter" },
     config = function()
