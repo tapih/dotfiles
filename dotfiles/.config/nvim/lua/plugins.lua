@@ -46,7 +46,7 @@ require 'lazy'.setup {
   -- Project
   {
     "ahmedkhalf/project.nvim",
-    commit = "1c2e9c93c7c85126c2197f5e770054f53b1926fb",
+    commit = "8c6bad7d22eef1b71144b401c9f74ed01526a4fb",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
