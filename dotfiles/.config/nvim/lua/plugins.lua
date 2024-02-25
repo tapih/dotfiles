@@ -525,7 +525,7 @@ require 'lazy'.setup {
   },
   {
     "SmiteshP/nvim-navic",
-    commit = "7e9d2b2b601149fecdccd11b516acb721e571fe6",
+    commit = "8649f694d3e76ee10c19255dece6411c29206a54",
     lazy = true,
     event = { "VeryLazy" },
     dependencies = { "neovim/nvim-lspconfig" },
