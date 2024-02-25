@@ -701,7 +701,7 @@ require 'lazy'.setup {
   },
   {
     'AndrewRadev/sideways.vim',
-    commit = "e683ed0fc57eda718c6b28dce0ff5190089d13d3",
+    commit = "1cb0e4d7259dac8bef0dc12b4a7f8e842b32116b",
     lazy = true,
     cmd = { 'SidewaysLeft', 'SidewaysRight' },
   },
