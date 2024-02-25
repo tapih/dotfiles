@@ -5,7 +5,7 @@ require 'lazy'.setup {
   -- Development
   {
     "folke/neodev.nvim",
-    tag = "v2.4.0",
+    tag = "v2.5.2",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     ft = { 'lua' },
