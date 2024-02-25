@@ -445,7 +445,7 @@ require 'lazy'.setup {
   -- Apperance
   {
     'haringsrob/nvim_context_vt',
-    commit = 'e592a9142fbfe0878ce886cd0d745963604c61d2',
+    commit = '8f7b6b46292e0819290b0d368abc3366b8a163fc',
     lazy = true,
     event = "VeryLazy",
     config = function()
