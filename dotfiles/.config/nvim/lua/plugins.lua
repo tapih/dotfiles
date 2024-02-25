@@ -395,7 +395,7 @@ require 'lazy'.setup {
       },
       {
         'nvim-telescope/telescope-fzf-native.nvim',
-        commit = "580b6c48651cabb63455e97d7e131ed557b8c7e2",
+        commit = "6c921ca12321edaa773e324ef64ea301a1d0da62",
         build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
       },
       {
