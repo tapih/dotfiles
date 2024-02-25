@@ -336,7 +336,7 @@ require 'lazy'.setup {
       },
       {
         'hrsh7th/vim-vsnip',
-        commit = "8dde8c0ef10bb1afdbb301e2bd7eb1c153dd558e",
+        commit = "02a8e79295c9733434aab4e0e2b8c4b7cea9f3a9",
       },
       {
         'lukas-reineke/cmp-under-comparator',
