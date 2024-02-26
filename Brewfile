@@ -1,6 +1,7 @@
 # package manager
 brew "npm"
 brew "pnpm"
+brew "yarn"
 brew "pipx"
 
 # git
