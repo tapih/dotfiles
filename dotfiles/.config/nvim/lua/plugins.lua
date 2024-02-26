@@ -204,7 +204,7 @@ require 'lazy'.setup {
   },
   {
     'ray-x/lsp_signature.nvim',
-    commit = "6f6252f63b0baf0f2224c4caea33819a27f3f550",
+    commit = "fed2c8389c148ff1dfdcdca63c2b48d08a50dea0",
     lazy = true,
     event = { "LspAttach" },
   },
