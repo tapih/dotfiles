@@ -20,16 +20,16 @@
 #### Configuration
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
-- Update the Mozc setting to use Ctrl+Space to toggle IME.
+- Update the setting of Mozc to use Ctrl+Space to toggle IME.
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
-- Disable window animation via Settings > Accesibility > Animation effects.
-- Register hotkeys for some FancyZone layouts.
+- Disable the window animation of the Windows system via Settings > Accesibility > Animation effects.
 - Install WSL2 with `wsl --install`.
 - Configure Windows Terminal.
   - Set WSL2 to a default terminal.
   - Use One Half Dark. 
   - Use Hack Nerd Font.
 - Download autohotkey.ahk and place it in the startup folder.
+- Configure Edge to use vertical tabs and simplify the apperance.
 - Update the Quick Task hotkey of Todoist to Shift+Alt+K.
 
 ## WSL2
