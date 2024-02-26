@@ -605,7 +605,7 @@ require 'lazy'.setup {
     dependencies = {
       {
         "stevearc/dressing.nvim",
-        commit = '5f44f829481640be0f96759c965ae22a3bcaf7ce',
+        commit = '6f212262061a2120e42da0d1e87326e8a41c0478',
       },
     },
   },
