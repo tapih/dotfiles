@@ -308,7 +308,7 @@ require 'lazy'.setup {
     dependencies = {
       {
         'hrsh7th/cmp-nvim-lsp',
-        commit = "0e6b2ed705ddcff9738ec4ea838141654f12eeef",
+        commit = "5af77f54de1b16c34b23cba810150689a3a90312",
       },
       {
         'hrsh7th/cmp-nvim-lsp-signature-help',
