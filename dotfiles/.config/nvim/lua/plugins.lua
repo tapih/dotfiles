@@ -588,7 +588,7 @@ require 'lazy'.setup {
   },
   {
     'voldikss/vim-floaterm',
-    commit = "ca44a13a379d9af75092bc2fe2efee8c5248e876",
+    commit = "97c085b2f69e931ed78bb1c260512d1e0492a754",
     lazy = true,
     cmd = { 'FloatermToggle', 'FloatermNew' },
     config = function()
