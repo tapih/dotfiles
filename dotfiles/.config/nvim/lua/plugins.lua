@@ -60,7 +60,7 @@ require 'lazy'.setup {
   },
   {
     'glepnir/dashboard-nvim',
-    commit = '398ba8d9390c13c87a964cbca756319531fffdb7',
+    commit = '413442b12d85315fc626c44a0ce4929b213ef604',
     lazy = true,
     event = { 'VimEnter' },
     config = [[require('dashboard').setup()]],
