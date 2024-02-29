@@ -33,6 +33,8 @@
     po = push
     pr = !git push && gh pr create
     rb = rebase
+    ra = rebase --abort
+    rc = rebase --continue
     v = !gh pr view --web
     vv = !gh browse -b $(git current-branch)
     vm = !gh browse
@@ -77,7 +79,7 @@
 
 [pull]
     ff = only
-    rebase = true
+    rebase = false
 
 [push]
     default = current
@@ -107,3 +109,8 @@
 
 [url "ssh://git@github.com/"]
     insteadOf = https://github.com/
+
+[rebase]
+	autostash = true
+	abbreviateCommands = true
+	autosquash = true
