@@ -32,6 +32,7 @@
     pk = cherry-pick
     po = push
     pr = !git push && gh pr create
+    rb = rebase
     v = !gh pr view --web
     vv = !gh browse -b $(git current-branch)
     vm = !gh browse
