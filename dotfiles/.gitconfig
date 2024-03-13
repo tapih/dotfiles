@@ -8,11 +8,10 @@
 
     amend = commit --amend
     bd = branch -D
-    ci = commit
+    ci = commit -s
     co = checkout HEAD
     cl = checkout HEAD
-    cm = commit -m
-    cs = commit -sm
+    cm = commit -sm
     d = diff
     ds = diff --staged
     e = !nvim ~/.gitconfig
