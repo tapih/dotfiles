@@ -23,7 +23,6 @@ brew "protobuf"
 # terminal
 brew "starship"
 brew "tmux"
-brew "tmuxinator"
 brew "xplr"
 
 # utilities
