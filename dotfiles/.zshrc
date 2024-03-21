@@ -78,16 +78,6 @@ function __zi() {
   zle accept-line
 }
 
-function __fzf_ghq_open() {
-    name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
-    if [ ! -z "${name}" ]
-    then
-      BUFFER="${EDITOR:-vim} $name"
-      zle accept-line
-    fi
-    zle -R -c
-}
-
 function __fzf_git_file() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]
@@ -331,19 +321,15 @@ bindkey -M vicmd 'U' redo
 # fzf
 zle -N __zi
 zle -N __fzf_ghq
-zle -N __fzf_lazygit
-zle -N __fzf_ghq_open
 zle -N __fzf_git_file
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
-bindkey '^[g' __fzf_lazygit
-bindkey '^y' __fzf_ghq_open
 bindkey '^o' __fzf_git_file
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
-bindkey '^s' __fzf_git_log
+bindkey '^y' __fzf_git_log
 bindkey '^z' __zi
 
 # autoload tmux
