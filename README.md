@@ -2,14 +2,14 @@
 
 ## Windows
 
-#### Store
+#### Install from store
 
 - Enpass
 - PowerToys
 - VSCode
 - Slack
 
-#### Others
+#### Install from others
 
 - [Mozc Japanese Input](https://www.google.co.jp/ime/)
 - [Notion](https://www.notion.so/desktop/windows)
@@ -17,7 +17,8 @@
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 - [AutoHotKey v2](https://www.autohotkey.com/)
 
-#### Configuration
+#### Settings
+
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Update the setting of Mozc to use Ctrl+Space to toggle IME.
@@ -34,13 +35,21 @@
 
 ## WSL2
 
-```sh
+### Settings for Ubuntu
+
+```console
 $ sudo apt-get update
 $ sudo apt-get install -y curl zsh
 $ chsh -s /usr/bin/zsh
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 $ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 
+$ sudo dpkg-reconfigure locales
+```
+
+### Settings for GitHub
+
+```console
 $ mkdir -p -m 700 ~/.ssh
 $ cat << EOF > ~/.ssh/config
 Host github.com
@@ -49,11 +58,32 @@ Host github.com
     IdentityFile ~/.ssh/github_rsa
 EOF
 $ ssh-keygen -t ed25519 -P "" -f ~/.ssh/github_rsa
+$ gpg --quick-gen-key "Hiroshi Muraoka <h.muraoka714@gmail.com>" ed25519 default 0
+$ KEY_ID=$(gpg -k | grep -oE "[0-9A-F]{40}")
+$ cat << EOF > ~/.gitconfig.local
+[commit]
+  gpgsign = true
+
+[user]
+  signingkey = ${KEY_ID}
+EOF
+```
+
+Then, register both the ssh pub key and gpg pub key to [GitHub](https://github.com/settings/keys).
+
+Finally, run the install script.
+
+```Console
 $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
+
 $ cd dotfiles
 $ ./install.sh
+```
 
+#### Settings for WSL
+
+```console
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 systemd=true
@@ -66,9 +96,9 @@ processors=8
 [interop]
 appendWindowsPath = true
 EOF"
-
-$ sudo dpkg-reconfigure locales
 ```
 
-Then, install [Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
+#### Docker
+
+See [the official document](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 
