@@ -14,11 +14,11 @@
     ci = commit -sS
     co = checkout HEAD
     cl = checkout HEAD
-    cm = commit -sSm
+    cm = commit -sS -m
     d = diff
     ds = diff --staged
     e = !nvim ~/.gitconfig
-    empty = commit --allow-empty -sSm "empty"
+    empty = commit --allow-empty -sS -m "empty"
     f = fetch
     fo = fetch origin
     fd = !fd
