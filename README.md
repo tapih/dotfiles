@@ -17,21 +17,37 @@
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 - [AutoHotKey v2](https://www.autohotkey.com/)
 
-#### Settings
+#### Taskbar
 
+- Update Taskbar not to show default icons.
+- Hide automatically.
+- Use the Dark theme.
+
+#### Input
+
+- Swap ctrl and caps lock with PowerToys.
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Update the setting of Mozc to use Ctrl+Space to toggle IME.
+- Download autohotkey.ahk and place it in the startup folder.
+
+#### Appearance
+
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
 - Disable the window animation of the Windows system via Settings > Accesibility > Animation effects.
+
+### WSL
+
 - Install WSL2 with `wsl --install`.
-- Configure Windows Terminal.
-  - Set WSL2 to a default terminal.
-  - Use One Half Dark. 
-  - Use Hack Nerd Font.
-- Download autohotkey.ahk and place it in the startup folder.
-- Configure Edge to use vertical tabs and simplify the apperance.
-- Update the Quick Task hotkey of Todoist to Shift+Alt+K.
+- Set WSL2 to a default terminal on Windows Terminal.
+- Use One Half Dark on Windows Terminal. 
+- Use Hack Nerd Font on Windows Terminal.
+- Use the Dart theme.
+
+### Edge
+
+- Make the appearance as simple as possible.
+- Use Google for search.
 
 ## WSL2
 
