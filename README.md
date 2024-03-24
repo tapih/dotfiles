@@ -13,8 +13,8 @@
 
 - [Mozc Japanese Input](https://www.google.co.jp/ime/)
 - [Notion](https://www.notion.so/desktop/windows)
-- [win32yank](https://github.com/equalsraf/win32yank)
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
+- [win32yank](https://github.com/equalsraf/win32yank) (Put the binary in C:Tools)
 - [AutoHotKey v2](https://www.autohotkey.com/)
 
 #### Taskbar
