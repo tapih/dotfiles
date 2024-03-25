@@ -16,6 +16,8 @@
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 - [win32yank](https://github.com/equalsraf/win32yank) (Put the binary in C:Tools)
 - [AutoHotKey v2](https://www.autohotkey.com/)
+- [PowerToys Edge favorite plugin](https://github.com/davidegiacometti/PowerToys-Run-EdgeFavorite)
+- [PowerToys Clipboard plugin](https://github.com/CoreyHayward/PowerToys-Run-ClipboardManager)
 
 #### Taskbar
 
