@@ -293,6 +293,7 @@ alias v='vim'
 alias watch='watch '
 exists lazygit && alias G="lazygit"
 exists lazydocker && alias D="lazydocker"
+exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
 exists fzf && alias F="fzf"
 exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9s='k9s --readonly'
