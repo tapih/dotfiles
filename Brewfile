@@ -43,6 +43,7 @@ brew "asciinema"
 brew "silicon"
 brew "urlview"
 brew "caddy"
+brew "expect"
 
 # container
 brew "kubernetes-cli"

@@ -78,6 +78,27 @@ function __zi() {
   zle accept-line
 }
 
+# https://dev.classmethod.jp/articles/fzf-original-app-for-git-add/
+function __fzf_git_command() {
+    command=$1
+    local selected
+    selected=$(unbuffer git status -s | fzf -m --ansi --preview="echo {} | awk '{print \$2}' | xargs git diff --color" | awk '{print $2}')
+    if [[ -n "$selected" ]]; then
+        selected=$(echo "$selected" | perl -pe 's/\n/ /g' | perl -pe 's/\s+$//')
+        eval "git $command $selected"
+        zle accept-line
+    fi
+    zle -R -c
+}
+
+function __fzf_git_add() {
+    __fzf_git_command "add"
+}
+
+function __fzf_git_restore() {
+    __fzf_git_command "restore -s HEAD"
+}
+
 function __fzf_git_file() {
     editor=$1
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
@@ -336,6 +357,7 @@ zle -N __fzf_git_file_nvim
 zle -N __fzf_git_file_code
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
+zle -N __fzf_git_add
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file_nvim
@@ -343,6 +365,7 @@ bindkey '^s' __fzf_git_file_code
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^y' __fzf_git_log
+bindkey '^a' __fzf_git_add
 bindkey '^z' __zi
 
 # autoload tmux
