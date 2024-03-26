@@ -18,7 +18,7 @@
 - [AutoHotKey v2](https://www.autohotkey.com/)
 - [Everything](https://www.voidtools.com/support/everything/installing_everything/)
 - [PowerToys Everything plugin](https://github.com/lin-ycv/EverythingPowerToys)
-- [PowerToys Edge favorite plugin](https://github.com/davidegiacometti/PowerToys-Run-EdgeFavorite)
+- [PowerToys Edge favorite plugin](https://github.com/davidegiacometti/PowerToys-Run-EdgeFavorite) (Use @@)
 - [PowerToys Clipboard plugin](https://github.com/CoreyHayward/PowerToys-Run-ClipboardManager)
 
 #### Taskbar
