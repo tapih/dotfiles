@@ -79,8 +79,10 @@ function __zi() {
 }
 
 function __fzf_git_file() {
+    editor=$1
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]
+
     then
       echo "error: this is not a git repository"
       return 1
@@ -91,10 +93,18 @@ function __fzf_git_file() {
     selected=$(eval $grep_cmd | fzf --preview "$preview_cmd")
     if [ ! -z "${selected}" ]
     then
-      BUFFER="${EDITOR:-vim} ${toplevel}/${selected}"
+      BUFFER="${editor:-vim} ${toplevel}/${selected}"
       zle accept-line
     fi
     zle -R -c
+}
+
+function __fzf_git_file_nvim() {
+    __fzf_git_file nvim
+}
+
+function __fzf_git_file_code() {
+    __fzf_git_file code
 }
 
 function __fzf_git_dir() {
@@ -262,6 +272,7 @@ alias v='vim'
 alias watch='watch '
 exists lazygit && alias G="lazygit"
 exists lazydocker && alias D="lazydocker"
+exists fzf && alias F="fzf"
 exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
@@ -321,12 +332,14 @@ bindkey -M vicmd 'U' redo
 # fzf
 zle -N __zi
 zle -N __fzf_ghq
-zle -N __fzf_git_file
+zle -N __fzf_git_file_nvim
+zle -N __fzf_git_file_code
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
-bindkey '^o' __fzf_git_file
+bindkey '^o' __fzf_git_file_nvim
+bindkey '^s' __fzf_git_file_code
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^y' __fzf_git_log
