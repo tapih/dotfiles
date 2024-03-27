@@ -252,7 +252,7 @@ require 'lazy'.setup {
       { "neovim/nvim-lspconfig" },
       {
         "b0o/schemastore.nvim",
-        commit = "6f2ffb8420422db9a6c43dbce7227f0fdb9fcf75",
+        commit = "4ce271f0db8b5224b4d69a43a75c13f5b4dcba43",
       },
     },
     config = function()
