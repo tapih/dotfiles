@@ -2,24 +2,24 @@
 
 ## Windows
 
-#### Install from store
+#### Install with winget
 
 - Enpass
 - PowerToys
 - VSCode
 - Slack
+- Mozc Japanese Input
+- Notion
+- AutoHotKey v2
+- Everything
 
-#### Install from others
+#### Install from GitHub
 
-- [Mozc Japanese Input](https://www.google.co.jp/ime/)
-- [Notion](https://www.notion.so/desktop/windows)
-- [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 - [win32yank](https://github.com/equalsraf/win32yank) (Put the binary in C:Tools)
-- [AutoHotKey v2](https://www.autohotkey.com/)
-- [Everything](https://www.voidtools.com/support/everything/installing_everything/)
 - [PowerToys Everything plugin](https://github.com/lin-ycv/EverythingPowerToys)
 - [PowerToys Edge favorite plugin](https://github.com/davidegiacometti/PowerToys-Run-EdgeFavorite) (Use @@)
 - [PowerToys Clipboard plugin](https://github.com/CoreyHayward/PowerToys-Run-ClipboardManager)
+- [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 
 #### Taskbar
 
