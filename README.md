@@ -51,7 +51,7 @@
 ### Edge
 
 - Make the appearance as simple as possible.
-- Use Google for search.
+- Use DuckDuckGo for search.
 
 ## WSL2
 
