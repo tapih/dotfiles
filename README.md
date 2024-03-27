@@ -43,15 +43,16 @@
 ### WSL
 
 - Install WSL2 with `wsl --install`.
-- Set WSL2 to a default terminal on Windows Terminal.
-- Use One Half Dark on Windows Terminal. 
-- Use Hack Nerd Font on Windows Terminal.
-- Use the Dart theme.
+- Windows Terminal
+  - Theme: Dark
+  - Console: Use One Half Dark
+  - Font: Hack Nerd Font
 
 ### Edge
 
-- Make the appearance as simple as possible.
-- Use DuckDuckGo for search.
+- Make the panel as simple as possible.
+- Search Engine: DuckDuckGo
+  - Center Alignment: on
 
 ## WSL2
 
