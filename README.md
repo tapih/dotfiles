@@ -76,7 +76,7 @@ $ cat << EOF > ~/.ssh/config
 Host github.com
     HostName github.com
     User git
-    IdentityFile ~/.ssh/github_rsa
+    IdentityFile ~/.ssh/github
 EOF
 $ ssh-keygen -t ed25519 -P "" -f ~/.ssh/github
 $ gpg --quick-gen-key "Hiroshi Muraoka <h.muraoka714@gmail.com>" ed25519 default 0
