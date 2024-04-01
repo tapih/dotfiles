@@ -60,7 +60,7 @@
 
 ```console
 $ sudo apt-get update
-$ sudo apt-get install -y curl zsh
+$ sudo apt-get install -y curl zsh chromium-browser
 $ chsh -s /usr/bin/zsh
 $ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
@@ -95,6 +95,7 @@ Then, register both the ssh pub key and gpg pub key to [GitHub](https://github.c
 Finally, run the install script.
 
 ```Console
+$ gh auth login
 $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
 
