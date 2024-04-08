@@ -216,6 +216,7 @@ export _ZO_FZF_OPTS="${FZF_DEFAULT_OPTS} --preview 'echo {} | cut -f2 | xargs tr
 export VISUAL="nvim"
 export EDITOR="nvim"
 export GOPATH="${HOME}/go"
+typeset -U path PATH
 export PATH=${GOPATH}/bin:${PATH}
 export PATH=${HOME}/.bin::${PATH}
 export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
