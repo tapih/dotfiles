@@ -63,6 +63,9 @@ brew "skaffold"
 # terraform
 brew "terraformer"
 
+# go
+brew "golang-migrate"
+
 # troubleshooting
 brew "wireshark"
 brew "alp"
