@@ -33,7 +33,7 @@
     pf = push --force-with-lease
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
     pk = cherry-pick
-    pr = !git push && gh pr create
+    pr = !git push && gh pr create -d
     rb = rebase
     ra = rebase --abort
     rc = rebase --continue
@@ -118,3 +118,9 @@
 	autostash = true
 	abbreviateCommands = true
 	autosquash = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
