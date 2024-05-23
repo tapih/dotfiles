@@ -44,6 +44,7 @@ brew "silicon"
 brew "urlview"
 brew "caddy"
 brew "expect"
+brew "go-task"
 
 # container
 brew "kubernetes-cli"
