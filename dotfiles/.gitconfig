@@ -33,7 +33,7 @@
     pf = push --force-with-lease
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
     pk = cherry-pick
-    pr = !git push && gh pr create -d
+    pr = !git push && gh pr create -a tapih -d
     rb = rebase
     ra = rebase --abort
     rc = rebase --continue
