@@ -114,7 +114,7 @@ require 'lazy'.setup {
   },
   {
     'm-demare/hlargs.nvim',
-    commit = "e45fd1f18f2fadf7d4ebe6f14ed1e70c7fca02da",
+    commit = "30fe1b3de2b7614f061be4fc9c71984a2b87e50a",
     lazy = true,
     event = { "VeryLazy" },
     config = [[require('hlargs').setup()]],
@@ -798,7 +798,7 @@ require 'lazy'.setup {
   },
   {
     'andymass/vim-matchup',
-    commit = "3a48818a8113a502f245c29d894201421727577a",
+    tag = "v0.7.3",
   },
 
   -- Git
