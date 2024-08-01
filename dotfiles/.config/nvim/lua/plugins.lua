@@ -660,7 +660,7 @@ require 'lazy'.setup {
   },
   {
     'AndrewRadev/splitjoin.vim',
-    commit = '503e56ed103b58b6bd0880a3e61225c8b1c40033',
+    commit = 'cab1e6331a170403d227a31b5e63759214c37a8d',
     lazy = true,
     cmd = { "SplitjoinSplit", 'SplitjoinJoin' },
   },
