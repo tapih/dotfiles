@@ -70,7 +70,7 @@ require 'lazy'.setup {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    commit = "59d4c14a1a4262cf637ff2420032593afa062749",
+    commit = "5e6da5658a92588cc735f348c2ba2c3898089ea3",
     lazy = true,
     event = { "CursorHold", "CursorHoldI", "CursorMoved", "CursorMovedI" },
     build = [[vim.api.nvim_command("TSUpdate")]],
