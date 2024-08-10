@@ -244,7 +244,7 @@ exists direnv && eval "$(direnv hook zsh)"
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
 [ -f ~/.fzf/shell/key-bindings.zsh ] && . ~/.fzf/shell/key-bindings.zsh
 [ -f ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && . ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh
-fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh $fpath)
+fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh ~/.zsh/task/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
 exists mise && eval "$(mise activate zsh)"
 
@@ -310,7 +310,7 @@ exists tmuxinator && alias mux='tmuxinator'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
 
 # completion
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -i
 autoload -U +X bashcompinit && bashcompinit
 autoload colors && colors
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
