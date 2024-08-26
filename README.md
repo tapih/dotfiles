@@ -8,7 +8,6 @@
 - PowerToys
 - VSCode
 - Slack
-- Mozc Japanese Input
 - Notion
 - AutoHotKey v2
 - Everything
