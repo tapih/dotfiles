@@ -25,7 +25,6 @@
 
 - Update Taskbar not to show default icons.
 - Hide automatically.
-- Use the Dark theme.
 
 #### Input
 
@@ -33,10 +32,11 @@
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Update the setting of Mozc to use Ctrl+Space to toggle IME.
-- Download autohotkey.ahk and place it in the startup folder.
+- Download autohotkey.ahk and place a shortcut it in the startup folder.
 
 #### Appearance
 
+- Use Dark theme.
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
 - Disable the window animation of the Windows system via Settings > Accesibility > Animation effects.
 
@@ -51,8 +51,6 @@
 ### Edge
 
 - Make the panel as simple as possible.
-- Search Engine: DuckDuckGo
-  - Center Alignment: on
 
 ## WSL2
 
