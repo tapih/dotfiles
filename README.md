@@ -30,7 +30,6 @@
 - Swap ctrl and caps lock with PowerToys.
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
-- Update the setting of Mozc to use Ctrl+Space to toggle IME.
 - Download autohotkey.ahk and place a shortcut it in the startup folder.
 
 #### Appearance
