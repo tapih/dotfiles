@@ -23,7 +23,6 @@
 #### Taskbar
 
 - Update Taskbar not to show default icons.
-- Hide automatically.
 
 #### Input
 
@@ -31,6 +30,7 @@
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
 - [Increase key repeat speed](https://www.pasoble.jp/windows/10/keyboard-sokudo-settei.html).
 - Download autohotkey.ahk and place a shortcut it in the startup folder.
+- Assign Ctrl+Space to toggling IME on/off.
 
 #### Appearance
 
