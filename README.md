@@ -88,7 +88,7 @@ EOF
 
 Then, register both the ssh pub key and gpg pub key to [GitHub](https://github.com/settings/keys).
 
-Finally, run the install script.
+Finally, run the installation script.
 
 ```Console
 $ gh auth login
