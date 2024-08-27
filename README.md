@@ -2,7 +2,7 @@
 
 ## Windows
 
-#### Install with winget
+### Install with winget
 
 - Enpass
 - PowerToys
@@ -12,7 +12,7 @@
 - AutoHotKey v2
 - Everything
 
-#### Install from GitHub
+### Install from GitHub
 
 - [win32yank](https://github.com/equalsraf/win32yank) (Put the binary in C:Tools)
 - [PowerToys Everything plugin](https://github.com/lin-ycv/EverythingPowerToys)
@@ -20,11 +20,11 @@
 - [PowerToys Clipboard plugin](https://github.com/CoreyHayward/PowerToys-Run-ClipboardManager)
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 
-#### Taskbar
+### Taskbar
 
 - Update Taskbar not to show default icons.
 
-#### Input
+### Input
 
 - Swap ctrl and caps lock with PowerToys.
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
@@ -32,7 +32,7 @@
 - Download autohotkey.ahk and place a shortcut it in the startup folder.
 - Assign Ctrl+Space to toggling IME on/off.
 
-#### Appearance
+### Appearance
 
 - Use Dark theme.
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
