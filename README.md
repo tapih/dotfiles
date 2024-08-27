@@ -99,7 +99,7 @@ $ cd dotfiles
 $ ./install.sh
 ```
 
-#### Settings for WSL
+### Settings for WSL
 
 ```console
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
@@ -116,7 +116,5 @@ appendWindowsPath = true
 EOF"
 ```
 
-#### Docker
-
-See [the official document](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
+Install Docker with [the official document](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
 
