@@ -238,7 +238,6 @@ export BROWSER="powershell.exe /C start"
 # load plugins
 exists starship && eval "$(starship init zsh)"
 exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
-exists direnv && eval "$(direnv hook zsh)"
 [ -f /usr/share/zsh-completion/zsh_completion ] && . /usr/share/zsh-completion/zsh_completion
 [ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ] && . ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 [ -f ~/.fzf/shell/completion.zsh ] && . ~/.fzf/shell/completion.zsh
