@@ -248,6 +248,7 @@ eval "$(zoxide init zsh)"
 exists mise && eval "$(mise activate zsh)"
 
 # alias
+alias '$'=''
 alias python='python3'
 alias ipython='ipython3'
 alias pip='pip3'
