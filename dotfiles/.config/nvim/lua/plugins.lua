@@ -513,7 +513,7 @@ require 'lazy'.setup {
   -- Widget
   {
     'romgrk/barbar.nvim',
-    commit = '4573b19e9ac29a58409a9445bf93753fb5a3e0e4',
+    commit = '7c28de8c22f4c00ed43a78ae16c13dd6a248fe1a',
     lazy = true,
     event = { "VeryLazy" },
   },
