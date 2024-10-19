@@ -123,7 +123,7 @@ require 'lazy'.setup {
   -- LSP
   {
     'neovim/nvim-lspconfig',
-    commit = "62856b20751b748841b0f3ec5a10b1e2f6a6dbc9",
+    commit = "fd49d5863e873891be37afac79b1f56fb34bb5d3",
     lazy = true,
     event = { "BufReadPost", "BufAdd", "BufNewFile" },
     config = require 'plugins.lspconfig',
