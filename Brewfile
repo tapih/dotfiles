@@ -17,8 +17,6 @@ brew "mise"
 brew "lua-language-server"
 brew "terraform-ls"
 brew "actionlint"
-brew "bufbuild/buf/buf"
-brew "protobuf"
 
 # terminal
 brew "starship"
@@ -44,7 +42,6 @@ brew "silicon"
 brew "urlview"
 brew "caddy"
 brew "expect"
-brew "go-task"
 
 # container
 brew "kubernetes-cli"
@@ -61,11 +58,17 @@ brew "hadolint"
 brew "dive"
 brew "skaffold"
 
-# terraform
+# development tools
+brew "terraform"
+brew "gotestsum"
+brew "golangci-lint"
 brew "terraformer"
-
-# go
+brew "go-task"
+brew "cue"
+brew "conftest"
 brew "golang-migrate"
+brew "bufbuild/buf/buf"
+brew "protobuf"
 
 # troubleshooting
 brew "wireshark"
