@@ -18,7 +18,7 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
-#3::
+#4::
 {
 	if WinExist("ahk_exe msedge.exe")
 		WinActivate
@@ -26,14 +26,4 @@ userprofile := EnvGet("USERPROFILE")
 		Run("C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe")
     	return
 }
-
-#4::
-{
-	if WinExist("ahk_exe Code.exe")
-		WinActivate
-	else
-		Run(userprofile "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
-    	return
-}
-
 
