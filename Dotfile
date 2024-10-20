@@ -7,6 +7,7 @@
 .vsnip
 .config/cheat/cheatsheets/personal
 .config/cheat/conf.yml
+.config/nvim/lazy-lock.json
 .config/nvim/init.lua
 .config/nvim/lua
 .config/k9s/plugin.yml
