@@ -18,7 +18,7 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
-#4::
+#3::
 {
 	if WinExist("ahk_exe msedge.exe")
 		WinActivate
@@ -27,3 +27,12 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
+*vkBA::
+{
+    If (GetKeyState("Shift")){
+        Send "`;"
+    }
+    else {
+        Send ":"
+    }
+}
