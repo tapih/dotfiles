@@ -64,14 +64,3 @@ nnoremap U <C-r>
 nnoremap vy ggVG
 nnoremap j gj
 nnoremap k gk
-nnoremap H ^
-vnoremap H ^
-vnoremap L $
-nnoremap L $
-nnoremap ; :
-nnoremap : m
-nnoremap m ;
-vnoremap ; :
-vnoremap : m
-vnoremap m ;
-
