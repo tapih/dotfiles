@@ -72,7 +72,7 @@
     defaultBranch = main
 
 [core]
-    editor = nvim
+    editor = vim
     autocrlf= false
     pager = delta -s
     sparseCheckout = true
