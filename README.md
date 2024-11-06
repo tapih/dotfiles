@@ -60,37 +60,9 @@ $ sudo apt-get install -y curl zsh chromium-browser
 $ chsh -s /usr/bin/zsh
 $ export PATH=$PATH:/home/linuxbrew/.linuxbrew/bin
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-
 $ sudo dpkg-reconfigure locales
-```
 
-### Settings for GitHub
-
-```console
-$ mkdir -p -m 700 ~/.ssh
-$ cat << EOF > ~/.ssh/config
-Host github.com
-    HostName github.com
-    User git
-    IdentityFile ~/.ssh/github
-EOF
-$ ssh-keygen -t ed25519 -P "" -f ~/.ssh/github
-$ gpg --quick-gen-key "Hiroshi Muraoka <h.muraoka714@gmail.com>" ed25519 default 0
-$ KEY_ID=$(gpg -k | grep -oE "[0-9A-F]{40}")
-$ cat << EOF > ~/.gitconfig.local
-[commit]
-  gpgsign = true
-
-[user]
-  signingkey = ${KEY_ID}
-EOF
-```
-
-Then, register both the ssh pub key and gpg pub key to [GitHub](https://github.com/settings/keys).
-
-Finally, run the installation script.
-
-```Console
+$ brew install gh
 $ gh auth login
 $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
