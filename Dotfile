@@ -4,13 +4,9 @@
 .tmux.conf
 .vimrc
 .zshrc
-.vsnip
-.config/cheat/cheatsheets/personal
-.config/cheat/conf.yml
+.wslconfig
 .config/nvim/lazy-lock.json
 .config/nvim/init.lua
 .config/nvim/lua
-.config/k9s/plugin.yml
 .config/starship.toml
 .config/lazygit/config.yml
-.wslconfig
