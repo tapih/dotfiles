@@ -8,7 +8,6 @@
 - PowerToys
 - VSCode
 - Slack
-- Notion
 - AutoHotKey v2
 - Everything
 
