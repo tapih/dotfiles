@@ -3,6 +3,5 @@ https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 https://github.com/junegunn/fzf.git ~/.fzf
 https://github.com/docker/cli.git ~/.zsh/docker/cli
 https://github.com/lincheney/fzf-tab-completion ~/.zsh/fzf-tab-completion
-https://github.com/lincheney/fzf-tab-completion ~/.zsh/fzf-tab-completion
 https://github.com/paulirish/git-open ~/.zsh/git-open
 https://github.com/go-task/task ~/.zsh/task
