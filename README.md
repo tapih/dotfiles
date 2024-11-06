@@ -40,7 +40,7 @@
 - Install WSL2 with `wsl --install`.
 - Windows Terminal
   - Theme: Dark
-  - Console: Use One Half Dark
+  - Console: One Half Dark
   - Font: Hack Nerd Font
 
 ### Edge
@@ -48,8 +48,6 @@
 - Make the panel as simple as possible.
 
 ## WSL2
-
-### Settings for Ubuntu
 
 ```console
 $ sudo apt-get update
@@ -63,14 +61,9 @@ $ brew install gh
 $ gh auth login
 $ mkdir -p ~/src/github.com/tapih && cd $_
 $ git clone https://github.com/tapih/dotfiles
-
 $ cd dotfiles
 $ ./install.sh
-```
 
-### Settings for WSL
-
-```console
 $ sudo sh -c "cat << EOF > /etc/wsl.conf
 [boot]
 systemd=true
