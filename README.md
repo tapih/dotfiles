@@ -8,6 +8,7 @@
 - PowerToys
 - VSCode
 - Slack
+- Notion
 - AutoHotKey v2
 
 ### Install from GitHub
