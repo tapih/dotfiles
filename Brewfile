@@ -69,6 +69,7 @@ brew "conftest"
 brew "golang-migrate"
 brew "bufbuild/buf/buf"
 brew "protobuf"
+brew "ymtdzzz/tap/otel-tui"
 
 # troubleshooting
 brew "wireshark"
