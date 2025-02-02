@@ -27,6 +27,15 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
+#4::
+{
+	if WinExist("ahk_exe Cursor.exe")
+		WinActivate
+	else
+		Run("C:\Users\hiros\AppData\Local\Programs\cursor\Cursor.exe")
+    	return
+}
+
 *vkBA::
 {
     If (GetKeyState("Shift")){
