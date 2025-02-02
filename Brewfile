@@ -70,6 +70,7 @@ brew "golang-migrate"
 brew "bufbuild/buf/buf"
 brew "protobuf"
 brew "ymtdzzz/tap/otel-tui"
+brew "uv"
 
 # troubleshooting
 brew "wireshark"
