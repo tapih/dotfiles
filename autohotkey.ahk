@@ -9,15 +9,6 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
-#2::
-{
-	if WinExist("ahk_exe Slack.exe")
-		WinActivate
-	else
-		Run("Slack.exe")
-    	return
-}
-
 #3::
 {
 	if WinExist("ahk_exe msedge.exe")
