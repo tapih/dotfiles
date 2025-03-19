@@ -54,13 +54,22 @@ function _fzf_comprun() {
     esac
 }
 
-function __fzf_ghq() {
+function __fzf_ghq_command() {
+    command=$1
     name=$(ghq list -p | fzf --preview 'tree -C {} | head -200')
     if [ ! -z "${name}" ]; then
-        BUFFER="cd $name"
+        BUFFER="$command $name"
         zle accept-line
     fi
     zle -R -c
+}
+
+function __fzf_ghq_cd() {
+    __fzf_ghq_command cd
+}
+
+function __fzf_ghq_nvim() {
+    __fzf_ghq_command nvim
 }
 
 function __fzf_lazygit() {
@@ -358,20 +367,20 @@ bindkey -M vicmd 'U' redo
 
 # fzf
 zle -N __zi
-zle -N __fzf_ghq
+zle -N __fzf_ghq_cd
+zle -N __fzf_ghq_nvim
 zle -N __fzf_git_file_nvim
 zle -N __fzf_git_file_cursor
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
-zle -N __fzf_git_add
 zle -N __fzf_git_branch
-bindkey '^g' __fzf_ghq
+bindkey '^g' __fzf_ghq_cd
+bindkey '^y' __fzf_ghq_nvim
 bindkey '^o' __fzf_git_file_nvim
 bindkey '^s' __fzf_git_file_cursor
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
-bindkey '^y' __fzf_git_log
-bindkey '^a' __fzf_git_add
+bindkey '^a' __fzf_git_log
 bindkey '^z' __zi
 
 # autoload tmux
