@@ -6,7 +6,7 @@
 
 - Enpass
 - PowerToys
-- VSCode
+- Cursor
 - Slack
 - Notion
 - AutoHotKey v2
@@ -80,4 +80,3 @@ EOF"
 ```
 
 Install Docker with [the official document](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
-

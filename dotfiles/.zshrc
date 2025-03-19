@@ -124,8 +124,8 @@ function __fzf_git_file_nvim() {
     __fzf_git_file nvim
 }
 
-function __fzf_git_file_code() {
-    __fzf_git_file code
+function __fzf_git_file_cursor() {
+    __fzf_git_file cursor
 }
 
 function __fzf_git_dir() {
@@ -360,14 +360,14 @@ bindkey -M vicmd 'U' redo
 zle -N __zi
 zle -N __fzf_ghq
 zle -N __fzf_git_file_nvim
-zle -N __fzf_git_file_code
+zle -N __fzf_git_file_cursor
 zle -N __fzf_git_dir
 zle -N __fzf_git_log
 zle -N __fzf_git_add
 zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq
 bindkey '^o' __fzf_git_file_nvim
-bindkey '^s' __fzf_git_file_code
+bindkey '^s' __fzf_git_file_cursor
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^y' __fzf_git_log
