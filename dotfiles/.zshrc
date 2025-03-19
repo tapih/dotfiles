@@ -299,8 +299,8 @@ alias d='docker'
 alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
-alias n='nvim'
-alias v='vim'
+alias v='nvim'
+alias V='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 exists lazygit && alias G="lazygit"
