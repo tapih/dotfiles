@@ -254,7 +254,10 @@ exists lesspipe && eval "$(SHELL=/bin/sh lesspipe)"
 [ -f ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh ] && . ~/.zsh/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh ~/.zsh/task/completion/zsh $fpath)
 eval "$(zoxide init zsh)"
-exists mise && eval "$(mise activate zsh)"
+if exists mise; then
+  eval "$(mise activate zsh)"
+  export PATH="$HOME/.local/share/mise/shims:$PATH"
+fi
 
 # alias
 alias '$'=''
