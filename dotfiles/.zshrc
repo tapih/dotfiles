@@ -239,6 +239,7 @@ export KEYTIMEOUT=25
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FLUTTER_ROOT=.fvm/flutter_sdk
+export MISE_LOG_LEVEL=error
 
 # This env tells xdg-open to use Microsoft edge on Windows as a web browser.
 # https://stackoverflow.com/questions/66585350/ddev-local-wsl2-how-do-i-get-xdg-open-to-open-a-browser-on-windows-from-wsl2
@@ -256,7 +257,6 @@ fpath=(~/.zsh/completion ~/.zsh/docker/cli/contrib/completion/zsh ~/.zsh/task/co
 eval "$(zoxide init zsh)"
 if exists mise; then
   eval "$(mise activate zsh)"
-  export PATH="$HOME/.local/share/mise/shims:$PATH"
 fi
 
 # alias
