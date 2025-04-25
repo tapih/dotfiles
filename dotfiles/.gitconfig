@@ -34,6 +34,7 @@
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
     pk = cherry-pick
     pr = !git push && gh pr create -a tapih -d
+    prr = !git push && gh pr create -a tapih
     rb = rebase
     ra = rebase --abort
     rc = rebase --continue
