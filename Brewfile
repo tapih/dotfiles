@@ -75,6 +75,8 @@ brew "bufbuild/buf/buf"
 brew "protobuf"
 brew "ymtdzzz/tap/otel-tui"
 brew "uv"
+brew "lazysql"
+brew "idoavrah/homebrew/tftui"
 
 # troubleshooting
 brew "wireshark"
