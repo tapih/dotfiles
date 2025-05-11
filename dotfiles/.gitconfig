@@ -75,12 +75,24 @@
 [core]
     editor = vim
     autocrlf= false
-    pager = delta -s
     sparseCheckout = true
+    pager = delta
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
 
 [delta]
-    syntax-theme = Monokai Extended
+    width = variable
+    true-color = always
+    dark = true
+    light = false
     features = line-numbers decorations
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+    side-by-side = true
+    wrap = true
 
 [pull]
     ff = only
