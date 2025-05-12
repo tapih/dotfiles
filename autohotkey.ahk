@@ -9,7 +9,7 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
-#3::
+#2::
 {
 	if WinExist("ahk_exe msedge.exe")
 		WinActivate
@@ -18,7 +18,7 @@ userprofile := EnvGet("USERPROFILE")
     	return
 }
 
-#4::
+#3::
 {
 	if WinExist("ahk_exe Cursor.exe")
 		WinActivate
