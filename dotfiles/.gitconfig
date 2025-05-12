@@ -91,7 +91,7 @@
     syntax-theme = Monokai Extended
     navigate = true
     line-numbers = true
-    side-by-side = true
+    side-by-side = false
     wrap = true
 
 [pull]
