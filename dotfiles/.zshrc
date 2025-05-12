@@ -290,6 +290,7 @@ alias k='kubectl'
 alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
 alias H='cd ~'
 alias t='cd ~/t'
+alias y='yazi'
 alias X='gh copilot explain'
 alias S='gh copilot suggest'
 alias ..='cd ..'
@@ -320,7 +321,7 @@ exists htop && alias T='htop'
 exists tmuxinator && alias mux='tmuxinator'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
-[[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
+[[ "$(uname -r)" = *microsoft* ]] && alias Y='/mnt/c/Tools/win32yank.exe -i'
 
 # completion
 autoload -Uz compinit && compinit -i

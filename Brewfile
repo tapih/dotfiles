@@ -24,6 +24,7 @@ brew "tmux"
 brew "xplr"
 
 # utilities
+brew "yazi"
 brew "zoxide"
 brew "gawk"
 brew "colordiff"
