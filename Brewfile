@@ -62,6 +62,7 @@ brew "dive"
 brew "skaffold"
 
 # development tools
+brew "gitleaks"
 brew "terraform"
 brew "gotestsum"
 brew "golangci-lint"
