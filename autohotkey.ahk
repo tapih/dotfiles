@@ -23,7 +23,7 @@ userprofile := EnvGet("USERPROFILE")
 	if WinExist("ahk_exe Cursor.exe")
 		WinActivate
 	else
-		Run("C:\Users\hiros\AppData\Local\Programs\cursor\Cursor.exe")
+		Run(userprofile "\AppData\Local\Programs\cursor\Cursor.exe")
     	return
 }
 
