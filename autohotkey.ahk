@@ -2,10 +2,10 @@ userprofile := EnvGet("USERPROFILE")
 
 #1::
 {
-	if WinExist("ahk_exe WindowsTerminal.exe")
+	if WinExist("ahk_exe wezterm-gui.exe")
 		WinActivate
 	else
-		Run(userprofile "\AppData\Local\Microsoft\WindowsApps\wt.exe")
+		Run("C:\Program Files\WezTerm\wezterm-gui.exe")
     	return
 }
 
@@ -20,10 +20,10 @@ userprofile := EnvGet("USERPROFILE")
 
 #3::
 {
-	if WinExist("ahk_exe Cursor.exe")
+	if WinExist("ahk_exe Code.exe")
 		WinActivate
 	else
-		Run(userprofile "\AppData\Local\Programs\cursor\Cursor.exe")
+		Run(userprofile "\AppData\Local\Programs\Microsoft VS Code\Code.exe")
     	return
 }
 
@@ -36,3 +36,4 @@ userprofile := EnvGet("USERPROFILE")
         Send ":"
     }
 }
+
