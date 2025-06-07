@@ -6,9 +6,10 @@
 
 - Enpass
 - PowerToys
-- Cursor
+- VSCode
 - Slack
-- Notion
+- Wezterm
+  - Copy and paste dotfiles/wezterm.lua to %APPDATA%\.config\wezterm\wezterm.lu
 - AutoHotKey v2
 
 ### Install from GitHub
@@ -20,7 +21,7 @@
 
 ### Taskbar
 
-- Update Taskbar not to show default icons.
+- Update the bottom panel not to show default icons.
 
 ### Input
 
@@ -47,6 +48,7 @@
 ### Edge
 
 - Make the panel as simple as possible.
+- Show only one window when Alt+Tab.
 
 ## WSL2
 

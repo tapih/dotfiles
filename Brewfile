@@ -2,6 +2,7 @@
 brew "npm"
 brew "pnpm"
 brew "yarn"
+brew "pipx"
 
 # git
 brew "git"
