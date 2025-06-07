@@ -2,7 +2,6 @@
 brew "npm"
 brew "pnpm"
 brew "yarn"
-brew "pipx"
 
 # git
 brew "git"
@@ -16,7 +15,6 @@ brew "neovim"
 brew "mise"
 brew "lua-language-server"
 brew "terraform-ls"
-brew "actionlint"
 
 # terminal
 brew "starship"
@@ -65,19 +63,15 @@ brew "gitleaks"
 brew "terraform"
 brew "gotestsum"
 brew "golangci-lint"
-brew "terraformer"
-brew "suzuki-shunsuke/tfmv/tfmv"
-brew "idoavrah/homebrew/tftui"
 brew "go-task"
 brew "cue"
 brew "conftest"
 brew "golang-migrate"
 brew "bufbuild/buf/buf"
 brew "protobuf"
-brew "ymtdzzz/tap/otel-tui"
 brew "uv"
 brew "lazysql"
-brew "idoavrah/homebrew/tftui"
+brew "ymtdzzz/tap/otel-tui"
 
 # troubleshooting
 brew "wireshark"
