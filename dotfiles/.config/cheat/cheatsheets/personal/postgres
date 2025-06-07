@@ -1,7 +1,0 @@
-# Run postgres server
-$ docker run -p 5432:5432 --name postgres -d -it --rm -e POSTGRES_PASSWORD=password postgres:14-bullseye
-$ psql -p 5432 -h 127.0.0.1 -U postgres
-
-# Hit these command if you want to know something.
-\# \?
-\# \h

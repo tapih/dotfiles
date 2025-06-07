@@ -1,2 +1,0 @@
-# regex
-find . -name '*.js' | xargs perl -i -pe 's{/tmp}{/var/log}'
