@@ -10,14 +10,14 @@ config.default_cwd = wezterm.home_dir
 config.default_domain = "WSL:Ubuntu"
 config.hide_tab_bar_if_only_one_tab = true
 config.use_ime = true
-config.color_scheme = "tokyonight"
+config.color_scheme = "Mathias (Gogh)"
 config.font_size = 14
 config.window_close_confirmation = "AlwaysPrompt"
 config.enable_scroll_bar = true
 config.initial_rows = 36
 config.initial_cols = 120
 config.default_cursor_style = "SteadyBlock"
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.7
 
 local action = wezterm.action
 
