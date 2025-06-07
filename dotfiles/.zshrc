@@ -303,7 +303,7 @@ alias d='docker'
 alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
-alias c='cursor'
+alias c='claude'
 alias v='nvim'
 alias V='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
