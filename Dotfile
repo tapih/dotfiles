@@ -1,7 +1,6 @@
 .bashrc
 .gitconfig
 .inputrc
-.tmux.conf
 .vimrc
 .zshrc
 .wslconfig

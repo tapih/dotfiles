@@ -20,7 +20,6 @@ brew "actionlint"
 
 # terminal
 brew "starship"
-brew "tmux"
 brew "xplr"
 
 # utilities
