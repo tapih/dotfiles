@@ -19,6 +19,7 @@ brew "terraform-ls"
 
 # terminal
 brew "starship"
+brew "tmux"
 brew "xplr"
 
 # utilities

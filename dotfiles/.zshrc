@@ -318,6 +318,7 @@ exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
+exists tmuxinator && alias mux='tmuxinator'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
@@ -386,6 +387,21 @@ bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^a' __fzf_git_log
 bindkey '^z' __zi
+
+# autoload tmux
+TMUX_DEFAULT_SESSION=$(whoami)
+if [ "$TERM_PROGRAM" != "vscode" ]
+then
+  if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
+  then
+    if tmux has-session -t ${TMUX_DEFAULT_SESSION} >/dev/null 2>&1
+    then
+      tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
+    else
+      tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+    fi
+  fi
+fi
 
 # load other rc files
 [ -f ~/.zsh_aliases ] && . ~/.zsh_aliases
