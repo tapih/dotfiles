@@ -2,10 +2,10 @@ userprofile := EnvGet("USERPROFILE")
 
 #1::
 {
-	if WinExist("ahk_exe wezterm-gui.exe")
+	if WinExist("ahk_exe WindowsTerminal.exe")
 		WinActivate
 	else
-		Run("C:\Program Files\WezTerm\wezterm-gui.exe")
+		Run(userprofile "\AppData\Local\Microsoft\WindowsApps\wt.exe")
     	return
 }
 
