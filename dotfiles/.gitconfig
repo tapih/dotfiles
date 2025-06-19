@@ -121,19 +121,11 @@
     root=~/.ghq
     root=~/src
 
-[url "https://"]
-    insteadOf = git://
-
-[url "ssh://git@github.com/"]
-    insteadOf = https://github.com/
+[url "https://github.com/"]
+    insteadOf = git@github.com:
 
 [rebase]
 	autostash = true
 	abbreviateCommands = true
 	autosquash = true
-[credential "https://github.com"]
-	helper = 
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/home/linuxbrew/.linuxbrew/bin/gh auth git-credential
+
