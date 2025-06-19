@@ -75,6 +75,10 @@ processors=8
 
 [interop]
 appendWindowsPath = true
+
+[network]
+generateHosts=false
+generateResolvConf=false
 EOF"
 ```
 
