@@ -3,9 +3,9 @@
     email = h.muraoka714@gmail.com
 
 [alias]
-    main-branch = !gh repo view --json defaultBranchRef --jq .defaultBranchRef.name
-    current-branch = rev-parse --abbrev-ref HEAD
-    commit-hash = rev-parse
+    default = !gh repo view --json defaultBranchRef --jq .defaultBranchRef.name
+    current = rev-parse --abbrev-ref HEAD
+    top = rev-parse --shrootow-toplevel
 
     amend = commit --amend
     a = add
