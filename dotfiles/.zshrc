@@ -304,10 +304,12 @@ alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
 alias c='claude'
+alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
 alias V='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
+alias GG="gh dash"
 exists lazygit && alias G="lazygit"
 exists lazydocker && alias D="lazydocker"
 exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
