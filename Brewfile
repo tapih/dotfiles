@@ -20,6 +20,7 @@ brew "terraform-ls"
 # terminal
 brew "starship"
 brew "tmux"
+brew "tmuxinator"
 brew "xplr"
 
 # utilities
