@@ -1,7 +1,5 @@
 gui:
   nerdFontsVersion: "3"
-  sidePanelWidth: 0.15
-  expandFocusedSidePanel: true
   showIcons: true
 refresher:
   refreshInterval: 1

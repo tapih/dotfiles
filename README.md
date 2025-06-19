@@ -6,10 +6,7 @@
 
 - Enpass
 - PowerToys
-- VSCode
 - Slack
-- Wezterm
-  - Copy and paste dotfiles/wezterm.lua to %APPDATA%\.config\wezterm\wezterm.lu
 - AutoHotKey v2
 
 ### Install from GitHub
