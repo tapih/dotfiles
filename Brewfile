@@ -44,7 +44,6 @@ brew "urlview"
 brew "caddy"
 brew "expect"
 brew "git-who"
-brew "idoavrah/homebrew/tftui"
 
 # container
 brew "kubernetes-cli"
