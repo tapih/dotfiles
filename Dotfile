@@ -10,3 +10,4 @@
 .config/nvim/lua
 .config/starship.toml
 .config/lazygit/config.yml
+.config/gh-dash/config.yml
