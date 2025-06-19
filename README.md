@@ -8,6 +8,7 @@
 - PowerToys
 - Slack
 - AutoHotKey v2
+- Docker Desktop
 
 ### Install from GitHub
 
@@ -82,4 +83,3 @@ generateResolvConf=false
 EOF"
 ```
 
-Install Docker with [the official document](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository).
