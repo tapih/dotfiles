@@ -310,6 +310,7 @@ alias V='vim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 alias GG="gh dash"
+alias gip="curl https://checkip.amazonaws.com/"
 exists lazygit && alias G="lazygit"
 exists oxker && alias D="oxker"
 exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
