@@ -32,7 +32,9 @@
     po = push
     pf = push --force-with-lease
     pi = !git pull origin $(git rev-parse --abbrev-ref HEAD)
-    pk = cherry-pick
+    k = cherry-pick
+    ka = cherry-pick --abort
+    kc = cherry-pick --continue
     pr = !git push && gh pr create -a tapih -d
     prr = !git push && gh pr create -a tapih
     rb = rebase
@@ -54,6 +56,7 @@
     t = worktree list
     ta = worktree add
     tr = worktree remove
+    tc = worktree add
 
     # open issue
     I = !gh issue list --search 'involves:@me' -L 100 | fzf --height 90% --preview 'gh issue view {+1}' | awk '{print $1}' | xargs gh issue view --web
