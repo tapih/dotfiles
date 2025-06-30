@@ -349,7 +349,6 @@ alias V='vim'
 alias watch='watch '
 alias GG="gh dash"
 alias myip="curl https://checkip.amazonaws.com/"
-exists tmuxinator && alias X="mux lazygit-claude"
 exists lazygit && alias G="lazygit"
 exists oxker && alias D="oxker"
 exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
@@ -361,6 +360,7 @@ exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
 exists tmuxinator && alias mux='tmuxinator'
+exists tmuxinator && alias X="SESSION_NAME=$(basename $(pwd)) mux start lazygit-claude"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
