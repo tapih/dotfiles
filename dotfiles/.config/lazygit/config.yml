@@ -1,12 +1,13 @@
 gui:
   nerdFontsVersion: "3"
   showIcons: true
+  sidePanelWidth: 0.2
 refresher:
   refreshInterval: 1
 git:
   paging:
     colorArg: always
-    pager: delta --paging=never --true-color=auto --dark --line-numbers --syntax-theme=Dracula --width=variable --navigate
+    pager: delta --paging=never --side-by-side --true-color=auto --dark --line-numbers --syntax-theme=Dracula --width=variable --navigate
   branchLogCmd: git log --graph --color=always --date=format:'%Y-%m-%d %H:%M' --pretty=format:'%C(#a0a0a0 reverse)%h%Creset %C(cyan)%ad%Creset %C(#dd4814)%ae%Creset %C(yellow reverse)%d%Creset %n%C(white bold)%s%Creset%n' {{branchName}} --
 keybinding:
   universal:
