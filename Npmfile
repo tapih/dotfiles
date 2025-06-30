@@ -1,3 +1,3 @@
-@anthropic-ai/claude-code
 ccusage
-@bufbuild/buf
+@anthropic-ai/claude-code
+@google/gemini-cli
