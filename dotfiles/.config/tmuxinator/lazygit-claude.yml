@@ -1,0 +1,10 @@
+# /home/tapih/.config/tmuxinator/lazygit-claude.yaml.yml
+
+name: lazygit-claude
+windows:
+  - editor:
+      layout: 7ac2,309x56,0,0{205x56,0,0,18,103x56,206,0,23}
+      panes:
+        - lazygit
+        - claude
+  - github: gh dash

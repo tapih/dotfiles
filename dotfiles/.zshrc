@@ -351,6 +351,7 @@ alias V='vim'
 alias watch='watch '
 alias GG="gh dash"
 alias gip="curl https://checkip.amazonaws.com/"
+alias X="mux lazygit-claude"
 exists lazygit && alias G="lazygit"
 exists oxker && alias D="oxker"
 exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
