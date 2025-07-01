@@ -378,7 +378,9 @@ exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
-exists tmuxinator && alias mux='tmuxinator'
+exists tmux && alias m='tmux'
+exists tmuxinator && alias M='tmuxinator'
+exists tmuxinator && alias x='(){ git t $1 && __mux_lazy nvim }'
 exists tmuxinator && alias X="__mux_lazy nvim"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
