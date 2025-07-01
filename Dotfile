@@ -5,6 +5,7 @@
 .vimrc
 .zshrc
 .wslconfig
+.claude/CLAUDE.md
 .config/nvim/lazy-lock.json
 .config/nvim/init.lua
 .config/nvim/lua
