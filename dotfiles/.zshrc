@@ -229,6 +229,23 @@ function __fzf_git_worktree() {
     fi
 }
 
+function __mux_lazy() {
+  command -v tmuxinator >/dev/null || { echo "tmuxinator not found"; return 1; }
+
+  local dir_name branch_name session_name
+
+  dir_name=$(basename "$(pwd)")
+
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    branch_name=$(git rev-parse --abbrev-ref HEAD)
+    session_name="${dir_name}/${branch_name}"
+  else
+    session_name="${dir_name}"
+  fi
+
+  SESSION_NAME="$session_name" tmuxinator start $1
+}
+
 # vim keybinding
 bindkey -v
 
@@ -360,7 +377,7 @@ exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
 exists tmuxinator && alias mux='tmuxinator'
-exists tmuxinator && alias X="SESSION_NAME=$(basename $(pwd)) mux start lazygit-claude"
+exists tmuxinator && alias X="__mux_lazy lazygit-claude"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
@@ -431,7 +448,7 @@ bindkey '^a' __fzf_git_log
 bindkey '^z' __zi
 
 # autoload tmux
-TMUX_DEFAULT_SESSION=$(whoami)
+TMUX_DEFAULT_SESSION=default
 if [ "$TERM_PROGRAM" != "vscode" ]
 then
   if [ $UID -ne 0 ] && [ -z "$TMUX" ] && [ -z "$SSH_CONNECTION" ]
