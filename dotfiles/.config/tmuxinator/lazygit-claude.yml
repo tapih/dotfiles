@@ -7,4 +7,4 @@ windows:
       panes:
         - lazygit
         - claude
-  - github: gh dash
+  - terminal: {}
