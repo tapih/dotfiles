@@ -52,11 +52,8 @@
     w = switch
     c = "!f(){ git switch -c tapih/$1; }; f"
     cl = clean -fd
-    t = worktree list
-    ta = worktree add
+    t = "!f(){ git worktree add $(git rev-parse --show-toplevel)/.git/wt/tapih/$1 -b tapih/$1; }; f"
     tr = worktree remove
-    T = "!f(){ current=$(git branch --show-current); git worktree add $(git rev-parse --show-toplevel)/.git/wt/$current $current; } f"
-    tc = "!f(){ git switch -c tapih/$1 && git worktree add $(git rev-parse --show-toplevel)/.git/wt/tapih/$1 tapih/$1; }; f"
 
     # open issue
     I = !gh issue list --search 'involves:@me' -L 100 | fzf --height 90% --preview 'gh issue view {+1}' | awk '{print $1}' | xargs gh issue view --web
