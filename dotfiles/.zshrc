@@ -297,6 +297,8 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 exists bat && export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FLUTTER_ROOT=.fvm/flutter_sdk
 export MISE_LOG_LEVEL=error
+export GH_BROWSER="'/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'"
+export BROWSER="/mnt/c/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
 
 # This env tells xdg-open to use Microsoft edge on Windows as a web browser.
 # https://stackoverflow.com/questions/66585350/ddev-local-wsl2-how-do-i-get-xdg-open-to-open-a-browser-on-windows-from-wsl2
