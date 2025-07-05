@@ -26,11 +26,22 @@ function cdls() {
           ls -FG
       else
           ls -F --color=auto
-      fi
+        fi
     else
       echo "$nfiles files in: $(pwd)$reset_color"
     fi
   fi
+}
+
+# git worktree add and cd
+function gtw() {
+  if [ -z "$1" ]; then
+    echo "Usage: gtw <branch-name>"
+    return 1
+  fi
+  local worktree_path
+  worktree_path="$(git rev-parse --show-toplevel)/.git/worktree/$1"
+  git worktree add "$worktree_path" -b "tapih/$1" && \cd "$worktree_path"
 }
 
 function _fzf_compgen_path() {
@@ -364,6 +375,7 @@ alias c='claude'
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
 alias V='vim'
+alias w=gtw
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 alias GG="gh dash"
