@@ -34,6 +34,15 @@
   - Briefly explain **why** this refactoring is effective.
   - Ensure and confirm that the **behavior of the code remains unchanged**.
   </refactoring>
+
+  <tidying>
+  Please tidy up the following code to improve readability and structure, based on principles outlined by Martin Fowler.
+
+  - Focus on small, safe, behavior-preserving changes (e.g., renaming, method extraction, formatting).
+  - Show the Before and After versions of the code.
+  - For each change, briefly explain the motivation (e.g., clarify intention, reduce duplication, improve naming).
+  - Confirm that the code’s behavior remains unchanged.
+  </tidying>
 </rules>
 
 <action>
