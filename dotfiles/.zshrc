@@ -408,8 +408,8 @@ exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
 exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
-exists tmuxinator && alias w='(){ gtw $1 && __mux_lazy nvim }'
-exists tmuxinator && alias V="__mux_lazy nvim"
+exists tmuxinator && alias x='(){ gtw $1 && __mux_lazy nvim }'
+exists tmuxinator && alias X="__mux_lazy nvim"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
