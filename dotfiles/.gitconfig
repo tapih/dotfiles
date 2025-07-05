@@ -52,7 +52,7 @@
     w = switch
     c = "!f(){ git switch -c tapih/$1; }; f"
     cl = clean -fd
-    t = "!f(){ git worktree add $(git rev-parse --show-toplevel)/.git/worktree/$1 -b tapih/$1; }; f"
+    t = "!gtw"
     tr = worktree remove
 
     # open issue

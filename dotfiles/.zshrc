@@ -39,9 +39,19 @@ function gtw() {
     echo "Usage: gtw <branch-name>"
     return 1
   fi
-  local worktree_path
-  worktree_path="$(git rev-parse --show-toplevel)/.git/worktree/$1"
-  git worktree add "$worktree_path" -b "tapih/$1" && \cd "$worktree_path"
+  local worktree_path main_repo_path
+  
+  if [ -f .git ] && grep -q "gitdir:" .git; then
+    # We're in a worktree
+    main_repo_path=$(dirname "$(dirname "$(grep gitdir .git | cut -d' ' -f2)")" | sed 's|/\.git$||')
+  else
+    # We're in the main repository
+    main_repo_path=$(git rev-parse --show-toplevel)
+  fi
+  
+  worktree_path="$main_repo_path.worktrees/$1"
+  git worktree add "$worktree_path" -b "$(whoami)/$1"
+  \cd "$worktree_path"
 }
 
 function search_google() {
@@ -250,15 +260,15 @@ function __fzf_git_worktree() {
 function __mux_lazy() {
   command -v tmuxinator >/dev/null || { echo "tmuxinator not found"; return 1; }
 
-  local dir_name branch_name session_name
+  local repository_name branch_name session_name
 
-  dir_name=$(basename "$(pwd)")
+  repository_name=$(git remote get-url origin 2>/dev/null | sed 's/.*\///' | sed 's/\.git$//')
 
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    branch_name=$(git rev-parse --abbrev-ref HEAD)
-    session_name="${dir_name}/${branch_name}"
+    branch_name=$(git rev-parse --abbrev-ref HEAD | sed "s/^$(whoami)\///")
+    session_name="${repository_name}_${branch_name}"
   else
-    session_name="${dir_name}"
+    session_name="${repository_name}"
   fi
 
   SESSION_NAME="$session_name" tmuxinator start $1
@@ -381,7 +391,6 @@ alias terrafrom="terraform"
 alias c='claude'
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
-alias w=gtw
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 alias GG="gh dash"
@@ -399,7 +408,7 @@ exists k9s && alias k9sw='k9s'
 exists htop && alias T='htop'
 exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
-exists tmuxinator && alias x='(){ git t $1 && __mux_lazy nvim }'
+exists tmuxinator && alias w='(){ gtw $1 && __mux_lazy nvim }'
 exists tmuxinator && alias V="__mux_lazy nvim"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
