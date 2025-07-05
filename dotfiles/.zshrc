@@ -374,7 +374,7 @@ alias terrafrom="terraform"
 alias c='claude'
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
-alias V='vim'
+alias V='tmuxinator start nvim'
 alias w=gtw
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
