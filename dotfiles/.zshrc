@@ -44,6 +44,13 @@ function gtw() {
   git worktree add "$worktree_path" -b "tapih/$1" && \cd "$worktree_path"
 }
 
+function search_google() {
+    local search_query="$@"
+    local encoded_query=$(echo "$search_query" | sed 's/ /+/g' | sed 's/　/+/g')
+    open "https://www.google.com/search?q=$encoded_query"
+}
+
+
 function _fzf_compgen_path() {
       fd -HLE.git . "$1"
 }
@@ -379,6 +386,7 @@ alias w=gtw
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
 alias GG="gh dash"
+alias s="search_google"
 alias myip="curl https://checkip.amazonaws.com/"
 exists lazygit && alias G="lazygit"
 exists oxker && alias D="oxker"
