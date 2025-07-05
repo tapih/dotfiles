@@ -11,6 +11,7 @@ format = """\
     $terraform\
     $golang\
     $nodejs\
+    $deno\
     $python\
     $dart\
     $custom\
@@ -65,6 +66,10 @@ style = "bold white"
 format = "[$symbol$version]($style) "
 
 [nodejs]
+style = "bold white"
+format = "[$symbol$version]($style) "
+
+[deno]
 style = "bold white"
 format = "[$symbol$version]($style) "
 
