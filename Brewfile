@@ -16,6 +16,7 @@ brew "neovim"
 brew "mise"
 brew "lua-language-server"
 brew "terraform-ls"
+brew "devcontainer"
 
 # terminal
 brew "starship"
