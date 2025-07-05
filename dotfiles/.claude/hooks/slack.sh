@@ -47,7 +47,7 @@ send_slack_notification() {
                     \"elements\": [
                         {
                             \"type\": \"mrkdwn\",
-                            \"text\": \"Time: $(date +\"%Y-%m-%d %H:%M:%S\")\"
+                            \"text\": \"Time: $(date +"%Y-%m-%d %H:%M:%S")\"
                         }
                     ]
                 }
