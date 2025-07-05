@@ -7,7 +7,9 @@
 .wslconfig
 .claude/CLAUDE.md
 .claude/settings.json
+.claude/devcontainer.json
 .claude/commands
+.claude/templates
 .claude/ccmanager
 .config/nvim/lazy-lock.json
 .config/nvim/init.lua

@@ -274,6 +274,11 @@ function __mux_lazy() {
   SESSION_NAME="$session_name" tmuxinator start $1
 }
 
+function _claude_devcontainer() {
+  devcontainer up --workspace-folder . --config ~/.claude/devcontainer.json
+  devcontainer exec --workspace-folder . --config ~/.claude/devcontainer.json claude
+}
+
 # vim keybinding
 bindkey -v
 
@@ -377,36 +382,35 @@ alias k='kubectl'
 alias h='cd $(git rev-parse --show-toplevel 2>/dev/null)'
 alias H='cd ~'
 alias t='cd ~/t'
-alias Y='yazi'
 alias ..='cd ..'
 alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
-alias r='grep'
+alias GG="gh dash"
 alias d='docker'
+alias gr='grep'
 alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
 alias c='claude'
-alias C='ccmanger'
+alias C='_claude_devcontainer'
+alias ccm='ccmanger'
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
-alias GG="gh dash"
 alias s="search_google"
 alias myip="curl https://checkip.amazonaws.com/"
 exists lazygit && alias G="lazygit"
 exists lazydocker && alias D="lazydocker"
-exists fzf && alias C="fzf | cut -d: -f1 | code - >/dev/null"
 exists fzf && alias F="fzf"
 exists tl && alias L="tl"
 exists xplr && alias E="xplr"
 exists k9s && alias K='k9s --readonly'
 exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
-exists htop && alias T='htop'
+exists btop && alias T='btop'
 exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
 exists tmuxinator && alias x='(){ gtw $1 && __mux_lazy nvim }'
