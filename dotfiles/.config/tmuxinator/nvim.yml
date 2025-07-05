@@ -1,10 +1,8 @@
-# /home/tapih/.config/tmuxinator/lazygit-claude.yaml.yml
-
 name: <%= ENV["SESSION_NAME"] || "nvim" %>
 windows:
   - editor:
-      layout: 7ac2,309x56,0,0{205x56,0,0,18,103x56,206,0,23}
+      layout: 68bc,309x52,0,0{205x52,0,0,0,103x52,206,0[103x26,206,0,19,103x25,206,27,20]}
       panes:
         - nvim
-        - btop
-  - terminal: {}
+        - claude
+        - {}
