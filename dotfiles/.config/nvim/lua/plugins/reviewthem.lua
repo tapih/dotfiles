@@ -15,8 +15,6 @@ return {
     { "<leader>rs", "<cmd>ReviewThemStatus<cr>", desc = "Show Status" },
   },
   config = function()
-    require("reviewthem").setup({
-      submit_format = "json",
-    })
+    require("reviewthem").setup({})
   end,
 }
