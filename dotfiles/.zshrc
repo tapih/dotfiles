@@ -381,7 +381,6 @@ alias terrafrom="terraform"
 alias c='claude'
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
-alias V='tmuxinator start nvim'
 alias w=gtw
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
 alias watch='watch '
@@ -401,7 +400,7 @@ exists htop && alias T='htop'
 exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
 exists tmuxinator && alias x='(){ git t $1 && __mux_lazy nvim }'
-exists tmuxinator && alias X="__mux_lazy nvim"
+exists tmuxinator && alias V="__mux_lazy nvim"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
