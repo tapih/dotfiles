@@ -34,5 +34,29 @@
       "Bash(curl:*)",
       "Bash(wget:*)"
     ]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/slack.sh notification"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/slack.sh stop"
+          }
+        ]
+      }
+    ]
   }
 }

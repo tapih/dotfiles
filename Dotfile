@@ -9,6 +9,7 @@
 .claude/settings.json
 .claude/devcontainer.json
 .claude/commands
+.claude/hooks
 .claude/templates
 .claude/ccmanager
 .config/nvim/lazy-lock.json
