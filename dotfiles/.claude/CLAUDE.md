@@ -25,6 +25,15 @@
   - Express specifications through tests
   - Drive code design through tests
   </tdd>
+
+  <refactoring>
+  When refactoring code, follow Martin Fowler's Refactoring Catalog.
+
+  - Provide both the **Before** and **After** versions of the code.
+  - Clearly state the name of the refactoring technique(s) used.
+  - Briefly explain **why** this refactoring is effective.
+  - Ensure and confirm that the **behavior of the code remains unchanged**.
+  </refactoring>
 </rules>
 
 <action>
