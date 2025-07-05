@@ -1,0 +1,37 @@
+{
+  "worktree": {
+    "autoDirectory": true,
+    "autoDirectoryPattern": "../ccm-{branch}"
+  },
+  "commandPresets": {
+    "presets": [
+      {
+        "id": "claude-resume",
+        "name": "Claude Code (Resume)",
+        "command": "claude",
+        "args": [
+          "--resume"
+        ],
+        "fallbackArgs": []
+      },
+      {
+        "id": "claude-yolo",
+        "name": "Claude Code (YOLO)",
+        "command": "claude",
+        "args": [
+          "--dangerously-skip-permissions"
+        ],
+        "fallbackArgs": []
+      },
+      {
+        "id": "gemini-default",
+        "name": "Gemini CLI",
+        "command": "gemini",
+        "args": [],
+        "detectionStrategy": "gemini"
+      }
+    ],
+    "defaultPresetId": "claude-resume",
+    "selectPresetOnStart": true
+  }
+}

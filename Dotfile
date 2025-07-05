@@ -8,6 +8,7 @@
 .claude/CLAUDE.md
 .claude/settings.json
 .claude/commands
+.claude/ccmanager
 .config/nvim/lazy-lock.json
 .config/nvim/init.lua
 .config/nvim/lua
