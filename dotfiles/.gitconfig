@@ -52,7 +52,7 @@
     w = switch
     c = "!f(){ git switch -c tapih/$1; }; f"
     cl = clean -fd
-    t = "!f(){ git worktree add $(git rev-parse --show-toplevel)/.git/wt/tapih/$1 -b tapih/$1; }; f"
+    t = "!f(){ git worktree add $(git rev-parse --show-toplevel)/.git/worktree/$1 -b tapih/$1; }; f"
     tr = worktree remove
 
     # open issue
@@ -67,10 +67,10 @@
     ours = checkout --ours
     theirs = checkout --theirs
 
-    m = "!f(){ git checkout $(git main-branch) $@;}; f"
-    mr = "!f(){ git pull --rebase --autostash origin $(git main-branch) $@;}; f"
+    m = "!f(){ git checkout $(git default) $@;}; f"
+    mr = "!f(){ git pull --rebase --autostash origin $(git default) $@;}; f"
 
-    lprune = "!f(){ B=$(git main-branch); git switch ${B}; git branch --format='%(refname:short)' --merged=${B} | grep -v \"^${B}$\" | xargs -n 1 git branch -D; }; f"
+    lprune = "!f(){ B=$(git default); git switch ${B}; git branch --format='%(refname:short)' --merged=${B} | grep -v \"^${B}$\" | xargs -n 1 git branch -D; }; f"
     rprune = fetch --prune
 
 [init]
