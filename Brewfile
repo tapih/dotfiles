@@ -45,6 +45,7 @@ brew "urlview"
 brew "caddy"
 brew "expect"
 brew "git-who"
+brew "marp-cli"
 
 # container
 brew "kubernetes-cli"
