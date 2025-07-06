@@ -271,7 +271,14 @@ function muxon() {
     session_name="${repository_name}"
   fi
 
-  SESSION_NAME="$session_name" tmuxinator start $1
+  # Check if session already exists
+  if tmux has-session -t "$session_name" 2>/dev/null; then
+    # Session exists, switch to it
+    tmux switch-client -t "$session_name" 2>/dev/null || tmux attach-session -t "$session_name"
+  else
+    # Session doesn't exist, start new one with tmuxinator
+    SESSION_NAME="$session_name" tmuxinator start $1
+  fi
 }
 
 function _claude_devcontainer() {
