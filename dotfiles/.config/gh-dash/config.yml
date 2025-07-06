@@ -80,7 +80,8 @@ keybindings:
           nvim -c ":Octo pr edit {{.PrNumber}}"
         '
   branches: []
-repoPaths: {}
+repoPaths:
+  :owner/:repo: ~/src/github.com/:owner/:repo
 theme:
   ui:
     sectionsShowCount: true
