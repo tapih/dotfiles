@@ -485,7 +485,7 @@ zle -N __fzf_git_branch
 bindkey '^g' __fzf_ghq_cd
 bindkey '^y' __fzf_ghq_nvim
 bindkey '^o' __fzf_git_file_nvim
-bindkey '^t' __fzf_git_worktree
+bindkey '^s' __fzf_git_worktree
 bindkey '^e' __fzf_git_dir
 bindkey '^j' __fzf_git_branch
 bindkey '^a' __fzf_git_log
