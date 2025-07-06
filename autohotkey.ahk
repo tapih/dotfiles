@@ -1,5 +1,14 @@
 userprofile := EnvGet("USERPROFILE")
 
+#1::
+{
+	if WinExist("ahk_exe Slack.exe")
+		WinActivate
+	else
+		Run(userprofile "\AppData\Local\Microsoft\WindowsApps\Slack.exe")
+    	return
+}
+
 #2::
 {
 	if WinExist("ahk_exe msedge.exe")
