@@ -47,6 +47,12 @@
 
 - Make the panel as simple as possible.
 - Show only one window when Alt+Tab.
+  - Open Windows Settings (Win + I)
+  - Go to System → Multitasking
+  - Look for the section labeled "Alt + Tab"
+  - Click the dropdown under something like:
+    - "Pressing Alt + Tab shows"
+    - Select "Open windows only"
 
 ## WSL2
 
