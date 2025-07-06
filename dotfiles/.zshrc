@@ -257,7 +257,7 @@ function __fzf_git_worktree() {
     fi
 }
 
-function __mux_lazy() {
+function muxon() {
   command -v tmuxinator >/dev/null || { echo "tmuxinator not found"; return 1; }
 
   local repository_name branch_name session_name
@@ -413,8 +413,8 @@ exists k9s && alias k9sw='k9s'
 exists btop && alias T='btop'
 exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
-exists tmuxinator && alias x='(){ gtw $1 && __mux_lazy nvim }'
-exists tmuxinator && alias X="__mux_lazy nvim"
+exists tmuxinator && alias x='(){ gtw $1 && muxon nvim }'
+exists tmuxinator && alias X="muxon nvim"
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
