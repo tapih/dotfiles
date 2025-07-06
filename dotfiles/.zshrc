@@ -39,7 +39,7 @@ function gtw() {
     echo "Usage: gtw <branch-name>"
     return 1
   fi
-  local worktree_path main_repo_path
+  local worktree_path main_repo_path branch_name existing_worktree
   
   if [ -f .git ] && grep -q "gitdir:" .git; then
     # We're in a worktree
@@ -50,7 +50,31 @@ function gtw() {
   fi
   
   worktree_path="$main_repo_path.worktrees/$1"
-  git worktree add "$worktree_path" -b "$(whoami)/$1"
+  branch_name="$(whoami)/$1"
+  
+  # Check if worktree already exists at the expected path
+  if [ -d "$worktree_path" ]; then
+    echo "Worktree already exists: $worktree_path"
+    \cd "$worktree_path"
+    return 0
+  fi
+  
+  # Check if branch is already used in another worktree
+  existing_worktree=$(git worktree list | grep "\[$branch_name\]" | awk '{print $1}')
+  if [ -n "$existing_worktree" ]; then
+    echo "Branch '$branch_name' is already used in worktree: $existing_worktree"
+    \cd "$existing_worktree"
+    return 0
+  fi
+
+  # Check if branch already exists
+  if git show-ref --verify --quiet "refs/heads/$branch_name"; then
+    echo "Branch already exists: $branch_name"
+    git worktree add "$worktree_path" "$branch_name"
+  else
+    git worktree add "$worktree_path" -b "$branch_name"
+  fi
+  
   \cd "$worktree_path"
 }
 
