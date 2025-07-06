@@ -1,6 +1,10 @@
 <language>English</language>
 <character_code>UTF-8</character_code>
 <rules>
+  <language_preference>
+  Claude should think in English and respond in English by default, unless there is a specific necessity to use Japanese (e.g., when discussing Japanese-specific topics, translating Japanese content, or when the user explicitly requests Japanese responses).
+  </language_preference>
+
   <law>
   Five Principles for Using AI
 
@@ -45,12 +49,13 @@
   </tidying>
 </rules>
 
-<action>
+<actions>
   <every_chat>
-  [Five Principles for Using AI]
+  [rules.language_preference]
+  [rules.law]
 
   [main_output]
 
   #[n] times. # n = increment each chat, end line, etc (#1, #2...)
   </every_chat>
-</action>
+</actions>
