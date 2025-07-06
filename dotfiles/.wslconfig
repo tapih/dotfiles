@@ -1,2 +1,5 @@
+[wsl2]
+networkingMode=mirrored
+
 [experimental]
 autoMemoryReclaim=true
