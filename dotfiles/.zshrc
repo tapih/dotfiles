@@ -239,11 +239,11 @@ function __fzf_git_worktree() {
         if [ -d "$selected_path" ]; then
             if zle; then
                 # Called from ZLE (keyboard shortcut)
-                BUFFER="cd ${selected_path}"
+                BUFFER="cd ${selected_path} && muxon nvim"
                 zle accept-line
             else
                 # Called directly from command line
-                cd "$selected_path"
+                cd "$selected_path && muxon nvim"
             fi
         else
             echo "Directory not found: $selected_path"
