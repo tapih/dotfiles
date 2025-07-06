@@ -11,3 +11,22 @@ set_keymap("n", "<C-y>", "<C-v>", { noremap = true, silent = true })
 set_keymap("n", "vy", "ggVG", { noremap = true, silent = true })
 set_keymap("n", "U", "<C-r>", { noremap = true, silent = true })
 set_keymap("i", "jj", "<Esc>", { noremap = true, silent = true })
+
+-- Window navigation
+set_keymap("n", "<C-Left>", "<C-w>h", { noremap = true, silent = true })
+set_keymap("n", "<C-Right>", "<C-w>l", { noremap = true, silent = true })
+set_keymap("n", "<C-Up>", "<C-w>k", { noremap = true, silent = true })
+set_keymap("n", "<C-Down>", "<C-w>j", { noremap = true, silent = true })
+
+-- Disable C-h/j/k/l navigation
+-- NOTE: I can assign theme keys to  some other functionality later
+set_keymap("n", "<C-h>", "<Nop>", { noremap = true, silent = true })
+set_keymap("n", "<C-j>", "<Nop>", { noremap = true, silent = true })
+set_keymap("n", "<C-k>", "<Nop>", { noremap = true, silent = true })
+set_keymap("n", "<C-l>", "<Nop>", { noremap = true, silent = true })
+
+-- Window resize
+set_keymap("n", "<C-Home>", ":vertical resize -5<CR>", { noremap = true, silent = true })
+set_keymap("n", "<C-End>", ":vertical resize +5<CR>", { noremap = true, silent = true })
+set_keymap("n", "<C-PageUp>", ":resize -5<CR>", { noremap = true, silent = true })
+set_keymap("n", "<C-PageDown>", ":resize +5<CR>", { noremap = true, silent = true })
