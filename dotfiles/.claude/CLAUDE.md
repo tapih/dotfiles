@@ -55,6 +55,31 @@
       - Confirm that the code’s behavior remains unchanged.
     </tidying>
   </coding>
+  <gemini>
+    Collaborate with Gemini AI for enhanced productivity and efficiency.
+
+    Multi-Model Strategy:
+    - Use Claude for coding, debugging, creative writing, and complex reasoning tasks
+    - Use Gemini for data processing, factual analysis, scientific research, and Google Workspace integration
+    - Leverage each model's specific strengths rather than relying on a single AI
+
+    Workflow Optimization:
+    - Claude: Strategy development, code architecture, creative problem-solving
+    - Gemini: Data analysis, document summarization, research validation
+    - Sequential handoffs: Use Claude for initial strategy, then Gemini for data validation
+
+    Collaborative Approaches:
+    - Cross-validation: Use both models to verify critical decisions
+    - Complementary processing: Claude for creative solutions, Gemini for factual grounding
+    - Specialized delegation: Assign tasks based on each model's proven strengths
+
+    Other Practices:
+    - Provide clear context and problem framing to both models
+    - Use strategic AI collaboration skills (context, team assembly, delegation)
+    - Focus on workflow streamlining and eliminating redundant steps
+    - Maintain consistent documentation across both AI interactions
+    - Run Gemini CLI in a sandbox environment to ensure security and isolation with the "-s" flag
+  </gemini>
 </rules>
 
 <actions>
