@@ -49,7 +49,7 @@ function gtw() {
     main_repo_path=$(git rev-parse --show-toplevel)
   fi
   
-  worktree_path="$main_repo_path.worktrees/$1"
+  worktree_path="$main_repo_path.wt/$1"
   branch_name="$(whoami)/$1"
   
   # Check if worktree already exists at the expected path
