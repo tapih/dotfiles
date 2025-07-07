@@ -1,7 +1,6 @@
 return {
   "snacks.nvim",
   opts = {
-    lazygit = { enabled = true },
     snacks = {
       enabled = true,
       default = "scratch",
