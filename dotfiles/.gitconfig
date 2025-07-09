@@ -38,6 +38,7 @@
     pr = !git push && gh pr create -a tapih -d
     prr = !git push && gh pr create -a tapih
     rb = rebase
+    rf = !git rebase origin/$(git branch --show-current)
     ra = rebase --abort
     rc = rebase --continue
     mg = merge
