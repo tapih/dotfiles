@@ -7,7 +7,7 @@ if OS.mac?
   cask brew "slack"
   cask brew "karabiner-elements"
   cask brew "rectangle"
-  cask brew "font-fira-code"
+  cask brew "font-fira-code-nerd-font"
 end
 
 # package manager
