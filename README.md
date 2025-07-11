@@ -2,7 +2,9 @@
 
 ## Windows
 
-### Install with winget
+### Windows
+
+#### Install with winget
 
 - Enpass
 - PowerToys
@@ -10,18 +12,18 @@
 - AutoHotKey v2
 - Docker Desktop
 
-### Install from GitHub
+#### Install from GitHub
 
 - [win32yank](https://github.com/equalsraf/win32yank) (Put the binary in C:Tools)
 - [PowerToys Edge favorite plugin](https://github.com/davidegiacometti/PowerToys-Run-EdgeFavorite) (Use @)
 - [PowerToys Clipboard plugin](https://github.com/CoreyHayward/PowerToys-Run-ClipboardManager)
 - [Hack Nerd Font](https://www.nerdfonts.com/font-downloads) (Extract zip and install via righ click menu)
 
-### Taskbar
+#### Taskbar
 
 - Update the bottom panel not to show default icons.
 
-### Input
+#### Input
 
 - Swap ctrl and caps lock with PowerToys.
 - [Enable Unicode UTF-8](https://togeonet.co.jp/post-13850).
@@ -29,13 +31,13 @@
 - Download autohotkey.ahk and place a shortcut it in the startup folder.
 - Assign Ctrl+Space to toggling IME on/off.
 
-### Appearance
+#### Appearance
 
 - Use Dark theme.
 - Show accent color on window borders via Personalization > Colors > Show accent color on title bars and windows borders.
 - Disable the window animation of the Windows system via Settings > Accesibility > Animation effects.
 
-### WSL
+#### WSL
 
 - Install WSL2 with `wsl --install`.
 - Windows Terminal
@@ -43,7 +45,7 @@
   - Console: One Half Dark
   - Font: Hack Nerd Font
 
-### Edge
+#### Edge
 
 - Make the panel as simple as possible.
 - Show only one window when Alt+Tab.
@@ -54,7 +56,7 @@
     - "Pressing Alt + Tab shows"
     - Select "Open windows only"
 
-## WSL2
+### WSL2
 
 ```console
 $ sudo apt-get update
@@ -87,5 +89,19 @@ appendWindowsPath = true
 generateHosts=false
 generateResolvConf=false
 EOF"
+```
+
+## Mac
+
+
+```console
+$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+$ brew install gh
+$ gh auth login
+$ mkdir -p ~/src/github.com/tapih && cd $_
+$ git clone https://github.com/tapih/dotfiles
+$ cd dotfiles
+$ ./install.sh
 ```
 

@@ -20,3 +20,4 @@
 .config/gh-dash/config.yml
 .config/tmux
 .config/tmuxinator
+.config/alacritty

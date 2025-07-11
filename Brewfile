@@ -1,3 +1,15 @@
+if OS.mac?
+  brew "gpg"
+  brew "enpass"
+  brew "raycast"
+  brew "alacritty"
+  cask brew "edge"
+  cask brew "slack"
+  cask brew "karabiner-elements"
+  cask brew "rectangle"
+  cask brew "font-fira-code"
+end
+
 # package manager
 brew "npm"
 brew "pnpm"
@@ -74,7 +86,6 @@ brew "golang-migrate"
 brew "protobuf"
 brew "uv"
 brew "lazysql"
-brew "ymtdzzz/tap/otel-tui"
 
 # troubleshooting
 brew "wireshark"
