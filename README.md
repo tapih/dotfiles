@@ -93,6 +93,14 @@ EOF"
 
 ## Mac
 
+### Keyboard
+
+- Swap L-Ctrl and CapsLock
+- Turn on dictation with Ctrl+Option+Space
+- Save screenshot to Clipboard (Command+Shift+5)
+- Reverse scroll
+
+### Terminal
 
 ```console
 $ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
