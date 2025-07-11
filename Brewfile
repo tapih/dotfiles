@@ -3,6 +3,8 @@ if OS.mac?
   brew "enpass"
   brew "raycast"
   brew "alacritty"
+  brew "docker"
+  brew "colima"
   cask brew "edge"
   cask brew "slack"
   cask brew "karabiner-elements"
