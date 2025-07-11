@@ -21,3 +21,4 @@
 .config/tmux
 .config/tmuxinator
 .config/alacritty
+.hammerspoon/init.lua
