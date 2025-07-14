@@ -18,5 +18,5 @@ hs.hotkey.bind(hyper, "2", function()
 end)
 
 hs.hotkey.bind(hyper, "3", function()
-	launchOrRaise("Alacritty", "/opt/homebrew/bin/alacritty"
+	launchOrRaise("Alacritty", "/opt/homebrew/bin/alacritty")
 end)
