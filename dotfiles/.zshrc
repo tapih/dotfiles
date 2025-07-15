@@ -395,11 +395,12 @@ alias la='ls -Flha --color=auto'
 alias history='history -i'
 if [[ "$(uname)" = "Darwin" ]]; then
   alias grep='ggrep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+  alias gsed='sed'
 else
   alias grep='grep --color=auto'
 fi
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias diff='colordiff'
 alias mv='mv -i'
 alias rm='rm -i'

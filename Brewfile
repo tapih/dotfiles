@@ -12,6 +12,7 @@ if OS.mac?
   cask brew "font-fira-code-nerd-font"
   brew 'coreutils'
   brew 'grep'
+  brew 'gnu-sed'
 end
 
 # package manager
