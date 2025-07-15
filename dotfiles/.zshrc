@@ -349,11 +349,17 @@ export GOPATH="${HOME}/go"
 typeset -U path PATH
 export PATH=${GOPATH}/bin:${PATH}
 export PATH=${HOME}/.bin::${PATH}
-export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
 export PATH=${HOME}/.pub-cache/bin:${PATH}
 export PATH=${HOME}/.krew/bin:${PATH}
 export PATH=${HOME}/.local/bin:${PATH}
 export PATH=${HOME}/.zsh/git-open:${PATH}
+if [[ "$(uname)"  == "Darwin" ]]; then
+  export PATH="/opt/homebrew/opt/grep/libexec/gnubin:$PATH"
+  export PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+else
+  export PATH=/home/linuxbrew/.linuxbrew/bin:${PATH}
+fi
+
 export WORDCHARS="*?_-.[]~&;=!#$%^(){}<>"
 # https://github.com/zsh-users/zsh-autosuggestions/issues/254
 export KEYTIMEOUT=25
@@ -393,14 +399,6 @@ alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
 alias la='ls -Flha --color=auto'
 alias history='history -i'
-if [[ "$(uname)" = "Darwin" ]]; then
-  alias grep='ggrep --color=auto'
-  alias fgrep='fgrep --color=auto'
-  alias egrep='egrep --color=auto'
-  alias gsed='sed'
-else
-  alias grep='grep --color=auto'
-fi
 alias diff='colordiff'
 alias mv='mv -i'
 alias rm='rm -i'
