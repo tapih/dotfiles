@@ -10,6 +10,8 @@ if OS.mac?
   cask brew "karabiner-elements"
   cask brew "rectangle"
   cask brew "font-fira-code-nerd-font"
+  brew 'coreutils'
+  brew 'grep'
 end
 
 # package manager

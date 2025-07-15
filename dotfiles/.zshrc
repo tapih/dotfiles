@@ -393,7 +393,11 @@ alias ls='ls -F --color=auto'
 alias ll='ls -Flh --color=auto'
 alias la='ls -Flha --color=auto'
 alias history='history -i'
-alias grep='grep --color=auto'
+if [[ "$(uname)" = "Darwin" ]]; then
+  alias grep='ggrep --color=auto'
+else
+  alias grep='grep --color=auto'
+fi
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 alias diff='colordiff'
@@ -416,7 +420,6 @@ alias .4='cd ../../../..'
 alias g='git'
 alias GG="gh dash"
 alias d='docker'
-alias gr='grep'
 alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
