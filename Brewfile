@@ -10,6 +10,7 @@ if OS.mac?
   cask brew "karabiner-elements"
   cask brew "rectangle"
   cask brew "font-fira-code-nerd-font"
+  cask brew "google-japanese-ime"
   brew 'coreutils'
   brew 'grep'
   brew 'gnu-sed'
