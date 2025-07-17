@@ -14,6 +14,7 @@ if OS.mac?
   brew 'coreutils'
   brew 'grep'
   brew 'gnu-sed'
+  brew "docker-buildx"
 end
 
 # package manager
