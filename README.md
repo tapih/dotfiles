@@ -99,6 +99,8 @@ EOF"
 - Turn on dictation with Ctrl+Option+Space
 - Save screenshot to Clipboard (Command+Shift+5)
 - Reverse scroll
+- Enable Google IME
+- Import predefined rule to swap semicolon and colon in Karabiner
 
 ### Terminal
 
