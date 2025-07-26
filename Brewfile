@@ -8,6 +8,7 @@ if OS.mac?
   cask brew "edge"
   cask brew "slack"
   cask brew "karabiner-elements"
+  cask brew "mos"
   cask brew "rectangle"
   cask brew "font-fira-code-nerd-font"
   cask brew "google-japanese-ime"
