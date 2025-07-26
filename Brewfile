@@ -7,6 +7,7 @@ if OS.mac?
   brew "colima"
   cask brew "edge"
   cask brew "slack"
+  cask brew "alttab"
   cask brew "karabiner-elements"
   cask brew "mos"
   cask brew "rectangle"
