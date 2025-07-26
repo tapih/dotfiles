@@ -1,17 +1,24 @@
 return {
   "snacks.nvim",
   opts = {
-    snacks = {
-      enabled = true,
-      default = "scratch",
-      scratch = {
-        filetype = "markdown",
-        name = "Scratch Buffer",
-        autocmds = {
-          { "BufEnter", "*", "setlocal nonumber norelativenumber" },
-          { "FileType", "markdown", "setlocal wrap" },
+    picker = {
+      sources = {
+        files = {
+          hidden = true,
+          ignored = true,
+          -- exclude = {
+          -- "**/.git/*",
+          --},
         },
       },
+    },
+  },
+  scratch = {
+    filetype = "markdown",
+    name = "Scratch Buffer",
+    autocmds = {
+      { "BufEnter", "*", "setlocal nonumber norelativenumber" },
+      { "FileType", "markdown", "setlocal wrap" },
     },
   },
   keys = {
