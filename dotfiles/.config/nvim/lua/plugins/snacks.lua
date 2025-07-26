@@ -12,13 +12,13 @@ return {
         },
       },
     },
-  },
-  scratch = {
-    filetype = "markdown",
-    name = "Scratch Buffer",
-    autocmds = {
-      { "BufEnter", "*", "setlocal nonumber norelativenumber" },
-      { "FileType", "markdown", "setlocal wrap" },
+    scratch = {
+      filetype = "markdown",
+      name = "Scratch Buffer",
+      autocmds = {
+        { "BufEnter", "*", "setlocal nonumber norelativenumber" },
+        { "FileType", "markdown", "setlocal wrap" },
+      },
     },
   },
   keys = {
