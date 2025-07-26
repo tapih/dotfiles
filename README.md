@@ -100,18 +100,18 @@ EOF"
 - Save screenshot to Clipboard (Command+Shift+5)
 - Reverse scroll
 - Enable Google IME
+- Use Ctrl+Command to for Mission Control
 - Import predefined rule to swap semicolon and colon in Karabiner
 
 ### Terminal
 
 ```console
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-$ brew install gh
-$ gh auth login
-$ mkdir -p ~/src/github.com/tapih && cd $_
-$ git clone https://github.com/tapih/dotfiles
-$ cd dotfiles
-$ ./install.sh
+brew install gh
+gh auth login
+mkdir -p ~/src/github.com/tapih && cd $_
+git clone https://github.com/tapih/dotfiles
+cd dotfiles
+./install.sh
 ```
-
