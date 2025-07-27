@@ -2,7 +2,7 @@
 opacity = 0.7
 
 [font]
-size = 16.0
+size = 18.0
 
 [font.normal]
 family = "FiraCode Nerd Font"
@@ -15,4 +15,3 @@ style = "Bold"
 [font.italic]
 family = "FiraCode Nerd Font"
 style = "Italic"
-
