@@ -19,6 +19,7 @@ if OS.mac?
   cask brew "rectangle"
   cask brew "font-fira-code-nerd-font"
   cask brew "google-japanese-ime"
+  cask brew "last-window-quits"
 end
 
 # package manager
