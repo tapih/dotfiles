@@ -11,6 +11,7 @@ if OS.mac?
   brew "docker-buildx"
   cask brew "edge"
   cask brew "slack"
+  cask brew "typora"
   cask brew "alt-tab"
   cask brew "karabiner-elements"
   cask brew "mos"

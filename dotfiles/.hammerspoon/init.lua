@@ -20,3 +20,7 @@ end)
 hs.hotkey.bind(hyper, "3", function()
 	launchOrRaise("Alacritty", "/opt/homebrew/bin/alacritty")
 end)
+
+hs.hotkey.bind(hyper, "4", function()
+	launchOrRaise("Typora", "/opt/homebrew/Caskroom/typora/1.10.10/Typora.app/Contents/MacOS")
+end)
