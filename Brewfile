@@ -5,18 +5,19 @@ if OS.mac?
   brew "alacritty"
   brew "docker"
   brew "colima"
+  brew 'coreutils'
+  brew 'grep'
+  brew 'gnu-sed'
+  brew "docker-buildx"
   cask brew "edge"
   cask brew "slack"
   cask brew "alt-tab"
   cask brew "karabiner-elements"
   cask brew "mos"
+  cask brew "shottr"
   cask brew "rectangle"
   cask brew "font-fira-code-nerd-font"
   cask brew "google-japanese-ime"
-  brew 'coreutils'
-  brew 'grep'
-  brew 'gnu-sed'
-  brew "docker-buildx"
 end
 
 # package manager
