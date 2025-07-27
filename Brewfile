@@ -46,6 +46,7 @@ brew "devcontainer"
 brew "starship"
 brew "tmux"
 brew "tmuxinator"
+brew "tmux-mem-cpu-load"
 brew "xplr"
 
 # utilities
