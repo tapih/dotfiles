@@ -26,6 +26,7 @@ end
 brew "npm"
 brew "pnpm"
 brew "yarn"
+brew "deno"
 brew "pipx"
 
 # git
