@@ -423,8 +423,7 @@ alias fig='docker compose'
 alias tf="terraform"
 alias terrafrom="terraform"
 alias c='claude'
-alias C='_claude_devcontainer'
-alias ccm='ccmanger'
+alias C="npx @sasazame/ccresume@latest"
 alias yolo='claude --dangerously-skip-permissions'
 alias v='nvim'
 # https://unix.stackexchange.com/questions/25327/watch-command-alias-expansion
