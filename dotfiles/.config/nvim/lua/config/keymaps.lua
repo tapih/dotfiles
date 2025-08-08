@@ -4,7 +4,9 @@
 local set_keymap = vim.keymap.set
 
 set_keymap("n", "<CR>", ":<C-u>w<CR>", { noremap = true, silent = true })
-set_keymap("n", "q", ":q<CR>", { noremap = true, silent = true })
+set_keymap("n", "q", function()
+  Snacks.bufdelete()
+end, { noremap = true, silent = true })
 set_keymap("n", "Q", ":qa<CR>", { noremap = true, silent = true })
 set_keymap("n", "<C-q>", "q", { noremap = true, silent = true })
 set_keymap("n", "<C-y>", "<C-v>", { noremap = true, silent = true })
