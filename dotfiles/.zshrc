@@ -443,6 +443,7 @@ exists tmux && alias m='tmux'
 exists tmuxinator && alias M='tmuxinator'
 exists tmuxinator && alias x='(){ gtw $1 && muxon nvim }'
 exists tmuxinator && alias X="muxon nvim"
+exists yazi && alias Y='yazi'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
 [[ "$(uname -r)" = *microsoft* ]] && alias y='/mnt/c/Tools/win32yank.exe -i'
