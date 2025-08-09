@@ -10,6 +10,7 @@ if OS.mac?
   brew 'gnu-sed'
   brew "docker-buildx"
   cask brew "edge"
+  cask brew "clipy"
   cask brew "slack"
   cask brew "typora"
   cask brew "alt-tab"
