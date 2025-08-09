@@ -1,0 +1,4 @@
+[mgr]
+prepend_keymap = [
+  { on = "<Enter>", run = 'shell -- if [ -d "$@" ]; then ya emit cd "$@"; else ya emit open $@; fi', desc = "Open dir in tmux window, otherwise normal open" },
+]
