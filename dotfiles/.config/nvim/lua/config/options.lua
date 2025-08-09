@@ -3,4 +3,5 @@
 -- Add any additional options here
 
 vim.g.snacks_animate = false
-vim.go.autoformat = false
+vim.g.autoformat = false
+vim.g.root_spec = { { ".git" }, "lsp", "cwd" }
