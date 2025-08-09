@@ -8,6 +8,7 @@ if OS.mac?
   brew 'coreutils'
   brew 'grep'
   brew 'gnu-sed'
+  brew "tmex"
   brew "docker-buildx"
   cask brew "edge"
   cask brew "clipy"
