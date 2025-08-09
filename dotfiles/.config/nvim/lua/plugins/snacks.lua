@@ -1,6 +1,7 @@
 return {
   "snacks.nvim",
   opts = {
+    explorer = { enabled = false },
     picker = {
       sources = {
         files = {
