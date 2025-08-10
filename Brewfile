@@ -8,7 +8,6 @@ if OS.mac?
   brew 'coreutils'
   brew 'grep'
   brew 'gnu-sed'
-  brew "tmex"
   brew "docker-buildx"
   cask brew "edge"
   cask brew "clipy"
@@ -48,7 +47,7 @@ brew "devcontainer"
 # terminal
 brew "starship"
 brew "tmux"
-brew "tmuxinator"
+brew "tmex"
 brew "tmux-mem-cpu-load"
 brew "xplr"
 

@@ -1,8 +1,0 @@
-name: <%= ENV["SESSION_NAME"] || "nvim" %>
-windows:
-  - editor:
-      layout: 68bc,309x52,0,0{205x52,0,0,0,103x52,206,0[103x26,206,0,19,103x25,206,27,20]}
-      panes:
-        - nvim
-        - claude
-        - {}

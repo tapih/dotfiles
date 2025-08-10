@@ -19,7 +19,6 @@
 .config/lazygit/config.yml
 .config/gh-dash/config.yml
 .config/tmux
-.config/tmuxinator
 .config/yazi
 .config/alacritty
 .hammerspoon/init.lua
