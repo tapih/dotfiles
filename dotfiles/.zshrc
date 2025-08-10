@@ -282,27 +282,28 @@ function __fzf_git_worktree() {
 }
 
 function muxon() {
-  command -v tmuxinator >/dev/null || { echo "tmuxinator not found"; return 1; }
+  local repository branch session window
 
-  local repository_name branch_name session_name
-
-  repository_name=$(git remote get-url origin 2>/dev/null | sed 's/.*\///' | sed 's/\.git$//')
-
+  repository=$(git remote get-url origin 2>/dev/null | sed 's/.*\///' | sed 's/\.git$//')
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    branch_name=$(git rev-parse --abbrev-ref HEAD | sed "s/^$(whoami)\///")
-    session_name="${repository_name}_${branch_name}"
+    branch=$(git rev-parse --abbrev-ref HEAD | sed "s/^$(whoami)\///")
+    window="${repository}_${branch}"
   else
-    session_name="${repository_name}"
+    window="${repository}"
+  fi
+  session=$(tmux display -p "#S")
+
+  if tmux list-windows -t "$session" -F "#W" | grep -Fxq "$window"; then
+    tmux select-window -t "$session:$window"
+    exit 0
   fi
 
-  # Check if session already exists
-  if tmux has-session -t "$session_name" 2>/dev/null; then
-    # Session exists, switch to it
-    tmux switch-client -t "$session_name" 2>/dev/null || tmux attach-session -t "$session_name"
+  if command -v tmex >/dev/null 2>&1; then
+    tmex -w "$window" -l "{21}11" -c new-window -f 1 -- nvim clear
   else
-    # Session doesn't exist, start new one with tmuxinator
-    SESSION_NAME="$session_name" tmuxinator start $1
+    tmux new-window -t "$session" -n "$window" -c "$PWD" "nvim .; clear"
   fi
+  tmux select-window -t "$session:$window"
 }
 
 function _claude_devcontainer() {
@@ -440,9 +441,8 @@ exists k9s && alias k9s='k9s --readonly'
 exists k9s && alias k9sw='k9s'
 exists btop && alias T='btop'
 exists tmux && alias m='tmux'
-exists tmuxinator && alias M='tmuxinator'
-exists tmuxinator && alias x='(){ gtw $1 && muxon nvim }'
-exists tmuxinator && alias X="muxon nvim"
+exists tmex && alias x='(){ gtw $1 && muxon nvim }'
+exists tmex && alias X="muxon nvim"
 exists yazi && alias Y='yazi'
 
 [[ "$(uname -r)" = *microsoft* ]] && alias pbcopy='/mnt/c/Tools/win32yank.exe -i'
