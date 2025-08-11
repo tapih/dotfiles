@@ -65,6 +65,8 @@ keybindings:
   universal:
     - key: q
       command: ""
+    - key: esc
+      command: ""
   issues: []
   prs:
     - key: d
