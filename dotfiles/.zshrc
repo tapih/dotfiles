@@ -431,6 +431,7 @@ alias v='nvim'
 alias watch='watch '
 alias s="search_google"
 alias myip="curl https://checkip.amazonaws.com/"
+alias todo='nvim ~/.TODO.md'
 exists lazygit && alias G="lazygit"
 exists lazydocker && alias D="lazydocker"
 exists fzf && alias F="fzf"
@@ -524,7 +525,7 @@ then
       tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
     else
       if command -v tmex >/dev/null 2>&1; then
-        tmex "$TMUX_DEFAULT_SESSION" -l "{21}12" -f 1 -- "gh dash" vim btop
+        tmex "$TMUX_DEFAULT_SESSION" -l "{21}12" -f 1 -- "gh dash" todo btop
       else
         tmux -2 new -s ${TMUX_DEFAULT_SESSION}
       fi
