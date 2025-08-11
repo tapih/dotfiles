@@ -418,7 +418,7 @@ alias .2='cd ../..'
 alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias g='git'
-alias GG="gh dash"
+alias S="gh dash"
 alias d='docker'
 alias fig='docker compose'
 alias tf="terraform"
@@ -523,7 +523,11 @@ then
     then
       tmux -2 attach-session -t ${TMUX_DEFAULT_SESSION}
     else
-      tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+      if command -v tmex >/dev/null 2>&1; then
+        tmex "$TMUX_DEFAULT_SESSION" -l "{21}12" -f 1 -- "gh dash" vim btop
+      else
+        tmux -2 new -s ${TMUX_DEFAULT_SESSION}
+      fi
     fi
   fi
 fi
