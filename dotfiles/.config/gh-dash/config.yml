@@ -62,7 +62,9 @@ defaults:
         hidden: true
   refetchIntervalMinutes: 30
 keybindings:
-  universal: []
+  universal:
+    - key: q
+      command: ""
   issues: []
   prs:
     - key: d
