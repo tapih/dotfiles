@@ -2,5 +2,4 @@ terraform-mcp-server: docker run -i --rm hashicorp/terraform-mcp-server
 context7: npx -y @upstash/context7-mcp
 playwright: npx -y @playwright/mcp@latest
 serena: uvx --from git+https://github.com/oraios/serena serena start-mcp-server
-server-sequential-thinking: npx -y @modelcontextprotocol/server-sequential-thinking
 mcp-server-chart: npx -y @antv/mcp-server-chart
