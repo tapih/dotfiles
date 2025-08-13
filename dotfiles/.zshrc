@@ -185,10 +185,6 @@ function __fzf_git_file_nvim() {
     __fzf_git_file nvim
 }
 
-function __fzf_git_file_cursor() {
-    __fzf_git_file cursor
-}
-
 function __fzf_git_dir() {
     toplevel=$(git rev-parse --show-toplevel 2>/dev/null)
     if [ -z "${toplevel}" ]
