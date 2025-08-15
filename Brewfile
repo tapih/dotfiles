@@ -9,6 +9,7 @@ if OS.mac?
   brew 'grep'
   brew 'gnu-sed'
   brew "docker-buildx"
+  brew "harmbracelet/tap/crush"
   cask brew "edge"
   cask brew "clipy"
   cask brew "slack"
