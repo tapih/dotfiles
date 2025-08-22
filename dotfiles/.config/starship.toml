@@ -6,7 +6,6 @@ format = """\
     $git_branch\
     $git_commit\
     $git_state\
-    $git_status\
     $gcloud\
     $terraform\
     $golang\
@@ -34,9 +33,6 @@ format = "[$hostname]($style) "
 style = "bold yellow"
 symbol = "🎷 "
 format = "[$symbol$branch]($style) "
-
-[git_status]
-style = "bold yellow"
 
 [git_commit]
 style = "bold yellow"
