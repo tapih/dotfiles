@@ -13,7 +13,7 @@ keybinding:
   universal:
     executeShellCommand: ";"
 customCommands:
-  - key: "<c-R>"
+  - key: "<c-u>"
     command: "gh pr create --fill --web"
     context: "global"
     loadingText: "Creating pull request on GitHub"
