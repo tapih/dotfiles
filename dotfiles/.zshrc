@@ -214,7 +214,7 @@ function __fzf_git_branch() {
         --no-multi \
         --preview-window="right,65%" \
         --prompt="CHECKOUT BRANCH > " \
-        --preview="echo {} | tr -d ' *' | xargs git l --color=always" |
+        --preview="echo {} | tr -d \" *\" | xargs git l --color=always" |
       head -n 1 |
       perl -pe "s/\s//g" |
       perl -pe "s/\*//g" |
