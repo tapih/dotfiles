@@ -335,6 +335,8 @@ export SAVEHIST=100000
 export HISTFILESIZE=100000
 export HISTTIMEFORMAT="%h %d %H:%M:%S "
 export ZSH_AUTOSUGGEST_STRATEGY='completion'
+export XDG_CONFIG_HOME="${HOME}/.config"
+
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
 export FZF_COMPLETION_TRIGGER='jj'
