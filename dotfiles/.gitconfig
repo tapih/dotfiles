@@ -35,8 +35,8 @@
     k = cherry-pick
     ka = cherry-pick --abort
     kc = cherry-pick --continue
-    pr = !git push && gh pr create -a tapih -d
-    prr = !git push && gh pr create -a tapih
+    pr = !git push && gh pr create -a tapih -w
+    prr = !git push && gh pr create -a tapih -w
     rb = rebase
     rf = !git rebase origin/$(git branch --show-current)
     ra = rebase --abort
