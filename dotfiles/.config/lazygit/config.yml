@@ -13,8 +13,12 @@ keybinding:
   universal:
     executeShellCommand: ";"
 customCommands:
-  - key: "<c-u>"
-    command: "gh pr create --fill --web"
+  - key: "<c-k>"
+    command: "XDG_CONFIG_HOME=~/.config gh pr create --fill --web -a tapih -d"
     context: "global"
-    loadingText: "Creating pull request on GitHub"
+    loadingText: "Creating a draft pull request on GitHub"
+  - key: "<c-u>"
+    command: "XDG_CONFIG_HOME=~/.config gh pr create --fill --web -a tapih"
+    context: "global"
+    loadingText: "Creating a non-draft pull request on GitHub"
 promptToReturnFromSubprocess: false
